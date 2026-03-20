@@ -1,15 +1,30 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(uv sync:*)",
-      "Bash(python prepare.py 2>&1)",
-      "Bash(uv add:*)",
-      "Bash(git checkout:*)",
-      "Bash(git init:*)",
-      "Bash(git add:*)",
-      "read(project_data/**)",
-      "edit(project_data/**)",
-      "bash(project_data/**)"
+	  "defaultMode": "bypassPermissions",
+	  "allow": [
+      "Bash(grep \"\\\\.py$\")",
+      "Bash(python3:*)",
+      "Bash(while ! ls /home/chansingh/med-knowledge/results/orig_run_o4_mini_n_eval=250_n_train=450/86a193a4b5d8597604479c969811e035b5937e2fd50fa2bf6cd557cc021cd77f/results.pkl)",
+      "Bash(do sleep:*)",
+      "Bash(done)",
+      "Bash(source /home/chansingh/imodels-evolve/.venv/bin/activate)",
+      "Bash(python:*)",
+      "Bash(for d:*)",
+      "Bash(do)",
+      "Bash(echo \"=== $d ===\")",
+      "Read(//home/chansingh/med-knowledge/$d/**)",
+      "Bash(python3 -c \":*)",
+      "Bash(sed 's/.*01_run_medcase.py//')",
+      "Read(//proc/2725841/**)",
+      "Bash(sort -k6,7)",
+      "Read(//home/chansingh/med-knowledge/**)",
+      "Bash(echo \"  $d\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(find /tmp /home/chansingh/.cache -name *.pkl -newer /home/chansingh/med-knowledge/results/orig_run_o4_mini_n_eval=250_n_train=450/65c2b5151d589325a44c3e76fee7707b82f56643f65a907ad75fb9fd6bcded16/params.json)",
+      "Bash(find /home/chansingh -name llm_cache* -type d)",
+      "Bash(find /home/chansingh -name *.db -newer /home/chansingh/med-knowledge/results/orig_run_o4_mini_n_eval=250_n_train=450/65c2b5151d589325a44c3e76fee7707b82f56643f65a907ad75fb9fd6bcded16/params.json)",
+      "Bash(source /home/chansingh/med-knowledge/.venv/bin/activate)",
+      "Bash(kill 2683125 2683129 2725840 2725841 2931910)"
     ]
   }
 }
