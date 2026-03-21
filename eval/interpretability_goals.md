@@ -15,3 +15,16 @@ Finally, test these functions using a decision tree, a random forest, an OLS mod
 # Followup
 
 Read these two papers: Interpreting Interpretability: Understanding Data Scientists' Use of Interpretability Tools for Machine Learning https://dl.acm.org/doi/abs/10.1145/3313831.3376219 and Interpretable machine learning: definitions, methods, and applications https://arxiv.org/abs/1901.04592. Then brainstorm and implement some more widespread tests. The tests should distinguish between interpretable models (like decision trees, GAMs, and sparse linear models) and black-box models (like MLPs and gradient-boosted decision trees). Ideally, the tests should also differentiate degrees of interpretability, e.g. sparser linear models should score higher than dense ones, shallow decision trees should score higher than deep ones, and GAMs should score high.
+
+# Followup
+
+
+Read and edit eval/interp_eval.py with the following changes:
+
+Add more tests that can help distinguish between interpretable models (like decision trees, GAMs, and sparse linear models) and black-box models (like MLPs and gradient-boosted decision trees). Ideally, the tests should also differentiate degrees of interpretability, e.g. sparser linear models should score higher than dense ones, shallow decision trees should score higher than deep ones, and GAMs should score high.
+
+Here are some examples:
+
+Example 1: Can the model easily be summarized with less than 10 rules or arithmetic operations?
+
+Example 2: After fitting on some complex data, try to simulate the model's prediction on a difficult sample without running code.

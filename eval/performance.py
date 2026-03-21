@@ -130,8 +130,16 @@ def _run_one_regressor(model_name, ds_name, reg,
 def _eval_one_dataset(ds_name, X_train, X_test, y_train, y_test, model_defs):
     """Evaluate all regressors on one dataset. Returns (ds_name, {model_name: rmse})."""
     X_train, X_test, y_train, y_test = subsample_dataset(X_train, X_test, y_train, y_test)
+
+    # Normalize outcome variable using training-set statistics only (avoid leakage)
+    y_mean = float(y_train.mean())
+    y_std = float(y_train.std())
+    if y_std > 0:
+        y_train = (y_train - y_mean) / y_std
+        y_test = (y_test - y_mean) / y_std
+
     print(f"\n  Dataset: {ds_name} — {X_train.shape[1]} features, "
-          f"{len(X_train)} train samples")
+          f"{len(X_train)} train samples (y normalized: mean={y_mean:.3g}, std={y_std:.3g})")
     model_rmses = {}
     for name, reg in model_defs:
         result = _run_one_regressor(name, ds_name, reg, X_train, X_test, y_train, y_test)

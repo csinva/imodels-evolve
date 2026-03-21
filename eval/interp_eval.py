@@ -12,9 +12,13 @@ Tests:
     mixed sign goes negative, two-feature perturbation
   Insight (5): simulatability, sparse feature set, nonlinear shape,
     counterfactual target, decision region
+  Discrim (5): simulate complex sample, compactness, dominant feature for sample,
+    unit sensitivity, describe-then-predict — designed to separate interpretable
+    models (sparse linear, GAM, shallow tree) from black-box models (MLP, GBDT)
+    and reward finer degrees of interpretability
 
 Exports:
-  ALL_TESTS, HARD_TESTS, INSIGHT_TESTS  — lists of test functions
+  ALL_TESTS, HARD_TESTS, INSIGHT_TESTS, DISCRIM_TESTS — lists of test functions
   run_all_interp_tests(model_defs)       — cached runner, returns list of result dicts
 """
 
@@ -616,6 +620,210 @@ def insight_decision_region(model, llm):
 
 
 # ---------------------------------------------------------------------------
+# Discrimination tests (interpretable vs. black-box, degrees of interpretability)
+# ---------------------------------------------------------------------------
+
+def _model_complexity(model):
+    """Rough count of operations/rules needed to compute one prediction.
+
+    Used to derive the ground-truth 'is compact' label for discrim_test_compactness.
+    Lower = simpler / more interpretable.
+    """
+    if isinstance(model, (LinearRegression, RidgeCV)):
+        return int(np.sum(np.abs(model.coef_) > 1e-8)) + 1
+    if isinstance(model, (Lasso, LassoCV)):
+        return max(int(np.sum(np.abs(model.coef_) > 1e-8)), 1) + 1
+    if isinstance(model, DecisionTreeRegressor):
+        return int(model.tree_.node_count)
+    if isinstance(model, GradientBoostingRegressor):
+        return int(sum(est[0].tree_.node_count for est in model.estimators_))
+    if isinstance(model, RandomForestRegressor):
+        return int(sum(est.tree_.node_count for est in model.estimators_))
+    if isinstance(model, MLPRegressor):
+        return int(sum(w.size for w in model.coefs_))
+    return 999  # unknown / assume complex
+
+
+_COMPACT_THRESHOLD = 30  # ops/rules at or below which a model is "compact"
+
+
+def discrim_test_simulate_all_active(model, llm):
+    """Simulate prediction on a complex sample where all five features are active
+    at non-round values.
+
+    Tests direct readability and simulatability of the model string on harder inputs.
+    Interpretable models (sparse linear, shallow tree, GAM) can trace their own
+    representation; MLPs and deep GBDTs cannot.
+    """
+    X, y = _multi_feature_data([4.0, 3.0, 2.0, 1.5, 0.5], n=700, seed=50)
+    names = [f"x{i}" for i in range(5)]
+    m = _safe_clone(model)
+    m.fit(X, y)
+    assert r2_score(y, m.predict(X)) > 0.5, "Model failed to fit"
+    sample = np.array([[1.3, -0.7, 2.1, -1.5, 0.8]])
+    true_pred = float(m.predict(sample)[0])
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "Compute the prediction for x0=1.3, x1=-0.7, x2=2.1, x3=-1.5, x4=0.8 "
+        "using the model above. All five features contribute. "
+        "Show your work step by step and end with the final predicted value on its own line.",
+        max_tokens=400,
+    )
+    tol = max(abs(true_pred) * 0.2, 1.5)
+    passed, llm_val = False, None
+    for num_str in reversed(re.findall(r"-?\d+\.?\d*", response or "")):
+        try:
+            val = float(num_str)
+            if abs(val - true_pred) < tol:
+                llm_val = val
+                passed = True
+                break
+        except ValueError:
+            pass
+    return dict(test="discrim_simulate_all_active", passed=passed,
+                ground_truth=round(true_pred, 3), response=response)
+
+
+def discrim_test_compactness(model, llm):
+    """Ask the LLM whether the model can be expressed in 10 or fewer rules/operations.
+
+    Sparse models (LASSO with few active features) and shallow trees are compact and
+    their strings visually communicate this. Dense models (OLS with many features,
+    deep GBDT) and MLPs are not compact — and their strings look complex.
+    The test passes when the LLM's yes/no matches the model's true complexity,
+    rewarding representations that make complexity self-evident.
+    """
+    X, y = _multi_feature_data([6.0, 0.0, 0.0, 0.0, 0.0, 0.0], n=500, seed=51)
+    names = [f"x{i}" for i in range(6)]
+    m = _safe_clone(model)
+    m.fit(X, y)
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "Can this entire model be computed in 10 or fewer rules or arithmetic operations "
+        "starting from the feature values? "
+        "(Example: a 2-term linear equation takes ~3 operations; "
+        "a model with 50 trees or 100 neurons takes many more.) "
+        "Answer with exactly 'yes' or 'no'.",
+        max_tokens=5,
+    )
+    is_yes = bool(response and "yes" in response.lower())
+    n_ops = _model_complexity(m)
+    ground_truth_compact = n_ops <= _COMPACT_THRESHOLD
+    passed = (is_yes == ground_truth_compact)
+    return dict(test="discrim_compactness", passed=passed,
+                ground_truth=f"{'compact' if ground_truth_compact else 'not compact'} (n_ops≈{n_ops})",
+                response=response)
+
+
+def discrim_test_dominant_feature_sample(model, llm):
+    """Ask which single feature contributes most to a specific sample prediction.
+
+    The sample is designed so x0 dominates overwhelmingly (coefficient ≈7, value=2.0).
+    Additive models (linear, GAM) and shallow trees can read this directly from their
+    string; MLPs cannot reason about per-feature contributions from weight matrices.
+    Sparser models that highlight x0's large coefficient pass more reliably than dense ones.
+    """
+    X, y = _multi_feature_data([7.0, 1.0, 0.5, 0.0], n=500, seed=52)
+    names = [f"x{i}" for i in range(4)]
+    m = _safe_clone(model)
+    m.fit(X, y)
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "For the sample x0=2.0, x1=0.1, x2=0.1, x3=0.0, "
+        "which single feature contributes the MOST to the prediction? "
+        "Answer with just the feature name (e.g., 'x0', 'x3').",
+    )
+    passed = bool(response and "x0" in response.lower())
+    return dict(test="discrim_dominant_feature_sample", passed=passed,
+                ground_truth="x0 (coefficient ≈7, value=2.0 >> others)",
+                response=response)
+
+
+def discrim_test_unit_sensitivity(model, llm):
+    """Ask the exact change in prediction when x0 increases by 1 unit.
+
+    For a linear model this equals the coefficient and can be read directly.
+    For a GAM, the partial-effect table gives the answer.
+    For a shallow decision tree the LLM can trace the relevant path.
+    For an MLP or deep GBDT, computing this from the raw weight/tree strings is
+    intractable. A tight tolerance (10 %) rewards exact, readable representations.
+    """
+    X, y = _multi_feature_data([5.0, 2.0, 0.0, 0.0], n=500, seed=53)
+    names = [f"x{i}" for i in range(4)]
+    m = _safe_clone(model)
+    m.fit(X, y)
+    delta = (float(m.predict(np.array([[1.0, 0.0, 0.0, 0.0]]))[0])
+             - float(m.predict(np.array([[0.0, 0.0, 0.0, 0.0]]))[0]))
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "With x1=0, x2=0, x3=0, by exactly how much does the model's prediction change "
+        "when x0 increases from 0 to 1? Give just a single number.",
+    )
+    llm_val, passed = None, False
+    nums = re.findall(r"-?\d+\.?\d*", response or "")
+    if nums:
+        try:
+            llm_val = float(nums[0])
+            passed = abs(llm_val - delta) < max(abs(delta) * 0.10, 0.5)
+        except ValueError:
+            pass
+    return dict(test="discrim_unit_sensitivity", passed=passed,
+                ground_truth=round(delta, 3), response=response)
+
+
+def discrim_test_describe_then_predict(model, llm):
+    """Ask the LLM to first write out the complete model as explicit rules or a formula,
+    then use that description to predict two specific samples.
+
+    Both predictions must be approximately correct. Interpretable models yield
+    descriptions that can actually be used for prediction; MLP and GBDT model strings
+    are too complex to distil into a usable closed-form description.
+    This is a two-step test: description quality AND prediction accuracy are both required.
+    """
+    X, y = _threshold_data(threshold=1.0, n=600, seed=54)
+    names = [f"x{i}" for i in range(3)]
+    m = _safe_clone(model)
+    m.fit(X, y)
+    assert r2_score(y, m.predict(X)) > 0.5, "Model failed to fit"
+    pred_a = round(float(m.predict(np.array([[2.0, 0.0, 0.0]]))[0]), 2)
+    pred_b = round(float(m.predict(np.array([[-0.5, 0.0, 0.0]]))[0]), 2)
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "Step 1: Write this model as a simple formula or set of if-then rules in plain text. "
+        "Step 2: Use your formula/rules to predict: "
+        "(A) x0=2.0, x1=0.0, x2=0.0 and "
+        "(B) x0=-0.5, x1=0.0, x2=0.0. "
+        "Write your final answers as: 'Pred_A: <number>' and 'Pred_B: <number>'.",
+        max_tokens=350,
+    )
+    tol_a = max(abs(pred_a) * 0.2, 0.5)
+    tol_b = max(abs(pred_b) * 0.2, 0.5)
+    pred_a_ok, pred_b_ok = False, False
+    if response:
+        ma = re.search(r"pred_a[:\s]+(-?\d+\.?\d*)", response, re.IGNORECASE)
+        mb = re.search(r"pred_b[:\s]+(-?\d+\.?\d*)", response, re.IGNORECASE)
+        if ma:
+            try: pred_a_ok = abs(float(ma.group(1)) - pred_a) < tol_a
+            except ValueError: pass
+        if mb:
+            try: pred_b_ok = abs(float(mb.group(1)) - pred_b) < tol_b
+            except ValueError: pass
+    passed = pred_a_ok and pred_b_ok
+    return dict(test="discrim_describe_then_predict", passed=passed,
+                ground_truth=f"pred_A={pred_a}, pred_B={pred_b}",
+                response=response)
+
+
+DISCRIM_TESTS = [
+    discrim_test_simulate_all_active,
+    discrim_test_compactness,
+    discrim_test_dominant_feature_sample,
+    discrim_test_unit_sensitivity,
+    discrim_test_describe_then_predict,
+]
+
+
+# ---------------------------------------------------------------------------
 # Test lists
 # ---------------------------------------------------------------------------
 
@@ -646,7 +854,7 @@ INSIGHT_TESTS = [
     insight_decision_region,
 ]
 
-_ALL_TEST_FNS = {fn.__name__: fn for fn in ALL_TESTS + HARD_TESTS + INSIGHT_TESTS}
+_ALL_TEST_FNS = {fn.__name__: fn for fn in ALL_TESTS + HARD_TESTS + INSIGHT_TESTS + DISCRIM_TESTS}
 
 
 # ---------------------------------------------------------------------------
@@ -678,7 +886,7 @@ def run_all_interp_tests(model_defs):
     """
     from joblib import Parallel, delayed
 
-    all_test_fns = ALL_TESTS + HARD_TESTS + INSIGHT_TESTS
+    all_test_fns = ALL_TESTS + HARD_TESTS + INSIGHT_TESTS + DISCRIM_TESTS
     tasks = [(name, reg, test_fn) for name, reg in model_defs for test_fn in all_test_fns]
 
     results = Parallel(n_jobs=-1, prefer="threads")(
@@ -689,7 +897,7 @@ def run_all_interp_tests(model_defs):
     # Print results grouped by model and suite
     for name, reg in model_defs:
         print(f"\n{'='*60}\n  Model: {name}\n{'='*60}")
-        for test_list, label in [(ALL_TESTS, "standard"), (HARD_TESTS, "hard"), (INSIGHT_TESTS, "insight")]:
+        for test_list, label in [(ALL_TESTS, "standard"), (HARD_TESTS, "hard"), (INSIGHT_TESTS, "insight"), (DISCRIM_TESTS, "discrim")]:
             print(f"\n  [{label}]")
             suite_results = [r for r in results if r["model"] == name and r["test"] in {t.__name__ for t in test_list}]
             for result in suite_results:

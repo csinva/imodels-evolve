@@ -43,8 +43,7 @@ REGRESSOR_DEFS = [
     ("RidgeCV",    RidgeCV(cv=3)),
     ("RF",         RandomForestRegressor(n_estimators=50, max_depth=5, random_state=42)),
     ("GBM",        GradientBoostingRegressor(n_estimators=100, max_depth=3, random_state=42)),
-    ("MLP",        MLPRegressor(hidden_layer_sizes=(32, 16), max_iter=1000,
-                                random_state=42, learning_rate_init=0.01)),
+    ("MLP",        MLPRegressor(random_state=42)),
 ]
 
 try:
@@ -128,12 +127,14 @@ def plot_interp_vs_tabarena(interp_results, tabarena_csv_path, out_path):
                     zorder=5)
 
     texts = [ax.text(xi, yi, name, fontsize=8.5) for xi, yi, name in zip(x, y, names)]
+    ax.set_xlim(left=min(x) - 0.05, right=1.1) 
     adjust_text(texts, x=x, y=y, ax=ax,
                 arrowprops=dict(arrowstyle="-", color="grey", lw=0.6))
 
-    ax.set_xlabel("TabArena Mean RMSE (±1 SEM across datasets)", fontsize=10)
+    ax.set_xlabel("TabArena Mean RMSE", fontsize=10)
     ax.set_ylabel("Interpretability Tests Passed (out of 18)", fontsize=10)
     ax.set_title("Interpretability vs. TabArena Performance", fontsize=12, fontweight="bold")
+    
     ax.grid(True, alpha=0.3)
 
     from matplotlib.lines import Line2D
@@ -143,9 +144,10 @@ def plot_interp_vs_tabarena(interp_results, tabarena_csv_path, out_path):
                label=g.replace("-", " ").title())
         for g in GROUP_COLORS if any(n in MODEL_GROUPS[g] for n in names)
     ]
-    ax.legend(handles=legend_handles, fontsize=9, loc="upper left")
+    ax.legend(handles=legend_handles, fontsize=9) #, loc="upper left")
+    
 
-    plt.tight_layout()
+    # plt.tight_layout()
     plt.savefig(out_path, dpi=150, bbox_inches="tight")
     print(f"\nPlot saved → {out_path}")
 
