@@ -1,34 +1,96 @@
 """
-Evaluate a fixed set of baseline classifiers on TabArena classification datasets
-(subsampled) and produce performance rank results.
+Shared evaluation utilities for TabArena classification benchmarking.
 
-Usage: uv run run_tabarena.py
-Outputs:
-  results/tabarena_scores.json   — avg rank and mean AUC per model
-  results/tabarena_results.csv   — per-dataset per-model AUC
+Exports:
+  MAX_SAMPLES, MAX_FEATURES, SUBSAMPLE_SEED
+  subsample_dataset(X_train, X_test, y_train, y_test, ...) -> tuple
+  evaluate_all_classifiers(model_defs) -> {dataset: {model: auc}}
+  compute_rank_scores(dataset_aucs) -> (avg_rank, avg_auc)
 """
 
-import csv
-import json
 import os
-import sys
-import time
 from copy import deepcopy
 
 import numpy as np
+import pandas as pd
 from joblib import Memory
 from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, OrdinalEncoder
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-from prepare import get_all_datasets
-from models import CLASSIFIER_DEFS as MODEL_DEFS
+# ---------------------------------------------------------------------------
+# Dataset loading (previously in prepare.py)
+# ---------------------------------------------------------------------------
 
-RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
+DATASET_NAMES = [
+    "adult",
+    "blood-transfusion-service-center",
+    "breast-cancer",
+    "california",
+    "credit-g",
+    "diabetes",
+    "higgs",
+    "jannis",
+    "kr-vs-kp",
+    "mfeat-factors",
+    "numerai28.6",
+    "phoneme",
+    "sylvine",
+    "volkert",
+]
+
+_CACHE_DIR = os.path.join(os.path.expanduser("~"), ".cache", "imodels-evolve")
+
+
+def _load_dataset(name):
+    path = os.path.join(_CACHE_DIR, f"{name}.parquet")
+    if not os.path.exists(path):
+        import openml
+        os.makedirs(_CACHE_DIR, exist_ok=True)
+        openml.config.cache_directory = os.path.join(_CACHE_DIR, "openml")
+        datasets_list = openml.datasets.list_datasets(output_format="dataframe")
+        matches = datasets_list[(datasets_list["name"] == name) & (datasets_list["status"] == "active")]
+        dataset_id = int(matches.sort_values("did").iloc[-1]["did"])
+        dataset = openml.datasets.get_dataset(dataset_id, download_data=True)
+        X, y, _, attribute_names = dataset.get_data(target=dataset.default_target_attribute)
+        df = pd.DataFrame(X, columns=attribute_names)
+        df["__target__"] = y
+        df.to_parquet(path, index=False)
+    else:
+        df = pd.read_parquet(path)
+
+    y_raw = df["__target__"].values
+    X_raw = df.drop(columns=["__target__"])
+    y = LabelEncoder().fit_transform(y_raw.astype(str))
+
+    cat_cols = X_raw.select_dtypes(include=["object", "category", "bool"]).columns.tolist()
+    num_cols = [c for c in X_raw.columns if c not in cat_cols]
+
+    X_tr, X_te, y_tr, y_te = train_test_split(X_raw, y, test_size=0.2, random_state=42, stratify=y)
+
+    for col in num_cols:
+        median = X_tr[col].median()
+        X_tr[col] = pd.to_numeric(X_tr[col], errors="coerce").fillna(median)
+        X_te[col] = pd.to_numeric(X_te[col], errors="coerce").fillna(median)
+
+    if cat_cols:
+        enc = OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=-1, dtype=np.float32)
+        X_tr[cat_cols] = enc.fit_transform(X_tr[cat_cols].astype(str))
+        X_te[cat_cols] = enc.transform(X_te[cat_cols].astype(str))
+
+    return X_tr.astype(np.float32).values, X_te.astype(np.float32).values, y_tr, y_te
+
+
+def get_all_datasets():
+    """Yield (name, X_train, X_test, y_train, y_test) for each TabArena dataset."""
+    for name in DATASET_NAMES:
+        try:
+            yield (name, *_load_dataset(name))
+        except Exception as e:
+            print(f"  WARNING: skipping '{name}': {e}")
+
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "results")
 _memory = Memory(location=os.path.join(RESULTS_DIR, "cache"), verbose=0)
-
-# ---------------------------------------------------------------------------
-# Subsampling
-# ---------------------------------------------------------------------------
 
 MAX_SAMPLES = 1000
 MAX_FEATURES = 25
@@ -51,10 +113,6 @@ def subsample_dataset(X_train, X_test, y_train, y_test,
         y_train = y_train[idx]
     return X_train, X_test, y_train, y_test
 
-
-# ---------------------------------------------------------------------------
-# Evaluation
-# ---------------------------------------------------------------------------
 
 @_memory.cache
 def _run_one_classifier(model_name, ds_name, clf,
@@ -124,49 +182,3 @@ def compute_rank_scores(dataset_aucs):
     avg_rank = {n: float(np.mean(v)) for n, v in ranks_per_model.items() if v}
     avg_auc  = {n: float(np.mean(v)) for n, v in mean_auc_per_model.items() if v}
     return avg_rank, avg_auc
-
-
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
-if __name__ == "__main__":
-    t0 = time.time()
-
-    print("Evaluating classifiers on TabArena datasets "
-          f"(max {MAX_SAMPLES} train samples, max {MAX_FEATURES} features)...")
-    dataset_aucs = evaluate_all_classifiers(MODEL_DEFS)
-    avg_rank, avg_auc = compute_rank_scores(dataset_aucs)
-
-    print("\n\nTabArena summary (sorted by avg rank):")
-    for name, rank in sorted(avg_rank.items(), key=lambda x: x[1]):
-        print(f"  {name:<15}: avg_rank={rank:.2f}  mean_auc={avg_auc.get(name, float('nan')):.4f}")
-
-    os.makedirs(RESULTS_DIR, exist_ok=True)
-
-    # JSON summary
-    scores = {
-        "tabarena_avg_rank":     avg_rank,
-        "tabarena_mean_auc":     avg_auc,
-        "tabarena_per_dataset":  dataset_aucs,
-    }
-    json_path = os.path.join(RESULTS_DIR, "tabarena_scores.json")
-    with open(json_path, "w") as f:
-        json.dump(scores, f, indent=2)
-    print(f"\nScores saved → {json_path}")
-
-    # CSV: one row per (dataset, model)
-    csv_path = os.path.join(RESULTS_DIR, "tabarena_results.csv")
-    with open(csv_path, "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(["dataset", "model", "auc", "rank"])
-        for ds_name, model_aucs in dataset_aucs.items():
-            valid = [(n, v) for n, v in model_aucs.items() if not np.isnan(v)]
-            sorted_models = sorted(valid, key=lambda x: x[1], reverse=True)
-            rank_map = {n: r + 1 for r, (n, _) in enumerate(sorted_models)}
-            for name, auc in model_aucs.items():
-                rank = rank_map.get(name, "")
-                writer.writerow([ds_name, name, "" if np.isnan(auc) else f"{auc:.6f}", rank])
-    print(f"Per-dataset results saved → {csv_path}")
-
-    print(f"\nTotal time: {time.time() - t0:.1f}s")

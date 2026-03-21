@@ -6,12 +6,12 @@ This is an experiment to have the LLM autonomously research interpretable scikit
 
 To set up a new experiment, work with the user to:
 
-1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar12`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
+1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar20`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
 2. **Create the branch**: `git checkout -b autoresearch/<tag>` from current master.
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `README.md` — repository context.
-   - `prepare.py` — fixed constants, dataset loading, and evaluation. Do not modify.
-   - `train.py` — the file you modify. Classifier definition, hyperparameters.
+   - `model.py` — the single file you edit edits. Defines `InterpretableRegressor` (a scikit-learn compatible model), a `model_factory`, and a training + evaluation loop. Everything is fair game: algorithm, hyperparameters, feature engineering, etc. 
+   - `model.py` — the file you modify. Classifier definition, hyperparameters.
 4. **Verify data exists**: Check that `~/.cache/imodels-evolve/` contains cached dataset parquet files. If not, tell the human to run `uv run prepare.py`.
 5. **Initialize results.tsv**: Create `results.tsv` with just the header row. The baseline will be recorded after the first run.
 6. **Confirm and go**: Confirm setup looks good.
@@ -23,7 +23,7 @@ Once you get confirmation, kick off the experimentation.
 Each experiment runs in the fixed time budget. You launch it as: `uv run train.py`.
 
 **What you CAN do:**
-- Modify `train.py` — this is the only file you edit. Everything is fair game:
+- Modify `model.py` — this is the only file you edit. Everything is fair game:
   - The `InterpretableClassifier` class definition (algorithm, structure, hyperparameters)
   - Switching from a decision tree to another interpretable model (rule lists, logistic regression, GA2M, sparse linear models, etc.)
   - Feature engineering or preprocessing inside the classifier
