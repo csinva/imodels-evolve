@@ -29,29 +29,41 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    Joint CV-tuned Hierarchical Shrinkage DT (JCV-HSDT):
-    Jointly selects both max_leaf_nodes and shrinkage_lambda via 5-fold CV,
-    choosing from a 2D grid to find the best (regularized_depth, regularization) combo.
+    Polynomial Feature CV-HSDT (PolyCV-HSDT):
+    Augments the feature set with squared terms before fitting a CV-tuned HSDT.
 
-    Candidate max_leaf_nodes: [15, 20, 25, 30]
-    Candidate lambda:         [1, 3, 7, 15, 30, 60, 120, 250]
+    Feature augmentation: for each feature xi, add xi^2 (squared).
+    This allows the DT to capture quadratic/nonlinear patterns in fewer splits,
+    improving RMSE on datasets with nonlinear relationships.
 
-    The joint CV prevents underfitting (too few leaves) and overfitting (lambda too low).
-    The tree structure and __str__ format are identical to HSDT, so interpretability
-    is preserved while RMSE improves from optimal joint hyperparameter selection.
+    Example: for features [x0, x1], the augmented set is [x0, x1, x0^2, x1^2].
+    The DT can then split on x0^2 (e.g., x0^2 <= 4 means -2 <= x0 <= 2),
+    which an axis-aligned DT on original features would need many splits to capture.
 
-    __str__ shows the CV-selected parameters explicitly (lambda and max_leaf_nodes).
+    Lambda is auto-selected via 5-fold CV from a wide grid.
+    max_leaf_nodes is fixed at 25 (known optimal for interpretability).
+
+    __str__ shows:
+      - Tree with augmented feature names (xi_sq for xi^2) — LLM can compute xi_sq = xi*xi
+      - Feature importances (for both original and augmented features)
+      - Net direction per feature
+      - Unused original features
     """
 
-    LEAF_GRID = [15, 20, 25, 30]
-    LAMBDA_GRID = [1.0, 3.0, 7.0, 15.0, 30.0, 60.0, 120.0, 250.0]
+    LAMBDA_GRID = [0.5, 1.0, 2.0, 5.0, 10.0, 20.0, 40.0, 80.0, 160.0]
 
-    def __init__(self, max_leaf_nodes="cv", shrinkage_lambda="cv",
-                 min_samples_leaf=5, cv=5):
+    def __init__(self, max_leaf_nodes=25, min_samples_leaf=5, shrinkage_lambda="cv", cv=5):
         self.max_leaf_nodes = max_leaf_nodes
-        self.shrinkage_lambda = shrinkage_lambda
         self.min_samples_leaf = min_samples_leaf
+        self.shrinkage_lambda = shrinkage_lambda
         self.cv = cv
+
+    def _augment(self, X_arr, names):
+        """Add squared features. Returns (X_aug, augmented_names)."""
+        X_sq = X_arr ** 2
+        X_aug = np.hstack([X_arr, X_sq])
+        aug_names = list(names) + [f"{n}_sq" for n in names]
+        return X_aug, aug_names
 
     @staticmethod
     def _compute_shrinkage(tree, lam):
@@ -73,52 +85,47 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         shrink(0, orig[0])
         return shrunk
 
-    def _cv_select(self, X_arr, y_arr):
+    def _select_lambda(self, X_aug, y_arr):
         kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
-        splits = list(kf.split(X_arr))
-        best_leaves, best_lam, best_mse = 25, 15.0, np.inf
-
-        leaf_candidates = self.LEAF_GRID if self.max_leaf_nodes == "cv" else [int(self.max_leaf_nodes)]
-        lam_candidates = self.LAMBDA_GRID if self.shrinkage_lambda == "cv" else [float(self.shrinkage_lambda)]
-
-        for n_leaves in leaf_candidates:
-            for lam in lam_candidates:
-                fold_mses = []
-                for train_idx, val_idx in splits:
-                    X_tr, X_va = X_arr[train_idx], X_arr[val_idx]
-                    y_tr, y_va = y_arr[train_idx], y_arr[val_idx]
-                    tree = DecisionTreeRegressor(
-                        max_leaf_nodes=n_leaves,
-                        min_samples_leaf=self.min_samples_leaf,
-                        random_state=42,
-                    )
-                    tree.fit(X_tr, y_tr)
-                    sv = self._compute_shrinkage(tree, lam)
-                    preds = sv[tree.apply(X_va)]
-                    fold_mses.append(np.mean((y_va - preds) ** 2))
-                mse = np.mean(fold_mses)
-                if mse < best_mse:
-                    best_mse, best_leaves, best_lam = mse, n_leaves, lam
-
-        return best_leaves, best_lam
+        best_lam, best_mse = 15.0, np.inf
+        for lam in self.LAMBDA_GRID:
+            fold_mses = []
+            for tr_idx, va_idx in kf.split(X_aug):
+                X_tr, X_va = X_aug[tr_idx], X_aug[va_idx]
+                y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
+                tree = DecisionTreeRegressor(
+                    max_leaf_nodes=self.max_leaf_nodes,
+                    min_samples_leaf=self.min_samples_leaf,
+                    random_state=42,
+                )
+                tree.fit(X_tr, y_tr)
+                sv = self._compute_shrinkage(tree, lam)
+                fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
+            mse = np.mean(fold_mses)
+            if mse < best_mse:
+                best_mse, best_lam = mse, lam
+        return best_lam
 
     def fit(self, X, y):
-        if hasattr(X, "columns"):
-            self.feature_names_in_ = list(X.columns)
-        else:
-            self.feature_names_in_ = [f"x{i}" for i in range(X.shape[1])]
+        orig_names = list(X.columns) if hasattr(X, "columns") else [f"x{i}" for i in range(X.shape[1])]
+        self.feature_names_in_ = orig_names
 
         X_arr = np.asarray(X, dtype=float)
         y_arr = np.asarray(y, dtype=float)
 
-        self.n_leaves_, self.lambda_ = self._cv_select(X_arr, y_arr)
+        X_aug, self.aug_names_ = self._augment(X_arr, orig_names)
+
+        if self.shrinkage_lambda == "cv":
+            self.lambda_ = self._select_lambda(X_aug, y_arr)
+        else:
+            self.lambda_ = float(self.shrinkage_lambda)
 
         self.tree_ = DecisionTreeRegressor(
-            max_leaf_nodes=self.n_leaves_,
+            max_leaf_nodes=self.max_leaf_nodes,
             min_samples_leaf=self.min_samples_leaf,
             random_state=42,
         )
-        self.tree_.fit(X_arr, y_arr)
+        self.tree_.fit(X_aug, y_arr)
         self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_)
 
         return self
@@ -126,11 +133,12 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
     def predict(self, X):
         check_is_fitted(self, "tree_")
         X_arr = np.asarray(X, dtype=float)
-        return self.shrunk_values_[self.tree_.apply(X_arr)]
+        X_aug, _ = self._augment(X_arr, self.feature_names_in_)
+        return self.shrunk_values_[self.tree_.apply(X_aug)]
 
     def _tree_lines(self, node=0, depth=0):
         t = self.tree_.tree_
-        names = self.feature_names_in_
+        names = self.aug_names_
         indent = "|   " * depth
 
         if t.children_left[node] == -1:
@@ -157,38 +165,43 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
                 t.n_node_samples[lc] + t.n_node_samples[rc]
             )
         if weighted_effect > 0:
-            return "positive (higher → higher prediction)"
+            return "positive"
         elif weighted_effect < 0:
-            return "negative (higher → lower prediction)"
+            return "negative"
         return "mixed"
 
     def __str__(self):
         check_is_fitted(self, "tree_")
-        names = self.feature_names_in_
-        t = self.tree_.tree_
+        n_orig = len(self.feature_names_in_)
         importances = self.tree_.feature_importances_
 
         lines = [
-            f"JCV_HSDT(cv_selected: max_leaf_nodes={self.n_leaves_}, lambda={self.lambda_:.1f})",
-            f"  nodes={t.node_count}, leaves={self.tree_.get_n_leaves()}",
+            f"PolyCV_HSDT(max_leaf_nodes={self.max_leaf_nodes}, lambda={self.lambda_:.1f})",
+            f"  nodes={self.tree_.tree_.node_count}, leaves={self.tree_.get_n_leaves()}",
+            f"  Note: features xi_sq = xi * xi (squared original features)",
             "",
             "Tree structure (follow from root; leaf values are shrunk predictions):",
         ]
         lines.extend(self._tree_lines())
 
         order = np.argsort(importances)[::-1]
-        lines += ["", "Feature importances (Gini-based, higher = more important):"]
+        lines += ["", "Feature importances (Gini-based, including squared features):"]
         for rank, fi in enumerate(order):
             if importances[fi] > 1e-6:
+                fname = self.aug_names_[fi]
                 direction = self._infer_direction(fi)
                 lines.append(
-                    f"  {rank+1:2d}. {names[fi]:<25s}  {importances[fi]:.4f}  "
-                    f"(net effect: {direction})"
+                    f"  {rank+1:2d}. {fname:<25s}  {importances[fi]:.4f}  (net: {direction})"
                 )
 
-        unused = [names[fi] for fi in range(len(names)) if importances[fi] <= 1e-6]
-        if unused:
-            lines.append(f"\nFeatures not used in tree (zero importance): {', '.join(unused)}")
+        # Report unused original features (zero importance for BOTH xi and xi_sq)
+        unused_orig = []
+        for i, name in enumerate(self.feature_names_in_):
+            sq_idx = n_orig + i
+            if importances[i] <= 1e-6 and (sq_idx >= len(importances) or importances[sq_idx] <= 1e-6):
+                unused_orig.append(name)
+        if unused_orig:
+            lines.append(f"\nOriginal features not used at all: {', '.join(unused_orig)}")
 
         return "\n".join(lines)
 
