@@ -14,7 +14,7 @@ import time
 
 import numpy as np
 from sklearn.base import BaseEstimator, RegressorMixin
-from sklearn.tree import DecisionTreeRegressor, export_text
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.utils.validation import check_is_fitted
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "eval"))
@@ -28,18 +28,22 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    Decision tree regressor with a rich __str__ for interpretability.
+    Greedy Additive Stumps (GAS): ensemble of depth-1 decision trees (stumps)
+    fitted greedily on residuals (gradient boosting with stumps).
 
-    Uses max_leaf_nodes to control complexity (good tradeoff).
+    Prediction: y_hat = base_value + sum_i(learning_rate * stump_i.predict(X))
+
     The __str__ shows:
-      - Full tree in text form with feature names and thresholds (export_text)
-      - Feature importances sorted by importance
-      - Which features are unused (zero importance)
-      - Leaf value statistics for orientation
+      - All rules as simple if/else conditions with their contributions,
+        sorted by |left_contribution - right_contribution| (impact magnitude)
+      - Aggregated feature importances across all stumps
+      - Net direction of effect per feature (higher value → higher/lower prediction)
+      - Unused features
     """
 
-    def __init__(self, max_leaf_nodes=20, min_samples_leaf=10):
-        self.max_leaf_nodes = max_leaf_nodes
+    def __init__(self, n_stumps=25, learning_rate=0.4, min_samples_leaf=10):
+        self.n_stumps = n_stumps
+        self.learning_rate = learning_rate
         self.min_samples_leaf = min_samples_leaf
 
     def fit(self, X, y):
@@ -48,82 +52,118 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         else:
             self.feature_names_in_ = [f"x{i}" for i in range(X.shape[1])]
 
-        self.tree_ = DecisionTreeRegressor(
-            max_leaf_nodes=self.max_leaf_nodes,
-            min_samples_leaf=self.min_samples_leaf,
-            random_state=42,
-        )
-        self.tree_.fit(X, y)
+        X_arr = np.asarray(X, dtype=float)
+        y_arr = np.asarray(y, dtype=float)
+
+        self.base_value_ = float(np.mean(y_arr))
+        residual = y_arr - self.base_value_
+
+        self.stumps_ = []
+        for _ in range(self.n_stumps):
+            stump = DecisionTreeRegressor(
+                max_depth=1,
+                min_samples_leaf=self.min_samples_leaf,
+                random_state=42,
+            )
+            stump.fit(X_arr, residual)
+            pred = stump.predict(X_arr)
+            residual -= self.learning_rate * pred
+            self.stumps_.append(stump)
+
         return self
 
     def predict(self, X):
-        check_is_fitted(self, "tree_")
-        return self.tree_.predict(X)
+        check_is_fitted(self, "stumps_")
+        X_arr = np.asarray(X, dtype=float)
+        pred = np.full(X_arr.shape[0], self.base_value_)
+        for stump in self.stumps_:
+            pred += self.learning_rate * stump.predict(X_arr)
+        return pred
+
+    def _stump_info(self, stump):
+        """Extract feature, threshold, and scaled leaf values from a depth-1 tree."""
+        t = stump.tree_
+        feature_idx = int(t.feature[0])
+        threshold = float(t.threshold[0])
+        left_val = float(t.value[t.children_left[0]][0][0]) * self.learning_rate
+        right_val = float(t.value[t.children_right[0]][0][0]) * self.learning_rate
+        impact = abs(right_val - left_val)
+        return {
+            "feature_idx": feature_idx,
+            "feature_name": self.feature_names_in_[feature_idx],
+            "threshold": threshold,
+            "left_val": left_val,
+            "right_val": right_val,
+            "impact": impact,
+        }
 
     def __str__(self):
-        check_is_fitted(self, "tree_")
-        names = self.feature_names_in_
-        n_leaves = self.tree_.get_n_leaves()
-        n_nodes = self.tree_.tree_.node_count
-        importances = self.tree_.feature_importances_
+        check_is_fitted(self, "stumps_")
+
+        infos = [self._stump_info(s) for s in self.stumps_]
+        infos_sorted = sorted(infos, key=lambda x: x["impact"], reverse=True)
 
         lines = [
-            f"DecisionTreeRegressor(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"GreedyAdditiveStumps(n_stumps={self.n_stumps}, "
+            f"learning_rate={self.learning_rate}, "
             f"min_samples_leaf={self.min_samples_leaf})",
-            f"  nodes={n_nodes}, leaves={n_leaves}",
+            f"  base_value = {self.base_value_:.4f}  "
+            f"(prediction = base_value + sum of contributions below)",
             "",
+            "Rules (each is an independent if/else; apply ALL rules and sum contributions):",
         ]
 
-        # Full tree text — this is what allows point prediction tracing
-        tree_text = export_text(self.tree_, feature_names=names, max_depth=10)
-        lines.append("Tree structure (follow from root; leaf values are predictions):")
-        lines.append(tree_text)
+        for i, info in enumerate(infos_sorted):
+            fname = info["feature_name"]
+            thresh = info["threshold"]
+            lv = info["left_val"]
+            rv = info["right_val"]
+            lines.append(
+                f"  Rule {i+1:2d}: if {fname} <= {thresh:.4g}: "
+                f"contribution={lv:+.4f}  |  else: contribution={rv:+.4f}"
+            )
 
-        # Feature importance ranking
-        order = np.argsort(importances)[::-1]
-        lines.append("Feature importances (Gini-based, higher = more important):")
-        for rank, fi in enumerate(order):
-            if importances[fi] > 1e-6:
-                direction = self._infer_direction(fi)
+        lines.append("")
+
+        # Aggregated feature importances
+        feat_imp: dict = {}
+        feat_direction: dict = {}  # weighted sum: right_val - left_val, weighted by impact
+        for info in infos:
+            fname = info["feature_name"]
+            feat_imp[fname] = feat_imp.get(fname, 0.0) + info["impact"]
+            feat_direction[fname] = (
+                feat_direction.get(fname, 0.0)
+                + (info["right_val"] - info["left_val"]) * info["impact"]
+            )
+
+        total_imp = sum(feat_imp.values()) or 1.0
+        feat_imp_sorted = sorted(feat_imp.items(), key=lambda x: x[1], reverse=True)
+
+        lines.append(
+            "Feature importances (sum of |contribution gap| across rules; higher = more important):"
+        )
+        for fname, imp in feat_imp_sorted:
+            if imp > 1e-9:
+                d = feat_direction[fname]
+                if d > 0:
+                    direction = "positive (higher value → higher prediction)"
+                elif d < 0:
+                    direction = "negative (higher value → lower prediction)"
+                else:
+                    direction = "mixed"
                 lines.append(
-                    f"  {rank+1:2d}. {names[fi]:<25s}  {importances[fi]:.4f}  "
-                    f"(net effect: {direction})"
+                    f"  {fname:<25s}  importance={imp/total_imp:.4f}  "
+                    f"net direction: {direction}"
                 )
 
-        # Unused features
-        unused = [names[fi] for fi in range(len(names)) if importances[fi] <= 1e-6]
+        used = set(feat_imp.keys())
+        unused = [f for f in self.feature_names_in_ if f not in used]
         if unused:
-            lines.append(f"\nFeatures not used in tree (zero importance): {', '.join(unused)}")
+            lines.append(
+                f"\nFeatures not used (zero importance): {', '.join(unused)}"
+            )
 
         return "\n".join(lines)
-
-    def _infer_direction(self, feature_idx):
-        """Infer whether feature has net positive or negative effect on predictions."""
-        t = self.tree_.tree_
-        # Look at all splits on this feature and see if higher value -> higher leaf value
-        n_nodes = t.node_count
-        weighted_effect = 0.0
-        for node in range(n_nodes):
-            if t.children_left[node] == -1:
-                continue  # leaf
-            if t.feature[node] != feature_idx:
-                continue
-            # left child has feature <= threshold (lower), right has feature > threshold (higher)
-            left_child = t.children_left[node]
-            right_child = t.children_right[node]
-            # Use weighted node values
-            left_val = t.value[left_child][0][0]
-            right_val = t.value[right_child][0][0]
-            n_left = t.n_node_samples[left_child]
-            n_right = t.n_node_samples[right_child]
-            # higher feature (right) vs lower feature (left)
-            weighted_effect += (right_val - left_val) * (n_left + n_right)
-        if weighted_effect > 0:
-            return "positive (higher -> higher prediction)"
-        elif weighted_effect < 0:
-            return "negative (higher -> lower prediction)"
-        else:
-            return "mixed"
 
 
 # Make class picklable when script is run as __main__ (required for joblib caching/parallel)
