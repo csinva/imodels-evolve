@@ -28,24 +28,28 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    Hierarchical Shrinkage DT with Leaf Summary (HSDT-LS):
-    Standard DT with post-hoc hierarchical shrinkage + an explicit leaf lookup table
-    in __str__ to facilitate point predictions and counterfactual reasoning.
+    Additive Shallow Trees (AST): gradient-boosted ensemble of small depth-2 trees.
 
-    Shrinkage formula (top-down):
-      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
+    Fits n_trees depth-2 decision trees sequentially on residuals.
+    Prediction = base_value + sum_i(learning_rate * tree_i.predict(X))
 
-    __str__ shows THREE sections:
-      1. Full tree with shrunk leaf values (for path tracing)
-      2. Leaf Lookup Table: each leaf listed with its path conditions and shrunk prediction
-         (helps LLM compute point predictions by checking which leaf conditions are met)
-      3. Feature importances with net direction and unused features
+    Each tree has at most 4 leaves (depth=2) — small enough for the LLM to trace exactly.
+    n_trees is kept small (default 7) so the LLM can reason about all contributions.
+
+    __str__ shows:
+      - base_value (mean)
+      - Each tree explicitly with if/else structure and leaf contributions
+        (each shown as a scaled prediction contribution, not raw value)
+      - Feature importances aggregated across all trees
+      - Net direction of effect per feature
+      - Unused features
     """
 
-    def __init__(self, max_leaf_nodes=35, min_samples_leaf=5, shrinkage_lambda=20.0):
-        self.max_leaf_nodes = max_leaf_nodes
+    def __init__(self, n_trees=7, max_depth=2, learning_rate=0.4, min_samples_leaf=10):
+        self.n_trees = n_trees
+        self.max_depth = max_depth
+        self.learning_rate = learning_rate
         self.min_samples_leaf = min_samples_leaf
-        self.shrinkage_lambda = shrinkage_lambda
 
     def fit(self, X, y):
         if hasattr(X, "columns"):
@@ -56,143 +60,121 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         X_arr = np.asarray(X, dtype=float)
         y_arr = np.asarray(y, dtype=float)
 
-        self.tree_ = DecisionTreeRegressor(
-            max_leaf_nodes=self.max_leaf_nodes,
-            min_samples_leaf=self.min_samples_leaf,
-            random_state=42,
-        )
-        self.tree_.fit(X_arr, y_arr)
-        self.shrunk_values_ = self._compute_shrinkage()
+        self.base_value_ = float(np.mean(y_arr))
+        residual = y_arr - self.base_value_
 
-        # Build leaf-to-path mapping for the Leaf Lookup Table
-        self.leaf_paths_ = self._extract_leaf_paths()
+        self.trees_ = []
+        for _ in range(self.n_trees):
+            tree = DecisionTreeRegressor(
+                max_depth=self.max_depth,
+                min_samples_leaf=self.min_samples_leaf,
+                random_state=42,
+            )
+            tree.fit(X_arr, residual)
+            pred = tree.predict(X_arr)
+            residual -= self.learning_rate * pred
+            self.trees_.append(tree)
 
         return self
 
-    def _compute_shrinkage(self):
-        t = self.tree_.tree_
-        orig = t.value[:, 0, 0].copy()
-        shrunk = np.copy(orig)
-        lam = self.shrinkage_lambda
-
-        def shrink(node, parent_shrunk):
-            if node == 0:
-                shrunk[node] = orig[node]
-            else:
-                n_s = t.n_node_samples[node]
-                shrunk[node] = orig[node] + lam * (parent_shrunk - orig[node]) / (n_s + lam)
-            left = t.children_left[node]
-            if left != -1:
-                shrink(int(left), shrunk[node])
-                shrink(int(t.children_right[node]), shrunk[node])
-
-        shrink(0, orig[0])
-        return shrunk
-
-    def _extract_leaf_paths(self):
-        """Return dict: node_idx → list of (feature_name, direction, threshold) conditions."""
-        t = self.tree_.tree_
-        names = self.feature_names_in_
-        paths = {}
-
-        def dfs(node, conditions):
-            if t.children_left[node] == -1:  # leaf
-                paths[node] = list(conditions)
-                return
-            fname = names[int(t.feature[node])]
-            thresh = t.threshold[node]
-            dfs(int(t.children_left[node]), conditions + [(fname, "<=", thresh)])
-            dfs(int(t.children_right[node]), conditions + [(fname, ">", thresh)])
-
-        dfs(0, [])
-        return paths
-
     def predict(self, X):
-        check_is_fitted(self, "tree_")
+        check_is_fitted(self, "trees_")
         X_arr = np.asarray(X, dtype=float)
-        return self.shrunk_values_[self.tree_.apply(X_arr)]
+        pred = np.full(len(X_arr), self.base_value_)
+        for tree in self.trees_:
+            pred += self.learning_rate * tree.predict(X_arr)
+        return pred
 
-    def _tree_lines(self, node=0, depth=0):
-        t = self.tree_.tree_
+    def _tree_contribution_lines(self, tree, depth=0, node=0):
+        """Recursively build a compact tree string showing scaled contributions."""
+        t = tree.tree_
         names = self.feature_names_in_
-        indent = "|   " * depth
+        indent = "    " * depth
 
-        if t.children_left[node] == -1:
-            val = self.shrunk_values_[node]
+        if t.children_left[node] == -1:  # leaf
+            val = float(t.value[node][0][0]) * self.learning_rate
             n_s = t.n_node_samples[node]
-            return [f"{indent}|--- value: {val:.4f}  (n={n_s})"]
+            return [f"{indent}contribution = {val:+.4f}  (n={n_s})"]
 
         fname = names[int(t.feature[node])]
         thresh = t.threshold[node]
-        lines = [f"{indent}|--- {fname} <= {thresh:.4g}"]
-        lines.extend(self._tree_lines(int(t.children_left[node]), depth + 1))
-        lines.append(f"{indent}|--- {fname} > {thresh:.4g}")
-        lines.extend(self._tree_lines(int(t.children_right[node]), depth + 1))
+        lines = [f"{indent}if {fname} <= {thresh:.4g}:"]
+        lines.extend(self._tree_contribution_lines(tree, depth + 1, int(t.children_left[node])))
+        lines.append(f"{indent}else:  # {fname} > {thresh:.4g}")
+        lines.extend(self._tree_contribution_lines(tree, depth + 1, int(t.children_right[node])))
         return lines
 
-    def _infer_direction(self, feature_idx):
-        t = self.tree_.tree_
-        weighted_effect = 0.0
+    def _tree_feat_importance(self, tree):
+        """Per-feature sum of |contribution changes| across all splits in this tree."""
+        t = tree.tree_
+        imp = np.zeros(len(self.feature_names_in_))
         for node in range(t.node_count):
-            if t.children_left[node] == -1 or t.feature[node] != feature_idx:
+            if t.children_left[node] == -1:
                 continue
+            fi = int(t.feature[node])
             lc, rc = int(t.children_left[node]), int(t.children_right[node])
-            weighted_effect += (self.shrunk_values_[rc] - self.shrunk_values_[lc]) * (
-                t.n_node_samples[lc] + t.n_node_samples[rc]
-            )
-        if weighted_effect > 0:
-            return "positive (higher → higher prediction)"
-        elif weighted_effect < 0:
-            return "negative (higher → lower prediction)"
-        return "mixed"
+            lv = float(t.value[lc][0][0]) * self.learning_rate
+            rv = float(t.value[rc][0][0]) * self.learning_rate
+            imp[fi] += abs(rv - lv) * (t.n_node_samples[lc] + t.n_node_samples[rc])
+        return imp
 
     def __str__(self):
-        check_is_fitted(self, "tree_")
+        check_is_fitted(self, "trees_")
         names = self.feature_names_in_
-        t = self.tree_.tree_
-        importances = self.tree_.feature_importances_
 
-        # ---- Section 1: Full tree ----
         lines = [
-            f"HierarchicalShrinkageDT_LS(max_leaf_nodes={self.max_leaf_nodes}, "
-            f"shrinkage_lambda={self.shrinkage_lambda})",
-            f"  nodes={t.node_count}, leaves={self.tree_.get_n_leaves()}",
+            f"AdditiveShallowTrees(n_trees={self.n_trees}, max_depth={self.max_depth}, "
+            f"learning_rate={self.learning_rate}, min_samples_leaf={self.min_samples_leaf})",
+            f"  base_value = {self.base_value_:.4f}",
+            f"  Prediction = base_value + contribution from Tree 1 + contribution from Tree 2 + ...",
             "",
-            "Section 1 — Tree structure (follow path from root; leaf values are predictions):",
         ]
-        lines.extend(self._tree_lines())
 
-        # ---- Section 2: Leaf Lookup Table ----
-        lines += [
-            "",
-            "Section 2 — Leaf Lookup Table (find the leaf whose conditions match your sample):",
-            "  (prediction = value at matching leaf; all conditions for a leaf must be satisfied)",
-        ]
-        # Sort leaves by prediction value for easy scanning
-        leaf_nodes = [(node, self.shrunk_values_[node], conds)
-                      for node, conds in self.leaf_paths_.items()]
-        leaf_nodes.sort(key=lambda x: x[1])  # sort by prediction
-        for i, (node, val, conds) in enumerate(leaf_nodes):
-            n_s = t.n_node_samples[node]
-            cond_str = " AND ".join(
-                f"{fname} {op} {thresh:.4g}" for fname, op, thresh in conds
-            ) if conds else "always (root leaf)"
-            lines.append(f"  LEAF {i+1:2d}: pred={val:.4f} (n={n_s}) | conditions: {cond_str}")
+        # Show each tree
+        total_imp = np.zeros(len(names))
+        for i, tree in enumerate(self.trees_):
+            n_leaves = tree.get_n_leaves()
+            lines.append(f"Tree {i+1} (depth={self.max_depth}, leaves={n_leaves}):")
+            lines.extend(self._tree_contribution_lines(tree))
+            lines.append("")
+            total_imp += self._tree_feat_importance(tree)
 
-        # ---- Section 3: Feature importances ----
-        order = np.argsort(importances)[::-1]
-        lines += ["", "Section 3 — Feature importances (Gini-based, higher = more important):"]
+        # Feature importances
+        order = np.argsort(total_imp)[::-1]
+        norm = total_imp.sum() or 1.0
+
+        # Net direction: weighted sum of (right - left) contributions
+        net_dir = np.zeros(len(names))
+        for tree in self.trees_:
+            t = tree.tree_
+            for node in range(t.node_count):
+                if t.children_left[node] == -1:
+                    continue
+                fi = int(t.feature[node])
+                lc, rc = int(t.children_left[node]), int(t.children_right[node])
+                lv = float(t.value[lc][0][0]) * self.learning_rate
+                rv = float(t.value[rc][0][0]) * self.learning_rate
+                n_both = t.n_node_samples[lc] + t.n_node_samples[rc]
+                net_dir[fi] += (rv - lv) * n_both
+
+        lines.append("Feature importances (sum of |contribution gap| across all trees × sample count):")
         for rank, fi in enumerate(order):
-            if importances[fi] > 1e-6:
-                direction = self._infer_direction(fi)
+            if total_imp[fi] > 1e-9:
+                if net_dir[fi] > 0:
+                    direction = "positive (higher → higher prediction)"
+                elif net_dir[fi] < 0:
+                    direction = "negative (higher → lower prediction)"
+                else:
+                    direction = "mixed"
                 lines.append(
-                    f"  {rank+1:2d}. {names[fi]:<25s}  {importances[fi]:.4f}  "
+                    f"  {rank+1:2d}. {names[fi]:<25s}  {total_imp[fi]/norm:.4f}  "
                     f"(net effect: {direction})"
                 )
 
-        unused = [names[fi] for fi in range(len(names)) if importances[fi] <= 1e-6]
+        used = {names[fi] for fi in range(len(names)) if total_imp[fi] > 1e-9}
+        unused = [f for f in names if f not in used]
         if unused:
-            lines.append(f"\nFeatures not used in tree (zero importance): {', '.join(unused)}")
+            lines.append(f"\nFeatures not used in any tree (zero importance): {', '.join(unused)}")
 
         return "\n".join(lines)
 
