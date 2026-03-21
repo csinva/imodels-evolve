@@ -15,7 +15,7 @@ import time
 import numpy as np
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.model_selection import KFold
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeRegressor, ExtraTreeRegressor
 from sklearn.utils.validation import check_is_fitted
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "eval"))
@@ -29,31 +29,26 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    Power-HSDT with Flat Decision Rules (PW-HSDT-FDR):
-    Extends CV-HSDT-FDR by introducing a power-law sample weight in the
-    hierarchical shrinkage formula:
+    ExtraTree-HSDT with Flat Decision Rules (ET-HSDT-FDR):
+    Replaces the CART DT with an ExtraTreeRegressor (uses random splits at each
+    node instead of optimal splits). Random splits act as implicit regularization,
+    potentially improving generalization while HSDT handles leaf-value shrinkage.
 
-      shrunk[node] = (orig[node] * n_s^alpha + lam * parent_shrunk) / (n_s^alpha + lam)
+    Shrinkage formula (top-down):
+      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_s + lam)
 
-    Standard HSDT uses alpha=1 (linear weight). With alpha>1 larger nodes
-    are trusted more (less shrinkage); with alpha<1 shrinkage is more uniform
-    regardless of node size.
+    Lambda CV grid: [1, 3, 7, 15, 30, 60] — same as CV-HSDT for comparability.
 
-    CV jointly selects (lambda, alpha) from grids:
-      lambda: [1, 3, 7, 15, 30, 60]
-      alpha:  [0.5, 0.75, 1.0, 1.5, 2.0]
+    __str__ adds a max-depth line to help the LLM understand how compact the
+    model is for making a single prediction (at most max_depth conditions).
 
-    Hypothesis: per-dataset optimal alpha != 1 finds a better bias-variance
-    tradeoff, improving RMSE while keeping the same tree structure + interp format.
-
-    repr_v=11 to bust joblib cache.
+    repr_v=12 to bust joblib cache.
     """
 
     LAMBDA_GRID = [1.0, 3.0, 7.0, 15.0, 30.0, 60.0]
-    ALPHA_GRID = [0.5, 0.75, 1.0, 1.5, 2.0]
 
     def __init__(self, max_leaf_nodes=25, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
-                 repr_v=11):
+                 repr_v=12):
         self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
@@ -61,7 +56,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         self.repr_v = repr_v  # version tag — increment to bust joblib cache on __str__ changes
 
     @staticmethod
-    def _compute_shrinkage(tree, lam, alpha=1.0):
+    def _compute_shrinkage(tree, lam):
         t = tree.tree_
         orig = t.value[:, 0, 0].copy()
         shrunk = np.copy(orig)
@@ -71,8 +66,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
                 shrunk[node] = orig[node]
             else:
                 n_s = t.n_node_samples[node]
-                weight = float(n_s) ** alpha
-                shrunk[node] = (orig[node] * weight + lam * parent_shrunk) / (weight + lam)
+                shrunk[node] = orig[node] + lam * (parent_shrunk - orig[node]) / (n_s + lam)
             left = t.children_left[node]
             if left != -1:
                 shrink(int(left), shrunk[node])
@@ -81,28 +75,26 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         shrink(0, orig[0])
         return shrunk
 
-    def _select_hyperparams(self, X_arr, y_arr):
-        """Select best (lambda, alpha) via cross-validation."""
+    def _select_lambda(self, X_arr, y_arr):
         kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
-        best_lam, best_alpha, best_mse = None, None, np.inf
+        best_lam, best_mse = None, np.inf
         for lam in self.LAMBDA_GRID:
-            for alpha in self.ALPHA_GRID:
-                fold_mses = []
-                for tr_idx, va_idx in kf.split(X_arr):
-                    X_tr, X_va = X_arr[tr_idx], X_arr[va_idx]
-                    y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
-                    tree = DecisionTreeRegressor(
-                        max_leaf_nodes=self.max_leaf_nodes,
-                        min_samples_leaf=self.min_samples_leaf,
-                        random_state=42,
-                    )
-                    tree.fit(X_tr, y_tr)
-                    sv = self._compute_shrinkage(tree, lam, alpha)
-                    fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
-                mse = np.mean(fold_mses)
-                if mse < best_mse:
-                    best_mse, best_lam, best_alpha = mse, lam, alpha
-        return best_lam, best_alpha
+            fold_mses = []
+            for tr_idx, va_idx in kf.split(X_arr):
+                X_tr, X_va = X_arr[tr_idx], X_arr[va_idx]
+                y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
+                tree = ExtraTreeRegressor(
+                    max_leaf_nodes=self.max_leaf_nodes,
+                    min_samples_leaf=self.min_samples_leaf,
+                    random_state=42,
+                )
+                tree.fit(X_tr, y_tr)
+                sv = self._compute_shrinkage(tree, lam)
+                fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
+            mse = np.mean(fold_mses)
+            if mse < best_mse:
+                best_mse, best_lam = mse, lam
+        return best_lam
 
     def fit(self, X, y):
         if hasattr(X, "columns"):
@@ -114,18 +106,17 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         y_arr = np.asarray(y, dtype=float)
 
         if self.shrinkage_lambda == "cv":
-            self.lambda_, self.alpha_ = self._select_hyperparams(X_arr, y_arr)
+            self.lambda_ = self._select_lambda(X_arr, y_arr)
         else:
             self.lambda_ = float(self.shrinkage_lambda)
-            self.alpha_ = 1.0
 
-        self.tree_ = DecisionTreeRegressor(
+        self.tree_ = ExtraTreeRegressor(
             max_leaf_nodes=self.max_leaf_nodes,
             min_samples_leaf=self.min_samples_leaf,
             random_state=42,
         )
         self.tree_.fit(X_arr, y_arr)
-        self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_, self.alpha_)
+        self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_)
 
         return self
 
@@ -197,10 +188,12 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         importances = self.tree_.feature_importances_
         n_leaves = self.tree_.get_n_leaves()
 
+        max_depth = self.tree_.get_depth()
         lines = [
-            f"PW_HSDT_FDR(max_leaf_nodes={self.max_leaf_nodes}, "
-            f"selected_lambda={self.lambda_:.1f}, selected_alpha={self.alpha_:.2f}, cv={self.cv})",
-            f"  nodes={t.node_count}, leaves={n_leaves}",
+            f"ET_HSDT_FDR(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"selected_lambda={self.lambda_:.1f}, cv={self.cv})",
+            f"  nodes={t.node_count}, leaves={n_leaves}, max_depth={max_depth}",
+            f"  (to predict: follow at most {max_depth} conditions from root to leaf)",
             "",
             "Tree structure (follow from root; leaf values are shrunk predictions):",
         ]
