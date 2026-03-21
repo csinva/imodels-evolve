@@ -6,6 +6,7 @@ Exports:
   subsample_dataset(X_train, X_test, y_train, y_test, ...) -> tuple
   evaluate_all_classifiers(model_defs) -> {dataset: {model: auc}}
   compute_rank_scores(dataset_aucs) -> (avg_rank, avg_auc)
+  upsert_overall_results(rows, results_dir) -> writes/updates overall_results.csv
 """
 
 import os
@@ -133,32 +134,38 @@ def _run_one_classifier(model_name, ds_name, clf,
         return str(e)   # cache the error message too
 
 
+def _eval_one_dataset(ds_name, X_train, X_test, y_train, y_test, model_defs):
+    """Evaluate all classifiers on one dataset. Returns (ds_name, {model_name: auc})."""
+    X_train, X_test, y_train, y_test = subsample_dataset(X_train, X_test, y_train, y_test)
+    n_classes = len(np.unique(y_train))
+    print(f"\n  Dataset: {ds_name} — {X_train.shape[1]} features, "
+          f"{len(X_train)} train samples, {n_classes} classes")
+    model_aucs = {}
+    for name, clf in model_defs:
+        result = _run_one_classifier(name, ds_name, clf, X_train, X_test, y_train, y_test)
+        if isinstance(result, float):
+            model_aucs[name] = result
+            print(f"    {name:<15}: {result:.4f}")
+        else:
+            print(f"    {name:<15}: ERROR — {result}")
+            model_aucs[name] = float("nan")
+    return ds_name, model_aucs
+
+
 def evaluate_all_classifiers(model_defs):
     """Evaluate all classifiers on every TabArena dataset (subsampled).
 
     Returns:
         dataset_aucs : {dataset_name: {model_name: auc}}
     """
-    dataset_aucs = {}
-    for ds_name, X_train, X_test, y_train, y_test in get_all_datasets():
-        X_train, X_test, y_train, y_test = subsample_dataset(
-            X_train, X_test, y_train, y_test)
-        n_classes = len(np.unique(y_train))
-        print(f"\n  Dataset: {ds_name} — {X_train.shape[1]} features, "
-              f"{len(X_train)} train samples, {n_classes} classes")
-        dataset_aucs[ds_name] = {}
+    from joblib import Parallel, delayed
 
-        for name, clf in model_defs:
-            result = _run_one_classifier(name, ds_name, clf,
-                                         X_train, X_test, y_train, y_test)
-            if isinstance(result, float):
-                dataset_aucs[ds_name][name] = result
-                print(f"    {name:<15}: {result:.4f}")
-            else:
-                print(f"    {name:<15}: ERROR — {result}")
-                dataset_aucs[ds_name][name] = float("nan")
-
-    return dataset_aucs
+    datasets = list(get_all_datasets())
+    results = Parallel(n_jobs=-1)(
+        delayed(_eval_one_dataset)(ds_name, X_train, X_test, y_train, y_test, model_defs)
+        for ds_name, X_train, X_test, y_train, y_test in datasets
+    )
+    return dict(results)
 
 
 def compute_rank_scores(dataset_aucs):
@@ -182,3 +189,40 @@ def compute_rank_scores(dataset_aucs):
     avg_rank = {n: float(np.mean(v)) for n, v in ranks_per_model.items() if v}
     avg_auc  = {n: float(np.mean(v)) for n, v in mean_auc_per_model.items() if v}
     return avg_rank, avg_auc
+
+
+# ---------------------------------------------------------------------------
+# Overall results CSV
+# ---------------------------------------------------------------------------
+
+OVERALL_CSV_COLS = ["model", "mean_auc", "frac_interpretability_tests_passed"]
+
+
+def upsert_overall_results(rows, results_dir):
+    """Write or update overall_results.csv, replacing any existing rows by model name.
+
+    Args:
+        rows: list of dicts with keys matching OVERALL_CSV_COLS
+        results_dir: directory to write overall_results.csv into
+    """
+    import csv as _csv
+    path = os.path.join(results_dir, "overall_results.csv")
+
+    # Load existing rows, drop any being replaced
+    existing = []
+    new_names = {r["model"] for r in rows}
+    if os.path.exists(path):
+        with open(path, newline="") as f:
+            for row in _csv.DictReader(f):
+                if row["model"] not in new_names:
+                    existing.append(row)
+
+    # Sort: baselines first (alphabetical), then anything else
+    all_rows = existing + [{k: r.get(k, "") for k in OVERALL_CSV_COLS} for r in rows]
+    all_rows.sort(key=lambda r: (r["model"] not in new_names, r["model"]))
+
+    with open(path, "w", newline="") as f:
+        writer = _csv.DictWriter(f, fieldnames=OVERALL_CSV_COLS)
+        writer.writeheader()
+        writer.writerows(all_rows)
+    print(f"Overall results saved → {path}")

@@ -1,20 +1,23 @@
 # imodels-evolve
 
-Autonomous AI research on interpretable scikit-learn classifiers.
+Autonomous AI research on interpretable scikit-learn regressors.
 
-The idea: give an AI agent a classification training setup and let it experiment autonomously. It modifies `model.py`, trains a classifier, checks if AUC improved across TabArena datasets, keeps or discards, and repeats. You wake up in the morning to a log of experiments and (hopefully) a better interpretable model.
+The idea: give an AI agent a training setup and let it experiment autonomously. It modifies `model.py`, trains a regressor, checks if both metrics improved, keeps or discards, and repeats. You wake up in the morning to a log of experiments and (hopefully) a better model.
 
 ## How it works
 
 The repo has three files that matter:
 
-- **`run_baselines.py`** — evaluates a fixed set of baseline regressors/classifiers across two dimensions: (1) interpretability tests graded by an LLM and (2) AUC on subsampled TabArena datasets. Writes results to `results/`. **Not modified by the agent.**
-- **`model.py`** — the single file the agent edits. Defines `InterpretableClassifier` (a scikit-learn compatible model), a `model_factory`, and a training + evaluation loop. Everything is fair game: algorithm, hyperparameters, feature engineering, etc. **This file is edited and iterated on by the agent.**
-- **`program.md`** — baseline instructions for one agent. Point your agent here and let it go. **This file is edited and iterated on by the human.**
+- **`run_baselines.py`** — evaluates a fixed set of baseline regressors/classifiers across two metrics: (1) `frac_interpretability_tests_passed` — LLM-graded interpretability tests, and (2) `mean_auc` — AUC on subsampled TabArena regression datasets. Results saved to `results/overall_results.csv`. **Not modified by the agent.**
+- **`model.py`** — the single file the agent edits. Defines `InterpretableRegressor` (a scikit-learn compatible model) and an evaluation loop that runs the same metrics and updates `baselines/overall_results.csv`. **This file is edited and iterated on by the agent.**
+- **`program.md`** — instructions for the agent. Point your agent here and let it go. **This file is edited and iterated on by the human.**
 
-The metric is **mean AUC** (area under the ROC curve) across all TabArena classification datasets — higher is better, and evaluated on held-out test sets so architectural changes are fairly compared.
+## Metrics
 
-**Interpretability constraint**: models must remain human-interpretable. Decision trees, rule lists, sparse linear models, and GAMs are all fair game. Black-box ensembles are not.
+Two metrics are tracked in `results/overall_results.csv`:
+
+- **`mean_auc`** — mean one-vs-rest AUC across TabArena classification datasets (higher is better, evaluated on held-out test sets)
+- **`frac_interpretability_tests_passed`** — fraction of LLM-graded interpretability tests passed (higher is better)
 
 ## Quick start
 
@@ -50,16 +53,16 @@ The `program.md` file is the lightweight "skill" that instructs the agent.
 
 ```
 run_baselines.py  — baseline evaluation: interpretability tests + TabArena AUC (do not modify)
-model.py          — interpretable classifier definition (agent modifies this)
+model.py          — regressor definition (agent modifies this)
 program.md        — agent instructions
 pyproject.toml    — dependencies
-results/          — output plots, CSVs, and scores from run_baselines.py
-baselines/        — supporting modules (interpretability tests, performance eval)
+results/          — output plots, CSVs, and scores
+  overall_results.csv — mean_auc + frac_interpretability_tests_passed per model
+eval/             — supporting modules (interpretability tests, performance eval)
 ```
 
 ## Design choices
 
 - **Single file to modify.** The agent only touches `model.py`. Diffs are small and reviewable.
 - **Fixed dataset split.** Train/test splits are fixed (seed=42, 80/20), so experiments are comparable regardless of what the agent changes.
-- **Interpretability as a hard constraint.** The agent is instructed not to use black-box models. This keeps the research focused on the goal: finding the best *explainable* classifier, not just the most accurate one.
-- **AUC as metric.** Mean one-vs-rest AUC across datasets handles both binary and multi-class problems uniformly.
+- **Two metrics.** `mean_auc` measures predictive performance; `frac_interpretability_tests_passed` measures how well the model communicates its behavior to an LLM. Both are tracked — neither is a hard constraint.

@@ -35,7 +35,7 @@ from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "eval"))
 from interp_eval import ALL_TESTS, HARD_TESTS, INSIGHT_TESTS, run_all_interp_tests
-from performance import evaluate_all_classifiers, compute_rank_scores, RESULTS_DIR
+from performance import evaluate_all_classifiers, compute_rank_scores, RESULTS_DIR, upsert_overall_results
 
 # ---------------------------------------------------------------------------
 # Model definitions
@@ -264,6 +264,14 @@ if __name__ == "__main__":
                 rank = rank_map.get(name, "")
                 writer.writerow([ds_name, name, "" if np.isnan(auc) else f"{auc:.6f}", rank])
     print(f"Per-dataset results saved → {tabarena_csv}")
+
+    # --- Overall results CSV ---
+    overall_rows = [{
+        "model":                              mname,
+        "mean_auc":                           f"{avg_auc[mname]:.6f}" if mname in avg_auc else "",
+        "frac_interpretability_tests_passed": f"{interp_scores[mname]:.4f}",
+    } for mname in model_names]
+    upsert_overall_results(overall_rows, RESULTS_DIR)
 
     # --- Plot ---
     plot_interp_vs_tabarena(

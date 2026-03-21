@@ -690,24 +690,28 @@ def run_all_interp_tests(model_defs):
     Returns:
         list of result dicts with keys: model, test, passed, ground_truth, response
     """
-    all_results = []
+    from joblib import Parallel, delayed
+
+    all_test_fns = ALL_TESTS + HARD_TESTS + INSIGHT_TESTS
+    tasks = [(name, reg, test_fn) for name, reg in model_defs for test_fn in all_test_fns]
+
+    results = Parallel(n_jobs=-1, prefer="threads")(
+        delayed(_run_one_test)(name, test_fn.__name__, reg)
+        for name, reg, test_fn in tasks
+    )
+
+    # Print results grouped by model and suite
     for name, reg in model_defs:
         print(f"\n{'='*60}\n  Model: {name}\n{'='*60}")
-        for test_list, label in [
-            (ALL_TESTS,     "standard"),
-            (HARD_TESTS,    "hard"),
-            (INSIGHT_TESTS, "insight"),
-        ]:
+        for test_list, label in [(ALL_TESTS, "standard"), (HARD_TESTS, "hard"), (INSIGHT_TESTS, "insight")]:
             print(f"\n  [{label}]")
-            suite_results = []
-            for test_fn in test_list:
-                result = _run_one_test(name, test_fn.__name__, reg)
+            suite_results = [r for r in results if r["model"] == name and r["test"] in {t.__name__ for t in test_list}]
+            for result in suite_results:
                 status = "PASS" if result["passed"] else "FAIL"
                 resp = (result.get("response") or "")[:80].replace("\n", " ")
                 print(f"  [{status}] {result['test']}")
                 print(f"         ground_truth : {result.get('ground_truth', '')}")
                 print(f"         llm_response : {resp}")
-                suite_results.append(result)
             print(f"\n  → {sum(r['passed'] for r in suite_results)}/{len(test_list)} passed")
-            all_results.extend(suite_results)
-    return all_results
+
+    return results

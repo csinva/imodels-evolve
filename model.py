@@ -16,6 +16,7 @@ from sklearn.utils.validation import check_is_fitted
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "eval"))
 from interp_eval import run_all_interp_tests, ALL_TESTS, HARD_TESTS, INSIGHT_TESTS
+from performance import RESULTS_DIR, upsert_overall_results
 
 # ---------------------------------------------------------------------------
 # Interpretable Regressor (edit this — everything below is fair game)
@@ -77,6 +78,12 @@ if __name__ == "__main__":
     std  = sum(r["passed"] for r in interp_results if r["test"] in {t.__name__ for t in ALL_TESTS})
     hard = sum(r["passed"] for r in interp_results if r["test"] in {t.__name__ for t in HARD_TESTS})
     ins  = sum(r["passed"] for r in interp_results if r["test"] in {t.__name__ for t in INSIGHT_TESTS})
+
+    upsert_overall_results([{
+        "model":                              "InterpretableRegressor",
+        "mean_auc":                           "",
+        "frac_interpretability_tests_passed": f"{n_passed / total:.4f}",
+    }], RESULTS_DIR)
 
     print()
     print("---")
