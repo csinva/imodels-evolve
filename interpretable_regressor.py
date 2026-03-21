@@ -29,25 +29,26 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    CV-HSDT with Grouped Decision Rules (CV-HSDT-FDR-Grouped):
-    35-leaf tree + HSDT shrinkage, with decision rules split by the root condition
-    into two groups of ~17 rules each (instead of 35 flat sorted rules).
+    CV-HSDT with 4-Group Hierarchical Decision Rules (CV-HSDT-FDR-4Group):
+    50-leaf tree + HSDT shrinkage, with decision rules split into 4 groups by
+    the root AND secondary split conditions (~12-13 rules per group).
 
-    The two-step lookup makes the LLM's job tractable even with 35 leaves:
-      1. Check root condition (primary split) → left or right group
-      2. Scan only ~17 rules in that group to find the matching prediction
+    Three-step lookup makes the LLM's job tractable even with 50 leaves:
+      1. Check root condition → left (L) or right (R) branch
+      2. Check secondary condition within that branch → LL/LR or RL/RR group
+      3. Scan only ~12 rules in that group to find the matching prediction
 
     Shrinkage formula (top-down):
       shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
 
-    Lambda grid: [1, 3, 7, 15, 30, 60]. 35 leaves for improved RMSE.
-    repr_v=15 to bust joblib cache.
+    Lambda grid: [1, 3, 7, 15, 30, 60]. 50 leaves for improved RMSE.
+    repr_v=17 to bust joblib cache.
     """
 
     LAMBDA_GRID = [1.0, 3.0, 7.0, 15.0, 30.0, 60.0]
 
-    def __init__(self, max_leaf_nodes=45, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
-                 repr_v=16):
+    def __init__(self, max_leaf_nodes=50, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
+                 repr_v=17):
         self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
@@ -142,19 +143,29 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         lines.extend(self._tree_lines(int(t.children_right[node]), depth + 1))
         return lines
 
-    def _get_grouped_leaf_paths(self):
-        """Return leaves split into two groups by the root condition, each sorted by value."""
+    def _get_hierarchical_leaf_paths(self):
+        """Return leaves split into 4 groups by root + secondary split, each sorted by value."""
         t = self.tree_.tree_
         names = self.feature_names_in_
+
         root_feat = names[int(t.feature[0])]
         root_thresh = t.threshold[0]
-        root_left_cond = f"{root_feat} <= {root_thresh:.4g}"
+        root_left_node = int(t.children_left[0])
+        root_right_node = int(t.children_right[0])
 
-        paths = []
+        def get_secondary(node):
+            if t.children_left[node] == -1:
+                return None, None
+            return names[int(t.feature[node])], t.threshold[node]
+
+        left_feat, left_thresh = get_secondary(root_left_node)
+        right_feat, right_thresh = get_secondary(root_right_node)
+
+        all_paths = []
 
         def traverse(node, conditions):
             if t.children_left[node] == -1:
-                paths.append({
+                all_paths.append({
                     "conditions": conditions if conditions else ["(always)"],
                     "value": self.shrunk_values_[node],
                     "n_samples": t.n_node_samples[node],
@@ -167,11 +178,35 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
 
         traverse(0, [])
 
-        left = sorted([p for p in paths if p["conditions"][0] == root_left_cond],
-                      key=lambda p: p["value"])
-        right = sorted([p for p in paths if p["conditions"][0] != root_left_cond],
-                       key=lambda p: p["value"])
-        return root_feat, root_thresh, left, right
+        root_left_cond = f"{root_feat} <= {root_thresh:.4g}"
+        left_paths = [p for p in all_paths if p["conditions"][0] == root_left_cond]
+        right_paths = [p for p in all_paths if p["conditions"][0] != root_left_cond]
+
+        if left_feat is not None:
+            left_left_cond = f"{left_feat} <= {left_thresh:.4g}"
+            ll = sorted([p for p in left_paths if len(p["conditions"]) > 1 and p["conditions"][1] == left_left_cond],
+                        key=lambda p: p["value"])
+            lr = sorted([p for p in left_paths if not (len(p["conditions"]) > 1 and p["conditions"][1] == left_left_cond)],
+                        key=lambda p: p["value"])
+        else:
+            ll = sorted(left_paths, key=lambda p: p["value"])
+            lr = []
+            left_feat, left_thresh = root_feat, root_thresh
+
+        if right_feat is not None:
+            right_left_cond = f"{right_feat} <= {right_thresh:.4g}"
+            rl = sorted([p for p in right_paths if len(p["conditions"]) > 1 and p["conditions"][1] == right_left_cond],
+                        key=lambda p: p["value"])
+            rr = sorted([p for p in right_paths if not (len(p["conditions"]) > 1 and p["conditions"][1] == right_left_cond)],
+                        key=lambda p: p["value"])
+        else:
+            rl = sorted(right_paths, key=lambda p: p["value"])
+            rr = []
+            right_feat, right_thresh = root_feat, root_thresh
+
+        return (root_feat, root_thresh,
+                left_feat, left_thresh, ll, lr,
+                right_feat, right_thresh, rl, rr)
 
     def _infer_direction(self, feature_idx):
         t = self.tree_.tree_
@@ -197,7 +232,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         n_leaves = self.tree_.get_n_leaves()
 
         lines = [
-            f"CV_HSDT_FDR_Grouped(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"CV_HSDT_FDR_4Group(max_leaf_nodes={self.max_leaf_nodes}, "
             f"selected_lambda={self.lambda_:.1f}, cv={self.cv})",
             f"  nodes={t.node_count}, leaves={n_leaves}",
             "",
@@ -205,26 +240,37 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         ]
         lines.extend(self._tree_lines())
 
-        # Grouped decision rules: split by root condition to reduce lookup effort.
-        # Step 1: check root condition. Step 2: scan only the matching group (~N/2 rules).
-        root_feat, root_thresh, left_paths, right_paths = self._get_grouped_leaf_paths()
+        # 4-group hierarchical lookup: root → secondary → scan ~12 rules per group.
+        (root_feat, root_thresh,
+         left_feat, left_thresh, ll_paths, lr_paths,
+         right_feat, right_thresh, rl_paths, rr_paths) = self._get_hierarchical_leaf_paths()
         lines += [
             "",
-            "Decision rules grouped by primary split (to predict: check root, then scan one group):",
-            f"  Primary split: {root_feat} <= {root_thresh:.4g}",
-            "",
-            f"  IF {root_feat} <= {root_thresh:.4g} ({len(left_paths)} rules, sorted by prediction):",
+            "Decision rules (4-group hierarchical lookup: check root → check secondary → scan group):",
+            f"  Root split:             {root_feat} <= {root_thresh:.4g}",
+            f"  Left subtree secondary: {left_feat} <= {left_thresh:.4g}",
+            f"  Right subtree secondary:{right_feat} <= {right_thresh:.4g}",
         ]
-        for i, rule in enumerate(left_paths, 1):
-            rest = " AND ".join(rule["conditions"][1:]) if len(rule["conditions"]) > 1 else "(no further conditions)"
-            lines.append(f"    Rule L{i:2d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
-        lines += [
-            "",
-            f"  IF {root_feat} > {root_thresh:.4g} ({len(right_paths)} rules, sorted by prediction):",
-        ]
-        for i, rule in enumerate(right_paths, 1):
-            rest = " AND ".join(rule["conditions"][1:]) if len(rule["conditions"]) > 1 else "(no further conditions)"
-            lines.append(f"    Rule R{i:2d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
+        if ll_paths:
+            lines.append(f"\n  Group LL — {root_feat} <= {root_thresh:.4g} AND {left_feat} <= {left_thresh:.4g} ({len(ll_paths)} rules, sorted by prediction):")
+            for i, rule in enumerate(ll_paths, 1):
+                rest = " AND ".join(rule["conditions"][2:]) if len(rule["conditions"]) > 2 else "(no further conditions)"
+                lines.append(f"    LL{i:02d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
+        if lr_paths:
+            lines.append(f"\n  Group LR — {root_feat} <= {root_thresh:.4g} AND {left_feat} > {left_thresh:.4g} ({len(lr_paths)} rules, sorted by prediction):")
+            for i, rule in enumerate(lr_paths, 1):
+                rest = " AND ".join(rule["conditions"][2:]) if len(rule["conditions"]) > 2 else "(no further conditions)"
+                lines.append(f"    LR{i:02d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
+        if rl_paths:
+            lines.append(f"\n  Group RL — {root_feat} > {root_thresh:.4g} AND {right_feat} <= {right_thresh:.4g} ({len(rl_paths)} rules, sorted by prediction):")
+            for i, rule in enumerate(rl_paths, 1):
+                rest = " AND ".join(rule["conditions"][2:]) if len(rule["conditions"]) > 2 else "(no further conditions)"
+                lines.append(f"    RL{i:02d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
+        if rr_paths:
+            lines.append(f"\n  Group RR — {root_feat} > {root_thresh:.4g} AND {right_feat} > {right_thresh:.4g} ({len(rr_paths)} rules, sorted by prediction):")
+            for i, rule in enumerate(rr_paths, 1):
+                rest = " AND ".join(rule["conditions"][2:]) if len(rule["conditions"]) > 2 else "(no further conditions)"
+                lines.append(f"    RR{i:02d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
 
         order = np.argsort(importances)[::-1]
         lines += ["", "Feature importances (Gini-based, higher = more important):"]
