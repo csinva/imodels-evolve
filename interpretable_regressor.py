@@ -29,27 +29,32 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    Shallow CV-HSDT: Hierarchical Shrinkage DT with small max_depth (3 levels)
-    and cross-validated lambda selection from a wide grid.
+    CV-HSDT with Flat Decision Rules (CV-HSDT-FDR):
+    Same model as CV-HSDT (hierarchical shrinkage DT with CV-selected lambda),
+    but the __str__ representation is enhanced with an explicit flat "decision
+    rules" section that lists every leaf as a complete IF-THEN path.
 
-    With max_depth=3 (at most 8 leaves), every path requires at most 3 binary
-    decisions — making point prediction trivially traceable by the LLM.
-    Strong CV-selected shrinkage compensates for the shallow tree by smoothing
-    leaf values toward ancestor nodes, recovering accuracy lost from depth limit.
+    This makes it trivial for an LLM to:
+      1. Simulate predictions: scan rules and find the matching condition set.
+      2. Answer counterfactual questions: find rules with prediction >= target
+         and read off the required feature conditions.
+      3. Identify decision boundaries: locate which rules involve each feature.
 
-    Compared to CV-HSDT (max_leaf_nodes=25):
-    - Simpler tree structure → LLM can trace paths more accurately → higher interp
-    - Fewer parameters → potentially similar or better RMSE with strong shrinkage
-      (since highly regularized shallow tree ≈ strongly shrunk deeper tree)
+    The model math is identical to CV-HSDT (commit 250ebbd), so RMSE is
+    expected to be unchanged (~0.624). The __str__ improvements target the
+    6 failing interpretability tests (simulatability, counterfactual target,
+    decision region, and related discrim tests).
 
-    Lambda grid: [0.3, 1, 3, 8, 20, 50, 120, 300] — wide range to find optimal
-    smoothing for each dataset independently.
+    Shrinkage formula (top-down):
+      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
+
+    Lambda grid: [1, 3, 7, 15, 30, 60] — same as CV-HSDT for comparability.
     """
 
-    LAMBDA_GRID = [0.3, 1.0, 3.0, 8.0, 20.0, 50.0, 120.0, 300.0]
+    LAMBDA_GRID = [1.0, 3.0, 7.0, 15.0, 30.0, 60.0]
 
-    def __init__(self, max_depth=3, min_samples_leaf=5, shrinkage_lambda="cv", cv=5):
-        self.max_depth = max_depth
+    def __init__(self, max_leaf_nodes=25, min_samples_leaf=5, shrinkage_lambda="cv", cv=5):
+        self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
         self.cv = cv
@@ -76,14 +81,14 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
 
     def _select_lambda(self, X_arr, y_arr):
         kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
-        best_lam, best_mse = 15.0, np.inf
+        best_lam, best_mse = None, np.inf
         for lam in self.LAMBDA_GRID:
             fold_mses = []
             for tr_idx, va_idx in kf.split(X_arr):
                 X_tr, X_va = X_arr[tr_idx], X_arr[va_idx]
                 y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
                 tree = DecisionTreeRegressor(
-                    max_depth=self.max_depth,
+                    max_leaf_nodes=self.max_leaf_nodes,
                     min_samples_leaf=self.min_samples_leaf,
                     random_state=42,
                 )
@@ -110,7 +115,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
             self.lambda_ = float(self.shrinkage_lambda)
 
         self.tree_ = DecisionTreeRegressor(
-            max_depth=self.max_depth,
+            max_leaf_nodes=self.max_leaf_nodes,
             min_samples_leaf=self.min_samples_leaf,
             random_state=42,
         )
@@ -142,6 +147,28 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         lines.extend(self._tree_lines(int(t.children_right[node]), depth + 1))
         return lines
 
+    def _get_leaf_paths(self):
+        """Return a list of {conditions, value, n_samples} for each leaf, sorted by value."""
+        t = self.tree_.tree_
+        names = self.feature_names_in_
+        paths = []
+
+        def traverse(node, conditions):
+            if t.children_left[node] == -1:
+                paths.append({
+                    "conditions": conditions if conditions else ["(always)"],
+                    "value": self.shrunk_values_[node],
+                    "n_samples": t.n_node_samples[node],
+                })
+            else:
+                fname = names[int(t.feature[node])]
+                thresh = t.threshold[node]
+                traverse(int(t.children_left[node]), conditions + [f"{fname} <= {thresh:.4g}"])
+                traverse(int(t.children_right[node]), conditions + [f"{fname} > {thresh:.4g}"])
+
+        traverse(0, [])
+        return sorted(paths, key=lambda p: p["value"])
+
     def _infer_direction(self, feature_idx):
         t = self.tree_.tree_
         weighted_effect = 0.0
@@ -166,15 +193,29 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         n_leaves = self.tree_.get_n_leaves()
 
         lines = [
-            f"ShallowCV_HSDT(max_depth={self.max_depth}, "
-            f"selected_lambda={self.lambda_:.1f})",
-            f"  nodes={t.node_count}, leaves={n_leaves} "
-            f"(max {2**self.max_depth} leaves, max {self.max_depth} decisions per path)",
+            f"CV_HSDT_FDR(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"selected_lambda={self.lambda_:.1f}, cv={self.cv})",
+            f"  nodes={t.node_count}, leaves={n_leaves}",
             "",
-            "Tree structure (follow from root; at most "
-            f"{self.max_depth} decisions to reach a leaf):",
+            "Tree structure (follow from root; leaf values are shrunk predictions):",
         ]
         lines.extend(self._tree_lines())
+
+        # Flat decision rules section — explicit IF-THEN paths for every leaf.
+        # Use this to look up predictions: find the first rule whose conditions
+        # ALL hold for the input, then read off the predicted value.
+        leaf_paths = self._get_leaf_paths()
+        lines += [
+            "",
+            "Decision rules (sorted by prediction, lowest first):",
+            "  To predict: find the rule whose conditions ALL hold for your input.",
+        ]
+        for i, rule in enumerate(leaf_paths, 1):
+            cond_str = " AND ".join(rule["conditions"])
+            lines.append(
+                f"  Rule {i:2d}: IF {cond_str}"
+                f"  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})"
+            )
 
         order = np.argsort(importances)[::-1]
         lines += ["", "Feature importances (Gini-based, higher = more important):"]
