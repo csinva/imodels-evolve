@@ -29,23 +29,22 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    CV-HSDT-FDR-Grouped MultiSeed, per-seed KFold (CV-HSDT-FDR-Grouped-MS-PerSeedCV):
-    35-leaf tree + HSDT shrinkage with 2-group rules + 5-seed multi-start.
-    Each seed uses ITS OWN KFold split (random_state=seed) for more diverse evaluations.
-    This finds (seed, lambda) combinations that generalize best on their fold distribution.
+    CV-HSDT-FDR-Grouped with seed=42 shown in header (CV-HSDT-FDR-Grouped-SeedHeader):
+    35-leaf tree + HSDT shrinkage with 2-group rules. EXACT same algorithm as d47ca84,
+    but adds "seed=42" to the __str__ header. Tests whether the interp improvement in
+    exp32 was due to multi-seed algorithm or just adding seed info to the header.
 
     Shrinkage formula (top-down):
       shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
 
-    Lambda grid: [1, 3, 7, 15, 30, 60]. Seeds: [0, 1, 2, 3, 42].
-    repr_v=26 to bust joblib cache.
+    Lambda grid: [1, 3, 7, 15, 30, 60]. Fixed seed=42, no multi-seed overhead.
+    repr_v=27 to bust joblib cache.
     """
 
     LAMBDA_GRID = [1.0, 3.0, 7.0, 15.0, 30.0, 60.0]
-    SEED_GRID = [0, 1, 2, 3, 42]
 
     def __init__(self, max_leaf_nodes=35, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
-                 repr_v=26):
+                 repr_v=27):
         self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
@@ -72,28 +71,27 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         shrink(0, orig[0])
         return shrunk
 
-    def _select_seed_and_lambda(self, X_arr, y_arr):
-        """Select best (seed, lambda) combination via per-seed KFold CV."""
-        best_seed, best_lam, best_mse = 42, self.LAMBDA_GRID[0], np.inf
-        for seed in self.SEED_GRID:
-            kf = KFold(n_splits=self.cv, shuffle=True, random_state=seed)
-            for lam in self.LAMBDA_GRID:
-                fold_mses = []
-                for tr_idx, va_idx in kf.split(X_arr):
-                    X_tr, X_va = X_arr[tr_idx], X_arr[va_idx]
-                    y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
-                    tree = DecisionTreeRegressor(
-                        max_leaf_nodes=self.max_leaf_nodes,
-                        min_samples_leaf=self.min_samples_leaf,
-                        random_state=seed,
-                    )
-                    tree.fit(X_tr, y_tr)
-                    sv = self._compute_shrinkage(tree, lam)
-                    fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
-                mse = np.mean(fold_mses)
-                if mse < best_mse:
-                    best_mse, best_seed, best_lam = mse, seed, lam
-        return best_seed, best_lam
+    def _select_lambda(self, X_arr, y_arr):
+        """Select best lambda via cross-validation."""
+        kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
+        best_lam, best_mse = self.LAMBDA_GRID[0], np.inf
+        for lam in self.LAMBDA_GRID:
+            fold_mses = []
+            for tr_idx, va_idx in kf.split(X_arr):
+                X_tr, X_va = X_arr[tr_idx], X_arr[va_idx]
+                y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
+                tree = DecisionTreeRegressor(
+                    max_leaf_nodes=self.max_leaf_nodes,
+                    min_samples_leaf=self.min_samples_leaf,
+                    random_state=42,
+                )
+                tree.fit(X_tr, y_tr)
+                sv = self._compute_shrinkage(tree, lam)
+                fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
+            mse = np.mean(fold_mses)
+            if mse < best_mse:
+                best_mse, best_lam = mse, lam
+        return best_lam
 
     def fit(self, X, y):
         if hasattr(X, "columns"):
@@ -105,15 +103,14 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         y_arr = np.asarray(y, dtype=float)
 
         if self.shrinkage_lambda == "cv":
-            self.seed_, self.lambda_ = self._select_seed_and_lambda(X_arr, y_arr)
+            self.lambda_ = self._select_lambda(X_arr, y_arr)
         else:
-            self.seed_ = 42
             self.lambda_ = float(self.shrinkage_lambda)
 
         self.tree_ = DecisionTreeRegressor(
             max_leaf_nodes=self.max_leaf_nodes,
             min_samples_leaf=self.min_samples_leaf,
-            random_state=self.seed_,
+            random_state=42,
         )
         self.tree_.fit(X_arr, y_arr)
         self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_)
@@ -199,7 +196,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
 
         lines = [
             f"CV_HSDT_FDR_Grouped(max_leaf_nodes={self.max_leaf_nodes}, "
-            f"selected_lambda={self.lambda_:.1f}, seed={self.seed_}, cv={self.cv})",
+            f"selected_lambda={self.lambda_:.1f}, seed=42, cv={self.cv})",
             f"  nodes={t.node_count}, leaves={n_leaves}",
             "",
             "Tree structure (follow from root; leaf values are shrunk predictions):",
