@@ -24,7 +24,7 @@ from copy import deepcopy
 import numpy as np
 from sklearn.base import clone
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.linear_model import LinearRegression, Lasso
+from sklearn.linear_model import LinearRegression, Lasso, LassoCV, RidgeCV
 from sklearn.metrics import r2_score
 from sklearn.neural_network import MLPRegressor
 from sklearn.tree import DecisionTreeRegressor, export_text
@@ -123,6 +123,31 @@ def get_model_str(model, feature_names=None):
         lines.append(f"  intercept: {model.intercept_:.4f}")
         return "\n".join(lines)
 
+    if isinstance(model, RidgeCV):
+        names = feature_names or [f"x{i}" for i in range(len(model.coef_))]
+        equation = " + ".join(f"{c:.4f}*{n}" for c, n in zip(model.coef_, names))
+        equation += f" + {model.intercept_:.4f}"
+        lines = [f"Ridge Regression (L2 regularization, α={model.alpha_:.4g} chosen by CV):",
+                 f"  y = {equation}", "", "Coefficients:"]
+        for n, c in zip(names, model.coef_):
+            lines.append(f"  {n}: {c:.4f}")
+        lines.append(f"  intercept: {model.intercept_:.4f}")
+        return "\n".join(lines)
+
+    if isinstance(model, LassoCV):
+        names = feature_names or [f"x{i}" for i in range(len(model.coef_))]
+        active = [(n, c) for n, c in zip(names, model.coef_) if abs(c) > 1e-8]
+        zeroed = [n for n, c in zip(names, model.coef_) if abs(c) <= 1e-8]
+        lines = [f"LASSO Regression (L1 regularization, α={model.alpha_:.4g} chosen by CV — promotes sparsity):"]
+        if active:
+            lines.append(f"  Active features ({len(active)} non-zero coefficients):")
+            for n, c in active:
+                lines.append(f"    {n}: {c:.4f}")
+        if zeroed:
+            lines.append(f"  Features with zero coefficients (excluded): {', '.join(zeroed)}")
+        lines.append(f"  intercept: {model.intercept_:.4f}")
+        return "\n".join(lines)
+
     if isinstance(model, MLPRegressor):
         names = feature_names or [f"x{i}" for i in range(model.n_features_in_)]
         hidden = (
@@ -147,9 +172,13 @@ def get_model_str(model, feature_names=None):
             lines.append(f"  {name}: {w_str}  (L2={l2:.3f})")
         return "\n".join(lines)
 
-    # imodels: FIGSRegressor, RuleFitRegressor, HSTreeRegressor — use built-in __str__
+    # imodels: use built-in __str__; CV wrappers delegate to inner .figs attribute
     if _HAS_IMODELS:
-        from imodels import FIGSRegressor, RuleFitRegressor, HSTreeRegressor, TreeGAMRegressor
+        from imodels import FIGSRegressor, FIGSRegressorCV, RuleFitRegressor, HSTreeRegressor, HSTreeRegressorCV, TreeGAMRegressor
+        if isinstance(model, FIGSRegressorCV):
+            return str(model.figs)  # inner fitted FIGS model
+        if isinstance(model, HSTreeRegressorCV):
+            return str(model)
         if isinstance(model, (FIGSRegressor, RuleFitRegressor, HSTreeRegressor)):
             return str(model)
         if isinstance(model, TreeGAMRegressor):
