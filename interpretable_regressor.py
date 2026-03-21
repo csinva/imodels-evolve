@@ -29,32 +29,25 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    CV-HSDT with Flat Decision Rules (CV-HSDT-FDR):
-    Same model as CV-HSDT (hierarchical shrinkage DT with CV-selected lambda),
-    but the __str__ representation is enhanced with an explicit flat "decision
-    rules" section that lists every leaf as a complete IF-THEN path.
+    CCP-pruned HSDT with Flat Decision Rules (CCP-HSDT-FDR):
+    Uses cost-complexity pruning (CCP) to find the globally optimal ≤25-leaf
+    subtree of a fully grown tree, then applies CV-tuned HSDT shrinkage.
 
-    This makes it trivial for an LLM to:
-      1. Simulate predictions: scan rules and find the matching condition set.
-      2. Answer counterfactual questions: find rules with prediction >= target
-         and read off the required feature conditions.
-      3. Identify decision boundaries: locate which rules involve each feature.
+    Greedy max_leaf_nodes=25 stops at 25 leaves via local CART splits.
+    CCP grows a full tree (max_depth=15) then globally prunes by removing the
+    least-valuable splits, potentially discovering better leaf partitions.
 
-    The model math is identical to CV-HSDT (commit 250ebbd), so RMSE is
-    expected to be unchanged (~0.624). The __str__ improvements target the
-    6 failing interpretability tests (simulatability, counterfactual target,
-    decision region, and related discrim tests).
+    CCP alpha selected via binary search on the pruning path to maximize leaves
+    subject to ≤max_leaf_nodes constraint. Lambda CV grid: [1, 3, 7, 15, 30, 60].
 
-    Shrinkage formula (top-down):
-      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
-
-    Lambda grid: [1, 3, 7, 15, 30, 60] — same as CV-HSDT for comparability.
+    Same flat-decision-rules __str__ format as CV-HSDT-FDR (interp target: 0.84).
+    repr_v=14 to bust joblib cache.
     """
 
     LAMBDA_GRID = [1.0, 3.0, 7.0, 15.0, 30.0, 60.0]
 
     def __init__(self, max_leaf_nodes=25, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
-                 repr_v=13):
+                 repr_v=14):
         self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
@@ -81,6 +74,41 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         shrink(0, orig[0])
         return shrunk
 
+    def _make_ccp_tree(self, X, y):
+        """Grow full tree then CCP-prune via binary search to ≤max_leaf_nodes leaves."""
+        full = DecisionTreeRegressor(
+            max_depth=15, min_samples_leaf=self.min_samples_leaf, random_state=42,
+        )
+        full.fit(X, y)
+        if full.get_n_leaves() <= self.max_leaf_nodes:
+            return full
+
+        path = full.cost_complexity_pruning_path(X, y)
+        alphas = path.ccp_alphas  # sorted ascending (0 = full tree, max = stump)
+
+        # Binary search for smallest alpha where n_leaves ≤ max_leaf_nodes
+        lo, hi = 0, len(alphas) - 1
+        result_alpha = alphas[-1]
+        while lo <= hi:
+            mid = (lo + hi) // 2
+            t = DecisionTreeRegressor(
+                max_depth=15, min_samples_leaf=self.min_samples_leaf,
+                random_state=42, ccp_alpha=alphas[mid],
+            )
+            t.fit(X, y)
+            if t.get_n_leaves() <= self.max_leaf_nodes:
+                result_alpha = alphas[mid]
+                hi = mid - 1  # try smaller alpha (more leaves, still valid)
+            else:
+                lo = mid + 1  # need more pruning
+
+        tree = DecisionTreeRegressor(
+            max_depth=15, min_samples_leaf=self.min_samples_leaf,
+            random_state=42, ccp_alpha=result_alpha,
+        )
+        tree.fit(X, y)
+        return tree
+
     def _select_lambda(self, X_arr, y_arr):
         kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
         best_lam, best_mse = None, np.inf
@@ -89,12 +117,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
             for tr_idx, va_idx in kf.split(X_arr):
                 X_tr, X_va = X_arr[tr_idx], X_arr[va_idx]
                 y_tr, y_va = y_arr[tr_idx], y_arr[va_idx]
-                tree = DecisionTreeRegressor(
-                    max_leaf_nodes=self.max_leaf_nodes,
-                    min_samples_leaf=self.min_samples_leaf,
-                    random_state=42,
-                )
-                tree.fit(X_tr, y_tr)
+                tree = self._make_ccp_tree(X_tr, y_tr)
                 sv = self._compute_shrinkage(tree, lam)
                 fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
             mse = np.mean(fold_mses)
@@ -116,12 +139,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         else:
             self.lambda_ = float(self.shrinkage_lambda)
 
-        self.tree_ = DecisionTreeRegressor(
-            max_leaf_nodes=self.max_leaf_nodes,
-            min_samples_leaf=self.min_samples_leaf,
-            random_state=42,
-        )
-        self.tree_.fit(X_arr, y_arr)
+        self.tree_ = self._make_ccp_tree(X_arr, y_arr)
         self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_)
 
         return self
@@ -194,12 +212,10 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         importances = self.tree_.feature_importances_
         n_leaves = self.tree_.get_n_leaves()
 
-        max_depth = self.tree_.get_depth()
         lines = [
-            f"CV_HSDT_FDR(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"CCP_HSDT_FDR(max_leaf_nodes={self.max_leaf_nodes}, "
             f"selected_lambda={self.lambda_:.1f}, cv={self.cv})",
-            f"  nodes={t.node_count}, leaves={n_leaves}, max_depth={max_depth}",
-            f"  (predict: follow at most {max_depth} conditions top-down; one path from root to leaf)",
+            f"  nodes={t.node_count}, leaves={n_leaves}",
             "",
             "Tree structure (follow from root; leaf values are shrunk predictions):",
         ]
