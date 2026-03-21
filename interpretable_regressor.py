@@ -28,55 +28,52 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    Hierarchical Shrinkage DT with Residual Correction (HSDT-RC):
-    Two-stage model combining hierarchical shrinkage on a larger primary tree
-    with a compact secondary tree trained on the residuals.
+    Hierarchical Shrinkage DT with Leaf Summary (HSDT-LS):
+    Standard DT with post-hoc hierarchical shrinkage + an explicit leaf lookup table
+    in __str__ to facilitate point predictions and counterfactual reasoning.
 
-    Stage 1 (main model):
-      - Fit a large DT (max_leaf_nodes=40) with hierarchical shrinkage (lam=20)
-      - This provides the primary interpretation
+    Shrinkage formula (top-down):
+      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
 
-    Stage 2 (residual correction):
-      - Fit a compact DT (max_leaf_nodes=8) with hierarchical shrinkage on residuals
-      - Adds a small correction to the Stage 1 prediction
-
-    Prediction = stage1_predict(X) + correction_lr * stage2_predict(X)
-
-    __str__ is dominated by Stage 1 (the main interpretable tree).
-    Stage 2 is shown as a compact additive correction term.
-    Feature importances combine both stages.
+    __str__ shows THREE sections:
+      1. Full tree with shrunk leaf values (for path tracing)
+      2. Leaf Lookup Table: each leaf listed with its path conditions and shrunk prediction
+         (helps LLM compute point predictions by checking which leaf conditions are met)
+      3. Feature importances with net direction and unused features
     """
 
-    def __init__(
-        self,
-        max_leaf_nodes_1=40,
-        max_leaf_nodes_2=8,
-        min_samples_leaf=5,
-        shrinkage_lambda=20.0,
-        correction_lr=0.5,
-    ):
-        self.max_leaf_nodes_1 = max_leaf_nodes_1
-        self.max_leaf_nodes_2 = max_leaf_nodes_2
+    def __init__(self, max_leaf_nodes=35, min_samples_leaf=5, shrinkage_lambda=20.0):
+        self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
-        self.correction_lr = correction_lr
 
-    def _fit_hsdt(self, X_arr, y_arr, max_leaf_nodes):
-        """Fit a single DT with hierarchical shrinkage. Returns (tree, shrunk_values)."""
-        tree = DecisionTreeRegressor(
-            max_leaf_nodes=max_leaf_nodes,
+    def fit(self, X, y):
+        if hasattr(X, "columns"):
+            self.feature_names_in_ = list(X.columns)
+        else:
+            self.feature_names_in_ = [f"x{i}" for i in range(X.shape[1])]
+
+        X_arr = np.asarray(X, dtype=float)
+        y_arr = np.asarray(y, dtype=float)
+
+        self.tree_ = DecisionTreeRegressor(
+            max_leaf_nodes=self.max_leaf_nodes,
             min_samples_leaf=self.min_samples_leaf,
             random_state=42,
         )
-        tree.fit(X_arr, y_arr)
-        shrunk = self._compute_shrinkage(tree, self.shrinkage_lambda)
-        return tree, shrunk
+        self.tree_.fit(X_arr, y_arr)
+        self.shrunk_values_ = self._compute_shrinkage()
 
-    @staticmethod
-    def _compute_shrinkage(tree, lam):
-        t = tree.tree_
+        # Build leaf-to-path mapping for the Leaf Lookup Table
+        self.leaf_paths_ = self._extract_leaf_paths()
+
+        return self
+
+    def _compute_shrinkage(self):
+        t = self.tree_.tree_
         orig = t.value[:, 0, 0].copy()
         shrunk = np.copy(orig)
+        lam = self.shrinkage_lambda
 
         def shrink(node, parent_shrunk):
             if node == 0:
@@ -92,61 +89,55 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         shrink(0, orig[0])
         return shrunk
 
-    def fit(self, X, y):
-        if hasattr(X, "columns"):
-            self.feature_names_in_ = list(X.columns)
-        else:
-            self.feature_names_in_ = [f"x{i}" for i in range(X.shape[1])]
+    def _extract_leaf_paths(self):
+        """Return dict: node_idx → list of (feature_name, direction, threshold) conditions."""
+        t = self.tree_.tree_
+        names = self.feature_names_in_
+        paths = {}
 
-        X_arr = np.asarray(X, dtype=float)
-        y_arr = np.asarray(y, dtype=float)
+        def dfs(node, conditions):
+            if t.children_left[node] == -1:  # leaf
+                paths[node] = list(conditions)
+                return
+            fname = names[int(t.feature[node])]
+            thresh = t.threshold[node]
+            dfs(int(t.children_left[node]), conditions + [(fname, "<=", thresh)])
+            dfs(int(t.children_right[node]), conditions + [(fname, ">", thresh)])
 
-        # Stage 1: main HSDT
-        self.tree1_, self.shrunk1_ = self._fit_hsdt(X_arr, y_arr, self.max_leaf_nodes_1)
-
-        # Stage 2: residual correction HSDT
-        residuals = y_arr - self.shrunk1_[self.tree1_.apply(X_arr)]
-        self.tree2_, self.shrunk2_ = self._fit_hsdt(X_arr, residuals, self.max_leaf_nodes_2)
-
-        return self
+        dfs(0, [])
+        return paths
 
     def predict(self, X):
-        check_is_fitted(self, "tree1_")
+        check_is_fitted(self, "tree_")
         X_arr = np.asarray(X, dtype=float)
-        pred1 = self.shrunk1_[self.tree1_.apply(X_arr)]
-        pred2 = self.shrunk2_[self.tree2_.apply(X_arr)]
-        return pred1 + self.correction_lr * pred2
+        return self.shrunk_values_[self.tree_.apply(X_arr)]
 
-    def _tree_lines(self, tree, shrunk, depth=0, node=0):
-        """Recursively build tree text with shrunk leaf values."""
-        t = tree.tree_
+    def _tree_lines(self, node=0, depth=0):
+        t = self.tree_.tree_
         names = self.feature_names_in_
         indent = "|   " * depth
 
         if t.children_left[node] == -1:
-            val = shrunk[node]
+            val = self.shrunk_values_[node]
             n_s = t.n_node_samples[node]
             return [f"{indent}|--- value: {val:.4f}  (n={n_s})"]
 
         fname = names[int(t.feature[node])]
         thresh = t.threshold[node]
         lines = [f"{indent}|--- {fname} <= {thresh:.4g}"]
-        lines.extend(self._tree_lines(tree, shrunk, depth + 1, int(t.children_left[node])))
+        lines.extend(self._tree_lines(int(t.children_left[node]), depth + 1))
         lines.append(f"{indent}|--- {fname} > {thresh:.4g}")
-        lines.extend(self._tree_lines(tree, shrunk, depth + 1, int(t.children_right[node])))
+        lines.extend(self._tree_lines(int(t.children_right[node]), depth + 1))
         return lines
 
-    def _infer_direction(self, tree, shrunk, feature_idx):
-        t = tree.tree_
+    def _infer_direction(self, feature_idx):
+        t = self.tree_.tree_
         weighted_effect = 0.0
         for node in range(t.node_count):
-            if t.children_left[node] == -1:
+            if t.children_left[node] == -1 or t.feature[node] != feature_idx:
                 continue
-            if t.feature[node] != feature_idx:
-                continue
-            lc = int(t.children_left[node])
-            rc = int(t.children_right[node])
-            weighted_effect += (shrunk[rc] - shrunk[lc]) * (
+            lc, rc = int(t.children_left[node]), int(t.children_right[node])
+            weighted_effect += (self.shrunk_values_[rc] - self.shrunk_values_[lc]) * (
                 t.n_node_samples[lc] + t.n_node_samples[rc]
             )
         if weighted_effect > 0:
@@ -156,46 +147,52 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         return "mixed"
 
     def __str__(self):
-        check_is_fitted(self, "tree1_")
+        check_is_fitted(self, "tree_")
         names = self.feature_names_in_
-        n_leaves = self.tree1_.get_n_leaves()
-        n_nodes = self.tree1_.tree_.node_count
-        imp1 = self.tree1_.feature_importances_
-        imp2 = self.tree2_.feature_importances_
-        combined_imp = imp1 + self.correction_lr * imp2
+        t = self.tree_.tree_
+        importances = self.tree_.feature_importances_
 
+        # ---- Section 1: Full tree ----
         lines = [
-            f"HSDT_RC(max_leaf_nodes_1={self.max_leaf_nodes_1}, "
-            f"max_leaf_nodes_2={self.max_leaf_nodes_2}, "
-            f"shrinkage_lambda={self.shrinkage_lambda}, "
-            f"correction_lr={self.correction_lr})",
-            f"  Stage-1 tree: nodes={n_nodes}, leaves={n_leaves}",
-            f"  Stage-2 correction tree: leaves={self.tree2_.get_n_leaves()}",
+            f"HierarchicalShrinkageDT_LS(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"shrinkage_lambda={self.shrinkage_lambda})",
+            f"  nodes={t.node_count}, leaves={self.tree_.get_n_leaves()}",
             "",
-            "Stage 1 — Main tree (shrunk leaf values are the primary predictions):",
+            "Section 1 — Tree structure (follow path from root; leaf values are predictions):",
         ]
-        lines.extend(self._tree_lines(self.tree1_, self.shrunk1_))
+        lines.extend(self._tree_lines())
 
+        # ---- Section 2: Leaf Lookup Table ----
         lines += [
             "",
-            f"Stage 2 — Residual correction (multiplied by {self.correction_lr}, then added to Stage 1):",
+            "Section 2 — Leaf Lookup Table (find the leaf whose conditions match your sample):",
+            "  (prediction = value at matching leaf; all conditions for a leaf must be satisfied)",
         ]
-        lines.extend(self._tree_lines(self.tree2_, self.shrunk2_))
+        # Sort leaves by prediction value for easy scanning
+        leaf_nodes = [(node, self.shrunk_values_[node], conds)
+                      for node, conds in self.leaf_paths_.items()]
+        leaf_nodes.sort(key=lambda x: x[1])  # sort by prediction
+        for i, (node, val, conds) in enumerate(leaf_nodes):
+            n_s = t.n_node_samples[node]
+            cond_str = " AND ".join(
+                f"{fname} {op} {thresh:.4g}" for fname, op, thresh in conds
+            ) if conds else "always (root leaf)"
+            lines.append(f"  LEAF {i+1:2d}: pred={val:.4f} (n={n_s}) | conditions: {cond_str}")
 
-        # Feature importances
-        order = np.argsort(combined_imp)[::-1]
-        lines += ["", "Feature importances (combined Stage-1 + Stage-2, higher = more important):"]
+        # ---- Section 3: Feature importances ----
+        order = np.argsort(importances)[::-1]
+        lines += ["", "Section 3 — Feature importances (Gini-based, higher = more important):"]
         for rank, fi in enumerate(order):
-            if combined_imp[fi] > 1e-6:
-                direction = self._infer_direction(self.tree1_, self.shrunk1_, fi)
+            if importances[fi] > 1e-6:
+                direction = self._infer_direction(fi)
                 lines.append(
-                    f"  {rank+1:2d}. {names[fi]:<25s}  {combined_imp[fi]:.4f}  "
+                    f"  {rank+1:2d}. {names[fi]:<25s}  {importances[fi]:.4f}  "
                     f"(net effect: {direction})"
                 )
 
-        unused = [names[i] for i in range(len(names)) if combined_imp[i] <= 1e-6]
+        unused = [names[fi] for fi in range(len(names)) if importances[fi] <= 1e-6]
         if unused:
-            lines.append(f"\nFeatures not used (zero importance): {', '.join(unused)}")
+            lines.append(f"\nFeatures not used in tree (zero importance): {', '.join(unused)}")
 
         return "\n".join(lines)
 
