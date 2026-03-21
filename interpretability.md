@@ -9,3 +9,9 @@ Example 3: Given the prediction for a particular sample without running any code
 Brainstorm several more examples and write code for all of them. These tests should work with a scikit-learn style interface (e.g. DecisionTreeRegressor). The llm calls should use gpt-4o and be called through imodelsx.llm (see reference file at /home/chansingh/imodelsX/imodelsx/llm.py).
 
 Finally, test these functions using a decision tree, a random forest, an OLS model, and an MLP (all from sklearn).
+
+
+
+# Followup
+
+Read these two papers: Interpreting Interpretability: Understanding Data Scientists' Use of Interpretability Tools for Machine Learning https://dl.acm.org/doi/abs/10.1145/3313831.3376219 and Interpretable machine learning: definitions, methods, and applications https://arxiv.org/abs/1901.04592. Then brainstorm and implement some more widespread tests. The tests should distinguish between interpretable models (like decision trees, GAMs, and sparse linear models) and black-box models (like MLPs and gradient-boosted decision trees). Ideally, the tests should also differentiate degrees of interpretability, e.g. sparser linear models should score higher than dense ones, shallow decision trees should score higher than deep ones, and GAMs should score high.
