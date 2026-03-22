@@ -29,28 +29,28 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    CV-HSDT-FDR-Grouped-MS-PerSeedKF2:
-    35-leaf tree + HSDT shrinkage with 2-group rules. Multi-seed joint CV (5 seeds)
-    with per-seed KFold: each seed uses KFold(random_state=seed) instead of fixed
-    random_state=42. This allows different seeds to explore different CV splits,
-    potentially finding better (seed, lambda) combinations.
+    CV-HSDT-FDR-Grouped-MS-FineLam-Verify:
+    EXACT fc3a061 algorithm: 35-leaf tree + HSDT shrinkage, 5-seed joint CV with
+    shared KFold(random_state=42), fine lambda grid [1,2,4,7,10,15,22,30,45,60].
 
-    repr_v=35 to bust BOTH RMSE and interp caches (joblib caches both on unfitted model).
-    Previous exp (9777417) showed RMSE=0.6165 with per-seed KFold but interp dropped
-    to 0.80. This exp re-evaluates both metrics fresh with the same algorithm.
+    repr_v=36 to force fresh evaluation of fc3a061's algorithm.
+    PURPOSE: Verify whether fc3a061's 22/25 interp (0.88) was a lucky cached run
+    or the true expected value. If fresh run also gives 0.88, fc3a061 is the reliable
+    best. If it gives 0.80, then per-seed KFold (0.80 interp, 0.6169 RMSE) is
+    actually better on RMSE with the same true interp.
 
     Shrinkage formula (top-down):
       shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
 
     Seeds: [0, 1, 2, 3, 42]. Lambda grid: [1,2,4,7,10,15,22,30,45,60]. cv=5.
-    repr_v=35 to bust joblib cache.
+    repr_v=36 to bust joblib cache for fresh evaluation.
     """
 
     LAMBDA_GRID = [1.0, 2.0, 4.0, 7.0, 10.0, 15.0, 22.0, 30.0, 45.0, 60.0]
     SEED_GRID = [0, 1, 2, 3, 42]
 
     def __init__(self, max_leaf_nodes=35, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
-                 repr_v=35):
+                 repr_v=36):
         self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
@@ -78,10 +78,10 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         return shrunk
 
     def _select_seed_and_lambda(self, X_arr, y_arr):
-        """Select best (seed, lambda) combination via CV with per-seed KFold."""
+        """Select best (seed, lambda) combination via CV."""
+        kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
         best_seed, best_lam, best_mse = 42, self.LAMBDA_GRID[0], np.inf
         for seed in self.SEED_GRID:
-            kf = KFold(n_splits=self.cv, shuffle=True, random_state=seed)
             for lam in self.LAMBDA_GRID:
                 fold_mses = []
                 for tr_idx, va_idx in kf.split(X_arr):
