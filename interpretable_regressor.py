@@ -29,30 +29,27 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    CV-HSDT-FDR-Grouped-VA (Variance-Adaptive HSDT):
-    35-leaf tree + variance-adaptive HSDT shrinkage with 2-group rules.
-    Multi-seed joint CV (5 seeds) with fine lambda grid.
+    CV-HSDT-FDR-Grouped-MS-FineLam-PredRange:
+    35-leaf tree + HSDT shrinkage with 2-group rules. Multi-seed joint CV (5 seeds)
+    with fine lambda grid [1,2,4,7,10,15,22,30,45,60].
 
-    Standard HSDT shrinks each node using n_samples. VA-HSDT instead uses
-    an EFFECTIVE sample count that accounts for leaf variance:
-      effective_n = n_s * (global_var / leaf_var)
-    Noisy leaves (high variance relative to global) get more shrinkage toward parent.
-    Clean leaves (low variance) get less shrinkage — they're more reliable.
-
-    For internal nodes, standard n_s is used (only leaf variance is adjusted).
+    ALGORITHM: identical to CV-HSDT-FDR-Grouped-MS-FineLam (exp40/fc3a061).
+    FORMAT CHANGE: group headers now show the prediction range (min..max) so the LLM
+    can immediately see whether a counterfactual target is achievable within the model's
+    output range, without scanning all rules.
 
     Shrinkage formula (top-down):
-      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (effective_n + lam)
+      shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
 
     Seeds: [0, 1, 2, 3, 42]. Fine lambda grid: [1,2,4,7,10,15,22,30,45,60]. cv=5.
-    repr_v=32 to bust joblib cache.
+    repr_v=33 to bust joblib cache.
     """
 
     LAMBDA_GRID = [1.0, 2.0, 4.0, 7.0, 10.0, 15.0, 22.0, 30.0, 45.0, 60.0]
     SEED_GRID = [0, 1, 2, 3, 42]
 
     def __init__(self, max_leaf_nodes=35, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
-                 repr_v=32):
+                 repr_v=33):
         self.max_leaf_nodes = max_leaf_nodes
         self.min_samples_leaf = min_samples_leaf
         self.shrinkage_lambda = shrinkage_lambda
@@ -60,36 +57,17 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         self.repr_v = repr_v  # version tag — increment to bust joblib cache on __str__ changes
 
     @staticmethod
-    def _compute_shrinkage(tree, lam, y_arr=None, leaf_indices=None):
-        """Top-down HSDT shrinkage. If y_arr and leaf_indices provided, uses
-        variance-adaptive effective_n for leaf nodes."""
+    def _compute_shrinkage(tree, lam):
         t = tree.tree_
         orig = t.value[:, 0, 0].copy()
         shrunk = np.copy(orig)
-
-        # Compute per-leaf variance for variance-adaptive shrinkage
-        leaf_effective_n = None
-        if y_arr is not None and leaf_indices is not None:
-            global_var = np.var(y_arr) + 1e-10
-            leaf_effective_n = np.full(t.node_count, -1.0)
-            for node in range(t.node_count):
-                if t.children_left[node] == -1:  # leaf
-                    mask = leaf_indices == node
-                    n_s = t.n_node_samples[node]
-                    leaf_var = np.var(y_arr[mask]) + 1e-10 if mask.sum() > 1 else global_var
-                    leaf_effective_n[node] = n_s * (global_var / leaf_var)
 
         def shrink(node, parent_shrunk):
             if node == 0:
                 shrunk[node] = orig[node]
             else:
                 n_s = t.n_node_samples[node]
-                is_leaf = t.children_left[node] == -1
-                if is_leaf and leaf_effective_n is not None:
-                    eff_n = leaf_effective_n[node]
-                else:
-                    eff_n = float(n_s)
-                shrunk[node] = orig[node] + lam * (parent_shrunk - orig[node]) / (eff_n + lam)
+                shrunk[node] = orig[node] + lam * (parent_shrunk - orig[node]) / (n_s + lam)
             left = t.children_left[node]
             if left != -1:
                 shrink(int(left), shrunk[node])
@@ -99,7 +77,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         return shrunk
 
     def _select_seed_and_lambda(self, X_arr, y_arr):
-        """Select best (seed, lambda) combination via CV using variance-adaptive shrinkage."""
+        """Select best (seed, lambda) combination via CV."""
         kf = KFold(n_splits=self.cv, shuffle=True, random_state=42)
         best_seed, best_lam, best_mse = 42, self.LAMBDA_GRID[0], np.inf
         for seed in self.SEED_GRID:
@@ -114,8 +92,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
                         random_state=seed,
                     )
                     tree.fit(X_tr, y_tr)
-                    leaf_idx = tree.apply(X_tr)
-                    sv = self._compute_shrinkage(tree, lam, y_arr=y_tr, leaf_indices=leaf_idx)
+                    sv = self._compute_shrinkage(tree, lam)
                     fold_mses.append(np.mean((y_va - sv[tree.apply(X_va)]) ** 2))
                 mse = np.mean(fold_mses)
                 if mse < best_mse:
@@ -143,9 +120,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
             random_state=self.seed_,
         )
         self.tree_.fit(X_arr, y_arr)
-        leaf_idx = self.tree_.apply(X_arr)
-        self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_,
-                                                       y_arr=y_arr, leaf_indices=leaf_idx)
+        self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_)
 
         return self
 
@@ -227,7 +202,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         n_leaves = self.tree_.get_n_leaves()
 
         lines = [
-            f"CV_VA_HSDT_FDR_Grouped(max_leaf_nodes={self.max_leaf_nodes}, "
+            f"CV_HSDT_FDR_Grouped(max_leaf_nodes={self.max_leaf_nodes}, "
             f"selected_lambda={self.lambda_:.1f}, seed={self.seed_}, cv={self.cv})",
             f"  nodes={t.node_count}, leaves={n_leaves}",
             "",
@@ -238,19 +213,23 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
         # Grouped decision rules: split by root condition to reduce lookup effort.
         # Step 1: check root condition. Step 2: scan only the matching group (~N/2 rules).
         root_feat, root_thresh, left_paths, right_paths = self._get_grouped_leaf_paths()
+        left_min, left_max = left_paths[0]["value"], left_paths[-1]["value"]
+        right_min, right_max = right_paths[0]["value"], right_paths[-1]["value"]
+        all_min = min(left_min, right_min)
+        all_max = max(left_max, right_max)
         lines += [
             "",
             "Decision rules grouped by primary split (to predict: check root, then scan one group):",
-            f"  Primary split: {root_feat} <= {root_thresh:.4g}",
+            f"  Primary split: {root_feat} <= {root_thresh:.4g}  (model pred range: {all_min:.3f}..{all_max:.3f})",
             "",
-            f"  IF {root_feat} <= {root_thresh:.4g} ({len(left_paths)} rules, sorted by prediction):",
+            f"  IF {root_feat} <= {root_thresh:.4g} ({len(left_paths)} rules, pred {left_min:.3f}..{left_max:.3f}):",
         ]
         for i, rule in enumerate(left_paths, 1):
             rest = " AND ".join(rule["conditions"][1:]) if len(rule["conditions"]) > 1 else "(no further conditions)"
             lines.append(f"    Rule L{i:2d}: IF {rest}  THEN predict {rule['value']:.4f}  (n={rule['n_samples']})")
         lines += [
             "",
-            f"  IF {root_feat} > {root_thresh:.4g} ({len(right_paths)} rules, sorted by prediction):",
+            f"  IF {root_feat} > {root_thresh:.4g} ({len(right_paths)} rules, pred {right_min:.3f}..{right_max:.3f}):",
         ]
         for i, rule in enumerate(right_paths, 1):
             rest = " AND ".join(rule["conditions"][1:]) if len(rule["conditions"]) > 1 else "(no further conditions)"
