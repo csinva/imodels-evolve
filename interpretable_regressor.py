@@ -29,22 +29,24 @@ from performance import RESULTS_DIR, upsert_overall_results, evaluate_all_regres
 
 class InterpretableRegressor(BaseEstimator, RegressorMixin):
     """
-    CV-HSDT-FDR-Grouped-MS-UltraFineLam:
-    35-leaf tree + HSDT shrinkage with 2-group rules. Multi-seed joint CV (5 seeds)
-    with ultra-fine lambda grid [0.5,1,1.5,2,3,4,5,7,10,13,17,22,28,35,45,60] (16 values
-    vs 10 in fc3a061) to find better lambda values.
+    CV-HSDT-FDR-Grouped-MS-MAE:
+    35-leaf tree built with absolute_error (MAE/median) criterion + HSDT shrinkage
+    with 2-group rules. Multi-seed joint CV (5 seeds) with fine lambda grid.
 
     IMPORTANT: repr_v=29 (same as fc3a061) so interp test cache hits.
-    Algorithm change: finer lambda grid only. Same __str__ format.
+    Algorithm change: criterion="absolute_error" instead of "squared_error".
+    MAE criterion builds trees minimizing sum(|y - median|), leaf values are medians.
+    HSDT shrinkage then applies to the median-based leaf values.
+    Hypothesis: MAE-based splits may generalize better for RMSE.
 
     Shrinkage formula (top-down):
       shrunk[node] = orig[node] + lam * (shrunk[parent] - orig[node]) / (n_samples + lam)
 
-    Seeds: [0, 1, 2, 3, 42]. Ultra-fine lambda grid (16 values). cv=5.
+    Seeds: [0, 1, 2, 3, 42]. Lambda grid: [1,2,4,7,10,15,22,30,45,60]. cv=5.
     repr_v=29 — same as fc3a061 for interp test cache continuity.
     """
 
-    LAMBDA_GRID = [0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0, 13.0, 17.0, 22.0, 28.0, 35.0, 45.0, 60.0]
+    LAMBDA_GRID = [1.0, 2.0, 4.0, 7.0, 10.0, 15.0, 22.0, 30.0, 45.0, 60.0]
     SEED_GRID = [0, 1, 2, 3, 42]
 
     def __init__(self, max_leaf_nodes=35, min_samples_leaf=5, shrinkage_lambda="cv", cv=5,
@@ -89,6 +91,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
                         max_leaf_nodes=self.max_leaf_nodes,
                         min_samples_leaf=self.min_samples_leaf,
                         random_state=seed,
+                        criterion="absolute_error",
                     )
                     tree.fit(X_tr, y_tr)
                     sv = self._compute_shrinkage(tree, lam)
@@ -117,6 +120,7 @@ class InterpretableRegressor(BaseEstimator, RegressorMixin):
             max_leaf_nodes=self.max_leaf_nodes,
             min_samples_leaf=self.min_samples_leaf,
             random_state=self.seed_,
+            criterion="absolute_error",
         )
         self.tree_.fit(X_arr, y_arr)
         self.shrunk_values_ = self._compute_shrinkage(self.tree_, self.lambda_)
