@@ -6,7 +6,7 @@ This is an experiment to have the LLM autonomously research scikit-learn regress
 
 To set up a new experiment, do the following:
 
-1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar21`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run.
+1. **Agree on a run tag**: propose a tag based on today's date (e.g. `mar25`). The branch `autoresearch/<tag>` must not already exist — this is a fresh run. Completely ignore all other branches and focus only on the current branch. Completely ignore the past_runs folder. 
 2. **Create the branch**: `git checkout -b autoresearch/<tag>` from current master.
 3. **Read the in-scope files**: The repo is small. Read these files for full context:
    - `readme.md` — repository context.
@@ -14,7 +14,7 @@ To set up a new experiment, do the following:
    - `interpretable_regressor.py` — the file you modify. Regressor definition and evaluation loop.
    - `results/overall_results.csv` — current scores for all baselines models have already been run for you.
 
-Then kick off the experimentation.
+Then kick off the experimentation. 
 
 ## Experimentation
 
@@ -32,6 +32,7 @@ This trains `InterpretableRegressor`, runs interpretability tests, and updates `
 - Modify `run_baselines.py`. It is read-only.
 - Modify anything in the `eval/` folder. It contains the ground truth tests.
 - Install new packages. You can only use what's already in `pyproject.toml`.
+- Read other branches. Read the past_runs folder.
 
 ## Goal
 
@@ -75,7 +76,7 @@ commit	mean_rmse	frac_interpretability_tests_passed	status	description
 
 ## The experiment loop
 
-The experiment runs on a dedicated branch (e.g. `autoresearch/mar21`).
+The experiment runs on a dedicated branch (e.g. `autoresearch/mar25`).
 
 LOOP FOREVER:
 
@@ -91,8 +92,9 @@ LOOP FOREVER:
 **NEVER STOP**: Once the experiment loop has begun, do NOT pause to ask the human if you should continue. Run until manually stopped.
 
 **Ideas to try** (not exhaustive — be creative):
+- Read this paper and try novel ideas inspired by it: https://arxiv.org/abs/2103.11251
 - Try novel ways to induce sparsity or perform elaborate feature selection
 - Try new regularization techniques
 - Try novel splitting criteria
 
-Do not simply import a known interpretable model and change its hyperparameters — build your own from scratch using basic building blocks or substantially modify an existing one. The goal is to discover new models, not just find the best hyperparameters for known models. You might find inspiration by reading this paper: https://arxiv.org/abs/2103.11251. Make sure the model trains and tests very quickly.
+Do not simply import a known interpretable model and change its hyperparameters — build your own from scratch using basic building blocks or substantially modify an existing one. The goal is to discover new models, not just find the best hyperparameters for known models. Make sure the model trains and tests very quickly.
