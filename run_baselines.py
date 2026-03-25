@@ -28,6 +28,7 @@ from imodels import (
     RuleFitRegressor,
 )
 from interpret.glassbox import ExplainableBoostingRegressor
+from tabpfn import TabPFNRegressor
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from interp_eval import ALL_TESTS, HARD_TESTS, INSIGHT_TESTS, run_all_interp_tests
@@ -54,6 +55,7 @@ REGRESSOR_DEFS = [
     ("HSTree_mini",  HSTreeRegressorCV(max_leaf_nodes=8,  random_state=42)),
     ("HSTree_large", HSTreeRegressorCV(max_leaf_nodes=20, random_state=42)),
     ("EBM",          ExplainableBoostingRegressor(random_state=42, outer_bags=3, max_rounds=1000)),
+    ("TabPFN",       TabPFNRegressor(device="auto", random_state=42)),
 ]
 
 # Human-readable descriptions for each model
@@ -73,6 +75,7 @@ MODEL_DESCRIPTIONS = {
     "HSTree_mini": "small HSTree with up to 8 max_leaf_nodes",
     "HSTree_large":"large HSTree with up to 20 max_leaf_nodes",
     "EBM":         "explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds",
+    "TabPFN":      "TabPFN foundation model for tabular data",
 }
 
 # ---------------------------------------------------------------------------
@@ -168,3 +171,6 @@ if __name__ == "__main__":
     )
 
     print(f"\nTotal time: {time.time() - t0:.1f}s")
+
+    # also run the interpretable_regressor.py script here
+    os.system("uv run interpretable_regressor.py")

@@ -19,7 +19,7 @@ import pandas as pd
 
 
 MODEL_GROUPS = {
-    "black-box": {"RF", "GBM", "MLP"},
+    "black-box": {"RF", "GBM", "MLP", "TabPFN"},
     "imodels":   {"FIGS_mini", "FIGS_large", "RuleFit"},
     "additive":    {"OLS", "LASSO", "LassoCV", "RidgeCV", "EBM", "PyGAM"},
     "tree":      {"DT_mini", "DT_large", "HSTree_mini", "HSTree_large"},

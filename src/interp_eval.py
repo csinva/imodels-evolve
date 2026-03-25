@@ -247,7 +247,7 @@ def _tree_gam_str(model, feature_names=None):
 
 def ask_llm(llm, model_str, question, max_tokens=200):
     prompt = f"Here is a trained regression model:\n\n{model_str}\n\n{question}"
-    return llm(prompt, max_completion_tokens=max_tokens)
+    return llm(prompt, max_completion_tokens=max_tokens, stop=['cannot', 'I do not have enough', "I'm sorry", ])
 
 
 # ---------------------------------------------------------------------------
