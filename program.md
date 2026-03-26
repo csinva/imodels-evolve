@@ -89,7 +89,7 @@ LOOP FOREVER:
 7. Record results in `results/overall_results.csv` (do not commit this file)
 8. If either metric improved without the other getting significantly worse, keep the commit and save the current version of `interpretable_regressor.py` as a new file under the success folder (e.g. `interpretable_regressors_lib/success/interpretable_regressor_<commit_hash>_<simple_name>.py`) for future use. Otherwise save it under the failure folder (e.g. `interpretable_regressors_lib/failure/interpretable_regressor_<commit_hash>_<simple_name>.py`).
 
-**NEVER STOP**: Once the experiment loop has begun, do NOT pause to ask the human if you should continue. Run until manually stopped.
+**NEVER STOP**: Once the experiment loop has begun, do NOT pause to ask the human if you should continue. Run until manually stopped. Always keep going.
 
 **Ideas to try** (not exhaustive — be creative):
 - Read this paper and try novel ideas inspired by it: https://arxiv.org/abs/2103.11251

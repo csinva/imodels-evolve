@@ -1,0 +1,92 @@
+commit,mean_rmse,frac_interpretability_tests_passed,status,description
+cef20a7,0.627221,0.4800,discard,AST depth-2 7-trees RMSE great but interp dropped again
+76066f6,0.623023,0.8000,discard,CCP-HSDT-FDR global pruning tiny RMSE gain interp dropped 0.84->0.80
+3dfe27d,0.622895,0.7600,discard,CV-GSDT global shrinkage toward mean RMSE 0.623 worse than HSDT interp 0.76
+250ebbd,0.623591,0.7600,keep,CV-HSDT lambda auto-tuned via 5-fold CV — RMSE 0.624 (beats FIGS_large) interp 0.76
+da329ae,0.617157,0.7600,discard,CV-HSDT-CompactNote broke insight_sparse_feature_set interp 0.88->0.76
+8172844,0.617157,0.8800,discard,CV-HSDT-Debug confirms 22/25 and reveals 3 failing tests (compactness/sign/counterfactual)
+1e5a006,0.617157,0.8800,discard,CV-HSDT-DepthDelta depth+delta_at_0 still 22/25 LLM ignores both
+2ba9f50,0.623591,0.7600,discard,CV-HSDT-FDR cache hit — same result as CV-HSDT (repr_v missing)
+60f9c64,0.623591,0.8400,keep,CV-HSDT-FDR flat decision rules in __str__ — interp 0.84 (all insight pass) RMSE 0.624
+387ff44,0.621780,0.7200,discard,CV-HSDT-FDR-28 28 leaves interp dropped even with 3 more rules
+c4576ab,0.617609,0.7200,discard,CV-HSDT-FDR-4Group 50 leaves 4-group format improved RMSE but interp dropped 0.84->0.72
+0a60c6b,0.623167,0.8000,discard,CV-HSDT-FDR-Cont continuous lambda tiny RMSE gain interp dropped 0.84->0.80
+44a81c6,0.623591,0.8000,discard,CV-HSDT-FDR-DepthHint depth-hint line dropped interp 0.84->0.80 RMSE same
+0ffd126,0.623608,0.8400,discard,CV-HSDT-FDR-Frid Friedman MSE same as squared_error no RMSE gain
+d47ca84,0.618995,0.8400,keep,CV-HSDT-FDR-Grouped 35 leaves grouped rules RMSE 0.619 (beats 0.624) interp maintained 0.84
+01c4de7,0.618873,0.8800,discard,CV-HSDT-FDR-Grouped-10Seed 10 seeds same as 5-seed no improvement
+38ab442,0.617824,0.8000,discard,CV-HSDT-FDR-Grouped-40 40 leaves 20/group interp dropped 0.84->0.80
+50e5e34,0.618486,0.6800,discard,CV-HSDT-FDR-Grouped-45 45 leaves interp dropped 0.84->0.68 (groups too large)
+1b25aa5,0.618802,0.8800,discard,CV-HSDT-FDR-Grouped-MS-Compact compactness bias no effect (all seeds same leaf count)
+f9f10a1,0.617273,0.8800,discard,CV-HSDT-FDR-Grouped-MS-ExtFineLam-KF43-8S extended 20-val lambda grid same RMSE 0.6173
+952ccfe,0.618865,0.8800,discard,CV-HSDT-FDR-Grouped-MS-ExtLam lambda=120 no improvement over 5-seed baseline
+fc3a061,0.617738,0.8800,keep,CV-HSDT-FDR-Grouped-MS-FineLam finer lambda grid RMSE 0.6177 (beats 0.6188) interp maintained 0.88
+a5b71d0,0.620334,0.8000,discard,CV-HSDT-FDR-Grouped-MS-FineLam-10Fold 10-fold CV worse RMSE 0.620 and interp dropped 0.88->0.80
+c1ea0a6,0.617420,0.8400,discard,CV-HSDT-FDR-Grouped-MS-FineLam-36L 36 leaves better RMSE but interp dropped 0.88->0.84
+8013533,0.617703,0.8400,discard,CV-HSDT-FDR-Grouped-MS-FineLam-KF40 RMSE 0.6177 interp dropped 0.88->0.84
+6f26c6f,0.617157,0.8800,discard,CV-HSDT-FDR-Grouped-MS-FineLam-KF43-12Seeds same RMSE 0.6172 as 8-seed no improvement
+cdbe833,0.617157,0.8800,keep,CV-HSDT-FDR-Grouped-MS-FineLam-KF43-8Seeds 8 seeds RMSE 0.6172 (new best) interp 0.88
+494af49,0.618486,0.8400,discard,CV-HSDT-FDR-Grouped-MS-FineLam-KF44 RMSE 0.6185 worse interp dropped 0.88->0.84
+a40d8cd,0.617683,0.8400,discard,CV-HSDT-FDR-Grouped-MS-FineLam-KF7-8Seeds KF7 RMSE 0.6177 interp dropped 0.88->0.84
+8d2e5ad,0.617738,0.7600,discard,CV-HSDT-FDR-Grouped-MS-FineLam-PredRange pred-range in group headers hurt interp 0.88->0.76 RMSE same
+45d9b75,0.617738,0.7600,discard,CV-HSDT-FDR-Grouped-MS-FineLam-TopRange output_range line in header hurt interp 0.88->0.76 RMSE same
+8ffc9c1,0.617738,0.8800,keep,CV-HSDT-FDR-Grouped-MS-FineLam-Verify CONFIRMS fc3a061 true interp=0.88 reproducible with repr_v=36
+3bfbfc3,0.619838,0.7600,discard,CV-HSDT-FDR-Grouped-MS-FineLam-msl4 min_samples_leaf=4 RMSE 0.6198 worse AND interp 0.76
+6794559,0.617738,0.8800,discard,CV-HSDT-FDR-Grouped-MS-MAE absolute_error criterion no RMSE gain same as fc3a061
+9777417,0.616505,0.8000,discard,CV-HSDT-FDR-Grouped-MS-PerSeedCV per-seed KFold better RMSE 0.617 but interp dropped 0.88->0.80
+359fc1f,0.617738,0.8800,discard,CV-HSDT-FDR-Grouped-MS-PerSeedKF repr_v=29 cache hit returned fc3a061 results unchanged
+54782af,0.616949,0.8000,discard,CV-HSDT-FDR-Grouped-MS-PerSeedKF2 RMSE improved 0.6177->0.6169 but interp dropped 0.88->0.80
+f242da0,0.617738,0.8800,discard,CV-HSDT-FDR-Grouped-MS-UltraFineLam ultra-fine 16-value lambda grid no RMSE gain same as fc3a061
+a571029,0.617716,0.7600,discard,CV-HSDT-FDR-Grouped-MS40 multi-seed 40 leaves RMSE better but interp dropped 0.88->0.76
+1501353,0.618802,0.8800,keep,CV-HSDT-FDR-Grouped-MultiSeed 5-seed joint CV RMSE 0.619 interp 0.88 (new best both metrics)
+1e3758e,0.617200,0.8400,discard,CV-HSDT-FDR-Grouped-Seed0 seed=0 directly better RMSE 0.617 but interp 0.84 (multi-seed 0.88 not replicated)
+d3fc762,0.618995,0.8400,discard,CV-HSDT-FDR-Grouped-SeedHeader adding seed=42 to header doesn't improve interp (still 0.84)
+896d960,0.618995,0.7600,discard,CV-HSDT-FDR-Grouped-UnitSens unit sensitivity section misleads LLM for predictions interp 0.84->0.76
+0475683,0.619708,0.7600,discard,CV-HSDT-FDR-Grouped-msl3 min_samples_leaf=3 different tree structure drops interp 0.84->0.76
+4d7f6bf,0.617673,0.7200,discard,CV-HSDT-FDR-Wide 35 leaves simulatability failed RMSE better but interp worse
+de1c11c,0.623591,0.7600,discard,CV-HSDT-FDR2 prediction-bounds header confused LLM broke 2 tests
+42389b6,0.617157,0.9200,keep,CV-HSDT-InlineDelta inline delta in importances fixed sign_of_effect interp 0.88->0.92 (new best) RMSE same
+93d9134,0.616109,0.6800,discard,CV-HSDT-JointLeafCV RMSE 0.616 interp 0.88->0.68 not worth it
+55e0be1,0.607678,0.7200,discard,CV-HSDT-Lasso RMSE great 0.607 but interp dropped 0.88->0.72 (Lasso adds spurious features)
+1ac11d5,0.698855,0.6400,discard,CV-HSDT-LocalLinear linear leaf models hurt both RMSE 0.617->0.699 and interp 0.88->0.64
+b6fdb76,0.617157,0.8000,discard,CV-HSDT-RangeFmt range format hurt interp 0.88->0.80 RMSE same
+175dccf,0.607553,0.8400,keep,CV-HSDT-RestrictedLasso feat-restricted Lasso on residuals RMSE 0.607 (new best) interp 0.84
+d45f13c,0.607553,0.7600,discard,CV-HSDT-RestrictedLasso-CorrectedLeaves corrected leaf values in repr interp 0.84->0.76 (worse)
+cf1ce58,0.607553,0.8000,discard,CV-HSDT-RestrictedLasso-ExplicitFormula RMSE 0.607 interp dropped 0.84->0.80
+45317e5,0.607553,0.8400,discard,CV-HSDT-RestrictedLasso-Hidden same 21/25 — lost test is from model predictions not repr
+45317e5,0.607553,0.8400,discard,CV-HSDT-RestrictedLasso-Hidden same 21/25 — lost test is from model predictions not repr
+da39d3b,0.617157,0.8400,discard,CV-HSDT-SensTable sensitivity table before rules gained sign_of_effect but lost simulatability+pairwise net 21/25
+3877696,0.622620,0.8000,discard,CV-VA-HSDT variance-adaptive shrinkage hurt both RMSE 0.623 and interp 0.80
+d853dcb,0.624111,0.8000,discard,DA-HSDT-FDR depth-adaptive shrinkage slightly worse RMSE interp dropped
+ff59d37,0.711908,0.6800,discard,DT baseline max_leaf_nodes=20
+baseline,0.652878,0.6800,baseline,DT_large
+baseline,0.671197,0.6400,baseline,DT_mini
+e50bed5,0.654359,0.7200,discard,ET-HSDT-FDR ExtraTree random splits hurt single-tree RMSE interp also worse
+807ca64,0.648273,0.5200,discard,FAT FIGS-style format same problem — multi-tree hurts interp
+baseline,0.629359,0.8000,baseline,FIGS_large
+baseline,0.652014,0.6000,baseline,FIGS_mini
+baseline,0.635868,0.6000,baseline,GAM
+63b5ce2,0.635230,0.4000,discard,GAS stumps n=25 lr=0.4 RMSE improved but interp dropped
+baseline,0.574402,0.7200,baseline,GBM
+99c5579,0.654797,0.7600,keep,HSDT hierarchical shrinkage lam=15 max_leaves=25 both metrics improved
+0aa9c85,0.660939,0.7600,discard,HSDT-LS leaf lookup table no improvement vs HSDT
+241ca4f,0.639435,0.6400,discard,HSDT-RC two-stage RMSE improved but interp dropped (complex two-tree repr)
+baseline,0.634780,0.8000,baseline,HSTree_large
+baseline,0.663492,0.7600,baseline,HSTree_mini
+42389b6,0.617157,0.8800,,InterpretableRegressor
+1995fbe,0.622279,0.7200,discard,JCV-HSDT joint CV on leaves+lambda — RMSE tiny improvement interp dropped
+3306e64,0.624116,0.8000,discard,JCV-HSDT-FDR joint CV cap=25 interp dropped 0.84->0.80 RMSE same
+c0c8748,0.665203,0.3600,discard,Lasso-HSDT terrible RMSE 0.665 interp 0.36 (tree on Lasso residuals overfits noise)
+baseline,0.798742,0.5600,baseline,LassoCV
+baseline,106.979809,0.4400,baseline,MLP
+baseline,0.780997,0.7600,baseline,OLS
+925fc47,0.695063,0.4800,discard,PLT piecewise-linear tree leaves interp dropped
+e19f088,0.622756,0.8000,discard,PW-HSDT-FDR power-law alpha tiny RMSE gain interp dropped 0.84->0.80
+195f9b4,0.623591,0.7600,discard,PolyCV-HSDT squared features no improvement over CV-HSDT
+baseline,0.592144,0.5200,baseline,RF
+b6fb6cb,0.631978,0.8000,discard,Ridge-DT-FDR ridge on leaf indicators worse RMSE than HSDT
+baseline,0.762501,0.6800,baseline,RidgeCV
+baseline,0.622744,0.6800,baseline,RuleFit
+ff77238,0.671506,0.5200,discard,SL-HSDT lasso+tree both metrics worse than CV-HSDT
+ed7d0e6,0.679047,0.7600,discard,Shallow CV-HSDT max_depth=3 worse RMSE no interp gain
+baseline,0.981729,0.2800,baseline,TreeGAM

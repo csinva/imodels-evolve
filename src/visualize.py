@@ -33,20 +33,36 @@ GROUP_COLORS = {
 
 
 _blues_cmap = plt.cm.Blues
-_unknown_model_index = 0
-_unknown_model_colors = {}
 
 
-def _model_color(name):
-    global _unknown_model_index
-    for group, members in MODEL_GROUPS.items():
-        if name in members:
-            return GROUP_COLORS[group]
-    if name not in _unknown_model_colors:
-        t = 0.3 + 0.6 * _unknown_model_index / max(1, 10)
-        _unknown_model_colors[name] = _blues_cmap(t)
-        _unknown_model_index += 1
-    return _unknown_model_colors[name]
+def _model_colors(names: list[str]) -> list:
+    """Return a color for each name, using group colors for known models
+    and successive Blues cmap values for unknown ones."""
+    # Collect unknown names in order of first appearance
+    seen = set()
+    unknown_names = []
+    for n in names:
+        if n not in seen and not any(n in members for members in MODEL_GROUPS.values()):
+            unknown_names.append(n)
+            seen.add(n)
+    # Build color map for unknowns based on how many there are
+    n_unknown = len(unknown_names)
+    unknown_color_map = {}
+    for i, uname in enumerate(unknown_names):
+        t = 0.3 + 0.6 * i / max(1, n_unknown - 1)
+        unknown_color_map[uname] = _blues_cmap(t)
+    # Assign colors
+    colors = []
+    for name in names:
+        matched = False
+        for group, members in MODEL_GROUPS.items():
+            if name in members:
+                colors.append(GROUP_COLORS[group])
+                matched = True
+                break
+        if not matched:
+            colors.append(unknown_color_map[name])
+    return colors
 
 
 def plot_interp_vs_performance(csv_path: str | Path, out_path: str | Path | None = None) -> None:
@@ -69,7 +85,7 @@ def plot_interp_vs_performance(csv_path: str | Path, out_path: str | Path | None
     names  = df["model_name"].tolist()
     x      = df["frac_interpretability_tests_passed"].to_numpy()
     y      = df["mean_rank"].to_numpy()
-    colors = [_model_color(n) for n in names]
+    colors = _model_colors(names)
 
     try:
         from adjustText import adjust_text

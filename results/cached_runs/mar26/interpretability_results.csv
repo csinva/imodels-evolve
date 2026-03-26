@@ -1,0 +1,2727 @@
+model,test,suite,passed,ground_truth,response
+PyGAM,most_important_feature,standard,True,x0,x0
+PyGAM,point_prediction,standard,False,10.041,4.160
+PyGAM,direction_of_change,standard,True,7.951,7.105
+PyGAM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+PyGAM,threshold_identification,standard,False,0.5,0.
+PyGAM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x4"
+PyGAM,sign_of_effect,standard,True,-5.029,The prediction changes by **-5.064** when \( x_1 \) increases by 1 unit (all other features at 0).
+PyGAM,counterfactual_prediction,standard,False,12.306,8.82
+PyGAM,hard_all_features_active,hard,False,6.163,2.291
+PyGAM,hard_pairwise_anti_intuitive,hard,False,1.914,"To calculate the difference in predictions for Sample B and Sample A, we use the formula for the Generalized Additive Model (GAM):
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2) + f_3(x_3) + f_4(x_4)
+\]
+
+### Step 1: Extract relevant feature effects
+From the given data:
+- **Sample A**: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0.0\)
+- **Sample B**: \(x_0 = 0.5\), \(x_1 = 3.3\), \(x_2 = 0.0\), \(x_3 ="
+PyGAM,hard_quantitative_sensitivity,hard,True,7.986,8.218
+PyGAM,hard_mixed_sign_goes_negative,hard,True,-0.894,-0.899
+PyGAM,hard_two_feature_perturbation,hard,False,9.098,The prediction is **4.57**.
+PyGAM,insight_simulatability,insight,False,10.89,2.948
+PyGAM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+PyGAM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.02
+PyGAM,insight_nonlinear_direction,insight,True,5.962,"The prediction is:
+
+**5.4091**"
+PyGAM,insight_counterfactual_target,insight,False,3.061,4.00
+PyGAM,insight_decision_region,insight,True,1.508,1.87
+PyGAM,discrim_simulate_all_active,standard,False,5.372,The prediction is **2.771**.
+PyGAM,discrim_compactness,standard,True,,**Yes**
+PyGAM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+PyGAM,discrim_unit_sensitivity,standard,False,4.977,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to determine the change in the partial effect of \( x_0 \) over this range. However, the table does not provide the exact effect values for \( x_0 = 0 \) or \( x_0 = 1 \). Instead, we can approximate using the closest given values.
+
+From the table for \( x_0 \):
+- At \( x_0 = -0.71 \), effect = -5.340
+- At \( x_0 = +0.36 \), effect = +0.047
+- At \( x_0 = +1.43 \), effect = +5.356
+
+The partial effect of \( x_0 \) appears to increase linearly between these points. To estimate the effect at \( x_0 = 0 \) and \( x_0 = 1 \),"
+PyGAM,discrim_predict_above_threshold,standard,True,2.29,"The prediction is:
+
+**2.040**"
+PyGAM,discrim_predict_below_threshold,standard,True,0.02,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2)
+\]
+
+### Step 1: Intercept
+\[
+\text{intercept} = 0.5390
+\]
+
+### Step 2: \( f_0(x_0) \) (effect of \( x_0 \))
+From the table, the closest values to \( x_0 = -0.5 \) are:
+- \( x_0 = -1.13 \), effect = -0.623
+- \( x_0 = -0.14 \), effect = -0.763
+
+Using linear interpolation:
+\[
+f_0(-0.5) = -0"
+DT_mini,most_important_feature,standard,True,x0,x0
+DT_mini,point_prediction,standard,True,10.713,10.71
+DT_mini,direction_of_change,standard,False,8.228,4.21
+DT_mini,feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+DT_mini,threshold_identification,standard,True,0.5,0.50
+DT_mini,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","Based on the provided decision tree structure, the only feature used for splitting is **x0**. No other features are mentioned in the tree, which implies that all other features (if any exist) have no effect on the prediction.
+
+Thus, if there are other features besides **x0**, they would have little or no effect on the prediction. However, since no other feature names are provided in the tree, I cannot list them explicitly. If you have additional feature names, please provide them for clarification."
+DT_mini,sign_of_effect,standard,True,-5.636,The prediction changes by **-6.83** when \( x_1 \) increases by 1 unit (with all other features at 0).
+DT_mini,counterfactual_prediction,standard,True,8.874,8.87
+DT_mini,hard_all_features_active,hard,True,5.501,6.08
+DT_mini,hard_pairwise_anti_intuitive,hard,True,0.078,"To calculate the predictions for Sample A and Sample B, we follow the decision tree rules:
+
+### For Sample A (x0=2.0, x1=0.1):
+1. Start at the root: `x0 > -0.18` (True, since 2.0 > -0.18).
+2. Move to the right: `x1 <= 0.22` (True, since 0.1 <= 0.22).
+3. Move to the left: `x0 <= 0.72` (False, since 2.0 > 0.72).
+4. Move to the right: Prediction = **4.53**.
+
+### For Sample B (x0=0.5, x1=3.3):
+1. Start at the root: `x0 > -0.18` (True, since 0.5 > -0.18).
+2. Move to the right: `x"
+DT_mini,hard_quantitative_sensitivity,hard,True,8.8,9.8
+DT_mini,hard_mixed_sign_goes_negative,hard,True,0.219,0.22
+DT_mini,hard_two_feature_perturbation,hard,True,7.299,7.30
+DT_mini,insight_simulatability,insight,True,5.208,5.21
+DT_mini,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DT_mini,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+DT_mini,insight_nonlinear_direction,insight,True,6.484,6.48
+DT_mini,insight_counterfactual_target,insight,False,10.0,2.93
+DT_mini,insight_decision_region,insight,True,1.519,1.52
+DT_mini,discrim_simulate_all_active,standard,False,2.418,-0.86
+DT_mini,discrim_compactness,standard,False,,no
+DT_mini,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+DT_mini,discrim_unit_sensitivity,standard,False,5.357,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree's structure for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 > -0.12 \) (True, since \( 0 > -0.12 \)).
+- Move to the right: \( x_0 \leq 0.87 \) (True, since \( 0 \leq 0.87 \)).
+- Move to the left: \( x_1 \leq 0.07 \) (True, since \( x_1 = 0 \leq "
+DT_mini,discrim_predict_above_threshold,standard,True,1.98,1.98
+DT_mini,discrim_predict_below_threshold,standard,True,-0.01,-0.01
+DT_large,most_important_feature,standard,True,x0,x0
+DT_large,point_prediction,standard,True,9.228,9.23
+DT_large,direction_of_change,standard,False,7.946,5.83
+DT_large,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+DT_large,threshold_identification,standard,False,0.5,0.07
+DT_large,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","Based on the provided decision tree structure, it appears that the model only uses the feature **x0** for making predictions. No other features are mentioned in the tree. Therefore, all other features (if any exist) have no effect on the prediction.
+
+If there are additional features beyond **x0**, they would be the ones with no effect. However, since no other feature names are provided in the tree, the answer is:
+
+**(No other features are mentioned)**"
+DT_large,sign_of_effect,standard,False,-4.817,"To determine how the prediction changes when \( x_1 \) increases by 1 unit (with all other features at 0), we follow the decision tree path for \( x_0 = 0 \) and varying \( x_1 \):
+
+1. **When \( x_1 \leq -0.23 \):**
+   - The tree follows the left branch (\( x_1 \leq -0.23 \)).
+   - Then, since \( x_0 = 0 \), it goes to the right branch (\( x_0 > 0.05 \)).
+   - Finally, it reaches the leaf node with a value of **4.76**.
+
+2. **When \( -0.23 < x_1 \leq 0.77 \):**
+   - The tree follows the right branch (\( x_1 > -0.23 \)).
+   - Then, since \( x_0 = 0 \), it"
+DT_large,counterfactual_prediction,standard,True,9.286,11.21
+DT_large,hard_all_features_active,hard,True,4.841,4.84
+DT_large,hard_pairwise_anti_intuitive,hard,False,-0.393,"The model's prediction for **Sample A** is **13.69**, and the prediction for **Sample B** is **8.04**.  
+The difference (B - A) is:
+
+**8.04 - 13.69 = -5.65**
+
+**Answer: -5.65**"
+DT_large,hard_quantitative_sensitivity,hard,True,9.633,10.82
+DT_large,hard_mixed_sign_goes_negative,hard,True,-0.981,-0.98
+DT_large,hard_two_feature_perturbation,hard,True,7.299,7.30
+DT_large,insight_simulatability,insight,True,8.13,8.13
+DT_large,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DT_large,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.07
+DT_large,insight_nonlinear_direction,insight,True,6.083,6.08
+DT_large,insight_counterfactual_target,insight,False,10.0,2.43
+DT_large,insight_decision_region,insight,True,1.519,1.52
+DT_large,discrim_simulate_all_active,standard,False,5.641,2.56
+DT_large,discrim_compactness,standard,False,,no
+DT_large,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+DT_large,discrim_unit_sensitivity,standard,False,6.5,"To determine the change in the model's prediction when \( x_0 \) increases from 0 to 1, while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), we need to follow the decision tree for both values of \( x_0 \).
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 \leq 0.05 \) (True).
+- Next: \( x_1 \leq -0.37 \) (False, since \( x_1 = 0 \)).
+- Next: \( x_0 \leq -1.83 \) (False, since \( x_0 = 0 \)).
+- Next: \( x_1 \leq 0.30 \) (True, since \( x_1 = 0 \)).
+- Next: \("
+DT_large,discrim_predict_above_threshold,standard,False,1.99,0.05
+DT_large,discrim_predict_below_threshold,standard,True,-0.01,0.14
+OLS,most_important_feature,standard,True,x0,x0
+OLS,point_prediction,standard,True,10.061,10.0600
+OLS,direction_of_change,standard,True,7.999,7.9989
+OLS,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+OLS,threshold_identification,standard,True,0.5,0.846
+OLS,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","To determine which features have little or no effect on the prediction, we can look at the absolute values of their coefficients. Features with coefficients close to 0 have minimal impact on the prediction.
+
+From the given coefficients:
+- **x0**: 9.9729 (large effect)
+- **x1**: -0.0104 (very small effect)
+- **x2**: 0.0205 (small effect)
+- **x3**: 0.0087 (very small effect)
+- **x4**: 0.0230 (small effect)
+
+Features with very small coefficients are **x1** and **x3**, as their absolute values are close to 0.
+
+### Answer:
+**x1, x3**"
+OLS,sign_of_effect,standard,True,-4.996,-4.9956
+OLS,counterfactual_prediction,standard,True,11.996,12.00
+OLS,hard_all_features_active,hard,True,6.186,6.2151
+OLS,hard_pairwise_anti_intuitive,hard,False,2.145,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 4.9789 \cdot x_0 + 3.0041 \cdot x_1 + (-0.0062) \cdot x_2 + 0.0144 \cdot x_3 + 0.0497 \cdot x_4 + 0.0194
+\]
+
+### Step 1: Calculate prediction for Sample A
+For Sample A: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0.0\)
+
+\[
+y_A = (4.9789 \cdot 2.0) + (3.0041 \cdot 0.1) + (-0.0062"
+OLS,hard_quantitative_sensitivity,hard,True,8.058,8.0576
+OLS,hard_mixed_sign_goes_negative,hard,False,-0.934,0.0903
+OLS,hard_two_feature_perturbation,hard,True,9.031,9.0423
+OLS,insight_simulatability,insight,False,11.007,14.0347
+OLS,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+OLS,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.1615
+OLS,insight_nonlinear_direction,insight,True,4.194,4.1939
+OLS,insight_counterfactual_target,insight,True,2.998,3.0
+OLS,insight_decision_region,insight,True,1.5,1.506
+OLS,discrim_simulate_all_active,standard,False,5.411,10.2111
+OLS,discrim_compactness,standard,True,,Yes
+OLS,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+OLS,discrim_unit_sensitivity,standard,True,5.015,5.0148
+OLS,discrim_test_predict_above_threshold,standard,False,,
+OLS,discrim_test_predict_below_threshold,standard,False,,
+LassoCV,most_important_feature,standard,True,x0,x0
+LassoCV,point_prediction,standard,True,10.05,10.0496
+LassoCV,direction_of_change,standard,True,7.957,7.9573
+LassoCV,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+LassoCV,threshold_identification,standard,False,0.5,0.86
+LassoCV,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+LassoCV,sign_of_effect,standard,True,-4.99,-4.9903
+LassoCV,counterfactual_prediction,standard,True,11.927,12.93
+LassoCV,hard_all_features_active,hard,False,6.18,3.9941
+LassoCV,hard_pairwise_anti_intuitive,hard,False,2.128,"The model's prediction for sample B minus the prediction for sample A is:
+
+**6.8895**"
+LassoCV,hard_quantitative_sensitivity,hard,True,7.963,7.9628
+LassoCV,hard_mixed_sign_goes_negative,hard,False,-0.933,2.0673
+LassoCV,hard_two_feature_perturbation,hard,False,9.02,6.0181
+LassoCV,insight_simulatability,insight,False,10.978,12.9782
+LassoCV,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+LassoCV,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.1619
+LassoCV,insight_nonlinear_direction,insight,True,4.087,4.0865
+LassoCV,insight_counterfactual_target,insight,False,3.001,"To solve this, we use the LASSO regression equation:
+
+\[
+\text{Prediction} = (\text{coefficient of } x_0) \cdot x_0 + (\text{coefficient of } x_1) \cdot x_1 + (\text{coefficient of } x_2) \cdot x_2 + \text{intercept}
+\]
+
+Substitute the given values:
+- Coefficient of \(x_0 = 3.9987\)
+- Coefficient of \(x_1 = 1.9935\)
+- Coefficient of \(x_2 = 0.0085\)
+- Intercept = \(-0.0390\)
+
+The prediction equation becomes:
+\[
+\text{Prediction} = 3.9987 \cdot x_0 + 1.9935 \cdot x_1 + 0.0085 \cdot x_2 - 0"
+LassoCV,insight_decision_region,insight,False,1.507,6.015
+LassoCV,discrim_simulate_all_active,standard,True,5.402,4.6181
+LassoCV,discrim_compactness,standard,True,,Yes
+LassoCV,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+LassoCV,discrim_unit_sensitivity,standard,True,5.009,"The model's prediction changes by **5.0094** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0094 and all other terms are zero."
+LassoCV,discrim_test_predict_above_threshold,standard,False,,
+LassoCV,discrim_test_predict_below_threshold,standard,False,,
+RidgeCV,most_important_feature,standard,True,x0,x0
+RidgeCV,point_prediction,standard,True,10.058,10.0588
+RidgeCV,direction_of_change,standard,True,7.996,7.9960
+RidgeCV,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RidgeCV,threshold_identification,standard,False,0.5,0.85
+RidgeCV,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The features with coefficients close to zero have little or no effect on the prediction. Based on the given coefficients:
+
+- **x1**: -0.0104
+- **x2**: 0.0205
+- **x3**: 0.0088
+- **x4**: 0.0230
+
+These coefficients are very small compared to **x0** (9.9693). Therefore, the features that appear to have little or no effect on the prediction are:
+
+**x1, x2, x3, x4**"
+RidgeCV,sign_of_effect,standard,True,-4.994,-4.9943
+RidgeCV,counterfactual_prediction,standard,True,11.956,12.96
+RidgeCV,hard_all_features_active,hard,True,6.185,5.2159
+RidgeCV,hard_pairwise_anti_intuitive,hard,False,2.145,"The model's prediction for sample B minus the prediction for sample A is:
+
+**4.9506**"
+RidgeCV,hard_quantitative_sensitivity,hard,True,8.055,8.0548
+RidgeCV,hard_mixed_sign_goes_negative,hard,False,-0.934,0.0906
+RidgeCV,hard_two_feature_perturbation,hard,True,9.029,9.04
+RidgeCV,insight_simulatability,insight,True,11.005,12.0483
+RidgeCV,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+RidgeCV,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),10
+RidgeCV,insight_nonlinear_direction,insight,True,4.148,4.1483
+RidgeCV,insight_counterfactual_target,insight,False,2.999,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 4.0025 \cdot x_0 + 1.9975 \cdot x_1 + 0.0131 \cdot x_2 - 0.0390
+\]
+
+Given:
+- \( y = 13.96 \)
+- \( x_1 = 1.0 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+13.96 = 4.0025 \cdot x_0 + 1.9975 \cdot 1.0 + 0.0131 \cdot 0.0 - 0.0390
+\]
+
+Simplify:
+
+\[
+13.96 = 4.0025 \cdot x_0 + 1.9975 - 0.0390
+\]
+
+\[
+13.96 ="
+RidgeCV,insight_decision_region,insight,True,1.501,1.506
+RidgeCV,discrim_simulate_all_active,standard,False,5.41,7.2971
+RidgeCV,discrim_compactness,standard,True,,Yes
+RidgeCV,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RidgeCV,discrim_unit_sensitivity,standard,True,5.014,5.0138
+RidgeCV,discrim_test_predict_above_threshold,standard,False,,
+RidgeCV,discrim_test_predict_below_threshold,standard,False,,
+RF,most_important_feature,standard,True,x0,x0
+RF,point_prediction,standard,False,9.452,2.0
+RF,direction_of_change,standard,False,8.025,The prediction changes by **+1.0**.
+RF,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RF,threshold_identification,standard,True,0.5,0.50
+RF,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+RF,sign_of_effect,standard,False,-3.957,0.5183
+RF,counterfactual_prediction,standard,True,9.299,7.51
+RF,hard_all_features_active,hard,False,5.585,The prediction cannot be determined from the provided information.
+RF,hard_pairwise_anti_intuitive,hard,False,-1.013,"The exact prediction difference cannot be determined from the provided information because the full tree structure and leaf values are truncated. However, based on the feature importances and the partial tree structure, **x0** is the most important feature, followed by **x1**, while **x2**, **x3**, and **x4** have negligible importance.
+
+From the tree structure:
+- For **Sample A** (x0=2.0, x1=0.1), it falls into the branch where \( x0 > 0.95 \) and \( x1 \leq 0.08 \) or \( x1 > 0.08 \). The exact leaf value is not provided.
+- For **Sample B** (x0=0.5, x1=3.3), it falls into the branch where \( -0.05 < x0 \leq 0.95 \) and \( x1 > 0.44 \). Again"
+RF,hard_quantitative_sensitivity,hard,False,8.1,2.0
+RF,hard_mixed_sign_goes_negative,hard,False,0.926,2.95
+RF,hard_two_feature_perturbation,hard,False,7.7,0.07
+RF,insight_simulatability,insight,False,9.389,The predicted value cannot be determined from the provided information.
+RF,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+RF,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.78
+RF,insight_nonlinear_direction,insight,False,6.147,The prediction cannot be determined from the provided information.
+RF,insight_counterfactual_target,insight,False,10.0,2.0
+RF,insight_decision_region,insight,False,1.519,0.77
+RF,discrim_simulate_all_active,standard,False,3.463,The prediction cannot be determined from the provided information.
+RF,discrim_compactness,standard,False,,no
+RF,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RF,discrim_unit_sensitivity,standard,False,4.707,"The model's prediction changes by **0.0** when \( x_0 \) increases from 0 to 1, given \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+This is because the feature importance values indicate that \( x_2 \) and \( x_3 \) have negligible influence on the model (importance values of 0.0015 and 0.0008, respectively). The prediction is almost entirely determined by \( x_0 \) (importance of 0.8939) and, to a much lesser extent, \( x_1 \) (importance of 0.1038). However, the exact change in prediction depends on the specific splits and leaf values in the decision tree, which are not provided in full detail here."
+RF,discrim_predict_above_threshold,standard,False,2.01,7.77
+RF,discrim_predict_below_threshold,standard,False,-0.02,2.24
+GBM,most_important_feature,standard,True,x0,x0
+GBM,point_prediction,standard,True,9.363,10.65
+GBM,direction_of_change,standard,True,7.927,6.33
+GBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+GBM,threshold_identification,standard,True,0.5,0.50
+GBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","Based on the feature importances provided, the features with very low importance values (close to 0) are:
+
+**x1, x2, x3, x4**"
+GBM,sign_of_effect,standard,False,-4.622,The prediction changes by **5.83** units.
+GBM,counterfactual_prediction,standard,True,9.412,8.50
+GBM,hard_all_features_active,hard,True,5.54,5.54
+GBM,hard_pairwise_anti_intuitive,hard,True,-0.814,"To calculate the difference in predictions for Sample B and Sample A, we will traverse the first estimator tree for both samples and compute their respective predictions.
+
+### For Sample A (x0=2.0, x1=0.1):
+- Start at the root: `x0 > -0.18` (True, go to the right branch).
+- Next: `x1 <= 0.22` (True, go to the left branch).
+- Next: `x0 <= 0.72` (False, go to the right branch).
+- Value = **4.50**.
+
+### For Sample B (x0=0.5, x1=3.3):
+- Start at the root: `x0 > -0.18` (True, go to the right branch).
+- Next: `x1 <= 0.22` (False, go to the right branch).
+- Next: `x0 <= 0.85` ("
+GBM,hard_quantitative_sensitivity,hard,False,8.269,4.31
+GBM,hard_mixed_sign_goes_negative,hard,True,-0.505,0.29
+GBM,hard_two_feature_perturbation,hard,True,8.068,7.45
+GBM,insight_simulatability,insight,False,10.878,5.21
+GBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+GBM,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.70
+GBM,insight_nonlinear_direction,insight,True,6.056,5.81
+GBM,insight_counterfactual_target,insight,False,10.0,2.43
+GBM,insight_decision_region,insight,True,1.519,1.52
+GBM,discrim_simulate_all_active,standard,False,4.596,-5.31
+GBM,discrim_compactness,standard,False,,**no**
+GBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+GBM,discrim_unit_sensitivity,standard,False,5.239,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to follow the first estimator tree and compute the difference in predictions.
+
+### Step 1: Prediction when \( x_0 = 0 \), \( x_1 = 0 \), \( x_2 = 0 \), \( x_3 = 0 \)
+- Start at the root of the tree:
+  - \( x_0 = 0 > -0.12 \), so we go to the right subtree.
+- In the right subtree:
+  - \( x_0 = 0 \leq 0.87 \), so we go to the left child.
+- In this node:
+  - \( x_1 = 0 \leq 0.07 \), so we go to the left child.
+- The value at this leaf is **0.29**.
+
+### Step 2: Prediction when \( x"
+GBM,discrim_predict_above_threshold,standard,True,1.98,1.68
+GBM,discrim_predict_below_threshold,standard,True,-0.02,-0.32
+MLP,most_important_feature,standard,True,x0,x0
+MLP,point_prediction,standard,False,9.471,I cannot compute the exact prediction with the given information.
+MLP,direction_of_change,standard,False,8.671,The prediction changes by **0.5**.
+MLP,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+MLP,threshold_identification,standard,False,0.5,0
+MLP,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","To determine which features have little or no effect on the prediction, we can analyze the L2 norm of the weights for each feature. The L2 norm provides a measure of the overall magnitude of the weights associated with a feature. Features with significantly smaller L2 norms are likely to have less influence on the model's predictions.
+
+From the given data:
+
+- **x0**: L2 = 3.766
+- **x1**: L2 = 1.242
+- **x2**: L2 = 1.220
+- **x3**: L2 = 1.114
+- **x4**: L2 = 1.256
+
+Feature **x0** has a much larger L2 norm compared to the other features, indicating it has a stronger influence on the predictions. The other features (**x1**, **x2**, **x3**, and **x4**) have relatively small and similar L2 norms, suggesting they may"
+MLP,sign_of_effect,standard,False,-5.658,"To calculate the change in prediction when \( x_1 \) increases by 1 unit (with all other features at 0), we need to consider the contribution of \( x_1 \) to the first layer and how it propagates through the network.
+
+### Step-by-step reasoning:
+1. **Weight matrix for \( x_1 \):**
+   The weights from \( x_1 \) to the 100 hidden neurons have a mean of \(-0.021\).
+
+2. **ReLU activation:**
+   Since all other features are 0, the input to each hidden neuron is determined solely by \( x_1 \). If \( x_1 = 0 \), the input to each hidden neuron is 0, and after applying ReLU, the output is also 0. When \( x_1 = 1 \), the input to each hidden neuron becomes equal to its corresponding weight from \( x_1 \). After applying ReLU, only"
+MLP,counterfactual_prediction,standard,True,10.58,13.11
+MLP,hard_all_features_active,hard,False,6.05,The model's prediction cannot be determined with the given information.
+MLP,hard_pairwise_anti_intuitive,hard,False,1.772,"The difference in predictions for sample B and sample A is:
+
+**0.660**
+
+"
+MLP,hard_quantitative_sensitivity,hard,False,6.888,"To calculate the change in the model's prediction when \( x_0 \) increases from 0.5 to 2.5 (with \( x_1 = 0 \) and \( x_2 = 0 \)), we need to consider the contribution of \( x_0 \) to the output.
+
+The first-layer weight matrix indicates that the weights connecting \( x_0 \) to the 100 hidden neurons have a mean of -0.015. Since the activation function is ReLU, only positive contributions will propagate through the network.
+
+The change in input \( x_0 \) is:
+
+\[
+\Delta x_0 = 2.5 - 0.5 = 2
+\]
+
+The total contribution of \( x_0 \) to the hidden layer is approximately:
+
+\[
+\Delta_{\text{hidden}} = \Delta x_0 \times (\text{mean weight from } x_0) = 2 \times (-0"
+MLP,hard_mixed_sign_goes_negative,hard,False,-0.92,"The information provided is insufficient to compute the exact prediction of the model. Specifically, the biases for the hidden and output layers, as well as the weights for the second layer (hidden to output), are missing. Additionally, without knowing how the ReLU activation function is applied and whether there is any preprocessing of inputs, it is impossible to calculate the final output.
+
+If you can provide the missing details, I can help compute the prediction."
+MLP,hard_two_feature_perturbation,hard,False,8.418,0.49
+MLP,insight_simulatability,insight,False,10.707,"The information provided is insufficient to compute the exact predicted value. Specifically, the biases, weights of subsequent layers, and activation function details are missing."
+MLP,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+MLP,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.
+MLP,insight_nonlinear_direction,insight,False,6.083,"The model's prediction cannot be determined with the given information. You would need the full set of weights and biases for all layers, as well as the activation function details, to compute the output."
+MLP,insight_counterfactual_target,insight,False,3.493,8.
+MLP,insight_decision_region,insight,False,1.523,"To determine the threshold value of \( x_0 \) for which the model predicts above 6.0, we need to analyze the behavior of the MLP Regressor. However, without the full details of the trained model (e.g., biases, weights for subsequent layers, and exact activation functions), it is not possible to compute the exact threshold value of \( x_0 \)."
+MLP,discrim_simulate_all_active,standard,False,5.192,The prediction cannot be determined with the given information.
+MLP,discrim_compactness,standard,False,,no
+MLP,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+MLP,discrim_unit_sensitivity,standard,False,5.635,"The model's prediction changes by **0.018** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+MLP,discrim_predict_above_threshold,standard,False,2.35,"The model's prediction cannot be determined with the given information. You would need the full weight matrix, biases, and the output layer weights to compute the prediction."
+MLP,discrim_predict_below_threshold,standard,False,-0.07,The model's prediction cannot be determined with the given information.
+FIGS_mini,most_important_feature,standard,True,x0,X0
+FIGS_mini,point_prediction,standard,True,10.713,10.713
+FIGS_mini,direction_of_change,standard,False,8.228,4.212
+FIGS_mini,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+FIGS_mini,threshold_identification,standard,True,0.5,0.5
+FIGS_mini,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","The model provided only uses the feature **X0** for all splits and decisions. Therefore, any other features (if they exist) are not used in the model and have no effect on the prediction.
+
+If there are other features besides **X0**, they would be the ones with little or no effect. However, since no other features are mentioned in the model, there are no additional features to list.
+
+If you have a broader context with more features, please provide their names for further clarification."
+FIGS_mini,sign_of_effect,standard,True,-4.346,-5.0
+FIGS_mini,counterfactual_prediction,standard,True,8.874,8.874
+FIGS_mini,hard_all_features_active,hard,False,5.159,7.859
+FIGS_mini,hard_pairwise_anti_intuitive,hard,False,-1.947,"To calculate the model's prediction for each sample, we traverse the trees and sum the values at the leaves reached. Then, we compute the difference between the predictions for Sample B and Sample A.
+
+### Tree #0:
+1. **Sample A (x0 = 2.0):**
+   - Root: \( X0 \leq -0.181 \) → False (go to right subtree).
+   - \( X0 \leq 0.724 \) → False (go to right subtree).
+   - \( X0 \leq 1.576 \) → False (go to right subtree).
+   - Leaf value: **9.695**.
+
+2. **Sample B (x0 = 0.5):**
+   - Root: \( X0 \leq -0.181 \) → False (go to right subtree).
+   - \( X0 \leq 0.724 \) → True (go to left subtree).
+  "
+FIGS_mini,hard_quantitative_sensitivity,hard,False,8.8,6.637
+FIGS_mini,hard_mixed_sign_goes_negative,hard,False,1.586,3.435
+FIGS_mini,hard_two_feature_perturbation,hard,True,9.093,9.094
+FIGS_mini,insight_simulatability,insight,False,10.547,15.169
+FIGS_mini,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+FIGS_mini,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.228
+FIGS_mini,insight_nonlinear_direction,insight,False,6.484,4.929
+FIGS_mini,insight_counterfactual_target,insight,False,10.0,2.355
+FIGS_mini,insight_decision_region,insight,True,1.519,1.519
+FIGS_mini,discrim_simulate_all_active,standard,False,-0.823,1.459
+FIGS_mini,discrim_compactness,standard,True,,yes
+FIGS_mini,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+FIGS_mini,discrim_unit_sensitivity,standard,False,4.295,The model's prediction changes by **7.188**.
+FIGS_mini,discrim_predict_above_threshold,standard,True,1.98,2.008
+FIGS_mini,discrim_predict_below_threshold,standard,False,-0.0,1.979
+FIGS_large,most_important_feature,standard,True,x0,x0
+FIGS_large,point_prediction,standard,True,9.228,9.228
+FIGS_large,direction_of_change,standard,True,7.946,The prediction changes by **7.946**.
+FIGS_large,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+FIGS_large,threshold_identification,standard,True,0.5,0.5
+FIGS_large,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The regression model provided only uses the feature **X0** for all splits and decisions. Therefore, no other features are used in the model, and any features other than **X0** have no effect on the prediction.
+
+If there are other features in the dataset (e.g., X1, X2, etc.), they are not used in this model. Thus, the features that have little or no effect on the prediction are:
+
+**X1, X2, X3, ... (all features except X0)**"
+FIGS_large,sign_of_effect,standard,False,-5.163,The prediction changes by **-3.0** when \( x_1 \) increases by 1 unit (with all other features at 0).
+FIGS_large,counterfactual_prediction,standard,True,9.286,9.286
+FIGS_large,hard_all_features_active,hard,False,5.352,6.481
+FIGS_large,hard_pairwise_anti_intuitive,hard,False,-3.632,"To calculate the model's prediction for each sample, we traverse the trees and sum the values at the leaves reached. Then, we subtract the prediction for Sample A from that for Sample B.
+
+### Tree #0:
+#### Sample A (x0 = 2.0):
+- Start at root: \( X0 \leq -0.181 \) → False (go to right subtree).
+- Next split: \( X0 \leq 0.724 \) → False (go to right subtree).
+- Next split: \( X0 \leq 1.576 \) → False (go to right subtree).
+- Next split: \( X0 \leq 1.997 \) → True (go to left leaf).
+- Leaf value: **8.973**.
+
+#### Sample B (x0 = 0.5):
+- Start at root: \( X0 \leq -0.181 \) → False (go to right subtree).
+-"
+FIGS_large,hard_quantitative_sensitivity,hard,True,9.633,8.633
+FIGS_large,hard_mixed_sign_goes_negative,hard,False,-0.109,7.136
+FIGS_large,hard_two_feature_perturbation,hard,False,9.316,13.18
+FIGS_large,insight_simulatability,insight,False,12.283,17.924
+FIGS_large,insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+FIGS_large,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.228
+FIGS_large,insight_nonlinear_direction,insight,True,6.083,6.49
+FIGS_large,insight_counterfactual_target,insight,False,10.0,2.544
+FIGS_large,insight_decision_region,insight,True,1.519,1.763
+FIGS_large,discrim_simulate_all_active,standard,False,0.761,**-9.242**
+FIGS_large,discrim_compactness,standard,False,,no
+FIGS_large,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+FIGS_large,discrim_unit_sensitivity,standard,True,5.077,The model's prediction changes by **5.077** when \( x_0 \) increases from 0 to 1.
+FIGS_large,discrim_predict_above_threshold,standard,True,1.99,2.07
+FIGS_large,discrim_predict_below_threshold,standard,True,-0.01,0.036
+RuleFit,most_important_feature,standard,True,x0,X0
+RuleFit,point_prediction,standard,False,10.13,4.93
+RuleFit,direction_of_change,standard,True,7.998,7.96
+RuleFit,feature_ranking,standard,True,"x0, x1, x2","X0, X1, X2"
+RuleFit,threshold_identification,standard,True,0.5,0.5
+RuleFit,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","Based on the provided model, the features with little or no effect on the prediction are those with coefficients close to zero. These features are:
+
+**X1, X2, X4**"
+RuleFit,sign_of_effect,standard,True,-5.106,-5.11
+RuleFit,counterfactual_prediction,standard,False,8.926,4.65
+RuleFit,hard_all_features_active,hard,True,6.27,6.02
+RuleFit,hard_pairwise_anti_intuitive,hard,False,-1.61,"The model's prediction for a sample is calculated by summing the coefficients of all applicable rules. Let's calculate the predictions for Sample A and Sample B.
+
+### Sample A: \( x_0 = 2.0, x_1 = 0.1 \)
+1. \( X_0 \): Coefficient = 4.95
+2. \( X_1 \): Coefficient = 3.10
+3. \( X_0 > -0.90054 \) and \( X_1 \leq 0.4922 \): Coefficient = 0.03 (True)
+4. \( X_0 > -1.27046 \) and \( X_1 \leq 0.20226 \): Coefficient = 0.05 (True)
+5. \( X_0 > 1.08311 \) and \( X_1 > -0.80566 \): Coefficient = 0.06 (True"
+RuleFit,hard_quantitative_sensitivity,hard,False,6.937,1.89
+RuleFit,hard_mixed_sign_goes_negative,hard,True,0.118,-0.85
+RuleFit,hard_two_feature_perturbation,hard,False,9.188,0.38
+RuleFit,insight_simulatability,insight,False,11.17,9.33
+RuleFit,insight_sparse_feature_set,insight,False,"x0, x1 only","X0, X1, X6, X8"
+RuleFit,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.33152
+RuleFit,insight_nonlinear_direction,insight,False,2.187,0.07
+RuleFit,insight_counterfactual_target,insight,False,10.0,2.0
+RuleFit,insight_decision_region,insight,True,1.535,1.84829
+RuleFit,discrim_simulate_all_active,standard,False,5.085,10.91
+RuleFit,discrim_compactness,standard,False,,no
+RuleFit,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RuleFit,discrim_unit_sensitivity,standard,True,5.035,The model's prediction changes by **5.03** when \( x_0 \) increases from 0 to 1.
+RuleFit,discrim_predict_above_threshold,standard,False,1.99,**0.07**
+RuleFit,discrim_predict_below_threshold,standard,True,-0.03,The prediction is **-0.02**.
+HSTree_mini,most_important_feature,standard,True,x0,X0
+HSTree_mini,point_prediction,standard,True,10.713,10.71
+HSTree_mini,direction_of_change,standard,False,8.228,4.21
+HSTree_mini,feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+HSTree_mini,threshold_identification,standard,True,0.5,0.50
+HSTree_mini,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","The decision tree provided only splits on the feature **X0**. This means that no other features are used in the model, and thus, any other features (if they exist) have no effect on the prediction.
+
+If there are additional features besides **X0**, they would be the ones with little or no effect. However, since the tree does not mention any other features explicitly, we cannot list them without additional context.
+
+If you have a list of all features in the dataset, you can exclude **X0** from that list to identify the features with no effect."
+HSTree_mini,sign_of_effect,standard,False,-5.575,The prediction changes by **6.43**.
+HSTree_mini,counterfactual_prediction,standard,True,8.793,8.79
+HSTree_mini,hard_all_features_active,hard,True,5.312,5.31
+HSTree_mini,hard_pairwise_anti_intuitive,hard,True,0.078,"To calculate the predictions for Sample A and Sample B, we follow the decision tree rules step by step.
+
+### For Sample A (x0 = 2.0, x1 = 0.1):
+1. Start at the root: `X0 > -0.18` (True, since 2.0 > -0.18).
+2. Move to the right: `X1 <= 0.22` (True, since 0.1 <= 0.22).
+3. Move to the left: `X0 <= 0.72` (False, since 2.0 > 0.72).
+4. Move to the right: The value is **4.53**.
+
+### For Sample B (x0 = 0.5, x1 = 3.3):
+1. Start at the root: `X0 > -0.18` (True, since 0.5 > -0.18).
+2"
+HSTree_mini,hard_quantitative_sensitivity,hard,True,8.8,9.80
+HSTree_mini,hard_mixed_sign_goes_negative,hard,True,0.223,0.22
+HSTree_mini,hard_two_feature_perturbation,hard,False,7.254,13.79
+HSTree_mini,insight_simulatability,insight,True,5.208,5.21
+HSTree_mini,insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+HSTree_mini,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+HSTree_mini,insight_nonlinear_direction,insight,False,6.484,4.93
+HSTree_mini,insight_counterfactual_target,insight,False,10.0,1.93
+HSTree_mini,insight_decision_region,insight,True,1.519,1.52
+HSTree_mini,discrim_simulate_all_active,standard,False,2.368,**5.35**
+HSTree_mini,discrim_compactness,standard,True,,yes
+HSTree_mini,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HSTree_mini,discrim_unit_sensitivity,standard,False,5.233,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree's structure for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 = 0 > -0.12 \), so we move to the right branch.
+- Next, \( x_0 = 0 \leq 0.87 \), so we move to the left branch.
+- Then, \( x_1 = 0 \leq 0.07 \), so we move to the left branch.
+- The value at this leaf is **[0.32]**.
+
+### Step "
+HSTree_mini,discrim_predict_above_threshold,standard,True,1.95,1.95
+HSTree_mini,discrim_predict_below_threshold,standard,True,-0.0,0.0
+HSTree_large,most_important_feature,standard,True,x0,X0
+HSTree_large,point_prediction,standard,True,9.228,9.23
+HSTree_large,direction_of_change,standard,True,7.946,6.44
+HSTree_large,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HSTree_large,threshold_identification,standard,True,0.5,0.50
+HSTree_large,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The decision tree provided only uses the feature **X0** for making predictions. No other features are mentioned in the tree structure. Therefore, if there are additional features in the dataset, they do not appear to influence the predictions of this model.
+
+If **X0** is the only feature in the dataset, then no features have ""little or no effect."" However, if there are other features (e.g., X1, X2, etc.), they are not used in this tree and thus have no effect on the prediction.
+
+So, assuming there are other features besides **X0**, the answer would be:
+
+**X1, X2, X3, ... (all features except X0)**
+
+If **X0** is the only feature in the dataset, then there are no such features with little or no effect."
+HSTree_large,sign_of_effect,standard,True,-4.817,The prediction changes by **-4.32** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HSTree_large,counterfactual_prediction,standard,True,9.274,9.27
+HSTree_large,hard_all_features_active,hard,True,4.831,4.83
+HSTree_large,hard_pairwise_anti_intuitive,hard,True,-0.386,"To calculate the predictions for Sample A and Sample B, we traverse the decision tree based on their feature values.
+
+### Sample A: \( x0 = 2.0, x1 = 0.1 \)
+1. Start at the root: \( X0 > -0.18 \) (True, go right).
+2. Next: \( X1 \leq 0.22 \) (True, go left).
+3. Next: \( X0 \leq 0.72 \) (False, go right).
+4. Next: \( X0 \leq 1.59 \) (False, go right).
+
+**Prediction for Sample A:** \( 8.36 \).
+
+---
+
+### Sample B: \( x0 = 0.5, x1 = 3.3 \)
+1. Start at the root: \( X0 > -0.18 \) (True, go right).
+2. Next: \( X1 \"
+HSTree_large,hard_quantitative_sensitivity,hard,True,9.376,8.73
+HSTree_large,hard_mixed_sign_goes_negative,hard,True,-0.852,-0.85
+HSTree_large,hard_two_feature_perturbation,hard,True,7.299,7.30
+HSTree_large,insight_simulatability,insight,True,8.126,8.13
+HSTree_large,insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+HSTree_large,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.0
+HSTree_large,insight_nonlinear_direction,insight,True,6.085,6.08
+HSTree_large,insight_counterfactual_target,insight,False,10.0,3.08
+HSTree_large,insight_decision_region,insight,True,1.519,1.76
+HSTree_large,discrim_simulate_all_active,standard,False,5.323,2.47
+HSTree_large,discrim_compactness,standard,False,,no
+HSTree_large,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HSTree_large,discrim_unit_sensitivity,standard,True,6.5,"The model's prediction changes by **6.50** when \( x_0 \) increases from 0 to 1, given \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+HSTree_large,discrim_predict_above_threshold,standard,True,1.96,1.96
+HSTree_large,discrim_predict_below_threshold,standard,False,-0.0,-3.43
+EBM,most_important_feature,standard,False,x0,"To determine the single most important feature for predicting the output using an `ExplainableBoostingRegressor`, you would need to examine the feature importances or scores provided by the model. Since I don't have access to the model's specific details or data, I cannot directly identify the most important feature. However, you can find it by inspecting the `model.feature_importances_` or `model.explain_global()` output.
+
+If you provide the feature importance data or global explanation, I can help identify the most important feature."
+EBM,point_prediction,standard,False,9.508,I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters.
+EBM,direction_of_change,standard,False,8.302,"To determine the exact change in prediction when \( x_0 \) increases from 0.0 to 1.0 (with all other features at 0.0), you would need access to the trained Explainable Boosting Regressor (EBR) model and its feature contributions. The EBR model provides additive contributions for each feature, so the change in prediction is equal to the difference in the contribution of \( x_0 \) at 1.0 and 0.0.
+
+Without access to the model or its feature contribution values, I cannot provide a specific number. If you have access to the model's feature contribution graph or data, you can directly look up the contribution of \( x_0 \) at 1.0 and subtract its contribution at 0.0 to get the answer.
+
+If you can provide more details or access to the model's outputs, I can assist further!"
+EBM,feature_ranking,standard,False,"x0, x1, x2","I'm sorry, I can't determine the most important features without access to the model's feature importances or data."
+EBM,threshold_identification,standard,False,0.5,"I would need more information about the model, such as the data it was trained on or the feature importances, to determine the threshold value for \( x_0 \). However, if you have access to the Explainable Boosting Machine (EBM) model's feature graph for \( x_0 \), you can identify the approximate threshold by observing where the prediction values change significantly."
+EBM,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","To determine which features have little or no effect on the prediction in an `ExplainableBoostingRegressor` (EBM) model, you need to examine the feature importances or the magnitudes of the feature contributions. In EBM, this can be done by inspecting the **mean absolute scores** (or similar metrics) for each feature, which indicate how much each feature contributes to the predictions.
+
+However, since you haven't provided the actual output or feature importance values from the model, I cannot directly list the features with little or no effect. You can follow these steps to identify such features:
+
+1. Use the `explain_global()` method of your trained `ExplainableBoostingRegressor` model to get a summary of feature importances.
+   ```python
+   ebm_global = model.explain_global()
+   for i in range(len(ebm_global.data())):
+       print(ebm_global.data(i))
+   ```
+
+2. Look for features with very low or zero"
+EBM,sign_of_effect,standard,False,-5.27,"To determine how much the prediction changes when \( x_1 \) increases by 1 unit (with all other features at 0) for an **Explainable Boosting Regressor (EBR)**, you need to look at the contribution of \( x_1 \) in the model's additive structure. However, without access to the specific trained model or its feature contributions, it is impossible to provide a numerical answer.
+
+If you have access to the trained model, you can inspect the contribution of \( x_1 \) by examining its **individual feature function** (partial dependence plot or similar). The change in prediction when \( x_1 \) increases by 1 unit can be directly read from this function.
+
+If you can provide more details or access to the model's outputs, I can help further!"
+EBM,counterfactual_prediction,standard,False,9.757,12.72
+EBM,hard_all_features_active,hard,False,5.89,"I cannot provide the prediction as a single number because the Explainable Boosting Regressor (EBM) is an interpretable machine learning model that requires access to the trained model's feature contributions and learned parameters to compute the prediction. Without access to the model's internal details or feature contributions, it is not possible to calculate the output."
+EBM,hard_pairwise_anti_intuitive,hard,False,-0.766,I cannot compute the exact difference between the predictions for Sample B and Sample A without access to the trained ExplainableBoostingRegressor model and its learned feature contributions. The result depends on the specific relationships the model has learned from the training data.
+EBM,hard_quantitative_sensitivity,hard,False,8.61,"To determine the exact change in the model's prediction when \( x_0 \) increases from 0.5 to 2.5 (with \( x_1 = 0 \) and \( x_2 = 0 \)), you would need access to the Explainable Boosting Regressor (EBR) model's learned feature contributions or its prediction function. Without this information, it is not possible to compute the change in prediction.
+
+If you have access to the EBR model, you can calculate the difference by evaluating the model's predictions at \( x_0 = 0.5 \) and \( x_0 = 2.5 \), while keeping \( x_1 = 0 \) and \( x_2 = 0 \), and then subtracting:
+
+\[
+\text{Difference} = \text{Prediction}(x_0=2.5, x_1=0, x_2=0) - \text{Prediction"
+EBM,hard_mixed_sign_goes_negative,hard,False,-0.467,I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters.
+EBM,hard_two_feature_perturbation,hard,False,9.121,0.03
+EBM,insight_simulatability,insight,False,11.102,I cannot provide the predicted value as a single number without access to the trained model and its data.
+EBM,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x3, x4, x5, x6, x7, x8, x9"
+EBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.
+EBM,insight_nonlinear_direction,insight,False,6.057,I cannot provide a specific prediction without access to the trained model and its data.
+EBM,insight_counterfactual_target,insight,False,10.0,8.0
+EBM,insight_decision_region,insight,False,1.441,"I do not have enough information to calculate the threshold value of \( x_0 \). The ExplainableBoostingRegressor (EBM) is an interpretable machine learning model that uses additive contributions from each feature, but the specific contributions of \( x_0 \), \( x_1 \), and \( x_2 \) are not provided in your question. To determine the threshold for \( x_0 \), I would need the model's learned feature contributions or intercept."
+EBM,discrim_simulate_all_active,standard,False,5.875,I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. The prediction depends on the specific data and patterns learned by the Explainable Boosting Regressor during training.
+EBM,discrim_compactness,standard,False,,no
+EBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+EBM,discrim_unit_sensitivity,standard,False,5.567,"The exact change in the model's prediction when \( x_0 \) increases from 0 to 1 depends on the specific contribution of \( x_0 \) learned by the Explainable Boosting Regressor (EBR). Without access to the trained model's feature contributions or additive terms, it is not possible to provide a single number."
+EBM,discrim_predict_above_threshold,standard,False,2.01,I cannot provide a single number as the prediction without access to the trained model and its data. The prediction depends on the specific model's learned parameters and interactions.
+EBM,discrim_predict_below_threshold,standard,False,-0.03,I cannot provide a single number as the prediction without access to the trained model and its data. The prediction depends on the specific patterns and relationships learned by the Explainable Boosting Regressor during training.
+TabPFN,most_important_feature,standard,False,x0,"TabPFNRegressor does not provide feature importance scores directly, as it is based on a probabilistic transformer model. To determine the most important feature, you would need to use additional techniques such as permutation importance or SHAP values. Without further analysis, the most important feature cannot be determined from the given information."
+TabPFN,point_prediction,standard,False,9.947,"I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. You would need to run the prediction using the model in your Python environment. For example:
+
+```python
+from tabpfn import TabPFNRegressor
+
+# Assuming the model is already trained
+model = TabPFNRegressor(random_state=42)
+
+# Input data
+input_data = [[2.0, 0.0, 0.0]]
+
+# Predict
+prediction = model.predict(input_data)
+print(prediction[0])
+```
+
+This will give you the exact prediction for your input."
+TabPFN,direction_of_change,standard,False,8.02,"I cannot directly compute the change in prediction for the given model (`TabPFNRegressor`) without access to the model's internal parameters or the data it was trained on. The change in prediction depends on how the model was trained and the relationships it learned between `x0` and the target variable.
+
+If you have access to the model, you can calculate this by evaluating the predictions for `x0 = 0.0` and `x0 = 1.0` (with all other features set to 0.0) and subtracting the two:
+
+```python
+from tabpfn import TabPFNRegressor
+
+# Assuming you have a trained TabPFNRegressor model
+model = TabPFNRegressor(random_state=42)
+
+# Create input data
+import numpy as np
+X_0 = np.array([[0.0] + [0.0] * (model.n_features_in_ - 1)])  # x0 = 0."
+TabPFN,feature_ranking,standard,False,"x0, x1, x2","I'm sorry, but the TabPFNRegressor model does not provide feature importance rankings directly."
+TabPFN,threshold_identification,standard,False,0.5,42
+TabPFN,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","The `TabPFNRegressor` model does not provide direct feature importance scores or a built-in method to identify features with little or no effect on the prediction. To determine which features have little or no effect, you would need to perform additional analysis, such as:
+
+1. **Permutation Importance**: Measure the change in model performance when each feature is randomly shuffled.
+2. **Feature Ablation**: Train the model multiple times, each time removing one feature, and observe the impact on performance.
+3. **SHAP Values**: Use SHAP (SHapley Additive exPlanations) to analyze the contribution of each feature to the predictions.
+
+Without performing such an analysis, it is not possible to directly list the features with little or no effect on prediction. If you have already conducted such an analysis, please provide the results or additional context so I can assist further!"
+TabPFN,sign_of_effect,standard,False,-5.045,"To determine how much the prediction changes when \( x_1 \) increases by 1 unit (with all other features set to 0), you need to evaluate the model's sensitivity to \( x_1 \). However, the exact change depends on the internal structure of the trained model, which is not provided here.
+
+If you have access to the model and its prediction function, you can calculate this change numerically by evaluating:
+
+\[
+\Delta y = f(x_1 + 1, x_2=0, x_3=0, \dots) - f(x_1, x_2=0, x_3=0, \dots)
+\]
+
+where \( f \) is the prediction function of your `TabPFNRegressor` model.
+
+Without access to the model or its coefficients (if it were a linear model), it is impossible to provide a specific numerical answer. If you can run Python code, you can compute this directly using your trained"
+TabPFN,counterfactual_prediction,standard,False,11.891,4.08
+TabPFN,hard_all_features_active,hard,False,6.129,0.811
+TabPFN,hard_pairwise_anti_intuitive,hard,False,1.51,"I cannot directly compute the result without running the model, as I do not have access to the internal workings or learned parameters of your trained `TabPFNRegressor` model. You would need to use the model in your Python environment to make predictions for both samples and calculate the difference."
+TabPFN,hard_quantitative_sensitivity,hard,False,7.922,"To determine the exact change in the model's prediction when \( x_0 \) increases from 0.5 to 2.5 (with \( x_1 = 0 \) and \( x_2 = 0 \)), you would need to evaluate the trained model's predictions at these two points:
+
+1. Predict the output for \( x_0 = 0.5, x_1 = 0, x_2 = 0 \).
+2. Predict the output for \( x_0 = 2.5, x_1 = 0, x_2 = 0 \).
+3. Subtract the first prediction from the second.
+
+Since I don't have access to the trained model or its internal parameters, I cannot compute this difference directly. You would need to run these predictions using your trained `TabPFNRegressor` model in your Python environment and calculate the difference.
+
+If you provide the predictions for these two inputs, I can help compute the"
+TabPFN,hard_mixed_sign_goes_negative,hard,False,-0.702,"I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. You would need to run the prediction using the model in your Python environment. For example:
+
+```python
+from tabpfn import TabPFNRegressor
+
+# Assuming the model is already trained
+model = TabPFNRegressor(random_state=42)
+
+# Input data
+X_test = [[1.0, 2.5, 1.0]]
+
+# Predict
+prediction = model.predict(X_test)
+print(prediction[0])
+```
+
+This will give you the exact prediction for the input `[1.0, 2.5, 1.0]`."
+TabPFN,hard_two_feature_perturbation,hard,False,8.91,-0.01
+TabPFN,insight_simulatability,insight,False,11.101,"Sorry, I cannot provide the predicted value as I do not have access to the trained model or its internal parameters."
+TabPFN,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x3, x4, x5, x6, x7, x8, x9"
+TabPFN,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.5
+TabPFN,insight_nonlinear_direction,insight,False,6.003,I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. You would need to run the prediction using the model in your Python environment.
+TabPFN,insight_counterfactual_target,insight,False,3.077,2.0
+TabPFN,insight_decision_region,insight,False,1.516,6.01
+TabPFN,discrim_simulate_all_active,standard,False,5.316,"I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. You would need to run the prediction using the `predict` method of your `TabPFNRegressor` model in your Python environment. For example:
+
+```python
+from tabpfn import TabPFNRegressor
+
+# Assuming the model is already trained
+model = TabPFNRegressor(random_state=42)
+
+# Input data
+X = [[1.3, -0.7, 2.1, -1.5, 0.8]]
+
+# Predict
+prediction = model.predict(X)
+print(prediction[0])
+```
+
+This will give you the single number prediction for the input features."
+TabPFN,discrim_compactness,standard,False,,no
+TabPFN,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+TabPFN,discrim_unit_sensitivity,standard,False,5.07,"The exact change in the model's prediction when \( x_0 \) increases from 0 to 1 cannot be determined without access to the trained model and its internal parameters. The TabPFNRegressor is a machine learning model, and its predictions depend on the learned relationships between the input features and the target variable. You would need to query the model directly with the specified inputs to compute the change in prediction."
+TabPFN,discrim_predict_above_threshold,standard,False,1.99,"I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. However, if you have the model loaded in your Python environment, you can use the following code to get the prediction:
+
+```python
+from tabpfn import TabPFNRegressor
+
+# Assuming the model is already trained
+model = TabPFNRegressor(random_state=42)
+
+# Input data
+X_test = [[2.0, 0.0, 0.0]]
+
+# Predict
+prediction = model.predict(X_test)
+print(prediction[0])
+```
+
+Run this code in your environment to get the exact prediction."
+TabPFN,discrim_predict_below_threshold,standard,False,-0.0,"I cannot directly compute the prediction for the given input without access to the trained model and its internal parameters. You would need to run the prediction using the model in your Python environment. For example:
+
+```python
+from tabpfn import TabPFNRegressor
+
+# Assuming the model is already trained
+model = TabPFNRegressor(random_state=42)
+
+# Input data
+X_test = [[-0.5, 0.0, 0.0]]
+
+# Predict
+prediction = model.predict(X_test)
+print(prediction[0])
+```
+
+This will give you the exact prediction for the input `x0=-0.5, x1=0.0, x2=0.0`."
+DecisionTreeSimple,most_important_feature,standard,True,x0,x0
+DecisionTreeSimple,point_prediction,standard,True,9.228,9.23
+DecisionTreeSimple,direction_of_change,standard,False,7.946,5.44
+DecisionTreeSimple,feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+DecisionTreeSimple,threshold_identification,standard,True,0.5,0.50
+DecisionTreeSimple,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","Based on the regression model provided, it appears that only one feature, **x0**, is used in the decision tree for making predictions. There are no other features mentioned in the model. Therefore, there are no features that have little or no effect on the prediction.
+
+Answer: *(No features to list)*"
+DecisionTreeSimple,sign_of_effect,standard,False,-5.636,The prediction changes by **0.71** when \( x_1 \) increases by 1 unit (with all other features at 0).
+DecisionTreeSimple,counterfactual_prediction,standard,True,9.286,9.29
+DecisionTreeSimple,hard_all_features_active,hard,True,5.015,5.01
+DecisionTreeSimple,hard_pairwise_anti_intuitive,hard,False,-1.901,"To calculate the predictions for Sample A and Sample B, we follow the decision tree rules:
+
+### Sample A: \( x0 = 2.0, x1 = 0.1 \)
+- Start at the root: \( x0 > -0.18 \) → go to the right.
+- Next: \( x1 \leq 0.22 \) → go to the left.
+- Next: \( x0 > 0.72 \) → go to the right.
+- Next: \( x0 > 1.59 \) → go to the right.
+- Prediction for Sample A: **8.43**
+
+### Sample B: \( x0 = 0.5, x1 = 3.3 \)
+- Start at the root: \( x0 > -0.18 \) → go to the right.
+- Next: \( x1 > 0.22 \) → go to the right.
+- Next: \( x"
+DecisionTreeSimple,hard_quantitative_sensitivity,hard,True,9.633,8.61
+DecisionTreeSimple,hard_mixed_sign_goes_negative,hard,False,-0.981,4.46
+DecisionTreeSimple,hard_two_feature_perturbation,hard,False,6.686,8.70
+DecisionTreeSimple,insight_simulatability,insight,True,8.13,8.13
+DecisionTreeSimple,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DecisionTreeSimple,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+DecisionTreeSimple,insight_nonlinear_direction,insight,True,6.484,6.48
+DecisionTreeSimple,insight_counterfactual_target,insight,False,10.0,2.18
+DecisionTreeSimple,insight_decision_region,insight,True,1.519,1.52
+DecisionTreeSimple,discrim_simulate_all_active,standard,False,5.641,1.47
+DecisionTreeSimple,discrim_compactness,standard,False,,no
+DecisionTreeSimple,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+DecisionTreeSimple,discrim_unit_sensitivity,standard,False,7.122,"To determine the change in the model's prediction when \( x_0 \) increases from 0 to 1, while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), we follow the decision tree logic step by step.
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 > -0.12 \) (True, since \( x_0 = 0 \)).
+- Move to the right: \( x_0 \leq 0.87 \) (True, since \( x_0 = 0 \)).
+- Move to the left: \( x_1 \leq 0.07 \) (True, since \( x_1 = 0 \)).
+- Move to the left: \( x_0 \leq 0.40 \) (True, since \( x_"
+DecisionTreeSimple,discrim_predict_above_threshold,standard,True,1.99,1.99
+DecisionTreeSimple,discrim_predict_below_threshold,standard,True,-0.01,-0.01
+AdditiveTree,most_important_feature,standard,True,x0,x0
+AdditiveTree,point_prediction,standard,False,9.319,6.2154
+AdditiveTree,direction_of_change,standard,True,8.053,The prediction change is **6.5014**.
+AdditiveTree,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+AdditiveTree,threshold_identification,standard,True,0.5,0.5
+AdditiveTree,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+AdditiveTree,sign_of_effect,standard,False,-4.255,The prediction changes by **-6.1804** when \( x_1 \) increases by 1 unit (all other features at 0).
+AdditiveTree,counterfactual_prediction,standard,False,8.807,5.95
+AdditiveTree,hard_all_features_active,hard,False,5.588,2.4561
+AdditiveTree,hard_pairwise_anti_intuitive,hard,False,-0.794,"To calculate the difference in predictions for Sample B and Sample A, we compute the contributions of each feature and subtract the prediction for A from the prediction for B.
+
+### Step 1: Contributions for Sample A
+- **x0 = 2.0**: From the table, this value is between x0=1.23 (effect=+5.5041) and x0=3.22 (effect=+12.4075). Interpolating linearly:
+  \[
+  \text{Effect for } x0 = 2.0 = 5.5041 + \frac{(2.0 - 1.23)}{(3.22 - 1.23)} \cdot (12.4075 - 5.5041) = 8.9558
+  \]
+- **x1 = 0.1**: From the table, this value is between x1=-0.70 (effect=-2"
+AdditiveTree,hard_quantitative_sensitivity,hard,True,7.885,7.2572
+AdditiveTree,hard_mixed_sign_goes_negative,hard,True,-0.174,-0.9112
+AdditiveTree,hard_two_feature_perturbation,hard,False,9.156,The prediction is **3.7022**.
+AdditiveTree,insight_simulatability,insight,False,10.675,The predicted value is **6.0913**.
+AdditiveTree,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+AdditiveTree,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-0.995
+AdditiveTree,insight_nonlinear_direction,insight,False,6.244,The prediction is **4.2640**.
+AdditiveTree,insight_counterfactual_target,insight,False,10.0,7.0
+AdditiveTree,insight_decision_region,insight,False,1.519,2.85
+AdditiveTree,discrim_simulate_all_active,standard,True,6.867,The prediction is **6.0843**.
+AdditiveTree,discrim_compactness,standard,False,,no
+AdditiveTree,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+AdditiveTree,discrim_unit_sensitivity,standard,True,4.972,"The model's prediction changes by **+4.8942** when \( x_0 \) increases from 0 to 1.
+
+This is calculated as the difference in the partial effect of \( x_0 \) at \( x_0 = 1 \) and \( x_0 = 0 \). From the given data, we interpolate between the closest points:
+
+- At \( x_0 = 0.26 \), effect = +0.7857
+- At \( x_0 = 0.87 \), effect = +3.0940
+
+Using linear interpolation to estimate the effect at \( x_0 = 1 \):
+\[
+\text{Effect at } x_0 = 1 = 3.0940 + \frac{(1 - 0.87)}{(0.87 - 0.26)} \cdot (3.0940 - 0.7857)
+\]
+\[
+= "
+AdditiveTree,discrim_predict_above_threshold,standard,False,1.91,"The prediction is:
+
+**1.3114**"
+AdditiveTree,discrim_predict_below_threshold,standard,True,-0.04,"The prediction is:
+
+**0.0240**"
+BinnedAdditive,most_important_feature,standard,True,x0,x0
+BinnedAdditive,point_prediction,standard,True,7.581,9.1919
+BinnedAdditive,direction_of_change,standard,True,10.878,10.8477
+BinnedAdditive,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+BinnedAdditive,threshold_identification,standard,False,0.5,0.15
+BinnedAdditive,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant",x2
+BinnedAdditive,sign_of_effect,standard,False,-7.116,The prediction changes by **-9.9188** when \( x_1 \) increases by 1 unit (all other features at 0).
+BinnedAdditive,counterfactual_prediction,standard,True,6.318,6.32
+BinnedAdditive,hard_all_features_active,hard,False,4.391,**6.2754**
+BinnedAdditive,hard_pairwise_anti_intuitive,hard,True,0.279,"To calculate the predictions for Sample A and Sample B, we follow the model's rules and sum up the effects for each feature. Then, we subtract the prediction for Sample A from the prediction for Sample B.
+
+### Step 1: Calculate prediction for Sample A
+- **x0 = 2.0** → falls in the bin `x0 >= 0.79`, so effect = **+6.8142**
+- **x1 = 0.1** → falls in the bin `-0.21 <= x1 < 0.32`, so effect = **-0.1092**
+- **x2 = 0.0** → falls in the bin `-0.27 <= x2 < 0.31`, so effect = **+0.1976**
+- **x3, x4** are excluded (negligible effect).
+
+Prediction for Sample A:
+\[
+y_A = \text{intercept} + \text"
+BinnedAdditive,hard_quantitative_sensitivity,hard,True,3.248,The prediction change is **3.2484**.
+BinnedAdditive,hard_mixed_sign_goes_negative,hard,False,2.524,6.1540
+BinnedAdditive,hard_two_feature_perturbation,hard,False,6.771,4.58
+BinnedAdditive,insight_simulatability,insight,False,10.862,7.9779
+BinnedAdditive,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x5, x8"
+BinnedAdditive,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.26
+BinnedAdditive,insight_nonlinear_direction,insight,False,4.089,"To predict \( y \), we use the formula:
+
+\[
+y = \text{intercept} + \text{effect}_{x0} + \text{effect}_{x1}
+\]
+
+### Step 1: Intercept
+\[
+\text{intercept} = 1.1480
+\]
+
+### Step 2: Effect of \( x0 = 2.0 \)
+From the lookup table for \( x0 \):
+- If \( x0 \geq 0.78 \), the effect is \( +2.9290 \).
+
+Since \( x0 = 2.0 \geq 0.78 \), we have:
+\[
+\text{effect}_{x0} = +2.9290
+\]
+
+### Step 3: Effect of \( x1 = 0.0 \)
+From the lookup table for \( x1 \):
+- If \( -0.25 \leq x1 < 0"
+BinnedAdditive,insight_counterfactual_target,insight,False,10.0,"To make the model predict \( y = 16.95 \), we need to solve for \( x_0 \) while keeping \( x_1 = 1.0 \) and \( x_2 = 0.0 \) fixed.
+
+### Step 1: Write the prediction equation
+The prediction equation is:
+\[
+y = \text{intercept} + \text{effect}_{x_0} + \text{effect}_{x_1} + \text{effect}_{x_2}
+\]
+
+Given:
+- \( y = 16.95 \)
+- \( \text{intercept} = 0.0389 \)
+- From the lookup table:
+  - For \( x_1 = 1.0 \), \( \text{effect}_{x_1} = +2.9305 \) (since \( x_1 \geq 0.75 \))
+  - For \( x_2 = 0"
+BinnedAdditive,insight_decision_region,insight,False,5.0,0.78
+BinnedAdditive,discrim_simulate_all_active,standard,True,4.99,"To calculate the prediction, we sum the intercept and the effects for each feature based on their respective bins:
+
+1. **Intercept**: \( 0.1473 \)
+
+2. **x0 = 1.3**: Falls in the bin \( x0 \geq 0.77 \), so effect = \( +5.3162 \).
+
+3. **x1 = -0.7**: Falls in the bin \( -0.85 \leq x1 < -0.24 \), so effect = \( -1.6583 \).
+
+4. **x2 = 2.1**: Falls in the bin \( x2 \geq 0.89 \), so effect = \( +2.8167 \).
+
+5. **x3 = -1.5**: Falls in the bin \( x3 < -0.90 \), so effect = \( -2.2052 \).
+
+6. **x4 ="
+BinnedAdditive,discrim_compactness,standard,True,,**Yes**
+BinnedAdditive,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+BinnedAdditive,discrim_unit_sensitivity,standard,False,7.019,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to determine the effect of \( x_0 \) at these two values and compute the difference.
+
+From the lookup table for \( x_0 \):
+- When \( x_0 = 0 \): \( 0 \) falls in the bin \(-0.33 \leq x_0 < 0.23\), so the effect is \(-0.1133\).
+- When \( x_0 = 1 \): \( 1 \) falls in the bin \( x_0 \geq 0.78\), so the effect is \(+6.9055\).
+
+The change in prediction is:
+\[
+\Delta y = \text{effect at } x_0 = 1 - \text{effect at } x_0 = 0
+\]
+\[
+\Delta y = 6"
+BinnedAdditive,discrim_predict_above_threshold,standard,True,1.61,1.2719
+BinnedAdditive,discrim_predict_below_threshold,standard,True,0.05,0.0431
+HingeLinearV2,most_important_feature,standard,True,x0,x0
+HingeLinearV2,point_prediction,standard,True,10.023,9.9659
+HingeLinearV2,direction_of_change,standard,True,7.962,7.9624
+HingeLinearV2,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeLinearV2,threshold_identification,standard,False,0.5,0.09
+HingeLinearV2,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeLinearV2,sign_of_effect,standard,True,-4.978,The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HingeLinearV2,counterfactual_prediction,standard,False,11.976,4.42
+HingeLinearV2,hard_all_features_active,hard,False,6.174,2.9219
+HingeLinearV2,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeLinearV2,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeLinearV2,hard_mixed_sign_goes_negative,hard,False,-0.897,2.0216
+HingeLinearV2,hard_two_feature_perturbation,hard,False,8.982,6.9997
+HingeLinearV2,insight_simulatability,insight,True,10.958,10.8182
+HingeLinearV2,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeLinearV2,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.01
+HingeLinearV2,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8894**.
+HingeLinearV2,insight_counterfactual_target,insight,True,3.013,3.0
+HingeLinearV2,insight_decision_region,insight,True,1.511,1.514
+HingeLinearV2,discrim_simulate_all_active,standard,False,5.326,"The prediction for the given values is:
+
+**10.3851**"
+HingeLinearV2,discrim_compactness,standard,True,,Yes
+HingeLinearV2,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeLinearV2,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeLinearV2,discrim_predict_above_threshold,standard,False,2.14,The model predicts **1.2836**.
+HingeLinearV2,discrim_predict_below_threshold,standard,True,-0.08,The model predicts: **-0.3347**
+ScoringReg,most_important_feature,standard,True,x0,x0
+ScoringReg,point_prediction,standard,True,10.014,9.94
+ScoringReg,direction_of_change,standard,True,7.96,7.96
+ScoringReg,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+ScoringReg,threshold_identification,standard,True,0.5,0.35
+ScoringReg,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+ScoringReg,sign_of_effect,standard,False,-4.98,"The coefficient of \( x1 \) in the regression model is \(-4.98\). This means that for every 1-unit increase in \( x1 \), the prediction decreases by **4.98** (all other features held constant). 
+
+Answer: **-4.98**"
+ScoringReg,counterfactual_prediction,standard,False,11.965,6.32
+ScoringReg,hard_all_features_active,hard,False,6.18,2.802
+ScoringReg,hard_pairwise_anti_intuitive,hard,False,2.056,"To calculate the predictions for Sample A and Sample B, substitute their feature values into the regression model equation:
+
+The model is:
+\[
+y = 0.11 + 4.94x_0 - 0.03\max(0, 1.0-x_0) + 2.95x_1 - 0.04\max(0, 1.1-x_1) + 0.02x_4 - 0.01\max(0, 1.0-x_4)
+\]
+
+### For Sample A (\(x_0 = 2.0, x_1 = 0.1, x_4 = 0.0\)):
+- \(\max(0, 1.0 - x_0) = \max(0, 1.0 - 2.0) = \max(0, -1.0) = 0\)
+- \(\max("
+ScoringReg,hard_quantitative_sensitivity,hard,True,7.98,7.98
+ScoringReg,hard_mixed_sign_goes_negative,hard,True,-0.878,-0.10
+ScoringReg,hard_two_feature_perturbation,hard,True,8.979,8.99
+ScoringReg,insight_simulatability,insight,True,10.961,12.08
+ScoringReg,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+ScoringReg,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.
+ScoringReg,insight_nonlinear_direction,insight,True,5.934,"The prediction is:
+
+**5.91**"
+ScoringReg,insight_counterfactual_target,insight,True,3.01,3.0
+ScoringReg,insight_decision_region,insight,True,1.51,1.51
+ScoringReg,discrim_simulate_all_active,standard,False,5.344,The prediction is **8.392**.
+ScoringReg,discrim_compactness,standard,True,,Yes
+ScoringReg,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+ScoringReg,discrim_unit_sensitivity,standard,True,5.0,The model's prediction changes by **5.00** when \( x_0 \) increases from 0 to 1.
+ScoringReg,discrim_predict_above_threshold,standard,False,2.14,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.27 - 0.14 \cdot \max(0, -1.2 - 2.0) + 1.00 \cdot \max(0, 2.0 - (-0.1)) + 0.09 \cdot \max(0, -0.1 - 2.0) + 0.31 \cdot \max(0, 2.0 - 1.0) + 0.10 \cdot \max(0, 1.0 - 2.0) - 0.03 \cdot \max(0, 0.0 - (-0.1)) - 0.03 \cdot \max(0, -0"
+ScoringReg,discrim_predict_below_threshold,standard,True,-0.08,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.27 - 0.14 \cdot \max(0, -1.2 - (-0.5)) + 1.00 \cdot \max(0, -0.5 - (-0.1)) + 0.09 \cdot \max(0, -0.1 - (-0.5)) + 0.31 \cdot \max(0, -0.5 - 1.0) + 0.10 \cdot \max(0, 1.0 - (-0.5)) - 0.03 \cdot \max(0, 0.0 - (-0.1)) - 0.03 \cdot \max(0, -0"
+RuleLinear,most_important_feature,standard,True,x0,x0
+RuleLinear,point_prediction,standard,True,10.009,10.0093
+RuleLinear,direction_of_change,standard,True,7.965,7.9648
+RuleLinear,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RuleLinear,threshold_identification,standard,True,0.5,0.29
+RuleLinear,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+RuleLinear,sign_of_effect,standard,False,-4.979,"The coefficient of \( x1 \) is \(-4.9795\). This means that for every 1-unit increase in \( x1 \), the prediction decreases by **4.9795**.
+
+Answer: **-4.9795**"
+RuleLinear,counterfactual_prediction,standard,True,11.936,12.04
+RuleLinear,hard_all_features_active,hard,True,6.164,**5.56633**
+RuleLinear,hard_pairwise_anti_intuitive,hard,False,2.124,"To calculate the predictions for Sample A and Sample B, we use the given regression model:
+
+\[
+y = 0.0198 + 4.9637 \cdot x0 + 2.9905 \cdot x1 + 0.0008 \cdot x3 + 0.0336 \cdot x4
+\]
+
+### Step 1: Prediction for Sample A
+For Sample A: \(x0 = 2.0\), \(x1 = 0.1\), \(x2 = 0.0\), \(x3 = 0.0\), \(x4 = 0.0\)
+
+Substitute these values into the model:
+\[
+y_A = 0.0198 + (4.9637 \cdot 2.0) + (2.9905 \cdot 0.1) + (0.0008 \cdot 0.0) + ("
+RuleLinear,hard_quantitative_sensitivity,hard,True,7.98,7.98
+RuleLinear,hard_mixed_sign_goes_negative,hard,False,-0.93,-1.9447
+RuleLinear,hard_two_feature_perturbation,hard,False,9.02,6.9934
+RuleLinear,insight_simulatability,insight,False,10.954,15.9536
+RuleLinear,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x3, x5, x6, x7, x8"
+RuleLinear,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.22
+RuleLinear,insight_nonlinear_direction,insight,True,5.529,The prediction is **4.8685**.
+RuleLinear,insight_counterfactual_target,insight,True,3.021,3.0
+RuleLinear,insight_decision_region,insight,True,1.51,1.514
+RuleLinear,discrim_simulate_all_active,standard,True,5.38,6.5241
+RuleLinear,discrim_compactness,standard,True,,Yes
+RuleLinear,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RuleLinear,discrim_unit_sensitivity,standard,True,4.999,The model's prediction changes by **4.9994** when \( x_0 \) increases from 0 to 1.
+RuleLinear,discrim_predict_above_threshold,standard,False,2.09,The prediction is **1.5720**.
+RuleLinear,discrim_predict_below_threshold,standard,True,0.18,0.5374
+HingeLinear,most_important_feature,standard,True,x0,x0
+HingeLinear,point_prediction,standard,True,10.023,9.9659
+HingeLinear,direction_of_change,standard,True,7.962,7.9624
+HingeLinear,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeLinear,threshold_identification,standard,True,0.5,0.37
+HingeLinear,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeLinear,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeLinear,counterfactual_prediction,standard,False,11.976,4.33
+HingeLinear,hard_all_features_active,hard,False,6.174,1.962615
+HingeLinear,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeLinear,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeLinear,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeLinear,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeLinear,insight_simulatability,insight,True,10.958,12.0672
+HingeLinear,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeLinear,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeLinear,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeLinear,insight_counterfactual_target,insight,True,3.013,3.0
+HingeLinear,insight_decision_region,insight,True,1.511,1.514
+HingeLinear,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeLinear,discrim_compactness,standard,True,,Yes
+HingeLinear,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeLinear,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeLinear,discrim_predict_above_threshold,standard,False,2.14,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - 2.0) + 0.9985 \cdot \max(0, 2.0 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - 2.0) + 0.3142 \cdot \max(0, 2.0 - 1.03) + 0.0993 \cdot \max(0, 1.03 - 2.0) - 0.0306 \cdot \max(0, 0.11) - 0.0310 \cdot \max(0"
+HingeLinear,discrim_predict_below_threshold,standard,True,-0.08,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - (-0.5)) + 0.9985 \cdot \max(0, -0.5 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - (-0.5)) + 0.3142 \cdot \max(0, -0.5 - 1.03) + 0.0993 \cdot \max(0, 1.03 - (-0.5)) - 0.0306 \cdot \max(0, 0.11) - 0.0310 \cdot \max(0"
+HingeTreeHybrid,most_important_feature,standard,True,x0,x0
+HingeTreeHybrid,point_prediction,standard,True,10.023,9.9659
+HingeTreeHybrid,direction_of_change,standard,True,7.962,7.9624
+HingeTreeHybrid,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeTreeHybrid,threshold_identification,standard,True,0.5,0.50
+HingeTreeHybrid,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeTreeHybrid,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeTreeHybrid,counterfactual_prediction,standard,False,11.976,4.33
+HingeTreeHybrid,hard_all_features_active,hard,False,6.174,1.962615
+HingeTreeHybrid,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeTreeHybrid,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeTreeHybrid,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeTreeHybrid,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeTreeHybrid,insight_simulatability,insight,True,10.958,12.0672
+HingeTreeHybrid,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeTreeHybrid,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeTreeHybrid,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeTreeHybrid,insight_counterfactual_target,insight,True,3.013,3.0
+HingeTreeHybrid,insight_decision_region,insight,True,1.511,1.514
+HingeTreeHybrid,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeTreeHybrid,discrim_compactness,standard,True,,Yes
+HingeTreeHybrid,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeTreeHybrid,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeTreeHybrid,discrim_predict_above_threshold,standard,False,1.99,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+**-0.4269**"
+HingeTreeHybrid,discrim_predict_below_threshold,standard,True,-0.02,The model predicts **-0.4114**.
+HingeBoosted,most_important_feature,standard,True,x0,x0
+HingeBoosted,point_prediction,standard,True,10.023,9.9659
+HingeBoosted,direction_of_change,standard,True,7.962,7.9624
+HingeBoosted,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBoosted,threshold_identification,standard,True,0.5,0.50
+HingeBoosted,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeBoosted,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeBoosted,counterfactual_prediction,standard,False,11.976,4.33
+HingeBoosted,hard_all_features_active,hard,False,6.174,1.962615
+HingeBoosted,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeBoosted,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeBoosted,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeBoosted,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeBoosted,insight_simulatability,insight,True,10.958,12.0672
+HingeBoosted,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeBoosted,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeBoosted,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeBoosted,insight_counterfactual_target,insight,True,3.013,3.0
+HingeBoosted,insight_decision_region,insight,True,1.511,1.514
+HingeBoosted,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeBoosted,discrim_compactness,standard,True,,Yes
+HingeBoosted,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBoosted,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeBoosted,discrim_predict_above_threshold,standard,False,2.04,"To calculate the prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \), we follow these steps:
+
+### Step 1: Evaluate the linear equation
+The linear equation is:
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - x_0) + 0.9985 \cdot \max(0, x_0 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - x_0) + 0.3142 \cdot \max(0, x_0 - 1.03) + 0.0993 \cdot \max(0, 1.03 - x_0) - 0.0306 \cdot \max(0, x_1"
+HingeBoosted,discrim_predict_below_threshold,standard,False,-0.03,"To calculate the prediction, we follow these steps:
+
+### Step 1: Compute the linear equation
+The linear equation is:
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - x_0) + 0.9985 \cdot \max(0, x_0 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - x_0) + 0.3142 \cdot \max(0, x_0 - 1.03) + 0.0993 \cdot \max(0, 1.03 - x_0) - 0.0306 \cdot \max(0, x_1 - (-0.11)) - 0.0310 \cdot \max(0, -0.11 - x_1) + 0.009"
+HingeBoosted5,most_important_feature,standard,True,x0,x0
+HingeBoosted5,point_prediction,standard,True,10.023,9.9659
+HingeBoosted5,direction_of_change,standard,True,7.962,7.9624
+HingeBoosted5,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBoosted5,threshold_identification,standard,True,0.5,0.50
+HingeBoosted5,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeBoosted5,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeBoosted5,counterfactual_prediction,standard,False,11.976,4.33
+HingeBoosted5,hard_all_features_active,hard,False,6.174,1.962615
+HingeBoosted5,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeBoosted5,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeBoosted5,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeBoosted5,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeBoosted5,insight_simulatability,insight,True,10.958,12.0672
+HingeBoosted5,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeBoosted5,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeBoosted5,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeBoosted5,insight_counterfactual_target,insight,True,3.013,3.0
+HingeBoosted5,insight_decision_region,insight,True,1.511,1.514
+HingeBoosted5,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeBoosted5,discrim_compactness,standard,True,,Yes
+HingeBoosted5,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBoosted5,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeBoosted5,discrim_predict_above_threshold,standard,False,2.0,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+**1.2387**"
+HingeBoosted5,discrim_predict_below_threshold,standard,True,-0.01,"The model predicts **-0.3429** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeBoostedLR7,most_important_feature,standard,True,x0,x0
+HingeBoostedLR7,point_prediction,standard,True,10.023,9.9659
+HingeBoostedLR7,direction_of_change,standard,True,7.962,7.9624
+HingeBoostedLR7,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBoostedLR7,threshold_identification,standard,True,0.5,0.50
+HingeBoostedLR7,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeBoostedLR7,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeBoostedLR7,counterfactual_prediction,standard,False,11.976,4.33
+HingeBoostedLR7,hard_all_features_active,hard,False,6.174,1.962615
+HingeBoostedLR7,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeBoostedLR7,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeBoostedLR7,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeBoostedLR7,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeBoostedLR7,insight_simulatability,insight,True,10.958,12.0672
+HingeBoostedLR7,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeBoostedLR7,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeBoostedLR7,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeBoostedLR7,insight_counterfactual_target,insight,True,3.013,3.0
+HingeBoostedLR7,insight_decision_region,insight,True,1.511,1.514
+HingeBoostedLR7,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeBoostedLR7,discrim_compactness,standard,True,,Yes
+HingeBoostedLR7,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBoostedLR7,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeBoostedLR7,discrim_predict_above_threshold,standard,False,1.99,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+**1.0867**"
+HingeBoostedLR7,discrim_predict_below_threshold,standard,False,-0.02,"To calculate the prediction, we follow these steps:
+
+### Step 1: Compute the linear equation
+The linear equation is:
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - x_0) + 0.9985 \cdot \max(0, x_0 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - x_0) + 0.3142 \cdot \max(0, x_0 - 1.03) + 0.0993 \cdot \max(0, 1.03 - x_0) - 0.0306 \cdot \max(0, x_1 - (-0.11)) - 0.0310 \cdot \max(0, -0.11 - x_1) + 0.009"
+HingeBoostedD4,most_important_feature,standard,True,x0,x0
+HingeBoostedD4,point_prediction,standard,True,10.023,9.9659
+HingeBoostedD4,direction_of_change,standard,True,7.962,7.9624
+HingeBoostedD4,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBoostedD4,threshold_identification,standard,True,0.5,0.50
+HingeBoostedD4,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeBoostedD4,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeBoostedD4,counterfactual_prediction,standard,False,11.976,4.33
+HingeBoostedD4,hard_all_features_active,hard,False,6.174,1.962615
+HingeBoostedD4,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeBoostedD4,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeBoostedD4,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeBoostedD4,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeBoostedD4,insight_simulatability,insight,True,10.958,12.0672
+HingeBoostedD4,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeBoostedD4,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeBoostedD4,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeBoostedD4,insight_counterfactual_target,insight,True,3.013,3.0
+HingeBoostedD4,insight_decision_region,insight,True,1.511,1.514
+HingeBoostedD4,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeBoostedD4,discrim_compactness,standard,True,,Yes
+HingeBoostedD4,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBoostedD4,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeBoostedD4,discrim_predict_above_threshold,standard,False,2.45,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 + (0.9985 \cdot \max(0, 2.0 - (-0.10))) + (0.3142 \cdot \max(0, 2.0 - 1.03)) + (0.0993 \cdot \max(0, 1.03 - 2.0)) + (other terms = 0) + (tree corrections)
+\]
+
+### Step-by-step:
+1. **Linear equation:**
+   - \( -0.2618 + (0.9985 \cdot \max(0, 2.1)) + (0.3142 \cdot \max(0, 0.97)) + (other terms = 0)"
+HingeBoostedD4,discrim_predict_below_threshold,standard,False,-0.02,"To calculate the prediction, we follow these steps:
+
+### Step 1: Compute the linear equation
+The linear equation is:
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - x_0) + 0.9985 \cdot \max(0, x_0 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - x_0) + 0.3142 \cdot \max(0, x_0 - 1.03) + 0.0993 \cdot \max(0, 1.03 - x_0) - 0.0306 \cdot \max(0, x_1 - (-0.11)) - 0.0310 \cdot \max(0, -0.11 - x_1) + 0.009"
+HingeBoosted3,most_important_feature,standard,True,x0,x0
+HingeBoosted3,point_prediction,standard,True,10.023,9.9659
+HingeBoosted3,direction_of_change,standard,True,7.962,7.9624
+HingeBoosted3,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBoosted3,threshold_identification,standard,True,0.5,0.50
+HingeBoosted3,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeBoosted3,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeBoosted3,counterfactual_prediction,standard,False,11.976,4.33
+HingeBoosted3,hard_all_features_active,hard,False,6.174,1.962615
+HingeBoosted3,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeBoosted3,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeBoosted3,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeBoosted3,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeBoosted3,insight_simulatability,insight,True,10.958,12.0672
+HingeBoosted3,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeBoosted3,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeBoosted3,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeBoosted3,insight_counterfactual_target,insight,True,3.013,3.0
+HingeBoosted3,insight_decision_region,insight,True,1.511,1.514
+HingeBoosted3,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeBoosted3,discrim_compactness,standard,True,,Yes
+HingeBoosted3,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBoosted3,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeBoosted3,discrim_predict_above_threshold,standard,False,2.0,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 + (0.9985 \cdot 2.1) + (0.3142 \cdot 0.97) + (0.0993 \cdot -0.97) + (-0.1404 \cdot 0) + (-0.0310 \cdot 0) + (-0.0306 \cdot 0) + (0.0098 \cdot 0) + (-0.0218 \cdot 0)
+\]
+
+Linear equation result:
+\[
+y_{\text{linear}} = -0.2618 + (2.09785) + (0.304774) - (0.096321) = 2.044503
+\]
+
+"
+HingeBoosted3,discrim_predict_below_threshold,standard,True,0.0,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 + (-0.1404 \cdot 0.66) + (0.9985 \cdot 0) + (0.0878 \cdot 0.40) + (0.3142 \cdot 0) + (0.0993 \cdot 1.53) + (-0.0306 \cdot 0) + (-0.0310 \cdot 0) + (0.0098 \cdot 0) + (-0.0218 \cdot 0)
+\]
+
+Linear equation result:
+\[
+y_{\text{linear}} = -0.2618 - 0.0927 + 0 + 0.0351 + 0 +"
+HingeK4T2,most_important_feature,standard,True,x0,x0
+HingeK4T2,point_prediction,standard,True,10.014,9.9372
+HingeK4T2,direction_of_change,standard,True,7.951,7.9513
+HingeK4T2,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeK4T2,threshold_identification,standard,True,0.5,0.50
+HingeK4T2,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeK4T2,sign_of_effect,standard,True,-4.976,The prediction changes by **-4.9757** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HingeK4T2,counterfactual_prediction,standard,False,11.976,4.23
+HingeK4T2,hard_all_features_active,hard,False,6.17,1.6082
+HingeK4T2,hard_pairwise_anti_intuitive,hard,False,2.064,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for each sample and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.1143 + 4.9362x_0 - 0.0276\max(0, 0.99-x_0) + 2.9495x_1 - 0.0431\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### For Sample A (\(x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0\"
+HingeK4T2,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeK4T2,hard_mixed_sign_goes_negative,hard,True,-0.903,-0.9082
+HingeK4T2,hard_two_feature_perturbation,hard,False,8.982,6.5002
+HingeK4T2,insight_simulatability,insight,False,10.958,9.0194
+HingeK4T2,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x5, x6, x8"
+HingeK4T2,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.02
+HingeK4T2,insight_nonlinear_direction,insight,False,6.0,"To calculate the prediction, substitute \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) into the given equation:
+
+\[
+y = -0.1677 - 0.0020 \cdot \max(0, x_0 - (-1.02)) - 0.0487 \cdot \max(0, -1.02 - x_0) + 1.4734 \cdot \max(0, x_0 - (-0.31)) + 1.6192 \cdot \max(0, x_0 - 0.27) + 0.1080 \cdot \max(0, 0.27 - x_0) - 0.0517 \cdot \max(0, x_0 - 0.97) - 0.0024 \cd"
+HingeK4T2,insight_counterfactual_target,insight,True,3.013,3.0
+HingeK4T2,insight_decision_region,insight,True,1.511,1.514
+HingeK4T2,discrim_simulate_all_active,standard,False,5.326,The prediction is **9.5041**.
+HingeK4T2,discrim_compactness,standard,True,,Yes
+HingeK4T2,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeK4T2,discrim_unit_sensitivity,standard,True,4.994,4.9942
+HingeK4T2,discrim_predict_above_threshold,standard,False,2.04,"To calculate the prediction, we follow these steps:
+
+### Step 1: Evaluate the linear equation
+The linear equation is:
+
+\[
+y = -0.0781 - 0.3509 \cdot \max(0, -0.38 - x_0) + 1.4333 \cdot \max(0, x_0 - 0.25) + 0.4900 \cdot \max(0, 0.25 - x_0) - 0.2708 \cdot \max(0, x_0 - 1.03) - 0.1316 \cdot \max(0, 1.03 - x_0) - 0.0370 \cdot \max(0, x_1 + 0.38) - 0.0441 \cdot \max(0, -0.38 - x_1) + 0.005"
+HingeK4T2,discrim_predict_below_threshold,standard,False,0.06,"To calculate the prediction, we follow these steps:
+
+### Step 1: Evaluate the linear equation
+The linear equation is:
+
+\[
+y = -0.0781 - 0.3509 \cdot \max(0, -0.38 - x_0) + 1.4333 \cdot \max(0, x_0 - 0.25) + 0.4900 \cdot \max(0, 0.25 - x_0) - 0.2708 \cdot \max(0, x_0 - 1.03) - 0.1316 \cdot \max(0, 1.03 - x_0) - 0.0370 \cdot \max(0, x_1 + 0.38) - 0.0441 \cdot \max(0, -0.38 - x_1) + 0.005"
+HingePosOnly,most_important_feature,standard,True,x0,x0
+HingePosOnly,point_prediction,standard,True,10.097,10.1371
+HingePosOnly,direction_of_change,standard,True,7.965,7.9648
+HingePosOnly,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingePosOnly,threshold_identification,standard,True,0.5,0.50
+HingePosOnly,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingePosOnly,sign_of_effect,standard,True,-4.979,"The prediction changes by **-4.9794** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingePosOnly,counterfactual_prediction,standard,False,11.99,4.37
+HingePosOnly,hard_all_features_active,hard,True,6.18,**5.2923**
+HingePosOnly,hard_pairwise_anti_intuitive,hard,False,2.125,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for each sample and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.0197 + 4.9647 \cdot x0 + 2.9914 \cdot x1 + 0.0017 \cdot x3 + 0.0347 \cdot x4
+\]
+
+### Prediction for Sample A:
+Substitute \(x0 = 2.0\), \(x1 = 0.1\), \(x3 = 0.0\), \(x4 = 0.0\):
+\[
+y_A = 0.0197 + 4.9647 \cdot 2.0 + 2.9914 \cdot 0.1 + 0.0017 \cdot 0.0 + 0.0347 \cdot 0."
+HingePosOnly,hard_quantitative_sensitivity,hard,True,7.98,7.98
+HingePosOnly,hard_mixed_sign_goes_negative,hard,False,-0.929,-2.5214
+HingePosOnly,hard_two_feature_perturbation,hard,False,8.982,6.0003
+HingePosOnly,insight_simulatability,insight,False,10.989,12.9572
+HingePosOnly,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingePosOnly,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingePosOnly,insight_nonlinear_direction,insight,False,5.934,"The prediction is:
+
+\[
+y = 0.0086 + 2.9498 \cdot \max(0, 2.0 - (-0.01)) - 0.0115 \cdot 0.0 + 0.0010 \cdot 0.0
+\]
+
+\[
+y = 0.0086 + 2.9498 \cdot \max(0, 2.01)
+\]
+
+\[
+y = 0.0086 + 2.9498 \cdot 2.01
+\]
+
+\[
+y = 0.0086 + 5.928198
+\]
+
+\[
+y = 5.9368
+\]
+
+**Answer: 5.9368**"
+HingePosOnly,insight_counterfactual_target,insight,True,3.006,3.0
+HingePosOnly,insight_decision_region,insight,True,1.506,1.507
+HingePosOnly,discrim_simulate_all_active,standard,False,5.38,10.7071
+HingePosOnly,discrim_compactness,standard,True,,Yes
+HingePosOnly,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingePosOnly,discrim_unit_sensitivity,standard,True,5.008,"The model's prediction changes by **5.0079** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0079 and no other terms depend on \( x_0 \)."
+HingePosOnly,discrim_predict_above_threshold,standard,False,1.98,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+\[
+y = 0.0547 + (-0.2069 \cdot 0) + (1.1111 \cdot 2.1) + (0.4098 \cdot 1.97) + (0.0237 \cdot 0) + (-0.0515 \cdot 0) + (0.0204 \cdot 0)
+\]
+
+For the residual correction trees:
+
+- **Tree 1**: \( x_0 > 1.67 \), so leaf value = -0.15 → contribution = \( -0.15 \cdot 0.5 = -0.075 \)
+- **Tree 2**: \( x_0 > 1.56 \), so leaf value"
+HingePosOnly,discrim_predict_below_threshold,standard,True,-0.0,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+**0.0847**"
+HingeD2T5,most_important_feature,standard,True,x0,x0
+HingeD2T5,point_prediction,standard,True,10.023,9.9659
+HingeD2T5,direction_of_change,standard,True,7.962,7.9624
+HingeD2T5,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeD2T5,threshold_identification,standard,True,0.5,0.50
+HingeD2T5,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeD2T5,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeD2T5,counterfactual_prediction,standard,False,11.976,4.33
+HingeD2T5,hard_all_features_active,hard,False,6.174,1.962615
+HingeD2T5,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeD2T5,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeD2T5,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeD2T5,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeD2T5,insight_simulatability,insight,True,10.958,12.0672
+HingeD2T5,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeD2T5,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeD2T5,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeD2T5,insight_counterfactual_target,insight,True,3.013,3.0
+HingeD2T5,insight_decision_region,insight,True,1.511,1.514
+HingeD2T5,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeD2T5,discrim_compactness,standard,True,,Yes
+HingeD2T5,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeD2T5,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeD2T5,discrim_predict_above_threshold,standard,False,2.0,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+**1.0917**"
+HingeD2T5,discrim_predict_below_threshold,standard,True,-0.01,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - (-0.5)) + 0.9985 \cdot \max(0, -0.5 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - (-0.5)) + 0.3142 \cdot \max(0, -0.5 - 1.03) + 0.0993 \cdot \max(0, 1.03 - (-0.5)) - 0.0306 \cdot \max(0, 0.0 - (-0.11)) - 0.0310 \cdot"
+HingeRF,most_important_feature,standard,True,x0,x0
+HingeRF,point_prediction,standard,True,10.023,9.9659
+HingeRF,direction_of_change,standard,True,7.962,7.9624
+HingeRF,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeRF,threshold_identification,standard,True,0.5,0.83
+HingeRF,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeRF,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeRF,counterfactual_prediction,standard,False,11.976,4.33
+HingeRF,hard_all_features_active,hard,False,6.174,1.962615
+HingeRF,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeRF,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeRF,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeRF,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeRF,insight_simulatability,insight,True,10.958,12.0672
+HingeRF,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeRF,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeRF,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeRF,insight_counterfactual_target,insight,True,3.013,3.0
+HingeRF,insight_decision_region,insight,True,1.511,1.514
+HingeRF,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeRF,discrim_compactness,standard,True,,Yes
+HingeRF,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeRF,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeRF,discrim_predict_above_threshold,standard,False,2.33,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+**1.0195**"
+HingeRF,discrim_predict_below_threshold,standard,True,-0.02,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - (-0.5)) + 0.9985 \cdot \max(0, -0.5 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - (-0.5)) + 0.3142 \cdot \max(0, -0.5 - 1.03) + 0.0993 \cdot \max(0, 1.03 - (-0.5)) - 0.0306 \cdot \max(0, 0.0 - (-0.11)) - 0.0310 \cd"
+HingeStumps,most_important_feature,standard,True,x0,x0
+HingeStumps,point_prediction,standard,True,10.023,9.9659
+HingeStumps,direction_of_change,standard,True,7.962,7.9624
+HingeStumps,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeStumps,threshold_identification,standard,True,0.5,0.50
+HingeStumps,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeStumps,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeStumps,counterfactual_prediction,standard,False,11.976,4.33
+HingeStumps,hard_all_features_active,hard,False,6.174,1.962615
+HingeStumps,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeStumps,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeStumps,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeStumps,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeStumps,insight_simulatability,insight,True,10.958,12.0672
+HingeStumps,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeStumps,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeStumps,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeStumps,insight_counterfactual_target,insight,True,3.013,3.0
+HingeStumps,insight_decision_region,insight,True,1.511,1.514
+HingeStumps,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeStumps,discrim_compactness,standard,True,,Yes
+HingeStumps,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeStumps,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeStumps,discrim_predict_above_threshold,standard,False,2.22,"To calculate the prediction, we evaluate the main equation and add the applicable residual corrections.
+
+### Step 1: Evaluate the main equation
+Given \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \):
+
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - 2.0) + 0.9985 \cdot \max(0, 2.0 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - 2.0) + 0.3142 \cdot \max(0, 2.0 - 1.03) + 0.0993 \cdot \max(0, 1.03 - 2.0) 
+\]
+\[
+- 0."
+HingeStumps,discrim_predict_below_threshold,standard,True,-0.07,"The model predicts **-0.3664** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeGBM,most_important_feature,standard,True,x0,x0
+HingeGBM,point_prediction,standard,True,10.023,9.9659
+HingeGBM,direction_of_change,standard,True,7.962,7.9624
+HingeGBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBM,threshold_identification,standard,True,0.5,0.50
+HingeGBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBM,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeGBM,counterfactual_prediction,standard,False,11.976,4.33
+HingeGBM,hard_all_features_active,hard,False,6.174,1.962615
+HingeGBM,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBM,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBM,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeGBM,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeGBM,insight_simulatability,insight,True,10.958,12.0672
+HingeGBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBM,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeGBM,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBM,insight_decision_region,insight,True,1.511,1.514
+HingeGBM,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeGBM,discrim_compactness,standard,True,,Yes
+HingeGBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBM,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBM,discrim_predict_above_threshold,standard,False,2.01,0.8264
+HingeGBM,discrim_predict_below_threshold,standard,True,-0.01,-0.3349
+HingeGBM100,most_important_feature,standard,True,x0,x0
+HingeGBM100,point_prediction,standard,True,10.023,9.9659
+HingeGBM100,direction_of_change,standard,True,7.962,7.9624
+HingeGBM100,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBM100,threshold_identification,standard,True,0.5,0.50
+HingeGBM100,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBM100,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeGBM100,counterfactual_prediction,standard,False,11.976,4.33
+HingeGBM100,hard_all_features_active,hard,False,6.174,1.962615
+HingeGBM100,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBM100,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBM100,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeGBM100,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeGBM100,insight_simulatability,insight,True,10.958,12.0672
+HingeGBM100,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBM100,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBM100,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeGBM100,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBM100,insight_decision_region,insight,True,1.511,1.514
+HingeGBM100,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeGBM100,discrim_compactness,standard,True,,Yes
+HingeGBM100,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBM100,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBM100,discrim_predict_above_threshold,standard,False,2.01,0.8161
+HingeGBM100,discrim_predict_below_threshold,standard,True,-0.02,"The model predicts **y = -0.2964** for \(x_0 = -0.5\), \(x_1 = 0.0\), and \(x_2 = 0.0\)."
+HingeGBMd2,most_important_feature,standard,True,x0,x0
+HingeGBMd2,point_prediction,standard,True,10.023,9.9659
+HingeGBMd2,direction_of_change,standard,True,7.962,7.9624
+HingeGBMd2,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBMd2,threshold_identification,standard,True,0.5,0.50
+HingeGBMd2,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBMd2,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeGBMd2,counterfactual_prediction,standard,False,11.976,4.33
+HingeGBMd2,hard_all_features_active,hard,False,6.174,1.962615
+HingeGBMd2,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBMd2,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBMd2,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeGBMd2,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeGBMd2,insight_simulatability,insight,True,10.958,12.0672
+HingeGBMd2,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBMd2,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBMd2,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeGBMd2,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBMd2,insight_decision_region,insight,True,1.511,1.514
+HingeGBMd2,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeGBMd2,discrim_compactness,standard,True,,Yes
+HingeGBMd2,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBMd2,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBMd2,discrim_predict_above_threshold,standard,False,1.99,0.7302
+HingeGBMd2,discrim_predict_below_threshold,standard,True,-0.01,"The model predicts **-0.3567** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeGBM150,most_important_feature,standard,True,x0,x0
+HingeGBM150,point_prediction,standard,True,10.023,9.9659
+HingeGBM150,direction_of_change,standard,True,7.962,7.9624
+HingeGBM150,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBM150,threshold_identification,standard,True,0.5,0.50
+HingeGBM150,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBM150,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeGBM150,counterfactual_prediction,standard,False,11.976,4.33
+HingeGBM150,hard_all_features_active,hard,False,6.174,1.962615
+HingeGBM150,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBM150,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBM150,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeGBM150,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeGBM150,insight_simulatability,insight,True,10.958,12.0672
+HingeGBM150,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBM150,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBM150,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeGBM150,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBM150,insight_decision_region,insight,True,1.511,1.514
+HingeGBM150,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeGBM150,discrim_compactness,standard,True,,Yes
+HingeGBM150,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBM150,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBM150,discrim_predict_above_threshold,standard,False,2.0,0.8161
+HingeGBM150,discrim_predict_below_threshold,standard,True,-0.02,-0.3341
+HingeGBMsqrt,most_important_feature,standard,True,x0,x0
+HingeGBMsqrt,point_prediction,standard,True,10.023,9.9659
+HingeGBMsqrt,direction_of_change,standard,True,7.962,7.9624
+HingeGBMsqrt,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBMsqrt,threshold_identification,standard,True,0.5,0.50
+HingeGBMsqrt,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBMsqrt,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeGBMsqrt,counterfactual_prediction,standard,False,11.976,4.33
+HingeGBMsqrt,hard_all_features_active,hard,False,6.174,1.962615
+HingeGBMsqrt,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBMsqrt,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBMsqrt,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeGBMsqrt,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeGBMsqrt,insight_simulatability,insight,True,10.958,12.0672
+HingeGBMsqrt,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBMsqrt,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBMsqrt,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeGBMsqrt,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBMsqrt,insight_decision_region,insight,True,1.511,1.514
+HingeGBMsqrt,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeGBMsqrt,discrim_compactness,standard,True,,Yes
+HingeGBMsqrt,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBMsqrt,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBMsqrt,discrim_predict_above_threshold,standard,False,2.29,0.9995
+HingeGBMsqrt,discrim_predict_below_threshold,standard,True,-0.08,-0.3423
+HingeGBMv3,most_important_feature,standard,True,x0,x0
+HingeGBMv3,point_prediction,standard,True,10.023,9.9361
+HingeGBMv3,direction_of_change,standard,True,7.962,7.9624
+HingeGBMv3,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBMv3,threshold_identification,standard,True,0.5,0.83
+HingeGBMv3,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBMv3,sign_of_effect,standard,False,-4.978,"The contribution of \( x1 \) to the prediction is given by:
+
+\[
+\text{contribution}(x1) = -4.9783 \cdot x1
+\]
+
+If \( x1 \) increases by 1 unit, the change in the contribution is:
+
+\[
+\Delta y = -4.9783 \cdot (x1 + 1) - (-4.9783 \cdot x1) = -4.9783
+\]
+
+Thus, the prediction decreases by **4.9783** when \( x1 \) increases by 1 unit (all other features at 0)."
+HingeGBMv3,counterfactual_prediction,standard,True,11.976,11.14
+HingeGBMv3,hard_all_features_active,hard,False,6.174,1.9945
+HingeGBMv3,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the predictions for Sample A and Sample B, we will compute the contributions for each feature and sum them with the intercept. Then, we will subtract the prediction for Sample A from the prediction for Sample B.
+
+### Model Equation:
+\[
+y = 0.1149 + 4.9355 \cdot x_0 - 0.0283 \cdot \max(0, 0.99 - x_0) + 2.9496 \cdot x_1 - 0.0429 \cdot \max(0, 1.11 - x_1) - 0.0035 \cdot \max(0, 1.10 - x_3) + 0.0207 \cdot x_4 - 0.0099 \cdot \max(0, 0.97 - x_4)
+\]
+
+### Step-by-Step Calculation:
+
+#### For Sample A (\(x_"
+HingeGBMv3,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBMv3,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9362
+HingeGBMv3,hard_two_feature_perturbation,hard,False,8.982,6.9997
+HingeGBMv3,insight_simulatability,insight,True,10.958,10.8978
+HingeGBMv3,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBMv3,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBMv3,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8826**.
+HingeGBMv3,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBMv3,insight_decision_region,insight,True,1.511,1.514
+HingeGBMv3,discrim_simulate_all_active,standard,False,5.326,"The prediction for the given inputs is:
+
+**8.5361**"
+HingeGBMv3,discrim_compactness,standard,True,,Yes
+HingeGBMv3,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBMv3,discrim_unit_sensitivity,standard,False,4.997,"The contribution of \( x_0 \) to the model is given by:
+
+\[
+\text{contribution}(x_0) = 4.9972 \cdot x_0
+\]
+
+When \( x_0 \) increases from 0 to 1, the change in contribution is:
+
+\[
+4.9972 \cdot (1 - 0) = 4.9972
+\]
+
+Thus, the model's prediction changes by **4.9972**."
+HingeGBMv3,discrim_predict_above_threshold,standard,False,2.01,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 + \text{contribution}(x_0) + \text{contribution}(x_1) + \text{contribution}(x_2)
+\]
+
+### Step-by-step calculation:
+
+#### Contribution from \( x_0 \):
+\[
+\text{contribution}(x_0) = -0.1404 \cdot \max(0, -1.16 - 2.0) 
++ 0.9985 \cdot \max(0, 2.0 - (-0.10)) 
++ 0.0878 \cdot \max(0, -0.10 - 2.0) 
++ 0.3142 \cdot \max(0, "
+HingeGBMv3,discrim_predict_below_threshold,standard,True,-0.01,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 + (-0.1404 \cdot 0) + (0.9985 \cdot 0.5) + (0.0878 \cdot 0) + (0.3142 \cdot 0) + (0.0993 \cdot 1.53) + (-0.0306 \cdot 0) + (-0.0310 \cdot 0) + (0.0098 \cdot 0) + (-0.0218 \cdot 0)
+\]
+
+\[
+y = -0.2618 + 0 + 0.49925 + 0 + 0 + 0.151929 + 0 + 0 + "
+HingeHistGBM,most_important_feature,standard,True,x0,x0
+HingeHistGBM,point_prediction,standard,True,10.023,9.9659
+HingeHistGBM,direction_of_change,standard,True,7.962,7.9624
+HingeHistGBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeHistGBM,threshold_identification,standard,True,0.5,0.83
+HingeHistGBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeHistGBM,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeHistGBM,counterfactual_prediction,standard,False,11.976,4.33
+HingeHistGBM,hard_all_features_active,hard,False,6.174,1.962615
+HingeHistGBM,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeHistGBM,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeHistGBM,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeHistGBM,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeHistGBM,insight_simulatability,insight,True,10.958,12.0672
+HingeHistGBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeHistGBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeHistGBM,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeHistGBM,insight_counterfactual_target,insight,True,3.013,3.0
+HingeHistGBM,insight_decision_region,insight,True,1.511,1.514
+HingeHistGBM,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeHistGBM,discrim_compactness,standard,True,,Yes
+HingeHistGBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeHistGBM,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeHistGBM,discrim_predict_above_threshold,standard,False,2.09,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 + 0.9985 \cdot \max(0, 2.0 - (-0.10)) + 0.3142 \cdot \max(0, 2.0 - 1.03) - 0.1404 \cdot \max(0, -1.16 - 2.0) + 0.0993 \cdot \max(0, 1.03 - 2.0) + 0.0878 \cdot \max(0, -0.10 - 2.0) - 0.0310 \cdot \max(0, -0.11 - 0.0) - 0.0306 \cd"
+HingeHistGBM,discrim_predict_below_threshold,standard,True,-0.01,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2618 - 0.1404 \cdot \max(0, -1.16 - (-0.5)) + 0.9985 \cdot \max(0, -0.5 - (-0.10)) + 0.0878 \cdot \max(0, -0.10 - (-0.5)) + 0.3142 \cdot \max(0, -0.5 - 1.03) + 0.0993 \cdot \max(0, 1.03 - (-0.5)) - 0.0306 \cdot \max(0, 0.0 - (-0.11)) - 0.0310 \cd"
+HingeAdaptive,most_important_feature,standard,True,x0,x0
+HingeAdaptive,point_prediction,standard,False,10.026,4.3973
+HingeAdaptive,direction_of_change,standard,False,7.986,4.4462
+HingeAdaptive,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeAdaptive,threshold_identification,standard,True,0.5,0.83
+HingeAdaptive,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","To determine which features have little or no effect on the prediction, we need to identify features with coefficients close to zero or whose associated terms have negligible contributions. Based on the provided model, the following features appear to have little or no effect:
+
+**x4**
+
+This is because the coefficients for terms involving `x4` (e.g., `+0.0385*x4`, `-0.0529*max(0, x4--0.98)`, etc.) are relatively small compared to other features like `x0`, `x1`, `x2`, and `x3`."
+HingeAdaptive,sign_of_effect,standard,False,-5.06,The prediction changes by **-2.0039** when \( x_1 \) increases by 1 unit (all other features at 0).
+HingeAdaptive,counterfactual_prediction,standard,False,12.096,6.9852
+HingeAdaptive,hard_all_features_active,hard,False,6.205,1.9823
+HingeAdaptive,hard_pairwise_anti_intuitive,hard,True,1.976,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression model for both samples and compute the difference.
+
+### Step 1: Model equation
+The model equation is:
+\[
+y = 0.3061 + 1.9839x_0 + 1.0070\max(0, x_0 + 1.11) - 0.9768\max(0, -1.11 - x_0) + 0.9591\max(0, x_0 - 0.02) - 1.0248\max(0, 0.02 - x_0) + 0.9899\max(0, x_0 - 0.99) - 0.9939\max(0, 0.99 - x_0) + \dots
+\]
+(The full equation is given in the problem.)
+
+### Step 2"
+HingeAdaptive,hard_quantitative_sensitivity,hard,False,7.961,2.4236
+HingeAdaptive,hard_mixed_sign_goes_negative,hard,False,-0.866,1.5729
+HingeAdaptive,hard_two_feature_perturbation,hard,False,9.111,1.9629
+HingeAdaptive,insight_simulatability,insight,False,10.919,3.5862
+HingeAdaptive,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeAdaptive,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.02
+HingeAdaptive,insight_nonlinear_direction,insight,False,5.955,"The model predicts:
+
+**2.2751**"
+HingeAdaptive,insight_counterfactual_target,insight,False,3.048,5.0
+HingeAdaptive,insight_decision_region,insight,False,1.498,2.79
+HingeAdaptive,discrim_simulate_all_active,standard,True,5.35,"The prediction for the given values is:
+
+**3.9626**"
+HingeAdaptive,discrim_compactness,standard,False,,no
+HingeAdaptive,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeAdaptive,discrim_unit_sensitivity,standard,False,4.989,"The change in the model's prediction when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), can be calculated by evaluating the terms involving \( x_0 \) at \( x_0 = 1 \) and \( x_0 = 0 \), and finding the difference.
+
+### Step-by-step calculation:
+
+The terms involving \( x_0 \) are:
+\[
+2.0024 \cdot x_0 + 1.0340 \cdot \max(0, x_0 - (-0.99)) - 0.9684 \cdot \max(0, -0.99 - x_0) + 0.9618 \cdot \max(0, x_0 - (-0.04)) - 1.0406 \cdot \max("
+HingeAdaptive,discrim_predict_above_threshold,standard,False,2.19,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+**0.9317**"
+HingeAdaptive,discrim_predict_below_threshold,standard,True,-0.05,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \) is:
+
+\[
+y = -0.2449 + (0.2819 \cdot -0.5) - (0.0166 \cdot \max(0, -0.5 - (-1.16))) - (0.2984 \cdot \max(0, -1.16 - (-0.5))) + (0.7297 \cdot \max(0, -0.5 - (-0.10))) + (0.4478 \cdot \max(0, -(-0.10) - (-0.5))) + (0.3623 \cdot \max(0, -0.5 - 1.03)) + (0.0804 \cdot \max(0, 1."
+HingeDebiasGBM,most_important_feature,standard,True,x0,x0
+HingeDebiasGBM,point_prediction,standard,False,10.051,4.9329
+HingeDebiasGBM,direction_of_change,standard,True,7.997,7.9971
+HingeDebiasGBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeDebiasGBM,threshold_identification,standard,True,0.5,0.50
+HingeDebiasGBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeDebiasGBM,sign_of_effect,standard,True,-4.995,"The prediction changes by **-4.9954** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeDebiasGBM,counterfactual_prediction,standard,False,12.084,4.63
+HingeDebiasGBM,hard_all_features_active,hard,False,6.184,3.3251
+HingeDebiasGBM,hard_pairwise_anti_intuitive,hard,False,2.001,"To calculate the predictions for Sample A and Sample B, substitute their feature values into the regression equation:
+
+### Regression Equation:
+\[
+y = 0.3669 + 4.9055x_0 - 0.0835\max(0, 0.99-x_0) + 2.9004x_1 - 0.1171\max(0, 1.11-x_1) - 0.0257\max(0, 1.10-x_3) - 0.0251x_4 - 0.0863\max(0, 0.97-x_4)
+\]
+
+### Sample A: \(x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0\)
+Substitute into the equation:
+- \( \max("
+HingeDebiasGBM,hard_quantitative_sensitivity,hard,True,8.055,8.0554
+HingeDebiasGBM,hard_mixed_sign_goes_negative,hard,True,-0.854,-0.0799
+HingeDebiasGBM,hard_two_feature_perturbation,hard,False,9.038,6.0897
+HingeDebiasGBM,insight_simulatability,insight,True,10.963,12.0887
+HingeDebiasGBM,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x5, x8"
+HingeDebiasGBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeDebiasGBM,insight_nonlinear_direction,insight,True,5.956,The prediction is **5.8868**.
+HingeDebiasGBM,insight_counterfactual_target,insight,True,3.051,3.0
+HingeDebiasGBM,insight_decision_region,insight,True,1.5,1.506
+HingeDebiasGBM,discrim_simulate_all_active,standard,True,5.303,6.5451
+HingeDebiasGBM,discrim_compactness,standard,True,,yes
+HingeDebiasGBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeDebiasGBM,discrim_unit_sensitivity,standard,True,5.018,"The model's prediction changes by **5.0175** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0175 and all other terms remain constant."
+HingeDebiasGBM,discrim_predict_above_threshold,standard,False,2.02,0.6926
+HingeDebiasGBM,discrim_predict_below_threshold,standard,True,-0.01,-0.1537
+ModelTree,most_important_feature,standard,True,x0,x0
+ModelTree,point_prediction,standard,False,9.92,0.6104
+ModelTree,direction_of_change,standard,False,7.875,"The prediction for \( x_0 = 0.0 \) falls into the branch:
+
+\[
+\text{if } x_0 > -0.00 \text{ and } x_0 \leq 1.00: \quad \text{predict: } 0.1586 + 7.7678x_0
+\]
+
+Substituting \( x_0 = 0.0 \):
+
+\[
+\text{Prediction at } x_0 = 0.0: \quad 0.1586 + 7.7678(0.0) = 0.1586
+\]
+
+The prediction for \( x_0 = 1.0 \) also falls into the same branch:
+
+\[
+\text{if } x_0 > -0.00 \text{ and } x_0 \leq 1.00: \quad \text{predict: } 0.1586 + "
+ModelTree,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+ModelTree,threshold_identification,standard,True,0.5,0.50
+ModelTree,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The features that appear to have little or no effect on the prediction are those with coefficients close to zero in all the linear models at the leaves. From the given model:
+
+- **x1**: Coefficient is 0.1443 in the first leaf, -0.0637 in the third leaf, and absent in the other two leaves.
+- **x2**: Coefficient is 0.1135 in the first leaf, 0.0104 in the second leaf, and absent in the other two leaves.
+- **x3**: Coefficient is 0.0633 in the second leaf, 0.0083 in the third leaf, -0.0245 in the fourth leaf, and absent in the first leaf.
+- **x4**: Coefficient is -0.1147, 0.0306, 0.0413, and 0.0091 across different leaves.
+
+From this analysis:
+- **x2**"
+ModelTree,sign_of_effect,standard,False,-4.957,"The prediction change when \( x_1 \) increases by 1 unit (with all other features at 0) depends on the region of the decision tree.
+
+### Step-by-step:
+1. **Determine the region of the tree**:
+   - When \( x_1 \leq -0.23 \), the prediction depends on \( x_0 \).
+   - When \( x_1 > -0.23 \), the prediction also depends on \( x_0 \).
+
+2. **Set all other features to 0** (\( x_0 = 0, x_2 = 0, x_3 = 0 \)):
+   - For \( x_1 \leq -0.23 \):
+     - If \( x_0 \leq 0.05 \): Prediction = \( 0.0630 - 4.8468x_1 \).
+     - If \( x_0 > 0.05 \):"
+ModelTree,counterfactual_prediction,standard,False,11.662,4.6618
+ModelTree,hard_all_features_active,hard,False,6.12,2.7251
+ModelTree,hard_pairwise_anti_intuitive,hard,False,2.449,"To calculate the predictions for Sample A and Sample B, we follow the decision tree rules and compute the predictions accordingly.
+
+### Sample A:
+Features: \( x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0 \)
+
+1. Start at the root: \( x_0 > -0.18 \), so we go to the right branch.
+2. Next condition: \( x_1 \leq 0.22 \), so we take the left branch.
+3. Prediction formula:  
+   \[
+   \text{predict} = 0.0636 + 4.8587 \cdot x_0 + 2.9357 \cdot x_1 + 0.0286 \cdot x_4
+   \]
+   Substituting values:
+   \[
+   \text"
+ModelTree,hard_quantitative_sensitivity,hard,False,7.811,"The model's prediction for \( x_0 > 0.09 \) and \( x_0 \leq 1.13 \) is:
+
+\[
+\text{predict} = 0.1656 + 3.7268 \cdot x_0 + 0.0292 \cdot x_1 + 0.0317 \cdot x_2
+\]
+
+For \( x_0 > 1.13 \), the prediction is:
+
+\[
+\text{predict} = 0.2542 + 3.8344 \cdot x_0 + 0.0033 \cdot x_1
+\]
+
+Given \( x_1 = 0 \) and \( x_2 = 0 \), the predictions simplify to:
+
+- For \( x_0 > 0.09 \) and \( x_0 \leq 1.13 \):  
+\[
+\text{predict}"
+ModelTree,hard_mixed_sign_goes_negative,hard,True,-0.868,0.0303 + 2.9527*(1.0) - 1.9358*(2.5) + 0.9884*(1.0) = **-2.3538**
+ModelTree,hard_two_feature_perturbation,hard,True,8.787,**9.1269**
+ModelTree,insight_simulatability,insight,True,10.902,0.2173 + 4.9331*(1.0) + 2.8909*(2.0) - 0.0030*(0.5) + 0.0569*(-0.5) = **11.89105**
+ModelTree,insight_sparse_feature_set,insight,False,"x0, x1 only","x0,x1,x2,x3,x4,x5,x6,x7,x8,x9"
+ModelTree,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+ModelTree,insight_nonlinear_direction,insight,True,5.991,The model predicts **5.9914**.
+ModelTree,insight_counterfactual_target,insight,False,3.074,2.0
+ModelTree,insight_decision_region,insight,False,1.512,0.755
+ModelTree,discrim_simulate_all_active,standard,True,5.375,The model predicts: **5.4041**
+ModelTree,discrim_compactness,standard,False,,no
+ModelTree,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+ModelTree,discrim_unit_sensitivity,standard,False,5.007,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), we need to determine which leaf of the decision tree is used for each value of \( x_0 \) and compute the difference in predictions.
+
+### Step 1: Determine the leaf for \( x_0 = 0 \)
+- For \( x_0 = 0 \), it falls into the condition:
+  - \( x_0 > -0.12 \) (true)
+  - \( x_0 \leq 0.87 \) (true)
+- The prediction formula is:
+  \[
+  \text{predict} = 0.0555 + 4.8669x_0 + 1.9638x_1 - 0.0018x_2 -"
+ModelTree,discrim_predict_above_threshold,standard,True,1.98,1.9835
+ModelTree,discrim_predict_below_threshold,standard,True,-0.01,-0.0052
+HingeBagGBM,most_important_feature,standard,True,x0,x0
+HingeBagGBM,point_prediction,standard,True,9.919,9.6653
+HingeBagGBM,direction_of_change,standard,True,7.894,7.8938
+HingeBagGBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBagGBM,threshold_identification,standard,True,0.5,0.50
+HingeBagGBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x2, x3, x4"
+HingeBagGBM,sign_of_effect,standard,True,-4.984,The prediction changes by **-4.9531** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HingeBagGBM,counterfactual_prediction,standard,True,11.99,10.234
+HingeBagGBM,hard_all_features_active,hard,False,6.212,2.9626
+HingeBagGBM,hard_pairwise_anti_intuitive,hard,False,2.001,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression model for both samples and compute the difference.
+
+### Model:
+\[
+y = 0.1857 + 4.9250x_0 - 0.0375\max(0, 0.99-x_0) + 2.8663x_1 + 0.0392\max(0, x_1+0.90) - 0.1077\max(0, 1.11-x_1) + 0.0351\max(0, -1.10-x_2) + 0.0086\max(0, x_2+0.03) + 0.0243\max(0, -0.03-x_2) - 0.0351\max(0, 1.10-x_3) - 0.0176\"
+HingeBagGBM,hard_quantitative_sensitivity,hard,True,7.886,7.794
+HingeBagGBM,hard_mixed_sign_goes_negative,hard,False,-0.868,1.9116
+HingeBagGBM,hard_two_feature_perturbation,hard,True,8.91,10.0002
+HingeBagGBM,insight_simulatability,insight,False,10.731,12.3586
+HingeBagGBM,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x4, x5, x6"
+HingeBagGBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.01
+HingeBagGBM,insight_nonlinear_direction,insight,True,5.942,"The prediction is:
+
+**5.9057**"
+HingeBagGBM,insight_counterfactual_target,insight,True,3.038,3.0
+HingeBagGBM,insight_decision_region,insight,False,1.525,2.01
+HingeBagGBM,discrim_simulate_all_active,standard,False,5.302,"The prediction for the given values is:
+
+**7.9191**"
+HingeBagGBM,discrim_compactness,standard,True,,**Yes**
+HingeBagGBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBagGBM,discrim_unit_sensitivity,standard,False,4.998,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we substitute the values into the equation and compute the difference.
+
+### Model equation:
+\[
+y = 0.1716 + 4.9571x_0 - 0.0431\max(0, 0.95 - x_0) + 1.8436x_1 - 0.1456\max(0, 1.06 - x_1) + 0.0440\max(0, -1.16 - x_3) - 0.0241\max(0, x_3 - (-0.10))
+\]
+
+### Given:
+- \( x_1 = 0 \), \( x_2 = 0 \), \( x_3 = 0 \)
+- We are interested in the change in \( y \) as \( x_0 \) increases"
+HingeBagGBM,discrim_predict_above_threshold,standard,False,2.02,0.5147
+HingeBagGBM,discrim_predict_below_threshold,standard,True,-0.02,-0.5118
+HingeRound,most_important_feature,standard,True,x0,x0
+HingeRound,point_prediction,standard,True,10.025,9.9650
+HingeRound,direction_of_change,standard,True,7.962,7.9624
+HingeRound,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeRound,threshold_identification,standard,True,0.5,0.50
+HingeRound,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeRound,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeRound,counterfactual_prediction,standard,False,11.983,4.37
+HingeRound,hard_all_features_active,hard,False,6.175,2.982205
+HingeRound,hard_pairwise_anti_intuitive,hard,False,2.071,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression model for each sample and then subtract the prediction for Sample A from the prediction for Sample B.
+
+### Model:
+\[
+y = 0.1134 + 4.9355x_0 - 0.0282\max(0, 1.00-x_0) + 2.9527x_1 - 0.0396\max(0, 1.10-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0187x_4 - 0.0123\max(0, 1.00-x_4)
+\]
+
+### For Sample A (\(x_0=2.0, x_1=0.1, x_2=0.0, x_3=0.0, x_4=0"
+HingeRound,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeRound,hard_mixed_sign_goes_negative,hard,True,-0.874,-0.9736
+HingeRound,hard_two_feature_perturbation,hard,False,8.982,6.0002
+HingeRound,insight_simulatability,insight,True,10.958,9.9572
+HingeRound,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x5, x6, x8"
+HingeRound,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.0
+HingeRound,insight_nonlinear_direction,insight,False,5.948,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = 0.0001 + 0.0013 \cdot \max(0, 2.0 - (-1.00)) + 2.9652 \cdot \max(0, 2.0 - 0.00) + 0.0150 \cdot \max(0, 1.00 - 0.00) - 0.0018 \cdot \max(0, 1.00 - 0.00)
+\]
+
+Simplify each term:
+- \( \max(0, x_0 - (-1.00)) = \max(0, 2.0 + 1.00) = \max(0, 3.00) = 3.00 \"
+HingeRound,insight_counterfactual_target,insight,False,3.012,2.0
+HingeRound,insight_decision_region,insight,True,1.511,1.514
+HingeRound,discrim_simulate_all_active,standard,False,5.328,3.7431
+HingeRound,discrim_compactness,standard,True,,Yes
+HingeRound,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeRound,discrim_unit_sensitivity,standard,True,4.994,The model's prediction changes by **4.9945** when \( x_0 \) increases from 0 to 1.
+HingeRound,discrim_predict_above_threshold,standard,False,2.02,0.9937
+HingeRound,discrim_predict_below_threshold,standard,True,-0.01,-0.2877
+HingeK2D4,most_important_feature,standard,True,x0,x0
+HingeK2D4,point_prediction,standard,True,9.999,9.9723
+HingeK2D4,direction_of_change,standard,True,7.962,7.9624
+HingeK2D4,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeK2D4,threshold_identification,standard,True,0.5,0.50
+HingeK2D4,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeK2D4,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeK2D4,counterfactual_prediction,standard,False,11.976,4.23
+HingeK2D4,hard_all_features_active,hard,False,6.18,1.9627
+HingeK2D4,hard_pairwise_anti_intuitive,hard,False,2.056,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for both samples and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.1578 + 4.9309x_0 - 0.0375\max(0, 0.99-x_0) + 2.9423x_1 - 0.0547\max(0, 1.11-x_1) - 0.0077\max(0, 1.10-x_3) + 0.0128x_4 - 0.0235\max(0, 0.97-x_4)
+\]
+
+### For Sample A (\(x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0\"
+HingeK2D4,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeK2D4,hard_mixed_sign_goes_negative,hard,False,-0.877,2.8917
+HingeK2D4,hard_two_feature_perturbation,hard,False,8.989,6.0004
+HingeK2D4,insight_simulatability,insight,True,10.961,12.0109
+HingeK2D4,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeK2D4,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.39
+HingeK2D4,insight_nonlinear_direction,insight,False,5.957,The model predicts: **1.1936**
+HingeK2D4,insight_counterfactual_target,insight,True,3.011,3.0
+HingeK2D4,insight_decision_region,insight,True,1.511,1.514
+HingeK2D4,discrim_simulate_all_active,standard,True,5.326,5.7071
+HingeK2D4,discrim_compactness,standard,True,,Yes
+HingeK2D4,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeK2D4,discrim_unit_sensitivity,standard,True,5.002,"The model's prediction changes by **5.0021** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0021 and all other terms remain constant."
+HingeK2D4,discrim_predict_above_threshold,standard,False,2.04,0.3549
+HingeK2D4,discrim_predict_below_threshold,standard,False,-0.04,-0.8022
+HingeK3D4,most_important_feature,standard,True,x0,x0
+HingeK3D4,point_prediction,standard,True,10.023,9.9659
+HingeK3D4,direction_of_change,standard,True,7.962,7.9624
+HingeK3D4,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeK3D4,threshold_identification,standard,True,0.5,0.50
+HingeK3D4,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeK3D4,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeK3D4,counterfactual_prediction,standard,False,11.976,4.33
+HingeK3D4,hard_all_features_active,hard,False,6.174,1.962615
+HingeK3D4,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeK3D4,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeK3D4,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeK3D4,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeK3D4,insight_simulatability,insight,True,10.958,12.0672
+HingeK3D4,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeK3D4,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeK3D4,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeK3D4,insight_counterfactual_target,insight,True,3.013,3.0
+HingeK3D4,insight_decision_region,insight,True,1.511,1.514
+HingeK3D4,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeK3D4,discrim_compactness,standard,True,,Yes
+HingeK3D4,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeK3D4,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeK3D4,discrim_predict_above_threshold,standard,False,2.03,0.8181
+HingeK3D4,discrim_predict_below_threshold,standard,True,-0.02,-0.2968
+HingeK2D3big,most_important_feature,standard,True,x0,x0
+HingeK2D3big,point_prediction,standard,True,9.999,9.9723
+HingeK2D3big,direction_of_change,standard,True,7.962,7.9624
+HingeK2D3big,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeK2D3big,threshold_identification,standard,True,0.5,0.50
+HingeK2D3big,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeK2D3big,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeK2D3big,counterfactual_prediction,standard,False,11.976,4.23
+HingeK2D3big,hard_all_features_active,hard,False,6.18,1.9627
+HingeK2D3big,hard_pairwise_anti_intuitive,hard,False,2.056,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for both samples and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.1578 + 4.9309x_0 - 0.0375\max(0, 0.99-x_0) + 2.9423x_1 - 0.0547\max(0, 1.11-x_1) - 0.0077\max(0, 1.10-x_3) + 0.0128x_4 - 0.0235\max(0, 0.97-x_4)
+\]
+
+### For Sample A (\(x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0\"
+HingeK2D3big,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeK2D3big,hard_mixed_sign_goes_negative,hard,False,-0.877,2.8917
+HingeK2D3big,hard_two_feature_perturbation,hard,False,8.989,6.0004
+HingeK2D3big,insight_simulatability,insight,True,10.961,12.0109
+HingeK2D3big,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeK2D3big,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.39
+HingeK2D3big,insight_nonlinear_direction,insight,False,5.969,The model predicts: **2.1976**
+HingeK2D3big,insight_counterfactual_target,insight,True,3.011,3.0
+HingeK2D3big,insight_decision_region,insight,True,1.511,1.514
+HingeK2D3big,discrim_simulate_all_active,standard,True,5.326,5.7071
+HingeK2D3big,discrim_compactness,standard,True,,Yes
+HingeK2D3big,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeK2D3big,discrim_unit_sensitivity,standard,True,5.002,"The model's prediction changes by **5.0021** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0021 and all other terms remain constant."
+HingeK2D3big,discrim_predict_above_threshold,standard,False,2.02,0.9602
+HingeK2D3big,discrim_predict_below_threshold,standard,False,-0.03,-0.7112
+HingeTreeCombo,most_important_feature,standard,True,x0,x0
+HingeTreeCombo,point_prediction,standard,True,9.964,9.5861
+HingeTreeCombo,direction_of_change,standard,True,7.979,7.5276
+HingeTreeCombo,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeTreeCombo,threshold_identification,standard,False,0.5,1.00
+HingeTreeCombo,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeTreeCombo,sign_of_effect,standard,False,-4.991,"The prediction change when \( x_1 \) increases by 1 unit (with all other features at 0) can be calculated by summing the coefficients of the terms involving \( x_1 \):
+
+\[
+\text{Change} = -4.7969 + 0.0388 = -4.7581
+\]
+
+**Answer: -4.7581**"
+HingeTreeCombo,counterfactual_prediction,standard,False,11.674,4.7129
+HingeTreeCombo,hard_all_features_active,hard,False,6.172,3.3251
+HingeTreeCombo,hard_pairwise_anti_intuitive,hard,False,2.016,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for both samples and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.0442 + 4.7875x_0 + 2.8314x_1 - 0.0212 \cdot \max(0, 1.11 - x_1) + 0.0238x_4 + 0.0348 \cdot \text{tree}(x_0) + 0.0418 \cdot \text{tree}(x_1) + 0.0100 \cdot \text{tree}(x_4)
+\]
+
+### Step 1: Define tree(x)
+The function `tree(x)` is not explicitly defined in the problem, so we assume it evaluates to **0** for simplicity unless otherwise specified.
+
+### Step 2: Calculate prediction for Sample A
+For"
+HingeTreeCombo,hard_quantitative_sensitivity,hard,True,7.862,7.707
+HingeTreeCombo,hard_mixed_sign_goes_negative,hard,False,-0.826,-1.8822
+HingeTreeCombo,hard_two_feature_perturbation,hard,False,9.053,6.4982
+HingeTreeCombo,insight_simulatability,insight,False,10.894,6.0007
+HingeTreeCombo,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1, x5"
+HingeTreeCombo,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.97
+HingeTreeCombo,insight_nonlinear_direction,insight,False,5.962,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.0100 + 2.7804 \cdot \max(0, 2.0 - (-0.01)) + 0.0569 \cdot \max(0, 2.0 - 0.97) + 0.0002 \cdot \max(0, 0.97 - 2.0) + 0.0147 \cdot \max(0, 1.03 - 0.0) + 0.0058 \cdot \max(0, 0.0 - 0.15) - 0.0028 \cdot \max(0, 1.02 - 0.0) + 0.0555 \cd"
+HingeTreeCombo,insight_counterfactual_target,insight,False,3.033,2.0
+HingeTreeCombo,insight_decision_region,insight,True,1.504,1.586
+HingeTreeCombo,discrim_simulate_all_active,standard,False,5.363,"The prediction for the given values is:
+
+**9.7094**"
+HingeTreeCombo,discrim_compactness,standard,False,,**No**
+HingeTreeCombo,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeTreeCombo,discrim_unit_sensitivity,standard,True,5.015,The model's prediction changes by **4.7587** when \( x_0 \) increases from 0 to 1.
+HingeTreeCombo,discrim_predict_above_threshold,standard,False,2.0,0.9837
+HingeTreeCombo,discrim_predict_below_threshold,standard,True,-0.01,0.4833
+HingeGBM2dp,most_important_feature,standard,True,x0,x0
+HingeGBM2dp,point_prediction,standard,True,10.023,9.06
+HingeGBM2dp,direction_of_change,standard,True,7.962,7.96
+HingeGBM2dp,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBM2dp,threshold_identification,standard,True,0.5,0.50
+HingeGBM2dp,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBM2dp,sign_of_effect,standard,True,-4.978,The prediction changes by **-4.98** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HingeGBM2dp,counterfactual_prediction,standard,False,11.976,4.35
+HingeGBM2dp,hard_all_features_active,hard,False,6.174,3.372
+HingeGBM2dp,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for each sample and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.11 + 4.94x_0 - 0.03\max(0, 0.99-x_0) + 2.95x_1 - 0.04\max(0, 1.11-x_1) - 0.00\max(0, 1.10-x_3) + 0.02x_4 - 0.01\max(0, 0.97-x_4)
+\]
+
+### For Sample A:
+Given \( x_0 = 2.0 \), \( x_1 = 0.1 \), \( x_2 = 0.0 \), \( x_3 = 0.0 \), \( x_4 = 0.0"
+HingeGBM2dp,hard_quantitative_sensitivity,hard,True,7.975,7.98
+HingeGBM2dp,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.145
+HingeGBM2dp,hard_two_feature_perturbation,hard,True,8.982,9.47
+HingeGBM2dp,insight_simulatability,insight,False,10.958,12.88
+HingeGBM2dp,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBM2dp,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBM2dp,insight_nonlinear_direction,insight,True,5.932,The model predicts **5.91**.
+HingeGBM2dp,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBM2dp,insight_decision_region,insight,True,1.511,1.51
+HingeGBM2dp,discrim_simulate_all_active,standard,True,5.326,6.52
+HingeGBM2dp,discrim_compactness,standard,True,,Yes
+HingeGBM2dp,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBM2dp,discrim_unit_sensitivity,standard,True,4.997,The model's prediction changes by **5.00** when \( x_0 \) increases from 0 to 1.
+HingeGBM2dp,discrim_predict_above_threshold,standard,False,2.01,0.72
+HingeGBM2dp,discrim_predict_below_threshold,standard,True,-0.01,-0.33
+HingeGBMfix,most_important_feature,standard,True,x0,x0
+HingeGBMfix,point_prediction,standard,True,10.023,9.9659
+HingeGBMfix,direction_of_change,standard,True,7.962,7.9624
+HingeGBMfix,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBMfix,threshold_identification,standard,True,0.5,0.50
+HingeGBMfix,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBMfix,sign_of_effect,standard,True,-4.978,The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HingeGBMfix,counterfactual_prediction,standard,False,11.976,4.42
+HingeGBMfix,hard_all_features_active,hard,False,6.174,2.9219
+HingeGBMfix,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBMfix,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBMfix,hard_mixed_sign_goes_negative,hard,False,-0.897,2.0216
+HingeGBMfix,hard_two_feature_perturbation,hard,False,8.982,6.9997
+HingeGBMfix,insight_simulatability,insight,True,10.958,10.8182
+HingeGBMfix,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBMfix,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.01
+HingeGBMfix,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8894**.
+HingeGBMfix,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBMfix,insight_decision_region,insight,True,1.511,1.514
+HingeGBMfix,discrim_simulate_all_active,standard,False,5.326,"The prediction for the given values is:
+
+**10.3851**"
+HingeGBMfix,discrim_compactness,standard,True,,Yes
+HingeGBMfix,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBMfix,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBMfix,discrim_predict_above_threshold,standard,False,2.01,0.8182
+HingeGBMfix,discrim_predict_below_threshold,standard,True,-0.01,0.0139
+HingeBlend,most_important_feature,standard,True,x0,x0
+HingeBlend,point_prediction,standard,True,9.96,10.186
+HingeBlend,direction_of_change,standard,False,8.013,10.93
+HingeBlend,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeBlend,threshold_identification,standard,True,0.5,0.50
+HingeBlend,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeBlend,sign_of_effect,standard,True,-4.877,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeBlend,counterfactual_prediction,standard,False,11.058,7.63
+HingeBlend,hard_all_features_active,hard,True,6.25,6.6429
+HingeBlend,hard_pairwise_anti_intuitive,hard,False,1.904,"To calculate the difference in predictions for Sample B and Sample A, we need to evaluate the model for both samples and subtract the results. Here's the step-by-step calculation:
+
+### Model Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Residual Correction (First Tree):
+The first tree correction is applied based on \(x_0\) and \(x_1\).
+
+---
+
+### **Sample A** (\(x_0 = 2.0, x_"
+HingeBlend,hard_quantitative_sensitivity,hard,True,7.627,8.73
+HingeBlend,hard_mixed_sign_goes_negative,hard,False,-0.824,3.9469
+HingeBlend,hard_two_feature_perturbation,hard,False,8.701,14.48
+HingeBlend,insight_simulatability,insight,False,10.952,12.6373
+HingeBlend,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+HingeBlend,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.08
+HingeBlend,insight_nonlinear_direction,insight,False,5.924,The model predicts: **7.4688**
+HingeBlend,insight_counterfactual_target,insight,False,3.267,2.0
+HingeBlend,insight_decision_region,insight,True,1.487,1.43
+HingeBlend,discrim_simulate_all_active,standard,True,5.273,6.5241
+HingeBlend,discrim_compactness,standard,False,,No
+HingeBlend,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeBlend,discrim_unit_sensitivity,standard,False,5.019,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to evaluate the contribution of \( x_0 \) in both the sparse piecewise-linear regression model and the residual correction.
+
+### Step 1: Sparse Piecewise-Linear Regression Model
+The contribution of \( x_0 \) in the regression model is:
+\[
+4.9972 \cdot x_0
+\]
+When \( x_0 \) increases from 0 to 1, this term changes by:
+\[
+4.9972 \cdot (1 - 0) = 4.9972
+\]
+
+### Step 2: Residual Correction (Gradient Boosted Trees)
+From the first correction tree, we observe how the residual correction changes as \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \).
+
+- At \( x_0 = 0 \"
+HingeBlend,discrim_predict_above_threshold,standard,True,1.98,1.618
+HingeBlend,discrim_predict_below_threshold,standard,True,-0.05,"The model predicts **y = -0.4347** for \(x_0 = -0.5\), \(x_1 = 0.0\), and \(x_2 = 0.0\)."
+HingeGBMlr05,most_important_feature,standard,True,x0,x0
+HingeGBMlr05,point_prediction,standard,True,10.023,9.9659
+HingeGBMlr05,direction_of_change,standard,True,7.962,7.9624
+HingeGBMlr05,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBMlr05,threshold_identification,standard,True,0.5,0.50
+HingeGBMlr05,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeGBMlr05,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeGBMlr05,counterfactual_prediction,standard,False,11.976,4.33
+HingeGBMlr05,hard_all_features_active,hard,False,6.174,1.962615
+HingeGBMlr05,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeGBMlr05,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeGBMlr05,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeGBMlr05,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeGBMlr05,insight_simulatability,insight,True,10.958,12.0672
+HingeGBMlr05,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBMlr05,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeGBMlr05,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeGBMlr05,insight_counterfactual_target,insight,True,3.013,3.0
+HingeGBMlr05,insight_decision_region,insight,True,1.511,1.514
+HingeGBMlr05,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeGBMlr05,discrim_compactness,standard,True,,Yes
+HingeGBMlr05,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeGBMlr05,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeGBMlr05,discrim_predict_above_threshold,standard,False,2.01,0.8181
+HingeGBMlr05,discrim_predict_below_threshold,standard,True,-0.01,-0.4343
+HingeEBM1k,most_important_feature,standard,True,x0,x0
+HingeEBM1k,point_prediction,standard,True,10.023,9.9659
+HingeEBM1k,direction_of_change,standard,True,7.962,7.9624
+HingeEBM1k,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM1k,threshold_identification,standard,True,0.5,0.83
+HingeEBM1k,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeEBM1k,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeEBM1k,counterfactual_prediction,standard,False,11.976,4.33
+HingeEBM1k,hard_all_features_active,hard,False,6.174,1.962615
+HingeEBM1k,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeEBM1k,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeEBM1k,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeEBM1k,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeEBM1k,insight_simulatability,insight,True,10.958,12.0672
+HingeEBM1k,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM1k,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeEBM1k,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeEBM1k,insight_counterfactual_target,insight,True,3.013,3.0
+HingeEBM1k,insight_decision_region,insight,True,1.511,1.514
+HingeEBM1k,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeEBM1k,discrim_compactness,standard,True,,Yes
+HingeEBM1k,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeEBM1k,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeEBM1k,discrim_predict_above_threshold,standard,False,1.97,"The model predicts **0.8892** for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBM1k,discrim_predict_below_threshold,standard,True,-0.01,"The model predicts **-0.3267** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBMlite,most_important_feature,standard,True,x0,x0
+HingeEBMlite,point_prediction,standard,True,10.023,9.9659
+HingeEBMlite,direction_of_change,standard,True,7.962,7.9624
+HingeEBMlite,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBMlite,threshold_identification,standard,True,0.5,0.83
+HingeEBMlite,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeEBMlite,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeEBMlite,counterfactual_prediction,standard,False,11.976,4.33
+HingeEBMlite,hard_all_features_active,hard,False,6.174,1.962615
+HingeEBMlite,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeEBMlite,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeEBMlite,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeEBMlite,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeEBMlite,insight_simulatability,insight,True,10.958,12.0672
+HingeEBMlite,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBMlite,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeEBMlite,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeEBMlite,insight_counterfactual_target,insight,True,3.013,3.0
+HingeEBMlite,insight_decision_region,insight,True,1.511,1.514
+HingeEBMlite,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeEBMlite,discrim_compactness,standard,True,,Yes
+HingeEBMlite,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeEBMlite,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeEBMlite,discrim_predict_above_threshold,standard,False,2.25,"The model predicts **0.8892** for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBMlite,discrim_predict_below_threshold,standard,True,0.02,"The model predicts **-0.3267** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBMGBM,most_important_feature,standard,True,x0,x0
+HingeEBMGBM,point_prediction,standard,True,10.023,9.9659
+HingeEBMGBM,direction_of_change,standard,True,7.962,7.9624
+HingeEBMGBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBMGBM,threshold_identification,standard,True,0.5,0.83
+HingeEBMGBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeEBMGBM,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeEBMGBM,counterfactual_prediction,standard,False,11.976,4.33
+HingeEBMGBM,hard_all_features_active,hard,False,6.174,1.962615
+HingeEBMGBM,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeEBMGBM,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeEBMGBM,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeEBMGBM,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeEBMGBM,insight_simulatability,insight,True,10.958,12.0672
+HingeEBMGBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBMGBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeEBMGBM,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeEBMGBM,insight_counterfactual_target,insight,True,3.013,3.0
+HingeEBMGBM,insight_decision_region,insight,True,1.511,1.514
+HingeEBMGBM,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeEBMGBM,discrim_compactness,standard,True,,Yes
+HingeEBMGBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeEBMGBM,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeEBMGBM,discrim_predict_above_threshold,standard,False,2.1,"The model predicts **0.8892** for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBMGBM,discrim_predict_below_threshold,standard,True,-0.0,"The model predicts **-0.3267** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeK2EBM,most_important_feature,standard,True,x0,x0
+HingeK2EBM,point_prediction,standard,True,9.999,9.9723
+HingeK2EBM,direction_of_change,standard,True,7.962,7.9624
+HingeK2EBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeK2EBM,threshold_identification,standard,True,0.5,0.83
+HingeK2EBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeK2EBM,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeK2EBM,counterfactual_prediction,standard,False,11.976,4.23
+HingeK2EBM,hard_all_features_active,hard,False,6.18,1.9627
+HingeK2EBM,hard_pairwise_anti_intuitive,hard,False,2.056,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for both samples and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.1578 + 4.9309x_0 - 0.0375\max(0, 0.99-x_0) + 2.9423x_1 - 0.0547\max(0, 1.11-x_1) - 0.0077\max(0, 1.10-x_3) + 0.0128x_4 - 0.0235\max(0, 0.97-x_4)
+\]
+
+### For Sample A (\(x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0\"
+HingeK2EBM,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeK2EBM,hard_mixed_sign_goes_negative,hard,False,-0.877,2.8917
+HingeK2EBM,hard_two_feature_perturbation,hard,False,8.989,6.0004
+HingeK2EBM,insight_simulatability,insight,True,10.961,12.0109
+HingeK2EBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeK2EBM,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.02
+HingeK2EBM,insight_nonlinear_direction,insight,False,5.91,"The model predicts **2.6947** for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeK2EBM,insight_counterfactual_target,insight,True,3.011,3.0
+HingeK2EBM,insight_decision_region,insight,True,1.511,1.514
+HingeK2EBM,discrim_simulate_all_active,standard,True,5.326,5.7071
+HingeK2EBM,discrim_compactness,standard,True,,Yes
+HingeK2EBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeK2EBM,discrim_unit_sensitivity,standard,True,5.002,"The model's prediction changes by **5.0021** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0021 and all other terms remain constant."
+HingeK2EBM,discrim_predict_above_threshold,standard,False,2.13,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.6562 + 0.5578 \cdot \max(0, 2.0 - (-1.16)) + 0.0028 \cdot \max(0, -1.16 - 2.0) + 1.0703 \cdot \max(0, 2.0 - 1.03) + 0.2052 \cdot \max(0, 1.03 - 2.0) - 0.0101 \cdot \max(0, 0.0 - (-1.05)) - 0.0484 \cdot \max(0, -1.05 - 0.0) + 0.0149 \cd"
+HingeK2EBM,discrim_predict_below_threshold,standard,False,-0.0,"The model predicts **-0.6562** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeK2EBM4,most_important_feature,standard,True,x0,x0
+HingeK2EBM4,point_prediction,standard,True,9.999,9.9723
+HingeK2EBM4,direction_of_change,standard,True,7.962,7.9624
+HingeK2EBM4,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeK2EBM4,threshold_identification,standard,True,0.5,0.83
+HingeK2EBM4,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeK2EBM4,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeK2EBM4,counterfactual_prediction,standard,False,11.976,4.23
+HingeK2EBM4,hard_all_features_active,hard,False,6.18,1.9627
+HingeK2EBM4,hard_pairwise_anti_intuitive,hard,False,2.056,"To calculate the difference in predictions for Sample B and Sample A, we substitute the feature values into the regression equation for both samples and subtract the results.
+
+The regression equation is:
+
+\[
+y = 0.1578 + 4.9309x_0 - 0.0375\max(0, 0.99-x_0) + 2.9423x_1 - 0.0547\max(0, 1.11-x_1) - 0.0077\max(0, 1.10-x_3) + 0.0128x_4 - 0.0235\max(0, 0.97-x_4)
+\]
+
+### For Sample A (\(x_0 = 2.0, x_1 = 0.1, x_2 = 0.0, x_3 = 0.0, x_4 = 0.0\"
+HingeK2EBM4,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeK2EBM4,hard_mixed_sign_goes_negative,hard,False,-0.877,2.8917
+HingeK2EBM4,hard_two_feature_perturbation,hard,False,8.989,6.0004
+HingeK2EBM4,insight_simulatability,insight,True,10.961,12.0109
+HingeK2EBM4,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeK2EBM4,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.02
+HingeK2EBM4,insight_nonlinear_direction,insight,False,5.919,"The model predicts **2.6947** for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeK2EBM4,insight_counterfactual_target,insight,True,3.011,3.0
+HingeK2EBM4,insight_decision_region,insight,True,1.511,1.514
+HingeK2EBM4,discrim_simulate_all_active,standard,True,5.326,5.7071
+HingeK2EBM4,discrim_compactness,standard,True,,Yes
+HingeK2EBM4,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeK2EBM4,discrim_unit_sensitivity,standard,True,5.002,"The model's prediction changes by **5.0021** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0021 and all other terms remain constant."
+HingeK2EBM4,discrim_predict_above_threshold,standard,False,2.17,"The prediction for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = -0.6562 + 0.5578 \cdot \max(0, 2.0 - (-1.16)) + 0.0028 \cdot \max(0, -1.16 - 2.0) + 1.0703 \cdot \max(0, 2.0 - 1.03) + 0.2052 \cdot \max(0, 1.03 - 2.0) - 0.0101 \cdot \max(0, 0.0 - (-1.05)) - 0.0484 \cdot \max(0, -1.05 - 0.0) + 0.0149 \cd"
+HingeK2EBM4,discrim_predict_below_threshold,standard,False,-0.0,"The model predicts **-0.6562** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBM,most_important_feature,standard,True,x0,x0
+HingeEBM,point_prediction,standard,True,10.023,9.9659
+HingeEBM,direction_of_change,standard,True,7.962,7.9624
+HingeEBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM,threshold_identification,standard,True,0.5,0.83
+HingeEBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+HingeEBM,sign_of_effect,standard,True,-4.978,"The prediction changes by **-4.9783** when \( x_1 \) increases by 1 unit, with all other features at 0."
+HingeEBM,counterfactual_prediction,standard,False,11.976,4.33
+HingeEBM,hard_all_features_active,hard,False,6.174,1.962615
+HingeEBM,hard_pairwise_anti_intuitive,hard,False,2.065,"To calculate the model's prediction for each sample and find the difference, we substitute the feature values into the regression equation.
+
+### Regression Equation:
+\[
+y = 0.1149 + 4.9355x_0 - 0.0283\max(0, 0.99-x_0) + 2.9496x_1 - 0.0429\max(0, 1.11-x_1) - 0.0035\max(0, 1.10-x_3) + 0.0207x_4 - 0.0099\max(0, 0.97-x_4)
+\]
+
+### Sample A:
+Given: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0."
+HingeEBM,hard_quantitative_sensitivity,hard,True,7.975,7.9748
+HingeEBM,hard_mixed_sign_goes_negative,hard,True,-0.897,-0.9726
+HingeEBM,hard_two_feature_perturbation,hard,False,8.982,6.0059
+HingeEBM,insight_simulatability,insight,True,10.958,12.0672
+HingeEBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.01
+HingeEBM,insight_nonlinear_direction,insight,True,5.932,The prediction is **5.8861**.
+HingeEBM,insight_counterfactual_target,insight,True,3.013,3.0
+HingeEBM,insight_decision_region,insight,True,1.511,1.514
+HingeEBM,discrim_simulate_all_active,standard,True,5.326,6.3941
+HingeEBM,discrim_compactness,standard,True,,Yes
+HingeEBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HingeEBM,discrim_unit_sensitivity,standard,True,4.997,"The model's prediction changes by **4.9972** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.9972 and all other terms remain constant."
+HingeEBM,discrim_predict_above_threshold,standard,False,2.13,"The model predicts **0.8892** for \( x_0 = 2.0 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."
+HingeEBM,discrim_predict_below_threshold,standard,True,0.01,"The model predicts **-0.3267** for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \)."

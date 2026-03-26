@@ -40,9 +40,9 @@ uv run interpretable_regressor.py
 If the above commands all work, your setup is working and you can go into autonomous research mode. Then, ask claude to do the following:
 
 ```bash
-First, read the src/performance_eval.py, results/cached_runs/mar25/performance_results.csv, and the results/cached_runs/mar25/interpretability_vs_performance.png plot. Include the plot then discuss how different variations effected performance/interpretability and why.
+First, read the src/performance_eval.py, results/cached_runs/mar26/performance_results.csv, and the results/cached_runs/mar26/interpretability_vs_performance.png plot. Include the plot then discuss how different variations effected performance/interpretability and why.
 
-Next, read the tests in src/interp_eval.py and the results in results/cached_runs/mar25/interpretability_results.csv. Write a concise report titled results/cached_runs/mar25/results_report.md. It should describe the interp_eval tests and show a detailed example of how a single test is conducted. Then, it should show a table where each row is a test, column gives a short description, next column gives a detailed description, next column gives pass rate, and final columns show which models passed.
+Next, read the tests in src/interp_eval.py and the results in results/cached_runs/mar26/interpretability_results.csv. Write a concise report titled results/cached_runs/mar26/results_report.md. It should describe the interp_eval tests and show a detailed example of how a single test is conducted. Then, it should show a table where each row is a test, column gives a short description, next column gives a detailed description, next column gives pass rate, and final columns show which models passed.
 
 Finally, the report should end with a string visualization of three different model types (e.g. decision tree, linear model, random forest) when fit to the synthetic data from the first interpretability test with some text discussion.
 ```

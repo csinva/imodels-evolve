@@ -1,0 +1,61 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,6.88,0.6000,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,11.74,0.7600,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,10.88,0.6000,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,8.47,0.7200,baseline,OLS,ordinary least squares linear regression
+baseline,8.70,0.5600,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,8.40,0.6800,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,5.51,0.2800,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,5.19,0.6800,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,11.44,0.2800,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,10.12,0.5200,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,9.47,0.6400,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,7.95,0.4800,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,11.35,0.6800,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,9.42,0.8000,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,4.00,0.0800,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,3.22,0.0800,baseline,TabPFN,TabPFN foundation model for tabular data
+e835e0d,10.84,0.6000,discard,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+e7acbf8,10.09,0.4800,discard,AdditiveTree,"Additive piecewise-linear model (GAM-style, backfitting with depth-2 trees)"
+761dbc0,12.67,0.5200,discard,BinnedAdditive,Binned additive model (step-function GAM with backfitting)
+d84fee1,9.23,0.6800,discard,HingeLinearV2,Sparse hinge-linear model with improved knot formatting
+c0a4b95,12.12,0.7600,discard,ScoringReg,Scoring regressor: sparse hinge-linear with rounded coefficients
+348653f,10.79,0.6800,discard,RuleLinear,Rule-linear regressor: sparse model with binary rules + linear terms
+1b5251d,7.65,0.8000,keep,HingeLinear,Sparse piecewise-linear model with hinge basis functions and LassoCV
+bacba90,7.35,0.8000,keep,HingeTreeHybrid,Hybrid: sparse hinge-linear + depth-3 residual tree correction
+2d1a592,6.77,0.7600,discard,HingeBoosted,Boosted: sparse hinge-linear + 2 gradient-boosted depth-3 trees
+b2362a2,7.56,0.8000,discard,HingeBoosted5,Boosted: sparse hinge-linear + 5 gradient-boosted depth-3 trees
+5bb644b,8.30,0.7600,discard,HingeBoostedLR7,Boosted: hinge-linear + 3 trees (lr=0.7)
+c632ddc,9.63,0.7600,discard,HingeBoostedD4,"Boosted: hinge-linear + 3 depth-4 trees (lr=0.3, high min_samples_leaf)"
+7b5761a,5.86,0.8000,,HingeBoosted3,Boosted: sparse hinge-linear + 3 gradient-boosted depth-3 trees
+91ebbff,6.65,0.5600,,HingeK4T2,4 knots + 2 boosted trees (more linear expressiveness)
+b7e458d,6.65,0.6800,,HingePosOnly,Positive-only hinges + 3 boosted trees (fewer terms)
+d2c2e32,7.98,0.8000,,HingeD2T5,Hinge-linear + 5 depth-2 boosted trees (shallow but many)
+310f0c5,8.91,0.8000,,HingeRF,Hinge-linear + small RF residual correction (20 trees depth 3)
+a02a464,10.51,0.8000,,HingeStumps,Hinge-linear + 10 boosted stumps (depth-1 if-then rules)
+cbdedee,5.16,0.8000,,HingeGBM,Hinge-linear + sklearn GBM residual (50 trees depth 3 lr 0.1)
+0acfd1c,5.33,0.8000,,HingeGBM100,Hinge-linear + sklearn GBM residual (100 trees depth 3 lr 0.1)
+6a4be95,5.40,0.8000,,HingeGBMd2,Hinge-linear + GBM residual (80 trees depth 2 lr 0.1)
+14d1d4e,5.12,0.8000,,HingeGBM150,Hinge-linear + GBM residual (150 trees depth 3 lr 0.05)
+92093ad,5.58,0.8000,,HingeGBMsqrt,Hinge-linear + GBM residual (100 trees depth 3 lr 0.05 max_features=sqrt)
+ce8cd7b,5.12,0.7200,,HingeGBMv3,Hinge-linear + GBM with per-feature grouped display
+629849d,5.28,0.8000,,HingeHistGBM,Hinge-linear + HistGBM residual (100 iter depth 3 lr 0.05 early stopping)
+b03c097,5.88,0.3600,,HingeAdaptive,"Adaptive: OLS for small data, hinge+GBM for large data"
+cce58df,5.65,0.7200,,HingeDebiasGBM,Lasso+OLS debiasing + GBM residual (100 trees depth 3 lr 0.05)
+037919f,6.35,0.5200,,ModelTree,Model tree: depth-2 partition + LassoCV at leaves + GBM residual
+9963899,5.05,0.6400,,HingeBagGBM,Bootstrap-aggregated hinge-linear + GBM residual
+c015bd6,5.12,0.6000,,HingeRound,Hinge-linear with rounded knots + GBM residual
+5efc58d,4.56,0.6400,,HingeK2D4,2-knot hinge-linear + GBM residual (100 trees depth 4 lr 0.05)
+1c7ca56,5.21,0.8000,,HingeK3D4,3-knot hinge-linear + GBM residual (100 trees depth 4 lr 0.05)
+b6c231c,4.84,0.6400,,HingeK2D3big,2-knot hinge-linear + GBM residual (200 trees depth 3 lr 0.05)
+16c2006,4.98,0.4400,,HingeTreeCombo,Combined hinge + tree features with Lasso + GBM residual
+a3430ce,5.12,0.8000,,HingeGBM2dp,Hinge-linear (2dp display) + GBM residual
+3866d90,5.12,0.7200,,HingeGBMfix,Hinge-linear (no double-negatives) + GBM residual
+ce4786a,5.74,0.6000,,HingeBlend,Weighted blend of hinge-linear + GBM (both fit on full y)
+aba3a17,5.12,0.8000,,HingeGBMlr05,Hinge-linear + GBM residual (100 trees depth 3 lr 0.05)
+c3f8dca,4.19,0.8000,,HingeEBM1k,"Hinge-linear + EBM residual (3 bags, 1000 rounds)"
+15a105f,4.72,0.8000,,HingeEBMlite,"Hinge-linear + lite EBM residual (1 bag, 300 rounds)"
+26729bd,4.16,0.8000,,HingeEBMGBM,Hinge-linear + EBM residual + GBM on EBM residuals
+f1588a3,3.70,0.6400,,HingeK2EBM,2-knot hinge-linear + EBM residual correction
+1e1c10e,3.65,0.6400,,HingeK2EBM4,2-knot hinge-linear + EBM(4 bags) residual
+5e25cb3,4.07,0.8000,,HingeEBM,Hinge-linear + EBM residual correction

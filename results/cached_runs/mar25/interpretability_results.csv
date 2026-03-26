@@ -1,0 +1,1306 @@
+model,test,suite,passed,ground_truth,response
+PyGAM,most_important_feature,standard,True,x0,x0
+PyGAM,point_prediction,standard,False,10.041,4.160
+PyGAM,direction_of_change,standard,True,7.951,7.105
+PyGAM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+PyGAM,threshold_identification,standard,False,0.5,0.
+PyGAM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x4"
+PyGAM,sign_of_effect,standard,True,-5.029,The prediction changes by **-5.064** when \( x_1 \) increases by 1 unit (all other features at 0).
+PyGAM,counterfactual_prediction,standard,False,12.306,8.82
+PyGAM,hard_all_features_active,hard,False,6.163,2.291
+PyGAM,hard_pairwise_anti_intuitive,hard,False,1.914,"To calculate the difference in predictions for Sample B and Sample A, we use the formula for the Generalized Additive Model (GAM):
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2) + f_3(x_3) + f_4(x_4)
+\]
+
+### Step 1: Extract relevant feature effects
+From the given data:
+- **Sample A**: \(x_0 = 2.0\), \(x_1 = 0.1\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0.0\)
+- **Sample B**: \(x_0 = 0.5\), \(x_1 = 3.3\), \(x_2 = 0.0\), \(x_3 ="
+PyGAM,hard_quantitative_sensitivity,hard,True,7.986,8.218
+PyGAM,hard_mixed_sign_goes_negative,hard,True,-0.894,-0.899
+PyGAM,hard_two_feature_perturbation,hard,False,9.098,The prediction is **4.57**.
+PyGAM,insight_simulatability,insight,False,10.89,2.948
+PyGAM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+PyGAM,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.02
+PyGAM,insight_nonlinear_direction,insight,True,5.962,"The prediction is:
+
+**5.4091**"
+PyGAM,insight_counterfactual_target,insight,False,3.061,4.00
+PyGAM,insight_decision_region,insight,True,1.508,1.87
+PyGAM,discrim_simulate_all_active,standard,False,5.372,The prediction is **2.771**.
+PyGAM,discrim_compactness,standard,True,,**Yes**
+PyGAM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+PyGAM,discrim_unit_sensitivity,standard,False,4.977,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to determine the change in the partial effect of \( x_0 \) over this range. However, the table does not provide the exact effect values for \( x_0 = 0 \) or \( x_0 = 1 \). Instead, we can approximate using the closest given values.
+
+From the table for \( x_0 \):
+- At \( x_0 = -0.71 \), effect = -5.340
+- At \( x_0 = +0.36 \), effect = +0.047
+- At \( x_0 = +1.43 \), effect = +5.356
+
+The partial effect of \( x_0 \) appears to increase linearly between these points. To estimate the effect at \( x_0 = 0 \) and \( x_0 = 1 \),"
+PyGAM,discrim_predict_above_threshold,standard,True,2.29,"The prediction is:
+
+**2.040**"
+PyGAM,discrim_predict_below_threshold,standard,True,0.02,"The prediction for \( x_0 = -0.5 \), \( x_1 = 0.0 \), and \( x_2 = 0.0 \) is:
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2)
+\]
+
+### Step 1: Intercept
+\[
+\text{intercept} = 0.5390
+\]
+
+### Step 2: \( f_0(x_0) \) (effect of \( x_0 \))
+From the table, the closest values to \( x_0 = -0.5 \) are:
+- \( x_0 = -1.13 \), effect = -0.623
+- \( x_0 = -0.14 \), effect = -0.763
+
+Using linear interpolation:
+\[
+f_0(-0.5) = -0"
+DT_mini,most_important_feature,standard,True,x0,x0
+DT_mini,point_prediction,standard,True,10.713,10.71
+DT_mini,direction_of_change,standard,True,increase,increase
+DT_mini,feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+DT_mini,threshold_identification,standard,True,0.5,0.50
+DT_mini,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","The features in the decision tree are `x0` and `x1`. Both features are used in the splits of the tree, which means they influence the predictions. Therefore, **no features appear to have little or no effect on the prediction**.
+
+If you still need a list, it would be empty."
+DT_mini,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),**decrease**
+DT_mini,counterfactual_prediction,standard,False,8.874,17.02
+DT_mini,hard_all_features_active,hard,True,5.501,5.50
+DT_mini,hard_pairwise_anti_intuitive,hard,False,"B (pred_A=4.53, pred_B=4.61)",A
+DT_mini,hard_quantitative_sensitivity,hard,True,8.8,8.80
+DT_mini,hard_mixed_sign_goes_negative,hard,False,0.219,2.59
+DT_mini,hard_two_feature_perturbation,hard,True,7.299,7.30
+DT_mini,insight_simulatability,insight,False,5.208,"To predict the output for the given input values \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will walk through the decision tree step by step. Note that the decision tree only uses \( x_0 \) and \( x_1 \) for its splits, so \( x_2 \) and \( x_3 \) are irrelevant for this prediction.
+
+---
+
+### Step-by-Step Walkthrough:
+
+1. **Root Node**:  
+   The first condition is:  
+   \[
+   x_0 \leq 0.03
+   \]  
+   Since \( x_0 = 1.0 \), this condition is **false**.  
+   Therefore, we move to the right subtree:  
+   ```
+   |--- x0 >  0.03
+   ```
+
+2. **Second Node**:  
+   The next condition is:  
+   \[
+   x_1 \leq -0.03
+   \]  
+   Since \( x_1 = 2.0 \), this condition is **false**.  
+   Therefore, we move to the right subtree:  
+   ```
+   |--- x1 >  -0.03
+   ```
+
+3. **Third Node**:  
+   The next condition is:  
+   \[
+   x_0 \leq 1.15
+   \]  
+   Since \( x_0 = 1.0 \), this condition is **true**.  
+   Therefore, we move to the left subtree:  
+  "
+DT_mini,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DT_mini,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+DT_mini,insight_nonlinear_direction,insight,False,6.484,4.93
+DT_mini,insight_counterfactual_target,insight,False,10.0,2.93
+DT_mini,insight_decision_region,insight,True,1.519,1.52
+DT_mini,discrim_simulate_all_active,standard,True,2.418,"To compute the prediction for the given input values \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \) using the decision tree regressor, we will follow the decision tree step by step.
+
+### Step-by-Step Traversal of the Decision Tree:
+
+1. **Root Node**:  
+   The first condition is:  
+   \[
+   x_0 \leq 0.05
+   \]  
+   Since \( x_0 = 1.3 \), which is greater than \( 0.05 \), we move to the **right branch**.
+
+2. **Second Node**:  
+   The next condition is:  
+   \[
+   x_1 \leq 0.29
+   \]  
+   Since \( x_1 = -0.7 \), which is less than \( 0.29 \), we move to the **left branch**.
+
+3. **Third Node**:  
+   The next condition is:  
+   \[
+   x_2 \leq -0.03
+   \]  
+   Since \( x_2 = 2.1 \), which is greater than \( -0.03 \), we move to the **right branch**.
+
+4. **Leaf Node**:  
+   At this point, we reach a leaf node with a value of:  
+   \[
+   [2.42]
+   \]
+
+### Final Prediction:
+The predicted value for the input features is:
+\[
+\boxed{2.42}
+\]"
+DT_mini,discrim_compactness,standard,True,compact (n_ops≈15),yes
+DT_mini,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+DT_mini,discrim_unit_sensitivity,standard,False,5.357,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree's structure for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 > -0.12 \) (True, since \( 0 > -0.12 \)).
+- Move to the right: \( x_0 \leq 0.87 \) (True, since \( 0 \leq 0.87 \)).
+- Move to the left: \( x_1 \leq 0.07 \) (True, since \( x_1 = 0 \leq "
+DT_mini,discrim_predict_above_threshold,standard,True,1.98,1.98
+DT_mini,discrim_predict_below_threshold,standard,False,-0.01,2.24
+DT_large,most_important_feature,standard,True,x0,x0
+DT_large,point_prediction,standard,True,9.228,9.23
+DT_large,direction_of_change,standard,True,increase,increase
+DT_large,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+DT_large,threshold_identification,standard,False,0.5,0.09
+DT_large,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","From the given decision tree, we can observe that the model only uses two features, `x0` and `x1`, to make predictions. Since no other features are mentioned in the tree, it implies that any other features in the dataset (if they exist) have little or no effect on the prediction.
+
+If there are additional features beyond `x0` and `x1` in your dataset, those would be the ones with little or no effect. However, based on the provided tree structure alone, there are no unused features explicitly mentioned. If you have a list of all feature names in your dataset, you can identify unused ones by excluding `x0` and `x1`."
+DT_large,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),decrease
+DT_large,counterfactual_prediction,standard,True,9.286,9.29
+DT_large,hard_all_features_active,hard,True,4.841,4.84
+DT_large,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=8.43, pred_B=8.04)",A
+DT_large,hard_quantitative_sensitivity,hard,True,9.633,8.99
+DT_large,hard_mixed_sign_goes_negative,hard,True,-0.981,-0.98
+DT_large,hard_two_feature_perturbation,hard,False,7.299,10.33
+DT_large,insight_simulatability,insight,False,8.13,"To predict the output for the given input values \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will walk through the decision tree step by step:
+
+---
+
+### Step 1: Start at the root node
+- The first condition is: **\( x_0 \leq 1.00 \)**
+- Given \( x_0 = 1.0 \), this condition is **true**.
+- Follow the left branch.
+
+---
+
+### Step 2: Next condition
+- The next condition is: **\( x_2 \leq 0.90 \)**
+- Given \( x_2 = 0.5 \), this condition is **true**.
+- Follow the left branch.
+
+---
+
+### Step 3: Next condition
+- The next condition is: **\( x_2 \leq -1.65 \)**
+- Given \( x_2 = 0.5 \), this condition is **false**.
+- Follow the right branch.
+
+---
+
+### Step 4: Next condition
+- The next condition is: **\( x_1 \leq -2.74 \)**
+- Given \( x_1 = 2.0 \), this condition is **false**.
+- Follow the right branch.
+
+---
+
+### Step 5: Next condition
+- The next condition is: **\( x_1 \leq 0.80 \)**
+- Given \( x_1 = 2.0 \), this condition is **false**.
+- Follow the right branch.
+
+---
+
+###"
+DT_large,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DT_large,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.7
+DT_large,insight_nonlinear_direction,insight,True,6.083,6.08
+DT_large,insight_counterfactual_target,insight,False,10.0,2.0
+DT_large,insight_decision_region,insight,True,1.519,1.52
+DT_large,discrim_simulate_all_active,standard,False,5.641,"To compute the prediction for the given input values \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \) using the decision tree regressor, we will follow the decision tree step by step:
+
+---
+
+### Step-by-Step Traversal of the Decision Tree:
+
+1. **Root Node**:  
+   Condition: \( x_0 \leq 0.05 \)  
+   Given \( x_0 = 1.3 \), this condition is **false** because \( 1.3 > 0.05 \).  
+   Move to the right subtree:  
+   ```
+   |--- x0 >  0.05
+   ```
+
+2. **Second Level**:  
+   Condition: \( x_1 \leq 0.29 \)  
+   Given \( x_1 = -0.7 \), this condition is **true** because \( -0.7 \leq 0.29 \).  
+   Move to the left subtree:  
+   ```
+   |--- x1 <= 0.29
+   ```
+
+3. **Third Level**:  
+   Condition: \( x_2 \leq -0.03 \)  
+   Given \( x_2 = 2.1 \), this condition is **false** because \( 2.1 > -0.03 \).  
+   Move to the right subtree:  
+   ```
+   |--- x2 >  -0.03
+   ```
+
+4. **Fourth Level**:  
+   Condition: \( x_0 \leq 1.04 \)  
+   Given \( x_0 = 1.3 \), this condition is **false** because \( 1.3 > 1.04 \"
+DT_large,discrim_compactness,standard,True,not compact (n_ops≈39),**No**
+DT_large,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+DT_large,discrim_unit_sensitivity,standard,False,6.5,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree rules for \( x_0 \) and \( x_1 \), given that \( x_1 = 0 \).
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 > -0.12 \) (True, since \( x_0 = 0 \)).
+- Move to the right: \( x_0 \leq 0.87 \) (True, since \( x_0 = 0 \)).
+- Next, \( x_1 \leq 0.07 \) (True, since \( x_1 = 0 \)).
+- Finally, \( x_0 \leq 0.40 \) (True, since \( x_0 = 0 \)).
+
+The prediction for \( x_"
+DT_large,discrim_predict_above_threshold,standard,True,1.99,1.99
+DT_large,discrim_predict_below_threshold,standard,True,-0.01,0.14
+OLS,most_important_feature,standard,True,x0,x0
+OLS,point_prediction,standard,True,10.061,10.0600
+OLS,direction_of_change,standard,True,increase,increase
+OLS,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+OLS,threshold_identification,standard,True,0.5,0.846
+OLS,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","To determine which features have little or no effect on the prediction, we can look at the absolute values of their coefficients. Features with coefficients close to 0 have minimal impact on the prediction.
+
+From the given coefficients:
+- **x0**: 9.9729 (large effect)
+- **x1**: -0.0104 (very small effect)
+- **x2**: 0.0205 (small effect)
+- **x3**: 0.0087 (very small effect)
+- **x4**: 0.0230 (small effect)
+
+Features with very small coefficients are **x1** and **x3**, as their absolute values are close to 0.
+
+### Answer:
+**x1, x3**"
+OLS,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),decrease
+OLS,counterfactual_prediction,standard,True,11.996,12.00
+OLS,hard_all_features_active,hard,True,6.186,6.2151
+OLS,hard_pairwise_anti_intuitive,hard,False,"B (pred_A=10.28, pred_B=12.42)",A
+OLS,hard_quantitative_sensitivity,hard,True,8.058,8.0576
+OLS,hard_mixed_sign_goes_negative,hard,False,-0.934,0.0903
+OLS,hard_two_feature_perturbation,hard,True,9.031,9.0423
+OLS,insight_simulatability,insight,False,11.007,"To predict the value of \( y \) using the given regression model, we will substitute the provided values of \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \) into the equation:
+
+\[
+y = 5.0235 \cdot x_0 + 2.9747 \cdot x_1 + (-0.0111) \cdot x_2 + (-0.0041) \cdot x_3 + 0.0380
+\]
+
+### Step-by-step calculation:
+
+1. **Calculate the contribution of \( x_0 \):**
+   \[
+   5.0235 \cdot x_0 = 5.0235 \cdot 1.0 = 5.0235
+   \]
+
+2. **Calculate the contribution of \( x_1 \):**
+   \[
+   2.9747 \cdot x_1 = 2.9747 \cdot 2.0 = 5.9494
+   \]
+
+3. **Calculate the contribution of \( x_2 \):**
+   \[
+   -0.0111 \cdot x_2 = -0.0111 \cdot 0.5 = -0.00555
+   \]
+
+4. **Calculate the contribution of \( x_3 \):**
+   \[
+   -0.0041 \cdot x_3 = -0.0041 \cdot (-0.5) = 0.00205
+   \]
+
+5."
+OLS,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+OLS,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.1615
+OLS,insight_nonlinear_direction,insight,True,4.194,4.1939
+OLS,insight_counterfactual_target,insight,True,2.998,3.0
+OLS,insight_decision_region,insight,True,1.5,1.506
+OLS,discrim_simulate_all_active,standard,True,5.411,"We are tasked with computing the prediction for the given regression model:
+
+\[
+y = 4.0213 \cdot x_0 + 3.0195 \cdot x_1 + 1.9913 \cdot x_2 + 1.5286 \cdot x_3 + 0.4928 \cdot x_4 + 0.0138
+\]
+
+### Step-by-step calculation:
+
+1. **Substitute the given values into the equation:**
+   - \(x_0 = 1.3\)
+   - \(x_1 = -0.7\)
+   - \(x_2 = 2.1\)
+   - \(x_3 = -1.5\)
+   - \(x_4 = 0.8\)
+
+   Substituting these values into the equation:
+   \[
+   y = (4.0213 \cdot 1.3) + (3.0195 \cdot -0.7) + (1.9913 \cdot 2.1) + (1.5286 \cdot -1.5) + (0.4928 \cdot 0.8) + 0.0138
+   \]
+
+2. **Compute each term:**
+   - \(4.0213 \cdot 1.3 = 5.22769\)
+   - \(3.0195 \cdot -0.7 = -2.11365\)
+   - \(1.9913 \cdot 2.1 = 4.18173\)
+   - \(1.5286 \cdot -1.5 = -2.2929\)
+   - \(0.4928 \cdot 0.8 = 0.39424\)
+
+3. **Add the intercept:**
+   The intercept is \(0.0138\"
+OLS,discrim_compactness,standard,True,compact (n_ops≈7),Yes
+OLS,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+OLS,discrim_unit_sensitivity,standard,True,5.015,5.0148
+OLS,discrim_test_predict_above_threshold,standard,False,,
+OLS,discrim_test_predict_below_threshold,standard,False,,
+LassoCV,most_important_feature,standard,True,x0,x0
+LassoCV,point_prediction,standard,True,10.05,10.0496
+LassoCV,direction_of_change,standard,True,increase,increase
+LassoCV,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+LassoCV,threshold_identification,standard,False,0.5,0.86
+LassoCV,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+LassoCV,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),decrease
+LassoCV,counterfactual_prediction,standard,True,11.927,12.93
+LassoCV,hard_all_features_active,hard,False,6.18,3.9941
+LassoCV,hard_pairwise_anti_intuitive,hard,False,"B (pred_A=10.25, pred_B=12.38)",A
+LassoCV,hard_quantitative_sensitivity,hard,True,7.963,7.9628
+LassoCV,hard_mixed_sign_goes_negative,hard,False,-0.933,2.0673
+LassoCV,hard_two_feature_perturbation,hard,False,9.02,6.0181
+LassoCV,insight_simulatability,insight,False,10.978,"To predict the output of the given LASSO regression model for the input values \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will follow these steps:
+
+### Step 1: Understand the model
+The LASSO regression model has been trained with L1 regularization, which promotes sparsity by setting some coefficients to zero. The active features (non-zero coefficients) are:
+- \( x_0 \) with a coefficient of \( 5.0116 \)
+- \( x_1 \) with a coefficient of \( 2.9640 \)
+
+The features \( x_2 \) and \( x_3 \) have zero coefficients, meaning they do not contribute to the prediction.
+
+The intercept of the model is \( 0.0386 \).
+
+### Step 2: Write the prediction formula
+The prediction formula for a linear regression model is:
+\[
+\text{Prediction} = (\text{coefficient of } x_0) \cdot x_0 + (\text{coefficient of } x_1) \cdot x_1 + (\text{coefficient of } x_2) \cdot x_2 + (\text{coefficient of } x_3) \cdot x_3 + \text{intercept}
+\]
+
+Since the coefficients for \( x_2 \) and \( x_3 \) are zero, their contributions drop out, simplifying the formula to:
+\[
+\text{Prediction} = (5.0116) \cdot x_0"
+LassoCV,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+LassoCV,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.1619
+LassoCV,insight_nonlinear_direction,insight,True,4.087,4.0865
+LassoCV,insight_counterfactual_target,insight,False,3.001,"To solve this, we use the LASSO regression equation:
+
+\[
+\text{Prediction} = (\text{coefficient of } x_0) \cdot x_0 + (\text{coefficient of } x_1) \cdot x_1 + (\text{coefficient of } x_2) \cdot x_2 + \text{intercept}
+\]
+
+Substitute the given values:
+- Coefficient of \(x_0 = 3.9987\)
+- Coefficient of \(x_1 = 1.9935\)
+- Coefficient of \(x_2 = 0.0085\)
+- Intercept = \(-0.0390\)
+
+The prediction equation becomes:
+\[
+\text{Prediction} = 3.9987 \cdot x_0 + 1.9935 \cdot x_1 + 0.0085 \cdot x_2 - 0"
+LassoCV,insight_decision_region,insight,False,1.507,6.015
+LassoCV,discrim_simulate_all_active,standard,True,5.402,"To compute the prediction for the given values of \( x_0, x_1, x_2, x_3, \) and \( x_4 \) using the LASSO regression model, we use the formula for a linear regression model:
+
+\[
+\text{Prediction} = \text{intercept} + (x_0 \cdot \text{coefficient of } x_0) + (x_1 \cdot \text{coefficient of } x_1) + (x_2 \cdot \text{coefficient of } x_2) + (x_3 \cdot \text{coefficient of } x_3) + (x_4 \cdot \text{coefficient of } x_4)
+\]
+
+### Step 1: Write down the coefficients and intercept
+From the model:
+- Coefficient of \( x_0 = 4.0172 \)
+- Coefficient of \( x_1 = 3.0161 \)
+- Coefficient of \( x_2 = 1.9874 \)
+- Coefficient of \( x_3 = 1.5252 \)
+- Coefficient of \( x_4 = 0.4891 \)
+- Intercept = 0.0139
+
+### Step 2: Substitute the given values
+The given feature values are:
+- \( x_0 = 1.3 \)
+- \( x_1 = -0.7 \)
+- \( x_2 = 2.1 \)
+- \( x_3 = -1.5 \)
+- \( x_4 = 0.8 \)
+
+Substitute these into the formula:
+
+\[
+\text{Prediction} = 0.0139 + (1.3 \cdot 4.0172) + (-0.7 \cdot 3.0161) + (2.1 \"
+LassoCV,discrim_compactness,standard,True,compact (n_ops≈5),Yes
+LassoCV,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+LassoCV,discrim_unit_sensitivity,standard,True,5.009,"The model's prediction changes by **5.0094** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 5.0094 and all other terms are zero."
+LassoCV,discrim_test_predict_above_threshold,standard,False,,
+LassoCV,discrim_test_predict_below_threshold,standard,False,,
+RidgeCV,most_important_feature,standard,True,x0,x0
+RidgeCV,point_prediction,standard,True,10.058,10.0588
+RidgeCV,direction_of_change,standard,True,increase,increase
+RidgeCV,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RidgeCV,threshold_identification,standard,False,0.5,0.85
+RidgeCV,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The features with coefficients close to zero have little or no effect on the prediction. Based on the given coefficients:
+
+- **x1**: -0.0104
+- **x2**: 0.0205
+- **x3**: 0.0088
+- **x4**: 0.0230
+
+These coefficients are very small compared to **x0** (9.9693). Therefore, the features that appear to have little or no effect on the prediction are:
+
+**x1, x2, x3, x4**"
+RidgeCV,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),decrease
+RidgeCV,counterfactual_prediction,standard,True,11.956,12.96
+RidgeCV,hard_all_features_active,hard,True,6.185,5.2159
+RidgeCV,hard_pairwise_anti_intuitive,hard,False,"B (pred_A=10.28, pred_B=12.42)",A
+RidgeCV,hard_quantitative_sensitivity,hard,True,8.055,8.0548
+RidgeCV,hard_mixed_sign_goes_negative,hard,False,-0.934,0.0906
+RidgeCV,hard_two_feature_perturbation,hard,True,9.029,9.04
+RidgeCV,insight_simulatability,insight,False,11.005,"To predict the output \( y \) for the given inputs \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will use the provided Ridge Regression model equation:
+
+\[
+y = 5.0223 \cdot x_0 + 2.9742 \cdot x_1 + (-0.0111) \cdot x_2 + (-0.0041) \cdot x_3 + 0.0380
+\]
+
+### Step-by-step calculation:
+
+1. **Calculate the contribution of \( x_0 \):**
+   \[
+   5.0223 \cdot x_0 = 5.0223 \cdot 1.0 = 5.0223
+   \]
+
+2. **Calculate the contribution of \( x_1 \):**
+   \[
+   2.9742 \cdot x_1 = 2.9742 \cdot 2.0 = 5.9484
+   \]
+
+3. **Calculate the contribution of \( x_2 \):**
+   \[
+   -0.0111 \cdot x_2 = -0.0111 \cdot 0.5 = -0.00555
+   \]
+
+4. **Calculate the contribution of \( x_3 \):**
+   \[
+   -0.0041 \cdot x_3 = -0.0041 \cdot (-0.5) = 0.00205
+   \]
+
+5. **Add the intercept"
+RidgeCV,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+RidgeCV,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),10
+RidgeCV,insight_nonlinear_direction,insight,True,4.148,4.1483
+RidgeCV,insight_counterfactual_target,insight,False,2.999,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 4.0025 \cdot x_0 + 1.9975 \cdot x_1 + 0.0131 \cdot x_2 - 0.0390
+\]
+
+Given:
+- \( y = 13.96 \)
+- \( x_1 = 1.0 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+13.96 = 4.0025 \cdot x_0 + 1.9975 \cdot 1.0 + 0.0131 \cdot 0.0 - 0.0390
+\]
+
+Simplify:
+
+\[
+13.96 = 4.0025 \cdot x_0 + 1.9975 - 0.0390
+\]
+
+\[
+13.96 ="
+RidgeCV,insight_decision_region,insight,True,1.501,1.506
+RidgeCV,discrim_simulate_all_active,standard,True,5.41,"To compute the prediction for the given values of \(x_0 = 1.3\), \(x_1 = -0.7\), \(x_2 = 2.1\), \(x_3 = -1.5\), and \(x_4 = 0.8\) using the Ridge Regression model, we substitute these values into the regression equation:
+
+\[
+y = 4.0207 \cdot x_0 + 3.0191 \cdot x_1 + 1.9910 \cdot x_2 + 1.5284 \cdot x_3 + 0.4927 \cdot x_4 + 0.0138
+\]
+
+### Step-by-step calculation:
+
+1. **Compute each term:**
+   - \(4.0207 \cdot x_0 = 4.0207 \cdot 1.3 = 5.22691\)
+   - \(3.0191 \cdot x_1 = 3.0191 \cdot (-0.7) = -2.11337\)
+   - \(1.9910 \cdot x_2 = 1.9910 \cdot 2.1 = 4.1811\)
+   - \(1.5284 \cdot x_3 = 1.5284 \cdot (-1.5) = -2.2926\)
+   - \(0.4927 \cdot x_4 = 0.4927 \cdot 0.8 = 0.39416\)
+
+2. **Add up all terms, including the intercept:**
+   \[
+   y = (5.22691) + (-2.11337) + (4.1811) + (-2.2926) + (0.39416) + (0.0138)
+   \"
+RidgeCV,discrim_compactness,standard,True,compact (n_ops≈7),Yes
+RidgeCV,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RidgeCV,discrim_unit_sensitivity,standard,True,5.014,5.0138
+RidgeCV,discrim_test_predict_above_threshold,standard,False,,
+RidgeCV,discrim_test_predict_below_threshold,standard,False,,
+RF,most_important_feature,standard,True,x0,x0
+RF,point_prediction,standard,False,9.452,2.0
+RF,direction_of_change,standard,True,increase,increase
+RF,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RF,threshold_identification,standard,True,0.5,0.50
+RF,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","x1, x2, x3, x4"
+RF,sign_of_effect,standard,False,decrease (x1 has coefficient -5.0),increase
+RF,counterfactual_prediction,standard,True,9.299,7.51
+RF,hard_all_features_active,hard,False,5.585,The prediction cannot be determined from the provided information.
+RF,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=8.92, pred_B=7.91)",A
+RF,hard_quantitative_sensitivity,hard,False,8.1,The model's prediction change is **0**.
+RF,hard_mixed_sign_goes_negative,hard,False,0.926,2.95
+RF,hard_two_feature_perturbation,hard,False,7.7,0.53
+RF,insight_simulatability,insight,False,9.389,"To predict the output for the input values \( x0 = 1.0 \), \( x1 = 2.0 \), \( x2 = 0.5 \), and \( x3 = -0.5 \) using the first estimator tree of the Random Forest Regressor, we will follow the decision tree step by step. The tree splits based on conditions involving \( x0 \) and \( x1 \). Let's walk through it:
+
+---
+
+### Step-by-Step Walkthrough:
+
+1. **Root Node**:  
+   Condition: \( x0 \leq -0.17 \)  
+   Input: \( x0 = 1.0 \)  
+   Since \( 1.0 > -0.17 \), we follow the **right branch**.
+
+---
+
+2. **Second Level (Right Branch)**:  
+   Condition: \( x1 \leq 0.01 \)  
+   Input: \( x1 = 2.0 \)  
+   Since \( 2.0 > 0.01 \), we follow the **right branch**.
+
+---
+
+3. **Third Level (Right Branch)**:  
+   Condition: \( x0 \leq 0.81 \)  
+   Input: \( x0 = 1.0 \)  
+   Since \( 1.0 > 0.81 \), we follow the **right branch**.
+
+---
+
+4. **Fourth Level (Right Branch)**:  
+   Condition: \( x0 \leq 1.56 \)  
+   Input: \( x0 = 1.0 \)  
+   Since \( 1.0 \leq 1.56 \), we"
+RF,insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+RF,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.78
+RF,insight_nonlinear_direction,insight,False,6.147,The prediction cannot be determined from the provided information.
+RF,insight_counterfactual_target,insight,True,10.0,9.0
+RF,insight_decision_region,insight,False,1.519,0.77
+RF,discrim_simulate_all_active,standard,True,3.463,"To compute the prediction for the given input \((x0=1.3, x1=-0.7, x2=2.1, x3=-1.5, x4=0.8)\) using the first estimator tree of the Random Forest Regressor, we will traverse the decision tree step by step based on the conditions provided.
+
+### Step-by-Step Traversal of the Decision Tree:
+
+1. **Root Node**:  
+   Condition: \(x0 \leq 0.08\)  
+   Given \(x0 = 1.3\), this condition is **false** because \(1.3 > 0.08\).  
+   Move to the right branch: `|--- x0 >  0.08`.
+
+2. **Second Level (Right Subtree)**:  
+   Condition: \(x1 \leq 0.29\)  
+   Given \(x1 = -0.7\), this condition is **true** because \(-0.7 \leq 0.29\).  
+   Move to the left branch: `|--- x1 <= 0.29`.
+
+3. **Third Level (Left Subtree)**:  
+   Condition: \(x1 \leq -1.59\)  
+   Given \(x1 = -0.7\), this condition is **false** because \(-0.7 > -1.59\).  
+   Move to the right branch: `|--- x1 > -1.59`.
+
+4. **Fourth Level (Right Subtree)**:  
+   Condition: \(x2 \leq -0.24\)  
+   Given \(x2 = 2.1\), this condition is **false** because \(2.1 > -0.24\).  
+   Move to the right branch: `|--- x2 > -0.24`.
+
+5. **Fifth Level"
+RF,discrim_compactness,standard,True,not compact (n_ops≈3110),no
+RF,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RF,discrim_unit_sensitivity,standard,False,4.707,"The model's prediction changes by **0.0** when \( x_0 \) increases from 0 to 1, given \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+This is because the feature importance values indicate that \( x_2 \) and \( x_3 \) have negligible influence on the model (importance values of 0.0015 and 0.0008, respectively). The prediction is almost entirely determined by \( x_0 \) (importance of 0.8939) and, to a much lesser extent, \( x_1 \) (importance of 0.1038). However, the exact change in prediction depends on the specific splits and leaf values in the decision tree, which are not provided in full detail here."
+RF,discrim_predict_above_threshold,standard,True,2.01,2.10
+RF,discrim_predict_below_threshold,standard,False,-0.02,2.24
+GBM,most_important_feature,standard,True,x0,x0
+GBM,point_prediction,standard,False,9.363,15.58
+GBM,direction_of_change,standard,True,increase,increase
+GBM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+GBM,threshold_identification,standard,True,0.5,0.50
+GBM,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","Based on the feature importances provided, the features with very low importance values (close to 0) are:
+
+**x1, x2, x3, x4**"
+GBM,sign_of_effect,standard,False,decrease (x1 has coefficient -5.0),increase
+GBM,counterfactual_prediction,standard,True,9.412,8.50
+GBM,hard_all_features_active,hard,True,5.54,5.54
+GBM,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=10.13, pred_B=9.32)",A
+GBM,hard_quantitative_sensitivity,hard,False,8.269,4.31
+GBM,hard_mixed_sign_goes_negative,hard,True,-0.505,0.29
+GBM,hard_two_feature_perturbation,hard,True,8.068,7.45
+GBM,insight_simulatability,insight,False,10.878,"To predict the output for the given input values \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will walk through the first estimator tree step by step. Note that this is just the first tree in the Gradient Boosted Trees model, and the final prediction would involve aggregating predictions from all 100 trees. However, since only the first tree is provided, we will compute its contribution to the prediction.
+
+### Step-by-Step Walkthrough:
+
+1. **Start at the root of the tree**:
+   - The root node splits on \( x_0 \) with the condition \( x_0 \leq 0.03 \).
+   - Since \( x_0 = 1.0 > 0.03 \), we follow the right branch.
+
+2. **Second level of the tree**:
+   - The next node splits on \( x_1 \) with the condition \( x_1 \leq -0.03 \).
+   - Since \( x_1 = 2.0 > -0.03 \), we follow the right branch.
+
+3. **Third level of the tree**:
+   - The next node splits on \( x_0 \) with the condition \( x_0 \leq 1.15 \).
+   - Since \( x_0 = 1.0 \leq 1.15 \), we follow the left branch.
+
+4. **Leaf node**:
+   - We reach a leaf node with a value of \( [5.21] \).
+
+### Final Prediction from This"
+GBM,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+GBM,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.70
+GBM,insight_nonlinear_direction,insight,True,6.056,5.81
+GBM,insight_counterfactual_target,insight,False,10.0,2.43
+GBM,insight_decision_region,insight,True,1.519,1.52
+GBM,discrim_simulate_all_active,standard,True,4.596,"To compute the prediction for the given input features \(x_0 = 1.3\), \(x_1 = -0.7\), \(x_2 = 2.1\), \(x_3 = -1.5\), and \(x_4 = 0.8\) using the Gradient Boosted Trees model, we will follow these steps:
+
+### Step 1: Understand the Gradient Boosted Trees Model
+- The model consists of **100 estimators** (trees).
+- Each tree contributes a small value to the final prediction, scaled by a **learning rate (lr)** of 0.1.
+- The first tree's structure and predictions are provided in the problem statement.
+- The final prediction is computed as:
+  \[
+  \text{Final Prediction} = \text{Initial Prediction} + \text{lr} \times \sum_{i=1}^{100} \text{Tree}_i(\text{input features})
+  \]
+- Since only the first tree is provided, we will compute its contribution to the prediction.
+
+---
+
+### Step 2: Traverse the First Tree
+We start with the first tree and traverse it based on the input feature values:
+
+#### Root Node:
+- Condition: \(x_0 \leq 0.05\)
+- Given \(x_0 = 1.3 > 0.05\), we move to the **right branch**.
+
+#### Right Branch:
+- Condition: \(x_1 \leq 0.29\)
+- Given \(x_1 = -0.7 < 0.29\), we move to the **left branch**.
+
+#### Left Branch:
+- Condition: \(x_2 \leq -0.03\)
+- Given \(x_2 = 2.1 > -0.03\), we move to the **right branch**.
+
+#### Right Leaf Node:
+- Value: [2"
+GBM,discrim_compactness,standard,True,not compact (n_ops≈1402),**no**
+GBM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+GBM,discrim_unit_sensitivity,standard,False,5.239,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to follow the first estimator tree and compute the difference in predictions.
+
+### Step 1: Prediction when \( x_0 = 0 \), \( x_1 = 0 \), \( x_2 = 0 \), \( x_3 = 0 \)
+- Start at the root of the tree:
+  - \( x_0 = 0 > -0.12 \), so we go to the right subtree.
+- In the right subtree:
+  - \( x_0 = 0 \leq 0.87 \), so we go to the left child.
+- In this node:
+  - \( x_1 = 0 \leq 0.07 \), so we go to the left child.
+- The value at this leaf is **0.29**.
+
+### Step 2: Prediction when \( x"
+GBM,discrim_predict_above_threshold,standard,True,1.98,1.68
+GBM,discrim_predict_below_threshold,standard,True,-0.02,-0.32
+MLP,most_important_feature,standard,True,x0,x0
+MLP,point_prediction,standard,False,9.471,I cannot compute the exact prediction with the given information.
+MLP,direction_of_change,standard,True,increase,increase
+MLP,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+MLP,threshold_identification,standard,False,0.5,0
+MLP,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","To determine which features have little or no effect on the prediction, we can analyze the L2 norm of the weights for each feature. The L2 norm provides a measure of the overall magnitude of the weights associated with a feature. Features with significantly smaller L2 norms are likely to have less influence on the model's predictions.
+
+From the given data:
+
+- **x0**: L2 = 3.766
+- **x1**: L2 = 1.242
+- **x2**: L2 = 1.220
+- **x3**: L2 = 1.114
+- **x4**: L2 = 1.256
+
+Feature **x0** has a much larger L2 norm compared to the other features, indicating it has a stronger influence on the predictions. The other features (**x1**, **x2**, **x3**, and **x4**) have relatively small and similar L2 norms, suggesting they may"
+MLP,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),decrease
+MLP,counterfactual_prediction,standard,True,10.58,13.11
+MLP,hard_all_features_active,hard,False,6.05,The model's prediction cannot be determined with the given information.
+MLP,hard_pairwise_anti_intuitive,hard,False,"B (pred_A=9.71, pred_B=11.48)",A
+MLP,hard_quantitative_sensitivity,hard,False,6.888,"To calculate the change in the model's prediction when \( x_0 \) increases from 0.5 to 2.5 (with \( x_1 = 0 \) and \( x_2 = 0 \)), we need to consider the contribution of \( x_0 \) to the output.
+
+The first-layer weight matrix indicates that the weights connecting \( x_0 \) to the 100 hidden neurons have a mean of -0.015. Since the activation function is ReLU, only positive contributions will propagate through the network.
+
+The change in input \( x_0 \) is:
+
+\[
+\Delta x_0 = 2.5 - 0.5 = 2
+\]
+
+The total contribution of \( x_0 \) to the hidden layer is approximately:
+
+\[
+\Delta_{\text{hidden}} = \Delta x_0 \times (\text{mean weight from } x_0) = 2 \times (-0"
+MLP,hard_mixed_sign_goes_negative,hard,False,-0.92,"The information provided is insufficient to compute the exact prediction of the model. Specifically, the biases for the hidden and output layers, as well as the weights for the second layer (hidden to output), are missing. Additionally, without knowing how the ReLU activation function is applied and whether there is any preprocessing of inputs, it is impossible to calculate the final output.
+
+If you can provide the missing details, I can help compute the prediction."
+MLP,hard_two_feature_perturbation,hard,False,8.418,0.49
+MLP,insight_simulatability,insight,False,10.707,"To predict the output of the given MLP Regressor for the input \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will walk through the steps of the forward pass in the model.
+
+---
+
+### Step 1: Compute the input to each hidden neuron
+The first layer has 4 input features and 100 hidden neurons. The input to each hidden neuron is computed as a weighted sum of the inputs plus a bias term (if biases are provided, but they are not mentioned here, so we assume biases are zero). The formula for the input to a hidden neuron \( h_j \) is:
+
+\[
+h_j = w_{j,0} \cdot x_0 + w_{j,1} \cdot x_1 + w_{j,2} \cdot x_2 + w_{j,3} \cdot x_3
+\]
+
+Here:
+- \( w_{j,0}, w_{j,1}, w_{j,2}, w_{j,3} \) are the weights connecting inputs \( x_0, x_1, x_2, x_3 \) to hidden neuron \( j \).
+- \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \).
+
+Since we are not given individual weights for each connection (only summary statistics like mean and standard deviation), we cannot compute exact values for each hidden"
+MLP,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+MLP,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.
+MLP,insight_nonlinear_direction,insight,False,6.083,"The model's prediction cannot be determined with the given information. You would need the full set of weights and biases for all layers, as well as the activation function details, to compute the output."
+MLP,insight_counterfactual_target,insight,False,3.493,8.
+MLP,insight_decision_region,insight,False,1.523,"To determine the threshold value of \( x_0 \) for which the model predicts above 6.0, we need to analyze the behavior of the MLP Regressor. However, without the full details of the trained model (e.g., biases, weights for subsequent layers, and exact activation functions), it is not possible to compute the exact threshold value of \( x_0 \)."
+MLP,discrim_simulate_all_active,standard,True,5.192,"To compute the prediction for the given input features using the trained regression model, we need to follow these steps:
+
+---
+
+### Step 1: Understand the Model
+The model is a **Multi-Layer Perceptron (MLP) Regressor** with the following architecture:
+- Input layer: 5 features.
+- Hidden layer: 100 neurons with ReLU activation.
+- Output layer: 1 neuron (final prediction).
+
+The weights of the first layer are provided as statistics (mean, standard deviation, and L2 norm) for each input feature. However, we do not have access to the exact weight values or biases. Therefore, **we cannot compute the exact prediction** without this information.
+
+---
+
+### Step 2: Why Can't We Compute the Prediction?
+To compute the prediction step by step:
+1. **First Layer Computation**:
+   - Multiply each input feature by its corresponding weights for all 100 hidden neurons.
+   - Add biases for each hidden neuron.
+   - Apply the ReLU activation function to each hidden neuron output.
+
+2. **Output Layer Computation**:
+   - Multiply the outputs of the hidden layer by their corresponding weights in the output layer.
+   - Add the bias for the output neuron.
+
+Since we do not have access to:
+- The exact weight matrix values,
+- The biases for both layers,
+- The second-layer weights connecting hidden neurons to the output,
+
+it is **impossible to compute an exact prediction**.
+
+---
+
+### Step 3: What Can Be Done?
+We can only interpret and analyze the provided weight statistics (mean, standard deviation, and L2 norm). For example:
+- Feature \( x_0 \) has a larger L2 norm (2.729) compared to \( x_4 \) (1.623), suggesting that \( x_0 \) contributes more strongly to the hidden layer than \( x_4 \).
+- Similarly, \( x_3 \) has a smaller L2 norm"
+MLP,discrim_compactness,standard,True,not compact (n_ops≈700),no
+MLP,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+MLP,discrim_unit_sensitivity,standard,False,5.635,"The model's prediction changes by **0.018** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+MLP,discrim_predict_above_threshold,standard,False,2.35,"The model's prediction cannot be determined with the given information. You would need the full weight matrix, biases, and the output layer weights to compute the prediction."
+MLP,discrim_predict_below_threshold,standard,False,-0.07,The model's prediction cannot be determined with the given information.
+FIGS_mini,most_important_feature,standard,True,x0,X0
+FIGS_mini,point_prediction,standard,True,10.713,10.713
+FIGS_mini,direction_of_change,standard,True,increase,increase
+FIGS_mini,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+FIGS_mini,threshold_identification,standard,True,0.5,0.5
+FIGS_mini,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","The model provided only uses the feature **X0** for all splits and decisions. Therefore, any other features (if they exist) are not used in the model and have no effect on the prediction.
+
+If there are other features besides **X0**, they would be the ones with little or no effect. However, since no other features are mentioned in the model, there are no additional features to list.
+
+If you have a broader context with more features, please provide their names for further clarification."
+FIGS_mini,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),**decrease**
+FIGS_mini,counterfactual_prediction,standard,True,8.874,8.874
+FIGS_mini,hard_all_features_active,hard,False,5.159,7.859
+FIGS_mini,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=8.32, pred_B=6.38)",A
+FIGS_mini,hard_quantitative_sensitivity,hard,False,8.8,6.637
+FIGS_mini,hard_mixed_sign_goes_negative,hard,False,1.586,3.435
+FIGS_mini,hard_two_feature_perturbation,hard,True,9.093,9.094
+FIGS_mini,insight_simulatability,insight,False,10.547,"To predict the output for \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \) using the given FIGS regression model, we will traverse each tree step by step and sum the values from the leaves reached in each tree.
+
+---
+
+### **Tree #0**
+The root node of Tree #0 splits on \( X_0 \) (i.e., \( x_0 \)):
+
+1. **Root split**: \( X_0 \leq 0.035 \)
+   - Since \( x_0 = 1.0 > 0.035 \), we follow the **right branch**.
+
+2. **Next split**: \( X_0 \leq 0.924 \)
+   - Since \( x_0 = 1.0 > 0.924 \), we follow the **right branch**.
+
+3. **Next split**: \( X_0 \leq 1.747 \)
+   - Since \( x_0 = 1.0 < 1.747 \), we follow the **left branch** and reach a leaf with:
+     - **Value: 6.403**
+
+---
+
+### **Tree #1**
+The root node of Tree #1 splits on \( X_1 \) (i.e., \( x_1 \)):
+
+1. **Root split**: \( X_1 \leq -0.032 \)
+   - Since \( x_1 = 2.0 > -0.032 \), we follow the **right branch**.
+
+2. **"
+FIGS_mini,insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+FIGS_mini,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.228
+FIGS_mini,insight_nonlinear_direction,insight,False,6.484,4.929
+FIGS_mini,insight_counterfactual_target,insight,False,10.0,2.355
+FIGS_mini,insight_decision_region,insight,True,1.519,1.519
+FIGS_mini,discrim_simulate_all_active,standard,True,-0.823,"To compute the prediction for the given input values \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \) using the FIGS model, we will traverse each tree, determine the value at the corresponding leaf node, and sum up these values.
+
+---
+
+### **Tree #0**
+Root: \( X_0 \leq 0.052 \)
+
+- \( X_0 = 1.3 \), so \( X_0 > 0.052 \). Move to the right child: \( X_0 \leq 1.311 \).
+- \( X_0 = 1.3 \), so \( X_0 \leq 1.311 \). Move to the left leaf.
+- Leaf value: **2.28**
+
+---
+
+### **Tree #1**
+Root: \( X_1 \leq 0.293 \)
+
+- \( X_1 = -0.7 \), so \( X_1 \leq 0.293 \). Move to the left child: \( X_1 \leq -0.673 \).
+- \( X_1 = -0.7 \), so \( X_1 < -0.673 \). Move to the left leaf.
+- Leaf value: **-4.145**
+
+---
+
+### **Tree #2**
+Root: \( X_2 \leq 0.575 \)
+
+- \( X_2 = 2.1 \), so \( X_2 > 0.575 \). Move to the right leaf.
+- Leaf value: **2.318**
+
+---
+
+### **Tree #3**
+Root: \( X_3 \leq -0.029 \)
+
+- \( X_3 = -1.5 \),"
+FIGS_mini,discrim_compactness,standard,False,not compact (n_ops≈999),yes
+FIGS_mini,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+FIGS_mini,discrim_unit_sensitivity,standard,False,4.295,The model's prediction changes by **7.188**.
+FIGS_mini,discrim_predict_above_threshold,standard,True,1.98,2.008
+FIGS_mini,discrim_predict_below_threshold,standard,False,-0.0,1.979
+FIGS_large,most_important_feature,standard,True,x0,x0
+FIGS_large,point_prediction,standard,True,9.228,9.228
+FIGS_large,direction_of_change,standard,True,increase,increase
+FIGS_large,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+FIGS_large,threshold_identification,standard,True,0.5,0.5
+FIGS_large,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The only features used in the splits of the given regression model are **X0** and **X2**. Any other features not mentioned in the splits have no effect on the prediction.
+
+Thus, the features that appear to have little or no effect on the prediction are:
+
+**X1, X3, X4, ... (and any other features not explicitly mentioned in the tree)**"
+FIGS_large,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),**decrease**
+FIGS_large,counterfactual_prediction,standard,True,9.286,9.286
+FIGS_large,hard_all_features_active,hard,False,5.352,6.481
+FIGS_large,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=11.33, pred_B=7.70)",A
+FIGS_large,hard_quantitative_sensitivity,hard,True,9.633,8.707
+FIGS_large,hard_mixed_sign_goes_negative,hard,False,-0.109,7.136
+FIGS_large,hard_two_feature_perturbation,hard,False,9.316,13.18
+FIGS_large,insight_simulatability,insight,False,12.283,"To predict the output for \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will traverse each tree in the model step by step, summing the values from the leaves reached in each tree.
+
+---
+
+### **Tree #0**
+The root node splits on \( X_0 \) with the condition \( X_0 \leq 0.035 \). Since \( x_0 = 1.0 > 0.035 \), we follow the **right branch**.
+
+- The next split is \( X_0 \leq 0.924 \). Since \( x_0 = 1.0 > 0.924 \), we follow the **right branch**.
+
+    - The next split is \( X_0 \leq 1.747 \). Since \( x_0 = 1.0 \leq 1.747 \), we follow the **left branch**.
+
+        - The next split is \( X_0 \leq 1.153 \). Since \( x_0 = 1.0 \leq 1.153 \), we follow the **left branch** and reach a **leaf node** with:
+          \[
+          \text{Val} = 5.385
+          \]
+
+Thus, the contribution from Tree #0 is:
+\[
+\text{Tree #0 contribution} = 5.385
+\]
+
+---
+
+### **Tree #1**
+The root node splits on \( X_1 \) with the condition \( X_1 \leq"
+FIGS_large,insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+FIGS_large,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.228
+FIGS_large,insight_nonlinear_direction,insight,True,6.083,6.49
+FIGS_large,insight_counterfactual_target,insight,False,10.0,2.544
+FIGS_large,insight_decision_region,insight,True,1.519,1.763
+FIGS_large,discrim_simulate_all_active,standard,True,0.761,"To compute the prediction for the given input values \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \), we will traverse each tree in the model, determine the value at the corresponding leaf node, and sum up these values across all trees.
+
+---
+
+### **Tree #0**
+- Root: \( X_0 \leq 0.052 \)  
+  Since \( X_0 = 1.3 > 0.052 \), go to the right subtree.
+- Right subtree: \( X_0 \leq 1.311 \)  
+  Since \( X_0 = 1.3 \leq 1.311 \), go to the left subtree.
+- Left subtree: \( X_0 \leq 0.545 \)  
+  Since \( X_0 = 1.3 > 0.545 \), take the right leaf node.
+- **Value from Tree #0: \( 3.451 \)**
+
+---
+
+### **Tree #1**
+- Root: \( X_1 \leq 0.293 \)  
+  Since \( X_1 = -0.7 < 0.293 \), go to the left subtree.
+- Left subtree: \( X_1 \leq -0.673 \)  
+  Since \( X_1 = -0.7 < -0.673 \), go to the left subtree.
+- Left subtree: \( X_1 \leq -1.668 \)  
+  Since \( X_1 = -0.7 > -1.668 \), take the right leaf node.
+- **Value from Tree #1: \( -3.534 \)**
+
+---
+
+### **Tree #2**
+- Root:"
+FIGS_large,discrim_compactness,standard,True,not compact (n_ops≈999),no
+FIGS_large,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+FIGS_large,discrim_unit_sensitivity,standard,True,5.077,The model's prediction changes by **5.077** when \( x_0 \) increases from 0 to 1.
+FIGS_large,discrim_predict_above_threshold,standard,True,1.99,2.07
+FIGS_large,discrim_predict_below_threshold,standard,True,-0.01,0.036
+RuleFit,most_important_feature,standard,True,x0,X0
+RuleFit,point_prediction,standard,False,10.13,4.93
+RuleFit,direction_of_change,standard,True,increase,increase
+RuleFit,feature_ranking,standard,True,"x0, x1, x2","X0, X1, X2"
+RuleFit,threshold_identification,standard,True,0.5,0.5
+RuleFit,irrelevant_features,standard,True,"x1, x2, x3, x4 are irrelevant","The features that appear to have little or no effect on the prediction are those with coefficients close to zero. From the given rules, the features **X2** and **X4** have coefficients of 0.02 and 0.01, respectively, which are very small and likely have minimal impact on the prediction.
+
+**Answer:** X2, X4"
+RuleFit,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),decrease
+RuleFit,counterfactual_prediction,standard,False,8.926,4.65
+RuleFit,hard_all_features_active,hard,True,6.27,6.02
+RuleFit,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=10.06, pred_B=8.45)",A
+RuleFit,hard_quantitative_sensitivity,hard,False,6.937,1.89
+RuleFit,hard_mixed_sign_goes_negative,hard,True,0.118,-0.85
+RuleFit,hard_two_feature_perturbation,hard,False,9.188,0.38
+RuleFit,insight_simulatability,insight,True,11.17,"To predict the output for \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \) using the RuleFit model, we will follow these steps:
+
+### Step 1: Start with the base coefficients for individual features
+The model includes coefficients for individual features:
+- \( X_0 \): Coefficient = 4.94
+- \( X_1 \): Coefficient = 3.07
+- \( X_3 \): Coefficient = -0.01
+
+The contribution from these terms is:
+\[
+4.94 \cdot x_0 + 3.07 \cdot x_1 + (-0.01) \cdot x_3
+= 4.94 \cdot 1.0 + 3.07 \cdot 2.0 + (-0.01) \cdot (-0.5)
+= 4.94 + 6.14 + 0.005
+= 11.085
+\]
+
+### Step 2: Evaluate each rule and add its contribution if the rule is satisfied
+We now evaluate each rule in the model to determine if it applies to the given input values (\( x_0 = 1.0, x_1 = 2.0, x_2 = 0.5, x_3 = -0.5 \)).
+
+#### Rule: \( X_0 \leq -0.11053 \), Coefficient = -0.16
+- Condition: \( X_0 (1.0) > -0."
+RuleFit,insight_sparse_feature_set,insight,True,"x0, x1 only","X0, X1"
+RuleFit,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.22847
+RuleFit,insight_nonlinear_direction,insight,False,2.063,0.01
+RuleFit,insight_counterfactual_target,insight,False,10.0,2.0
+RuleFit,insight_decision_region,insight,True,1.535,1.76271
+RuleFit,discrim_simulate_all_active,standard,True,5.073,"To compute the prediction for the given input values \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \) using the RuleFit model, we will sum up the contributions of all applicable rules and coefficients.
+
+### Step-by-Step Calculation:
+
+#### 1. **Base contributions from individual features:**
+   - \( X_0 \): Coefficient = 4.03, Contribution = \( 4.03 \times x_0 = 4.03 \times 1.3 = 5.239 \)
+   - \( X_1 \): Coefficient = 3.08, Contribution = \( 3.08 \times x_1 = 3.08 \times (-0.7) = -2.156 \)
+   - \( X_2 \): Coefficient = 2.02, Contribution = \( 2.02 \times x_2 = 2.02 \times 2.1 = 4.242 \)
+   - \( X_3 \): Coefficient = 1.53, Contribution = \( 1.53 \times x_3 = 1.53 \times (-1.5) = -2.295 \)
+   - \( X_4 \): Coefficient = 0.50, Contribution = \( 0.50 \times x_4 = 0.50 \times 0.8 = 0.4 \)
+
+#### Total contribution from individual features:
+\[
+5.239 + (-2.156) + 4.242 + (-2.295) + 0.4 = **5.43**
+\]
+
+---
+
+#### 2. **Contributions from rules:**
+We now evaluate each rule to determine if it applies to the"
+RuleFit,discrim_compactness,standard,True,not compact (n_ops≈999),no
+RuleFit,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+RuleFit,discrim_unit_sensitivity,standard,True,5.021,The model's prediction changes by **5.03** when \( x_0 \) increases from 0 to 1.
+RuleFit,discrim_predict_above_threshold,standard,False,1.99,0.03
+RuleFit,discrim_predict_below_threshold,standard,True,-0.03,The prediction is **-0.02**.
+HSTree_mini,most_important_feature,standard,True,x0,X0
+HSTree_mini,point_prediction,standard,True,10.713,10.71
+HSTree_mini,direction_of_change,standard,True,increase,increase
+HSTree_mini,feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+HSTree_mini,threshold_identification,standard,True,0.5,0.50
+HSTree_mini,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","The decision tree provided only splits on the feature **X0**. This means that no other features are used in the model, and thus, any other features (if they exist) have no effect on the prediction.
+
+If there are additional features besides **X0**, they would be the ones with little or no effect. However, since the tree does not mention any other features explicitly, we cannot list them without additional context.
+
+If you have a list of all features in the dataset, you can exclude **X0** from that list to identify the features with no effect."
+HSTree_mini,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),**decrease**
+HSTree_mini,counterfactual_prediction,standard,True,8.793,8.79
+HSTree_mini,hard_all_features_active,hard,True,5.312,5.31
+HSTree_mini,hard_pairwise_anti_intuitive,hard,False,"B (pred_A=4.53, pred_B=4.61)",A
+HSTree_mini,hard_quantitative_sensitivity,hard,True,8.8,9.80
+HSTree_mini,hard_mixed_sign_goes_negative,hard,True,0.223,0.22
+HSTree_mini,hard_two_feature_perturbation,hard,True,7.254,7.25
+HSTree_mini,insight_simulatability,insight,True,5.208,"To predict the output for the given input values \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \), we will follow the decision tree step by step, using only \( x_0 \) and \( x_1 \) since the model does not use \( x_2 \) or \( x_3 \).
+
+---
+
+### Step-by-Step Walkthrough:
+
+1. **Root Node:**
+   - The first condition is \( X_0 \leq 0.03 \).
+   - Since \( X_0 = 1.0 > 0.03 \), we move to the right subtree.
+
+2. **Second Node (Right Subtree):**
+   - The next condition is \( X_1 \leq -0.03 \).
+   - Since \( X_1 = 2.0 > -0.03 \), we move to the right subtree.
+
+3. **Third Node (Right Subtree):**
+   - The next condition is \( X_0 \leq 1.15 \).
+   - Since \( X_0 = 1.0 \leq 1.15 \), we move to the left subtree.
+
+4. **Leaf Node:**
+   - At this point, we reach a leaf node with a value of **[5.21]**.
+
+---
+
+### Final Prediction:
+The predicted value for the input is:
+
+**5.21**"
+HSTree_mini,insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+HSTree_mini,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+HSTree_mini,insight_nonlinear_direction,insight,False,6.484,4.93
+HSTree_mini,insight_counterfactual_target,insight,False,10.0,2.43
+HSTree_mini,insight_decision_region,insight,True,1.519,1.52
+HSTree_mini,discrim_simulate_all_active,standard,True,2.368,"To compute the prediction for the given input values \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \) using the decision tree model, we will follow the decision tree step by step.
+
+### Step-by-Step Traversal of the Decision Tree:
+
+1. **Root Node**:  
+   The first condition is:  
+   \[
+   X_0 \leq 0.05
+   \]  
+   Since \( x_0 = 1.3 > 0.05 \), we move to the right subtree.
+
+2. **Second Level (Right Subtree)**:  
+   The next condition is:  
+   \[
+   X_1 \leq 0.29
+   \]  
+   Since \( x_1 = -0.7 < 0.29 \), we move to the left subtree.
+
+3. **Third Level (Left Subtree)**:  
+   The next condition is:  
+   \[
+   X_2 \leq -0.03
+   \]  
+   Since \( x_2 = 2.1 > -0.03 \), we move to the right subtree.
+
+4. **Leaf Node**:  
+   At this point, we reach a leaf node with a value of:  
+   \[
+   [2.37]
+   \]
+
+### Final Prediction:
+The predicted value for the input \( x_0 = 1.3, x_1 = -0.7, x_2 = 2.1, x_3 = -1.5, x_4 = 0.8 \) is:
+
+\[
+\boxed{2.37}
+\]"
+HSTree_mini,discrim_compactness,standard,False,not compact (n_ops≈999),yes
+HSTree_mini,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HSTree_mini,discrim_unit_sensitivity,standard,False,5.233,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree's structure for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+### Step 1: Prediction when \( x_0 = 0 \)
+- Start at the root: \( x_0 = 0 > -0.12 \), so we move to the right branch.
+- Next, \( x_0 = 0 \leq 0.87 \), so we move to the left branch.
+- Then, \( x_1 = 0 \leq 0.07 \), so we move to the left branch.
+- The value at this leaf is **[0.32]**.
+
+### Step "
+HSTree_mini,discrim_predict_above_threshold,standard,True,1.95,1.95
+HSTree_mini,discrim_predict_below_threshold,standard,True,-0.0,0.0
+HSTree_large,most_important_feature,standard,True,x0,X0
+HSTree_large,point_prediction,standard,True,9.228,9.23
+HSTree_large,direction_of_change,standard,True,increase,increase
+HSTree_large,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HSTree_large,threshold_identification,standard,True,0.5,0.50
+HSTree_large,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","Based on the provided decision tree, the only feature used for splitting is **X0**. No other features are mentioned in the tree structure, which implies that all other features (if any exist) have little or no effect on the prediction.
+
+If there are other features besides **X0**, they would be the ones with no effect. However, since no other feature names are provided in the tree, the answer is:
+
+**(none)**"
+HSTree_large,sign_of_effect,standard,True,decrease (x1 has coefficient -5.0),**decrease**
+HSTree_large,counterfactual_prediction,standard,True,9.274,9.27
+HSTree_large,hard_all_features_active,hard,True,4.831,4.83
+HSTree_large,hard_pairwise_anti_intuitive,hard,True,"A (pred_A=8.36, pred_B=7.98)",A
+HSTree_large,hard_quantitative_sensitivity,hard,True,9.605,9.97
+HSTree_large,hard_mixed_sign_goes_negative,hard,True,-0.852,-0.85
+HSTree_large,hard_two_feature_perturbation,hard,True,7.299,7.30
+HSTree_large,insight_simulatability,insight,False,8.126,"To predict the value for \( x_0 = 1.0 \), \( x_1 = 2.0 \), \( x_2 = 0.5 \), and \( x_3 = -0.5 \) using the given decision tree model, we will follow the tree step by step, making decisions at each node based on the conditions provided. Note that only \( x_0 \) and \( x_1 \) are used in this model, so we will ignore \( x_2 \) and \( x_3 \).
+
+---
+
+### Step-by-Step Walkthrough:
+
+1. **Root Node**:  
+   The first condition is:  
+   \[
+   x_0 \leq 0.03
+   \]  
+   Since \( x_0 = 1.0 > 0.03 \), we move to the **right subtree**.
+
+---
+
+2. **Second Node**:  
+   The next condition is:  
+   \[
+   x_1 \leq -0.03
+   \]  
+   Since \( x_1 = 2.0 > -0.03 \), we move to the **right subtree**.
+
+---
+
+3. **Third Node**:  
+   The next condition is:  
+   \[
+   x_0 \leq 1.15
+   \]  
+   Since \( x_0 = 1.0 \leq 1.15 \), we move to the **left subtree**.
+
+---
+
+4. **Fourth Node**:  
+   The next condition is:  
+   \[
+   x_1 \leq 1.37
+   \]  
+   Since \( x"
+HSTree_large,insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+HSTree_large,insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+HSTree_large,insight_nonlinear_direction,insight,True,6.085,6.08
+HSTree_large,insight_counterfactual_target,insight,False,10.0,3.08
+HSTree_large,insight_decision_region,insight,False,1.519,0.91
+HSTree_large,discrim_simulate_all_active,standard,True,5.323,"To compute the prediction for the given input \( x_0 = 1.3 \), \( x_1 = -0.7 \), \( x_2 = 2.1 \), \( x_3 = -1.5 \), and \( x_4 = 0.8 \) using the decision tree model, we will follow the tree step by step based on the conditions provided.
+
+### Step-by-Step Traversal of the Decision Tree:
+
+1. **Root Node**:  
+   Condition: \( X_0 \leq 0.05 \)  
+   Given \( X_0 = 1.3 \), this condition is **false** because \( 1.3 > 0.05 \).  
+   Move to the right subtree:  
+   ```
+   |--- X0 >  0.05
+   ```
+
+2. **Second Level**:  
+   Condition: \( X_1 \leq 0.29 \)  
+   Given \( X_1 = -0.7 \), this condition is **true** because \( -0.7 \leq 0.29 \).  
+   Move to the left subtree:  
+   ```
+   |   |--- X1 <= 0.29
+   ```
+
+3. **Third Level**:  
+   Condition: \( X_2 \leq -0.03 \)  
+   Given \( X_2 = 2.1 \), this condition is **false** because \( 2.1 > -0.03 \).  
+   Move to the right subtree:  
+   ```
+   |   |   |--- X2 >  -0.03
+   ```
+
+4. **Fourth Level**:  
+   Condition: \( X_0 \leq 1.04 \)  
+   Given \( X_0 = 1.3 \), this condition is **false** because \( 1."
+HSTree_large,discrim_compactness,standard,True,not compact (n_ops≈999),no
+HSTree_large,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+HSTree_large,discrim_unit_sensitivity,standard,False,6.475,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), we need to follow the decision tree for both \( x_0 = 0 \) and \( x_0 = 1 \).
+
+### Step 1: Follow the tree for \( x_0 = 0 \) and \( x_1 = 0 \)
+- Start at the root: \( x_0 > -0.12 \) (True, since \( x_0 = 0 \)).
+- Go to the right branch: \( x_0 \leq 0.87 \) (True, since \( x_0 = 0 \)).
+- Go to the left branch: \( x_1 \leq 0.07 \) (True, since \( x_"
+HSTree_large,discrim_predict_above_threshold,standard,True,1.96,1.96
+HSTree_large,discrim_predict_below_threshold,standard,True,-0.0,0.04
+TreeGAM,test_most_important_feature,standard,False,,
+TreeGAM,point_prediction,standard,False,1.0,The model predicts: **3.65**
+TreeGAM,direction_of_change,standard,True,0.0,"The prediction change due to \( x_0 \) increasing from 0.0 to 1.0 is:
+
+1. At \( x_0 = 0.0 \): From the tree for \( x_0 \), \( -0.11 < x_0 = 0.0 \leq 0.86 \), so the value is **2.85**.
+2. At \( x_0 = 1.0 \): From the tree for \( x_0 \), \( x_0 = 1.0 > 0.86 \), so the value is **10.80**.
+
+Change in prediction:  
+\( 10.80 - 2.85 = 7.95 \).
+
+**Answer: 7.95**"
+TreeGAM,feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+TreeGAM,threshold_identification,standard,True,0.5,0.50
+TreeGAM,irrelevant_features,standard,False,"x1, x2, x3, x4 are irrelevant","Based on the provided regression model, features that have little or no effect on the prediction are those whose tree values are consistently close to zero or do not vary significantly across splits. From the analysis of the trees, **x4** appears to have minimal impact on the prediction, as its values are generally small and close to zero in most splits.
+
+Thus, the feature with little or no effect is:
+
+**x4**"
+TreeGAM,sign_of_effect,standard,False,0.0,The prediction changes by **-5.28** when \( x_1 \) increases by 1 unit (all other features at 0).
+TreeGAM,counterfactual_prediction,standard,True,1.0,1.38
+TreeGAM,hard_test_all_features_active,hard,False,,
+TreeGAM,hard_pairwise_anti_intuitive,hard,False,0.0,"The model's prediction for sample B minus the prediction for sample A is:
+
+**1.62**"
+TreeGAM,hard_quantitative_sensitivity,hard,False,0.216,4.47
+TreeGAM,hard_test_mixed_sign_goes_negative,hard,False,,
+TreeGAM,hard_two_feature_perturbation,hard,False,0.0,4.81
+TreeGAM,insight_simulatability,insight,True,1.0,0.0029
+TreeGAM,insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x3, x4, x5, x6, x7, x8, x9"
+TreeGAM,insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.70
+TreeGAM,insight_nonlinear_direction,insight,False,1.0,The prediction is **5.918**.
+TreeGAM,insight_counterfactual_target,insight,False,10.0,2.0
+TreeGAM,insight_decision_region,insight,False,5.0,0.85
+TreeGAM,discrim_test_simulate_all_active,standard,False,,
+TreeGAM,discrim_compactness,standard,False,,no
+TreeGAM,discrim_dominant_feature_sample,standard,True,"x0 (coefficient ≈7, value=2.0 >> others)",x0
+TreeGAM,discrim_unit_sensitivity,standard,False,0.82,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to evaluate the contribution of \( x_0 \) at these two points and compute the difference.
+
+### Step 1: Locate the tree for \( x_0 \) and find the relevant splits
+The tree for \( x_0 \) is structured as follows:
+- If \( x_0 \leq -0.42 \), value = -3.07
+- If \( -0.42 < x_0 \leq 1.13 \), value = 0.92
+- If \( x_0 > 1.13 \), value = 5.32
+
+### Step 2: Evaluate the contribution of \( x_0 \) at \( x_0 = 0 \)
+For \( x_0 = 0 \):
+- Since \( -0.42 < 0 \leq 1"
+TreeGAM,discrim_predict_above_threshold,standard,False,1.0,0.3114
+TreeGAM,discrim_predict_below_threshold,standard,True,0.1,0.3114

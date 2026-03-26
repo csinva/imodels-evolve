@@ -15,4 +15,4 @@ baseline,11.35,0.6800,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_no
 baseline,9.42,0.8000,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
 baseline,4.00,0.0800,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
 baseline,3.22,0.0800,baseline,TabPFN,TabPFN foundation model for tabular data
-70adbe3,10.84,0.6000,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+e835e0d,10.84,0.6000,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)

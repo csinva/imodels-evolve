@@ -1,0 +1,39 @@
+commit,mean_rmse,frac_interpretability_tests_passed,status,model_name,description
+baseline,0.635868,0.6000,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,0.671197,0.6400,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,0.652878,0.6800,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,0.780997,0.7600,baseline,OLS,ordinary least squares linear regression
+baseline,0.798742,0.5600,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,0.762501,0.6800,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,0.592144,0.5200,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,0.574402,0.7200,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,106.979809,0.4400,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,0.653853,0.6000,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,0.629423,0.8000,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,0.622744,0.6800,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,0.663492,0.7600,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,0.634780,0.8000,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,0.886256,0.2800,baseline,TreeGAM,tree-based generalized additive model with max_leaf_nodes of 3
+268be20,0.651105,0.6400,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+f518650,0.664107,0.4800,,SparseAdditiveTree,Sparse additive tree model: boosted per-feature shallow trees with greedy feature selection
+b2d415a,0.692466,0.4400,,LinearPlusTree,Linear + residual tree hybrid: LassoCV for linear part then shallow DT on residuals
+92e0cd0,0.732698,0.5600,,AdditiveStumps,Greedy additive decision stumps: sparse additive model of if-else rules
+ef301ec,0.733081,0.6800,,SparsePWL,Sparse piecewise-linear: Lasso feature selection + ReLU transforms + Ridge refit
+cb4ef70,0.619316,0.6400,,PrunedTree,CV-pruned decision tree with cost-complexity pruning
+97b2960,0.624983,0.8000,,CVTree,CV-selected decision tree: 5-fold CV over max_leaf_nodes options
+d832a44,0.624776,0.7200,,CVTree2,CV-selected decision tree: 5-fold CV over max_leaf_nodes and min_samples_leaf grid
+b42110f,0.625673,0.8000,,CVTreeCrit,CV-selected decision tree with criterion tuning: max_leaf_nodes + squared_error vs friedman_mse
+3b13a9f,0.603839,0.6800,,BaggedCVTree,Bagged ensemble of 3 CV-tuned decision trees averaged for prediction
+1f87f8e,0.624325,0.8000,,FeatSelCVTree,CV-selected tree on correlation-selected top features
+a6664e8,0.638462,0.5600,,InteractCVTree,CV-selected tree with feature selection and pairwise interaction features
+33b7997,0.645325,0.5200,,GradBoost2,2-stage gradient boosted CV-tuned trees with learning_rate=0.5
+0389362,0.624946,0.8000,,CVTreeFine,Single CV-tuned tree with fine-grained max_leaf_nodes search (4-34)
+d4e7c61,0.620872,0.7600,,HSShrinkTree,CV-tuned tree with hierarchical shrinkage regularization
+18dc26d,0.630526,0.8000,,HSShrinkTree20,CV-tuned tree with hierarchical shrinkage (max 20 leaves)
+2c05e2b,0.624640,0.7600,,HSShrinkTree25,CV-tuned tree with hierarchical shrinkage (max 25 leaves)
+d3ff2c0,0.624983,0.8000,,CVTreeV2,CV-tuned decision tree with max_leaf_nodes search
+dadfdfc,0.624983,0.8400,,CVTreeLinear,CV-tuned tree with linear feature effects summary in __str__
+201bbd3,0.624983,0.9600,,CVTreeLinearV2,CV-tuned tree with tree importance + linear sensitivity in __str__
+4995d6b,0.651617,0.6400,,CVTreeCompact,Compact CV-tuned tree (≤10 leaves) with importance + linear sensitivity
+fe6e3f4,0.623796,0.7600,,CVTreeWide,CV-tuned tree (up to 40 leaves) with importance + linear sensitivity
+024e303,0.624983,0.9600,,CVTreeFinal,CV-tuned tree with importance + approx linear sensitivity (24/25 interp tests)
