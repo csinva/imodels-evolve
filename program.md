@@ -61,10 +61,10 @@ It also updates `results/overall_results.csv` with the row for `InterpretableReg
 
 When an experiment is done, it should log to the `results/overall_results.csv`
 
-The CSV has a header row and 5 columns:
+The CSV has a header row and 6 columns:
 
 ```
-commit	mean_rank	frac_interpretability_tests_passed	status	description
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
 ```
 
 1. git commit hash (short, 7 chars)
@@ -87,7 +87,7 @@ LOOP FOREVER:
 5. Read results: `tail -n 5 run.log` and `grep InterpretableRegressor results/overall_results.csv`
 6. If the run crashed, check `tail -n 50 run.log` for the stack trace and attempt a fix
 7. Record results in `results/overall_results.csv` (do not commit this file)
-8. If either metric improved without the other getting significantly worse, keep the commit and save the current version of `interpretable_regressor.py` as a new file under the success folder (e.g. `interpretable_regressors_lib/success/interpretable_regressor_<commit_hash>_<simple_name>.py`) for future use. Otherwise save it under the failure folder (e.g. `interpretable_regressors_lib/failure/interpretable_regressor_<commit_hash>_<simple_name>.py`).
+8. Save the current version of `interpretable_regressor.py` as a new file. If either metric improved without the other getting significantly worse, save the file under the success folder (e.g. `interpretable_regressors_lib/success/interpretable_regressor_<commit_hash>_<simple_name>.py`) for future use. Otherwise save it under the failure folder (e.g. `interpretable_regressors_lib/failure/interpretable_regressor_<commit_hash>_<simple_name>.py`).
 
 **NEVER STOP**: Once the experiment loop has begun, do NOT pause to ask the human if you should continue. Run until manually stopped. Always keep going.
 
