@@ -1,0 +1,1 @@
+{"response": 0, "explanation": "Mean affairs for those with children (1.672) is higher than without children (0.912); t-statistic=2.841, one-tailed p-value=0.9976, indicating no significant decrease in affairs."}

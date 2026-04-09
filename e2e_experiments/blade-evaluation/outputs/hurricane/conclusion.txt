@@ -1,0 +1,1 @@
+{"response": 0, "explanation": "Pearson correlation between name femininity (masfem) and fatalities (alldeaths) is 0.117 (p=2.622e-01), indicating no significant relationship."}

@@ -1,0 +1,1 @@
+{"response": 0, "explanation": "Analysed relationship between cycle day and religiosity. Pearson correlation r=0.051, p=0.453. Not significant at alpha=0.05, indicating no association."}
