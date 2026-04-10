@@ -17,8 +17,6 @@ from collections import defaultdict
 import numpy as np
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.linear_model import LassoCV
-from sklearn.model_selection import KFold
-from sklearn.tree import DecisionTreeRegressor, export_text
 from sklearn.utils.validation import check_is_fitted
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
@@ -31,50 +29,140 @@ from visualize import plot_interp_vs_performance
 # ---------------------------------------------------------------------------
 
 
-class DecisionTreeSimpleRegressor(BaseEstimator, RegressorMixin):
+class SparseBinnedAdditiveRegressor(BaseEstimator, RegressorMixin):
     """
     Interpretable scikit-learn compatible regressor.
 
-    This is just a baseline implementation of a shallow decision tree piggybacking off of sklearn.
-    The agent may modify this class freely — algorithm, structure, hyperparameters, etc. It should not just copy from sklearn.
+    Sparse additive step-function regressor.
+    Selects informative features, bins each selected feature by quantiles,
+    and fits an L1-regularized linear model on the resulting bin indicators.
     Must implement: fit(X, y), predict(X), and __str__().
     """
 
-    def __init__(self, max_depth=4, min_samples_leaf=2):
-        self.max_depth = max_depth
-        self.min_samples_leaf = min_samples_leaf
+    def __init__(self, max_features=8, max_bins=6, min_bin_frac=0.08):
+        self.max_features = max_features
+        self.max_bins = max_bins
+        self.min_bin_frac = min_bin_frac
+
+    @staticmethod
+    def _as_2d_float(X):
+        X = np.asarray(X, dtype=float)
+        if X.ndim == 1:
+            X = X.reshape(-1, 1)
+        return X
+
+    def _impute(self, X):
+        return np.where(np.isnan(X), self.feature_medians_, X)
+
+    def _feature_screen(self, X, y):
+        y_centered = y - y.mean()
+        y_scale = np.linalg.norm(y_centered) + 1e-12
+        scores = np.zeros(X.shape[1], dtype=float)
+        for j in range(X.shape[1]):
+            xj = X[:, j]
+            xj_centered = xj - xj.mean()
+            denom = (np.linalg.norm(xj_centered) * y_scale) + 1e-12
+            scores[j] = abs(np.dot(xj_centered, y_centered) / denom)
+        order = np.argsort(-scores)
+        k = min(self.max_features, X.shape[1])
+        return order[:k], scores
+
+    def _build_bins(self, x):
+        n = x.shape[0]
+        target_bins = min(self.max_bins, max(2, int(1.0 / max(self.min_bin_frac, 1e-3))))
+        q = np.linspace(0.0, 1.0, target_bins + 1)
+        edges = np.quantile(x, q)
+        edges = np.unique(edges)
+        if edges.size < 2:
+            return None
+        return edges
+
+    def _transform(self, X):
+        n = X.shape[0]
+        if len(self.feature_bins_) == 0:
+            return np.zeros((n, 1), dtype=float)
+        cols = []
+        for feat_idx, edges in self.feature_bins_:
+            xj = X[:, feat_idx]
+            bin_ids = np.searchsorted(edges[1:-1], xj, side="right")
+            n_bins = edges.size - 1
+            for b in range(1, n_bins):
+                cols.append((bin_ids == b).astype(float))
+        if len(cols) == 0:
+            return np.zeros((n, 1), dtype=float)
+        return np.column_stack(cols)
 
     def fit(self, X, y):
-        self.tree_ = DecisionTreeRegressor(
-            max_depth=self.max_depth,
-            min_samples_leaf=self.min_samples_leaf,
+        X = self._as_2d_float(X)
+        y = np.asarray(y, dtype=float).ravel()
+        self.feature_medians_ = np.nanmedian(X, axis=0)
+        self.feature_medians_ = np.where(np.isnan(self.feature_medians_), 0.0, self.feature_medians_)
+        X_imp = self._impute(X)
+
+        selected, self.screen_scores_ = self._feature_screen(X_imp, y)
+        self.feature_bins_ = []
+        for j in selected:
+            edges = self._build_bins(X_imp[:, j])
+            if edges is not None:
+                self.feature_bins_.append((int(j), edges))
+
+        Z = self._transform(X_imp)
+        self.linear_ = LassoCV(
+            cv=3,
             random_state=42,
+            max_iter=6000,
+            n_alphas=60,
+            fit_intercept=True,
         )
-        self.tree_.fit(X, y)
+        self.linear_.fit(Z, y)
+        self.n_features_in_ = X.shape[1]
         return self
 
     def predict(self, X):
-        check_is_fitted(self, "tree_")
-        return self.tree_.predict(X)
+        check_is_fitted(self, "linear_")
+        X = self._as_2d_float(X)
+        X_imp = self._impute(X)
+        Z = self._transform(X_imp)
+        return self.linear_.predict(Z)
 
     def __str__(self):
-        check_is_fitted(self, "tree_")
-        feature_names = [f"x{i}" for i in range(self.tree_.n_features_in_)]
-        tree_text = export_text(self.tree_, feature_names=feature_names, max_depth=6)
-        return tree_text
+        check_is_fitted(self, "linear_")
+        lines = [
+            "SparseBinnedAdditiveRegressor",
+            f"intercept = {self.linear_.intercept_:.6f}",
+            "prediction = intercept + sum(feature_bin_effects)",
+        ]
+        coef = self.linear_.coef_.ravel()
+        c = 0
+        for feat_idx, edges in self.feature_bins_:
+            n_bins = edges.size - 1
+            if n_bins <= 1:
+                continue
+            effects = np.zeros(n_bins, dtype=float)
+            for b in range(1, n_bins):
+                effects[b] = coef[c]
+                c += 1
+            if np.max(np.abs(effects)) < 1e-6:
+                continue
+            lines.append(f"x{feat_idx}:")
+            for b in range(n_bins):
+                lo = edges[b]
+                hi = edges[b + 1]
+                lines.append(f"  [{lo:.4g}, {hi:.4g}] -> {effects[b]:+.5f}")
+        return "\n".join(lines)
 
 
 # Make class picklable when script is run as __main__ (required for joblib caching/parallel)
 import sys as _sys
 _sys.modules.setdefault("interpretable_regressor", _sys.modules[__name__])
-DecisionTreeSimpleRegressor.__module__ = "interpretable_regressor"
+SparseBinnedAdditiveRegressor.__module__ = "interpretable_regressor"
 
 # Update the model shorthand name and description below to reflect the class above and any changes you make to it.
 # The shorthand name should be unique across all experiments (it is used to identify rows in the results CSV files)
 # The description should briefly summarize what this experiment tried.
-model_shorthand_name = "DecisionTreeSimple"
-model_description = "Baseline interpretable regressor (shallow decision tree)"
-model_defs = [(model_shorthand_name, DecisionTreeSimpleRegressor())]
+model_shorthand_name = "SparseBinnedAdditive_v1"
+model_description = "Custom sparse additive step-function model: correlation screening + quantile bins + L1 shrinkage on bin indicators"
+model_defs = [(model_shorthand_name, SparseBinnedAdditiveRegressor())]
 
 
 # ---------------------------------------------------------------------------
@@ -208,4 +296,3 @@ if __name__ == "__main__":
     print(f"tests_passed:  {n_passed}/{total}" + (f" ({n_passed/total:.2%})" if total > 0 else ""))
     print(f"mean_rank:     {mean_rank:.2f}" if not np.isnan(mean_rank) else "mean_rank:     nan")
     print(f"total_seconds: {time.time() - t0:.1f}s")
-
