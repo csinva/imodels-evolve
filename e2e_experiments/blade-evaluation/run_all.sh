@@ -1,9 +1,10 @@
 #!/bin/bash
-# Run OpenAI Codex on all 12 Blade datasets via Azure OpenAI.
+# Run OpenAI Codex on all 13 Blade datasets via Azure OpenAI (keyless Entra ID auth).
 #
 # Prerequisites:
-#   1. Run: source setup_azure.sh
-#   2. Run: python prepare_run.py
+#   1. az login (Azure CLI)
+#   2. python prepare_run.py
+#   3. ~/.codex/config.toml pointing to dl-openai-3 / gpt-5.3-codex
 #
 # Usage:
 #   bash run_all.sh                  # run all datasets
@@ -34,9 +35,18 @@ if [[ -n "$SINGLE_DATASET" ]]; then
     DATASETS=("$SINGLE_DATASET")
 fi
 
-# Refresh Azure token
+# Get Azure Entra ID token (keyless)
+refresh_token() {
+    export AZURE_OPENAI_API_KEY="$(python3 -c '
+from azure.identity import ChainedTokenCredential, AzureCliCredential, ManagedIdentityCredential
+cred = ChainedTokenCredential(AzureCliCredential(), ManagedIdentityCredential())
+print(cred.get_token("https://cognitiveservices.azure.com/.default").token)
+')"
+    echo "Azure token refreshed (length: ${#AZURE_OPENAI_API_KEY})" >&2
+}
+
 echo "Refreshing Azure token..."
-source "$SCRIPT_DIR/refresh_token.sh"
+refresh_token
 
 run_dataset() {
     local dataset="$1"
@@ -52,13 +62,16 @@ run_dataset() {
         return 0
     fi
 
+    # Remove stale conclusion if re-running
+    rm -f "$run_dir/conclusion.txt" "$run_dir/analysis.py"
+
     echo "============================================"
     echo "Running Codex on: $dataset"
     echo "============================================"
 
     cd "$run_dir"
 
-    # Run Codex with full access (needed for bubblewrap-less environments)
+    # Run Codex (gpt-5.3-codex on dl-openai-3 via ~/.codex/config.toml)
     npx @openai/codex exec \
         --config model_reasoning_effort="high" \
         --sandbox danger-full-access \
@@ -82,7 +95,7 @@ FAILED=0
 
 for dataset in "${DATASETS[@]}"; do
     # Refresh token periodically (tokens expire after ~1 hour)
-    source "$SCRIPT_DIR/refresh_token.sh" 2>/dev/null || true
+    refresh_token 2>/dev/null || true
 
     if run_dataset "$dataset"; then
         ((SUCCESS++)) || true
