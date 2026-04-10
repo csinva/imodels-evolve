@@ -1,0 +1,244 @@
+{
+  "research_question": "Does Reader View improve reading speed for individuals with dyslexia?",
+  "eda": {
+    "shape": {
+      "rows": 2568,
+      "cols": 20
+    },
+    "missing_top": {
+      "language": 222,
+      "english_native": 222,
+      "education": 204,
+      "device": 198,
+      "dyslexia_bin": 168,
+      "dyslexia": 168,
+      "age": 162,
+      "gender": 162,
+      "retake_trial": 126,
+      "reader_view": 0
+    },
+    "speed_distribution": {
+      "mean": 454.6725132950947,
+      "std": 1892.034203342554,
+      "median": 287.55202275,
+      "q1": 203.96640732499998,
+      "q3": 423.993115,
+      "min": 9.787206863,
+      "max": 88045.97701,
+      "skew": 39.845524280311935,
+      "kurtosis": 1803.98528174511
+    },
+    "log_speed_distribution": {
+      "mean": 5.734627702607812,
+      "std": 0.6585241168917377,
+      "median": 5.6648753799419875,
+      "q1": 5.322846006206702,
+      "q3": 6.0520729072637,
+      "min": 2.3783608822744,
+      "max": 11.385625780683071,
+      "skew": 1.4005131140997569,
+      "kurtosis": 5.884048246215318
+    },
+    "corr_with_speed_top_pos": {
+      "speed": 1.0,
+      "retake_trial": 0.1611606766976165,
+      "num_words": 0.07910289913900444,
+      "img_width": 0.024315291436772808,
+      "scrolling_time": 0.011474124236645258,
+      "Flesch_Kincaid": 0.006252199273183624,
+      "reader_view": -0.01947437471787245,
+      "dyslexia": -0.0324512136099754
+    },
+    "corr_with_speed_top_neg": {
+      "reader_view": -0.01947437471787245,
+      "dyslexia": -0.0324512136099754,
+      "dyslexia_bin": -0.049238114773770124,
+      "gender": -0.07273554506787683,
+      "age": -0.1054505798003837,
+      "running_time": -0.1075706514870489,
+      "correct_rate": -0.11194975264175985,
+      "adjusted_running_time": -0.11644105966851591
+    },
+    "group_speed_stats": {
+      "(0.0, 0)": {
+        "count": 981.0,
+        "mean": 434.236160007577,
+        "median": 297.179546,
+        "std": 1016.7557804856203
+      },
+      "(0.0, 1)": {
+        "count": 981.0,
+        "mean": 426.0681660857798,
+        "median": 301.8527514,
+        "std": 525.5092984409076
+      },
+      "(1.0, 0)": {
+        "count": 219.0,
+        "mean": 342.273196830411,
+        "median": 215.085885,
+        "std": 547.1115727725619
+      },
+      "(1.0, 1)": {
+        "count": 219.0,
+        "mean": 323.33557374995434,
+        "median": 211.6821268,
+        "std": 465.06619914793646
+      }
+    }
+  },
+  "statistical_tests": {
+    "dyslexia_subset_n": 438,
+    "welch_ttest_speed": {
+      "stat": -0.39028660070963056,
+      "pvalue": 0.6965201776930898,
+      "mean_reader_view_1": 323.33557374995434,
+      "mean_reader_view_0": 342.273196830411,
+      "cohen_d": -0.037297230263500424
+    },
+    "welch_ttest_log_speed": {
+      "stat": 0.11532515553057066,
+      "pvalue": 0.9082409915669352,
+      "mean_log_reader_view_1": 5.477129992566639,
+      "mean_log_reader_view_0": 5.469770864251401,
+      "cohen_d": 0.011020898163495564
+    },
+    "mannwhitney_speed": {
+      "stat": 24434.0,
+      "pvalue": 0.7323589850866848
+    },
+    "anova_log_speed": {
+      "C(reader_view)": {
+        "sum_sq": 1.2737964113442974,
+        "df": 1.0,
+        "F": 3.2194351653381967,
+        "PR(>F)": 0.07289476181228258
+      },
+      "C(dyslexia_bin)": {
+        "sum_sq": 32.58651740598191,
+        "df": 1.0,
+        "F": 82.36024149416995,
+        "PR(>F)": 2.3039258531167897e-19
+      },
+      "C(reader_view):C(dyslexia_bin)": {
+        "sum_sq": 0.20078254809258705,
+        "df": 1.0,
+        "F": 0.5074644504872637,
+        "PR(>F)": 0.47630790163048464
+      },
+      "Residual": {
+        "sum_sq": 947.9974109869447,
+        "df": 2396.0,
+        "F": NaN,
+        "PR(>F)": NaN
+      }
+    },
+    "ols_full_key_terms": {
+      "reader_view_coef": 0.048983956792738814,
+      "reader_view_p": 0.05771272577632131,
+      "interaction_coef": -0.024500910996861098,
+      "interaction_p": 0.6853721392260728,
+      "r2": 0.2593137188702961,
+      "n": 2274
+    },
+    "ols_dyslexia_only_key_terms": {
+      "reader_view_coef": 0.02188051574569686,
+      "reader_view_p": 0.6839335323737403,
+      "r2": 0.3480063644698954,
+      "n": 414
+    }
+  },
+  "models": {
+    "full_sample": {
+      "label": "full_sample_log_speed",
+      "n": 2400,
+      "standard_models": {
+        "LinearRegression": {
+          "r2": 0.1982455603936747,
+          "mae": 0.40445535251569625
+        },
+        "RidgeCV": {
+          "r2": 0.2092119062635246,
+          "mae": 0.4003066192950534
+        },
+        "LassoCV": {
+          "r2": 0.14455196576822826,
+          "mae": 0.4159645485813162
+        },
+        "DecisionTree_depth4": {
+          "r2": 0.13061211193269873,
+          "mae": 0.4434021232404799
+        }
+      },
+      "custom_models": {
+        "SmartAdditiveRegressor": {
+          "r2": 0.1690164006304148,
+          "mae": 0.41780375209107895,
+          "interpretation": "Ridge Regression (L2 regularization, \u03b1=1.0000 chosen by CV):\n  y = -0.2730*x1 + 0.0010*x4 + -0.9517*x5 + 0.2032*x6 + 0.1138*x23 + -0.1310*x25 + 0.2017*x28 + 0.0424*x30 + -0.1902*x36 + 0.0982*x43 + -0.1030*x47 + 6.3281\n\nCoefficients:\n  x5: -0.9517\n  x1: -0.2730\n  x6: 0.2032\n  x28: 0.2017\n  x36: -0.1902\n  x25: -0.1310\n  x23: 0.1138\n  x47: -0.1030\n  x43: 0.0982\n  x30: 0.0424\n  x4: 0.0010\n  intercept: 6.3281\n\nNonlinear feature effects (piecewise corrections to add to above):\n  f(x3):\n    x3 <= 13.5000: +0.3532\n    13.5000 < x3 <= 14.5000: +0.2708\n    14.5000 < x3 <= 19.5000: +0.1807\n    19.5000 < x3 <= 21.5000: +0.1029\n    21.5000 < x3 <= 22.5000: +0.0396\n    22.5000 < x3 <= 25.5000: -0.0070\n    25.5000 < x3 <= 45.5000: -0.0455\n    45.5000 < x3 <= 46.5000: -0.1064\n    46.5000 < x3 <= 59.5000: -0.1987\n    x3 >  59.5000: -0.2960\n  f(x8):\n    x8 <= 758.0000: -0.1659\n    x8 >  758.0000: +0.0145\n\nFeatures with zero coefficients (excluded): x0, x2, x7, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x24, x26, x27, x29, x31, x32, x33, x34, x35, x37, x38, x39, x40, x41, x42, x44, x45, x46"
+        },
+        "HingeEBMRegressor": {
+          "r2": 0.45521359625650215,
+          "mae": 0.34746508224179906,
+          "interpretation": "Ridge Regression (L2 regularization, \u03b1=0.01814 chosen by CV):\n  y = -0.1810*x1 + -0.0312*x3 + -0.0052*x4 + -0.4718*x5 + 0.0004*x8 + 0.0665*x23 + 6.3996\n\nCoefficients:\n  x5: -0.4718\n  x1: -0.1810\n  x23: 0.0665\n  x3: -0.0312\n  x4: -0.0052\n  x8: 0.0004\n  intercept: 6.3996\n  Features with zero coefficients (excluded): x0, x2, x6, x7, x9, x10, x11, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x24, x25, x26, x27, x28, x29, x30, x31, x32, x33, x34, x35, x36, x37, x38, x39, x40, x41, x42, x43, x44, x45, x46, x47"
+        }
+      },
+      "imodels": {
+        "RuleFitRegressor": {
+          "r2": 0.20430242102207896,
+          "mae": 0.4036141272691685
+        },
+        "FIGSRegressor": {
+          "r2": 0.189565198185082,
+          "mae": 0.40948498851238607
+        }
+      }
+    },
+    "dyslexia_only": {
+      "label": "dyslexia_only_log_speed",
+      "n": 438,
+      "standard_models": {
+        "LinearRegression": {
+          "r2": 0.247379517308847,
+          "mae": 0.36921516503110663
+        },
+        "RidgeCV": {
+          "r2": 0.2547345902460604,
+          "mae": 0.36719478930191873
+        },
+        "LassoCV": {
+          "r2": 0.04592010617743325,
+          "mae": 0.41284181363840766
+        },
+        "DecisionTree_depth4": {
+          "r2": -0.039669366925691785,
+          "mae": 0.4128966309146254
+        }
+      },
+      "custom_models": {
+        "SmartAdditiveRegressor": {
+          "r2": 0.2105704970776755,
+          "mae": 0.37471909959184146,
+          "interpretation": "Ridge Regression (L2 regularization, \u03b1=1.0000 chosen by CV):\n  y = -0.8121*x3 + 0.3418*x4 + -0.0473*x8 + 0.1034*x9 + 0.0558*x11 + -0.0655*x13 + 0.0775*x16 + 0.1355*x25 + -0.1295*x29 + 6.1545\n\nCoefficients:\n  x3: -0.8121\n  x4: 0.3418\n  x25: 0.1355\n  x29: -0.1295\n  x9: 0.1034\n  x16: 0.0775\n  x13: -0.0655\n  x11: 0.0558\n  x8: -0.0473\n  intercept: 6.1545\n\nNonlinear feature effects (piecewise corrections to add to above):\n  f(x2):\n    x2 <= 155.5000: -0.1417\n    155.5000 < x2 <= 353.5000: +0.0410\n    x2 >  353.5000: +0.1940\n  f(x6):\n    x6 <= 556.5000: -0.1917\n    556.5000 < x6 <= 784.5000: -0.0619\n    784.5000 < x6 <= 1007.5000: +0.0544\n    1007.5000 < x6 <= 1136.0000: +0.0897\n    1136.0000 < x6 <= 1246.5000: +0.0419\n    1246.5000 < x6 <= 1425.5000: -0.0295\n    x6 >  1425.5000: -0.0943\n  f(x1):\n    x1 <= 17.0000: +0.0159\n    17.0000 < x1 <= 19.5000: +0.0810\n    19.5000 < x1 <= 21.5000: +0.1052\n    21.5000 < x1 <= 29.5000: +0.0441\n    29.5000 < x1 <= 35.5000: -0.0259\n    35.5000 < x1 <= 40.5000: -0.0597\n    40.5000 < x1 <= 48.0000: -0.0843\n    x1 >  48.0000: -0.1159\n\nFeatures with zero coefficients (excluded): x0, x5, x7, x10, x12, x14, x15, x17, x18, x19, x20, x21, x22, x23, x24, x26, x27, x28"
+        },
+        "HingeEBMRegressor": {
+          "r2": 0.43209690132493284,
+          "mae": 0.3165099093055279,
+          "interpretation": "Ridge Regression (L2 regularization, \u03b1=0.02579 chosen by CV):\n  y = -0.0164*x1 + -0.0092*x2 + -0.3610*x3 + 0.0023*x6 + 0.0597*x11 + 3.6569\n\nCoefficients:\n  x3: -0.3610\n  x11: 0.0597\n  x1: -0.0164\n  x2: -0.0092\n  x6: 0.0023\n  intercept: 3.6569\n  Features with zero coefficients (excluded): x0, x4, x5, x7, x8, x9, x10, x12, x13, x14, x15, x16, x17, x18, x19, x20, x21, x22, x23, x24, x25, x26, x27, x28, x29"
+        }
+      },
+      "imodels": {
+        "RuleFitRegressor": {
+          "r2": 0.12882090664816948,
+          "mae": 0.3760052386280067
+        },
+        "FIGSRegressor": {
+          "r2": -0.032320882926876404,
+          "mae": 0.407611716909066
+        }
+      }
+    }
+  },
+  "final": {
+    "response": 12,
+    "explanation": "No convincing evidence that Reader View improves reading speed for participants with dyslexia. In the dyslexia subgroup, Welch t-test on log(speed) was not significant (p=0.908, d=0.011), Mann-Whitney was not significant (p=0.732), and adjusted OLS within dyslexia showed a near-zero Reader View effect (coef=0.0219, p=0.684). The ReaderView*dyslexia interaction in full-sample OLS was also not significant (p=0.685). Custom interpretable models (SmartAdditiveRegressor and HingeEBMRegressor), fit on both full and dyslexia-only data, did not surface Reader View as a dominant positive driver relative to other covariates."
+  }
+}

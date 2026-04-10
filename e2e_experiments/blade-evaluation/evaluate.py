@@ -5,9 +5,10 @@ then uses Azure OpenAI (keyless via Entra ID) to judge correctness,
 completeness, and clarity.
 
 Usage:
-    python evaluate.py                         # evaluate all datasets
-    python evaluate.py --dataset hurricane     # evaluate one dataset
-    python evaluate.py --verbose               # show judge explanations
+    python evaluate.py --mode standard         # evaluate standard tools run
+    python evaluate.py --mode custom           # evaluate custom tools run
+    python evaluate.py --mode standard --dataset hurricane
+    python evaluate.py --mode standard --verbose
 
 Authentication:
     Uses keyless Azure OpenAI via ChainedTokenCredential (AzureCli -> ManagedIdentity).
@@ -31,10 +32,10 @@ credential = get_bearer_token_provider(ChainedTokenCredential(
 ), scope)
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(SCRIPT_DIR, "outputs")
-DATASETS_DIR = os.path.join(
-    SCRIPT_DIR, "..", "example-blade-repo", "blade", "blade_bench", "datasets"
+_BLADE_DIR = os.path.join(
+    SCRIPT_DIR, "..", "example-blade-repo", "blade_bench", "datasets"
 )
+DATASETS_DIR = _BLADE_DIR if os.path.isdir(_BLADE_DIR) else os.path.join(SCRIPT_DIR, "outputs")
 
 DATASETS = [
     "affairs", "amtl", "boxes", "caschools", "crofoot", "fertility",
@@ -85,9 +86,9 @@ def get_client() -> AzureOpenAI:
     )
 
 
-def load_conclusion(dataset: str) -> dict | None:
+def load_conclusion(dataset: str, output_dir: str) -> dict | None:
     """Load the Codex-generated conclusion.txt."""
-    path = os.path.join(OUTPUT_DIR, dataset, "conclusion.txt")
+    path = os.path.join(output_dir, dataset, "conclusion.txt")
     if not os.path.exists(path):
         return None
     try:
@@ -191,9 +192,12 @@ def judge_dataset(
     client: AzureOpenAI,
     deployment: str,
     dataset: str,
+    output_dir: str = None,
 ) -> dict:
     """Use LLM-as-a-judge to evaluate a single dataset's Codex output."""
-    conclusion = load_conclusion(dataset)
+    if output_dir is None:
+        output_dir = os.path.join(SCRIPT_DIR, "outputs_standard")
+    conclusion = load_conclusion(dataset, output_dir)
     if conclusion is None:
         return {"dataset": dataset, "status": "missing", "error": "no conclusion.txt"}
     if "parse_error" in conclusion:
@@ -250,16 +254,18 @@ def judge_dataset(
 def evaluate_all(
     datasets: list[str] | None = None,
     verbose: bool = False,
+    mode: str = "standard",
 ):
     """Run LLM-as-a-judge evaluation on all datasets."""
     client = get_client()
     deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT", "gpt-4o")
     datasets = datasets or DATASETS
+    output_dir = os.path.join(SCRIPT_DIR, f"outputs_{mode}")
 
     results = []
     for dataset in datasets:
-        print(f"Evaluating: {dataset}...", end=" ", flush=True)
-        result = judge_dataset(client, deployment, dataset)
+        print(f"Evaluating: {dataset} ({mode})...", end=" ", flush=True)
+        result = judge_dataset(client, deployment, dataset, output_dir)
         results.append(result)
 
         if result["status"] == "ok":
@@ -309,7 +315,7 @@ def evaluate_all(
         print(f"\nOverall average score: {overall:.2f} / 5.00")
 
     # Save results
-    results_path = os.path.join(SCRIPT_DIR, "results.csv")
+    results_path = os.path.join(SCRIPT_DIR, f"results_{mode}.csv")
     df.to_csv(results_path, index=False)
     print(f"\nResults saved to {results_path}")
 
@@ -320,7 +326,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Evaluate Blade Codex results with LLM-as-a-judge")
     parser.add_argument("--dataset", type=str, default=None, help="Single dataset to evaluate")
     parser.add_argument("--verbose", action="store_true", help="Show judge explanations")
+    parser.add_argument("--mode", type=str, choices=["standard", "custom"], default="standard",
+                        help="Which run to evaluate: 'standard' or 'custom'")
     args = parser.parse_args()
 
     ds = [args.dataset] if args.dataset else None
-    evaluate_all(datasets=ds, verbose=args.verbose)
+    evaluate_all(datasets=ds, verbose=args.verbose, mode=args.mode)

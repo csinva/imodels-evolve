@@ -1,0 +1,210 @@
+{
+  "n_rows": 2355,
+  "n_cols": 13,
+  "target": "accept",
+  "summary_stats": {
+    "count": {
+      "female": 2355.0,
+      "black": 2355.0,
+      "housing_expense_ratio": 2355.0,
+      "self_employed": 2355.0,
+      "married": 2355.0,
+      "mortgage_credit": 2355.0,
+      "consumer_credit": 2355.0,
+      "bad_history": 2355.0,
+      "PI_ratio": 2355.0,
+      "deny": 2355.0,
+      "loan_to_value": 2355.0,
+      "denied_PMI": 2355.0,
+      "accept": 2355.0
+    },
+    "mean": {
+      "female": 0.2098,
+      "black": 0.1414,
+      "housing_expense_ratio": 0.2533,
+      "self_employed": 0.1159,
+      "married": 0.6085,
+      "mortgage_credit": 1.7206,
+      "consumer_credit": 2.1219,
+      "bad_history": 0.0722,
+      "PI_ratio": 0.328,
+      "deny": 0.118,
+      "loan_to_value": 0.7378,
+      "denied_PMI": 0.02,
+      "accept": 0.882
+    },
+    "std": {
+      "female": 0.4072,
+      "black": 0.3485,
+      "housing_expense_ratio": 0.0734,
+      "self_employed": 0.3202,
+      "married": 0.4882,
+      "mortgage_credit": 0.5375,
+      "consumer_credit": 1.6696,
+      "bad_history": 0.2589,
+      "PI_ratio": 0.0828,
+      "deny": 0.3227,
+      "loan_to_value": 0.1787,
+      "denied_PMI": 0.1399,
+      "accept": 0.3227
+    },
+    "min": {
+      "female": 0.0,
+      "black": 0.0,
+      "housing_expense_ratio": 0.0,
+      "self_employed": 0.0,
+      "married": 0.0,
+      "mortgage_credit": 1.0,
+      "consumer_credit": 1.0,
+      "bad_history": 0.0,
+      "PI_ratio": 0.0,
+      "deny": 0.0,
+      "loan_to_value": 0.02,
+      "denied_PMI": 0.0,
+      "accept": 0.0
+    },
+    "25%": {
+      "female": 0.0,
+      "black": 0.0,
+      "housing_expense_ratio": 0.2142,
+      "self_employed": 0.0,
+      "married": 0.0,
+      "mortgage_credit": 1.0,
+      "consumer_credit": 1.0,
+      "bad_history": 0.0,
+      "PI_ratio": 0.28,
+      "deny": 0.0,
+      "loan_to_value": 0.653,
+      "denied_PMI": 0.0,
+      "accept": 1.0
+    },
+    "50%": {
+      "female": 0.0,
+      "black": 0.0,
+      "housing_expense_ratio": 0.26,
+      "self_employed": 0.0,
+      "married": 1.0,
+      "mortgage_credit": 2.0,
+      "consumer_credit": 1.0,
+      "bad_history": 0.0,
+      "PI_ratio": 0.33,
+      "deny": 0.0,
+      "loan_to_value": 0.7806,
+      "denied_PMI": 0.0,
+      "accept": 1.0
+    },
+    "75%": {
+      "female": 0.0,
+      "black": 0.0,
+      "housing_expense_ratio": 0.2984,
+      "self_employed": 0.0,
+      "married": 1.0,
+      "mortgage_credit": 2.0,
+      "consumer_credit": 2.0,
+      "bad_history": 0.0,
+      "PI_ratio": 0.37,
+      "deny": 0.0,
+      "loan_to_value": 0.8687,
+      "denied_PMI": 0.0,
+      "accept": 1.0
+    },
+    "max": {
+      "female": 1.0,
+      "black": 1.0,
+      "housing_expense_ratio": 0.72,
+      "self_employed": 1.0,
+      "married": 1.0,
+      "mortgage_credit": 4.0,
+      "consumer_credit": 6.0,
+      "bad_history": 1.0,
+      "PI_ratio": 0.95,
+      "deny": 1.0,
+      "loan_to_value": 1.95,
+      "denied_PMI": 1.0,
+      "accept": 1.0
+    }
+  },
+  "corr_with_target": {
+    "accept": 1.0,
+    "married": 0.0759,
+    "female": -0.0022,
+    "self_employed": -0.0443,
+    "housing_expense_ratio": -0.1025,
+    "mortgage_credit": -0.1094,
+    "loan_to_value": -0.1656,
+    "PI_ratio": -0.184,
+    "black": -0.2028,
+    "consumer_credit": -0.2681,
+    "bad_history": -0.2692,
+    "denied_PMI": -0.3524,
+    "deny": -1.0
+  },
+  "group_stats_by_female": {
+    "mean": {
+      "0.0": 0.8823,
+      "1.0": 0.8806
+    },
+    "count": {
+      "0.0": 1861,
+      "1.0": 494
+    },
+    "std": {
+      "0.0": 0.3223,
+      "1.0": 0.3246
+    }
+  },
+  "tests": {
+    "welch_t_test": {
+      "stat": -0.10694639471117293,
+      "p": 0.9148593355106812
+    },
+    "chi_square": {
+      "stat": 0.0008414195833472354,
+      "p": 0.9768588216890608,
+      "dof": 1
+    },
+    "ols_female": {
+      "coef": 0.036955285501783876,
+      "p": 0.02464504712502749,
+      "ci_low": 0.004719611049736429,
+      "ci_high": 0.06919095995383132
+    },
+    "anova_female_p": 0.019078508931528276
+  },
+  "model_results": {
+    "LinearRegression": {
+      "r2": 0.2510986924934858,
+      "female_effect": 0.033754943421068134
+    },
+    "Ridge": {
+      "r2": 0.25065032972763956,
+      "female_effect": 0.03404793524695044
+    },
+    "Lasso": {
+      "r2": 0.25057185083119327,
+      "female_effect": 0.02941214005157403
+    },
+    "DecisionTreeClassifier": {
+      "accuracy": 0.8910891089108911,
+      "auc": 0.7569605344454742,
+      "female_importance": 0.0
+    },
+    "DecisionTreeRegressor": {
+      "r2": 0.21648575679333526,
+      "female_importance": 0.0
+    },
+    "RuleFitRegressor": {
+      "r2": 0.247477653151279,
+      "female_signal": NaN
+    },
+    "FIGSRegressor": {
+      "r2": 0.21146820053762128,
+      "female_importance": 0.0
+    },
+    "HSTreeRegressor": {
+      "r2": 0.15349596969252965,
+      "female_importance": NaN
+    }
+  },
+  "imodels_notes": {}
+}

@@ -3,17 +3,17 @@
 #
 # Prerequisites:
 #   1. az login (Azure CLI)
-#   2. python prepare_run.py
+#   2. python prepare_run.py --mode <standard|custom>
 #   3. ~/.codex/config.toml pointing to dl-openai-3 / gpt-5.3-codex
 #
 # Usage:
-#   bash run_all.sh                  # run all datasets
-#   bash run_all.sh hurricane        # run single dataset
-#   bash run_all.sh --skip-existing  # skip datasets with existing conclusion.txt
+#   bash run_all.sh --mode standard              # run all datasets with standard tools
+#   bash run_all.sh --mode custom                # run all datasets with custom tools
+#   bash run_all.sh --mode standard hurricane    # run single dataset
+#   bash run_all.sh --mode standard --skip-existing
 
 set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-OUTPUT_DIR="$SCRIPT_DIR/outputs"
 
 DATASETS=(
     affairs amtl boxes caschools crofoot fertility
@@ -22,14 +22,18 @@ DATASETS=(
 
 SKIP_EXISTING=false
 SINGLE_DATASET=""
+MODE="standard"
 
 # Parse arguments
-for arg in "$@"; do
-    case "$arg" in
-        --skip-existing) SKIP_EXISTING=true ;;
-        *) SINGLE_DATASET="$arg" ;;
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --skip-existing) SKIP_EXISTING=true; shift ;;
+        --mode) MODE="$2"; shift 2 ;;
+        *) SINGLE_DATASET="$1"; shift ;;
     esac
 done
+
+OUTPUT_DIR="$SCRIPT_DIR/outputs_${MODE}"
 
 if [[ -n "$SINGLE_DATASET" ]]; then
     DATASETS=("$SINGLE_DATASET")
@@ -45,6 +49,8 @@ print(cred.get_token("https://cognitiveservices.azure.com/.default").token)
     echo "Azure token refreshed (length: ${#AZURE_OPENAI_API_KEY})" >&2
 }
 
+echo "Mode: $MODE"
+echo "Output dir: $OUTPUT_DIR"
 echo "Refreshing Azure token..."
 refresh_token
 
@@ -53,7 +59,7 @@ run_dataset() {
     local run_dir="$OUTPUT_DIR/$dataset"
 
     if [[ ! -d "$run_dir" ]]; then
-        echo "SKIP: $dataset (run directory not found, run prepare_run.py first)"
+        echo "SKIP: $dataset (run directory not found, run prepare_run.py --mode $MODE first)"
         return 1
     fi
 
@@ -66,7 +72,7 @@ run_dataset() {
     rm -f "$run_dir/conclusion.txt" "$run_dir/analysis.py"
 
     echo "============================================"
-    echo "Running Codex on: $dataset"
+    echo "Running Codex on: $dataset (mode: $MODE)"
     echo "============================================"
 
     cd "$run_dir"
@@ -105,5 +111,5 @@ for dataset in "${DATASETS[@]}"; do
 done
 
 echo "============================================"
-echo "Complete: $SUCCESS/$TOTAL succeeded, $FAILED failed"
+echo "Complete ($MODE mode): $SUCCESS/$TOTAL succeeded, $FAILED failed"
 echo "============================================"
