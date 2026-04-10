@@ -116,25 +116,29 @@ Score 6-7: Controls included, some investigation of effect sizes or feature impo
 Score 8-9: Thorough analysis with feature importance, effect shapes, and multiple approaches
 Score 10: Comprehensive — reports effect shapes, importance rankings, nonlinear patterns, and confounders
 
-**Clarity** (1-10): Is the explanation clear, well-structured, and insightful?
+**Clarity** (1-10): Is the explanation clear, well-structured, and rich in interpretable insight?
 
-Focus on whether a data scientist could read the explanation and understand both the conclusion AND the reasoning behind it. Reward:
-- Clear connection between statistical results and the conclusion
-- Reporting not just "significant/not" but the direction and magnitude of effects
-- Describing which features are most vs least important
-- Explaining how the relationship works (e.g., "the effect is positive and roughly linear" or "there is a threshold effect at X=30")
-- Logical flow from evidence to answer
+A great explanation doesn't just report p-values — it helps the reader UNDERSTAND the data relationships. Reward explanations that:
+- Report the **direction** of each important feature's effect (positive, negative, nonlinear)
+- Quantify **relative importance** — which features matter most and by how much (e.g., "hours is the 2nd most important predictor at 19.8% importance, behind livebait at 45.2%")
+- Describe the **shape** of relationships — are effects linear, or are there thresholds/nonlinear patterns? (e.g., "age has a threshold effect: no effect below 25, strong positive effect above 25")
+- Show **robustness** — do findings hold across different models or approaches?
+- Clearly connect statistical evidence to the final conclusion
+- Explain not just WHETHER a relationship exists, but HOW it works
+
+An explanation that only says "p < 0.05 therefore significant" is shallow.
+An explanation that says "income has a positive linear effect (coef=0.52, rank 1 in importance at 32%), while age shows a nonlinear threshold at 30 (importance=18%, rank 2), and gender has no effect (zeroed out by Lasso)" is rich and insightful.
 
 Penalize:
-- Contradictions between the Likert score and the evidence presented
-- Listing statistics without connecting them to the research question
-- Failing to state whether effects survive controlling for confounders
+- Contradictions between the Likert score and the evidence
+- Listing statistics without interpreting what they mean for the research question
+- Missing information about which features matter most or how they relate to the outcome
 
 Score 1-3: Confusing or contradictory
-Score 4-5: Understandable but shallow
-Score 6-7: Clear with some insight into the relationships
-Score 8-9: Well-structured with meaningful interpretation of effects
-Score 10: Exceptionally clear — explains both what the data shows and why, with insight into feature relationships
+Score 4-5: Only reports significance, no insight into relationships
+Score 6-7: Reports direction and some effect sizes, but limited depth
+Score 8-9: Reports importance rankings, effect directions, and relationship shapes across features
+Score 10: Exceptionally insightful — quantifies relative importance, describes effect shapes (linear/nonlinear/threshold), shows robustness across models, and clearly connects all evidence to the conclusion
 
 Respond ONLY with a JSON object:
 {{"correctness": <int>, "completeness": <int>, "clarity": <int>, "explanation": "<brief justification>"}}

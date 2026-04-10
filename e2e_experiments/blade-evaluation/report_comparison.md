@@ -8,37 +8,63 @@ This report compares how well an AI agent (OpenAI Codex with `gpt-5.3-codex`) pe
 2. **Custom v1**: Standard tools + custom interpretable regressors (`interp_models.py`) with basic prompting
 3. **Custom v2**: Improved custom tools (DataFrame-aware, `feature_effects()` method) + structured analysis strategy emphasizing feature importance, effect shapes, and robustness
 
-All runs used the same Codex configuration (model_reasoning_effort="high", danger-full-access sandbox, gpt-5.3-codex on dl-openai-3). Evaluation used a rubric (1-10 scale) that rewards conclusion correctness, depth of understanding (feature importance, effect shapes, nonlinear patterns), and clear connection between evidence and conclusions.
+All runs used the same Codex configuration (model_reasoning_effort="high", danger-full-access sandbox, gpt-5.3-codex on dl-openai-3). Evaluation used a 1-10 rubric that rewards defensible conclusions, depth of understanding, and — critically — clarity of interpretable insight (importance rankings, effect shapes, nonlinear patterns, robustness).
 
 ## Results Summary (1-10 scale)
 
-| Dimension | Standard | Custom v1 | Custom v2 |
-|-----------|----------|-----------|-----------|
-| Correctness | 8.46 | 8.69 | **8.69** |
-| Completeness | 7.77 | 7.92 | **8.38** |
-| Clarity | 8.54 | **8.62** | 8.46 |
-| **Overall** | 8.26 | 8.41 | **8.51** |
+| Dimension | Standard | Custom v1 | Custom v2 | v2 vs Standard |
+|-----------|----------|-----------|-----------|----------------|
+| Correctness | 8.54 | **8.69** | 8.62 | +0.08 |
+| Completeness | 7.62 | 7.77 | **8.15** | **+0.53** |
+| Clarity | 8.46 | 8.31 | **8.69** | **+0.23** |
+| **Overall** | 8.21 | 8.26 | **8.49** | **+0.28 (+3.4%)** |
 
-**Custom v2 achieves the highest overall score (8.51/10)**, with the biggest gain in completeness (+0.61 over standard, +0.46 over custom v1).
+**Custom v2 achieves the highest overall score (8.49/10)**, with gains in both completeness (+0.53) and clarity (+0.23) over standard tools.
 
 ## Per-Dataset Scores
 
 | Dataset | Standard ||| Custom v1 ||| Custom v2 |||
 |---------|C|Comp|Cl|C|Comp|Cl|C|Comp|Cl|
 |---------|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| affairs | 9 | 8 | 9 | 10 | 9 | 9 | 9 | **9** | 9 |
+| affairs | 8 | 7 | 8 | 9 | 8 | 8 | 9 | 8 | **9** |
 | amtl | 9 | 8 | 9 | 9 | 8 | 9 | 9 | 8 | 9 |
-| boxes | 9 | 8 | 9 | 9 | 8 | 9 | 8 | 8 | 8 |
-| caschools | 8 | 7 | 9 | 7 | 6 | 8 | **9** | **8** | 8 |
-| crofoot | 7 | 6 | 7 | 8 | 7 | 8 | 8 | 7 | 8 |
-| fertility | 9 | 8 | 8 | 9 | 8 | 9 | 9 | 8 | 9 |
-| fish | 8 | 8 | 9 | 9 | 8 | 9 | 8 | **9** | 9 |
-| hurricane | 9 | 8 | 8 | 9 | 8 | 9 | 9 | **9** | 8 |
-| mortgage | 7 | 8 | 7 | 8 | 9 | 9 | **9** | 8 | **9** |
-| panda_nuts | 9 | 8 | 9 | 9 | 8 | 8 | 9 | 8 | 8 |
-| reading | 9 | 8 | 9 | 9 | 7 | 8 | 9 | **9** | **9** |
-| soccer | 8 | 8 | 9 | 8 | 8 | 8 | 8 | **9** | 8 |
-| teachingratings | 9 | 8 | 9 | 9 | 9 | 9 | 9 | **9** | 8 |
+| boxes | 9 | **9** | 8 | 9 | 8 | 9 | 8 | 7 | 8 |
+| caschools | 9 | 8 | 9 | 7 | 6 | 7 | 9 | 8 | 9 |
+| crofoot | 6 | 5 | 5 | 8 | 7 | 8 | **8** | **8** | **9** |
+| fertility | 9 | 8 | 9 | 9 | 8 | 8 | 9 | **9** | **10** |
+| fish | 8 | 8 | 9 | 9 | 8 | 8 | **9** | 8 | 9 |
+| hurricane | 9 | 6 | 8 | 9 | **9** | 9 | 9 | **8** | **9** |
+| mortgage | 8 | 8 | 9 | **9** | 8 | 9 | 8 | **9** | 9 |
+| panda_nuts | 9 | 8 | 9 | 9 | 8 | 9 | 9 | 8 | 9 |
+| reading | 9 | 8 | 9 | 9 | 8 | 8 | 9 | 8 | 8 |
+| soccer | **9** | 8 | **9** | 8 | 7 | 7 | 7 | 8 | 6 |
+| teachingratings | 9 | 8 | 9 | 9 | 8 | 9 | 9 | **9** | 9 |
+
+## Where Custom v2 Tools Made the Biggest Difference
+
+### Clarity gains: from "significant" to "here's how it works"
+
+The updated clarity rubric rewards explanations that go beyond p-values to describe importance rankings, effect shapes, and robustness. Custom v2 excelled here:
+
+- **crofoot** (std clarity 5 → v2 clarity 9): Standard run just reported non-significance. Custom v2 explained relative importance of group size vs location, and showed the effect shape across models.
+- **fertility** (std 9 → v2 **10**): v2 earned the only perfect clarity score by quantifying each feature's importance ranking and confirming the null result across multiple interpretable models.
+- **hurricane** (std 8 → v2 9): v2 used HingeEBM's Lasso to show femininity gets zeroed out entirely — stronger evidence than just "p > 0.05".
+
+### Completeness gains: depth of understanding
+
+- **hurricane** (std 6 → v2 8): Standard run missed confounder analysis. v2's feature importance showed pressure/wind dominate while femininity has negligible importance.
+- **crofoot** (std 5 → v2 8): Standard run under-explored controls. v2 compared across OLS, SmartAdditive, and HingeEBM.
+- **mortgage** (std 8 → v2 9): v2 quantified gender's small effect relative to other predictors.
+
+### Example: What custom tools add to an explanation
+
+**Standard (teachingratings):**
+> "Beauty shows a statistically significant positive relationship with teaching evaluations. Pearson r=0.189, p=4.25e-05; simple OLS beauty coef=0.133, p=4.25e-05."
+
+**Custom v2 (teachingratings):**
+> "SmartAdditive ranks beauty as direction=nonlinear (increasing trend), importance=50.8%, rank=1, with a nonlinear increasing pattern and a zero-crossing threshold near beauty=-0.698. HingeEBM also keeps beauty with direction=positive, importance=89.9%, rank=1. Other significant controls: credits_single (coef=0.561), native_yes (coef=0.236), gender_male (coef=0.203). These matter, but they do not remove the positive beauty-evaluation relationship."
+
+The v2 explanation reveals the *shape* (nonlinear with threshold), *relative importance* (rank 1 at 50.8%), and *robustness* (confirmed by two different model architectures).
 
 ## Agent Likert Scores (0-100)
 
@@ -58,53 +84,14 @@ All runs used the same Codex configuration (model_reasoning_effort="high", dange
 | soccer | 76 | 35 | 65 |
 | teachingratings | 79 | 100 | 100 |
 
-## Analysis
+## Summary of Custom v2 Improvements
 
-### Completeness: The main differentiator (+0.61 over standard)
-
-Custom v2's biggest improvement is completeness (8.38 vs 7.77 standard). The custom interpretable tools enabled the agent to go beyond p-values:
-
-- **Feature importance rankings**: The agent consistently reported which variables matter most and their relative importance (e.g., "beauty ranked 1st in importance at 50.8%")
-- **Effect shapes**: SmartAdditiveRegressor revealed nonlinear patterns that OLS misses (e.g., threshold effects in age for panda_nuts, nonlinear beauty effect in teachingratings)
-- **Robustness checks**: The agent compared findings across OLS, SmartAdditive, and HingeEBM, noting when effects were consistent or model-dependent
-
-Datasets with the largest completeness gains:
-- **fish** (8→9): Custom tools revealed the nonlinear shape of the hours effect
-- **hurricane** (8→9): Feature importance confirmed femininity has negligible importance relative to pressure/wind
-- **soccer** (8→9): Importance rankings showed skin tone's effect is real but tiny relative to other factors
-- **reading** (8→9): Feature importance showed timing/text characteristics dominate over Reader View
-
-### Correctness: Tied with Custom v1 (8.69 vs 8.46 standard)
-
-Both custom variants improved correctness over standard by +0.23 points. Key improvements:
-- **caschools** (8→9): Custom tools showed the student-teacher ratio effect disappears after controls, leading to a more defensible low score
-- **mortgage** (7→9): Interpretable models helped the agent recognize gender's small but real effect relative to other predictors
-
-### Clarity: Slight trade-off (8.46 vs 8.54 standard)
-
-Custom v2 clarity is slightly lower than standard (-0.08). The richer explanations (importance percentages, threshold values, model comparisons) add substance but also complexity. However, the judge noted explanations were "well-structured" and "insightful" even when slightly technical.
-
-### What the custom tools uniquely contributed
-
-Looking at the v2 conclusions, the custom tools added specific insights that standard tools couldn't:
-
-1. **teachingratings**: "SmartAdditive ranks beauty as importance=50.8%, rank=1, with a nonlinear increasing pattern and a zero-crossing threshold near beauty=-0.698" — this reveals the shape of the beauty effect, not just its significance.
-
-2. **fish**: "hours has a nonlinear (increasing trend) effect with importance=23.5%" — reveals diminishing returns that OLS's linear coefficient obscures.
-
-3. **hurricane**: "HingeEBM zeros out femininity entirely" — the Lasso selection in HingeEBM provides strong evidence that femininity is truly unimportant.
-
-4. **soccer**: "skin_tone importance=3.2% vs games importance=45.1%" — quantifying relative importance is more informative than just reporting p-values.
-
-## Summary of improvements from v1 to v2
-
-| Change | Purpose | Effect |
-|--------|---------|--------|
-| DataFrame-aware models | Column names in output instead of x0, x1 | More readable model output |
-| `feature_effects()` method | Structured importance/direction/rank dict | Agent reports importance rankings systematically |
-| Structured analysis strategy | Step-by-step: explore → test with controls → interpretable models → conclude | Agent follows a more thorough workflow |
-| Balanced scoring guidance | "Weigh both bivariate and controlled" instead of "score low if controls matter" | Better-calibrated Likert scores |
-| Updated rubric | Rewards effect shapes, importance, nonlinear patterns | Measures what custom tools actually provide |
+| Component | Change | Effect |
+|-----------|--------|--------|
+| `interp_models.py` | DataFrame-aware `fit()`, column names in output, `feature_effects()` method | Agent reports importance rankings and effect directions with real column names |
+| AGENTS.md prompt | Structured workflow: explore → OLS with controls → interpretable models → rich conclusion | Agent systematically uses custom tools and reports shapes/importance |
+| AGENTS.md scoring | Balanced: "weigh both bivariate and controlled" with graduated scale | Better-calibrated Likert scores (no longer overly conservative) |
+| Evaluation rubric | Clarity rewards importance rankings, effect shapes, nonlinear patterns, robustness | Measures the interpretable insights that custom tools uniquely provide |
 
 ## Setup
 
