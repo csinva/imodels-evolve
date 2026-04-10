@@ -29,20 +29,33 @@ from visualize import plot_interp_vs_performance
 # ---------------------------------------------------------------------------
 
 
-class SparseBinnedAdditiveRegressor(BaseEstimator, RegressorMixin):
+class SparseSymbolicInteractionRegressor(BaseEstimator, RegressorMixin):
     """
-    Interpretable scikit-learn compatible regressor.
+    Sparse symbolic regression with screened interpretable basis functions.
 
-    Sparse additive step-function regressor.
-    Selects informative features, bins each selected feature by quantiles,
-    and fits an L1-regularized linear model on the resulting bin indicators.
-    Must implement: fit(X, y), predict(X), and __str__().
+    Basis dictionary:
+      - a small set of original features x_j
+      - optional |x_j - median_j| nonlinearity terms
+      - a tiny set of pairwise interactions (x_i - med_i)*(x_j - med_j)
+
+    Final model is a sparse linear combination fit with L1 regularization.
     """
 
-    def __init__(self, max_features=8, max_bins=6, min_bin_frac=0.08):
-        self.max_features = max_features
-        self.max_bins = max_bins
-        self.min_bin_frac = min_bin_frac
+    def __init__(
+        self,
+        max_main_features=6,
+        max_abs_features=3,
+        max_interactions=2,
+        interaction_pool=6,
+        min_keep_coef=1e-3,
+        random_state=42,
+    ):
+        self.max_main_features = max_main_features
+        self.max_abs_features = max_abs_features
+        self.max_interactions = max_interactions
+        self.interaction_pool = interaction_pool
+        self.min_keep_coef = min_keep_coef
+        self.random_state = random_state
 
     @staticmethod
     def _as_2d_float(X):
@@ -54,115 +67,162 @@ class SparseBinnedAdditiveRegressor(BaseEstimator, RegressorMixin):
     def _impute(self, X):
         return np.where(np.isnan(X), self.feature_medians_, X)
 
-    def _feature_screen(self, X, y):
-        y_centered = y - y.mean()
-        y_scale = np.linalg.norm(y_centered) + 1e-12
+    @staticmethod
+    def _corr_scores(X, y):
+        yc = y - y.mean()
+        y_norm = np.linalg.norm(yc) + 1e-12
         scores = np.zeros(X.shape[1], dtype=float)
         for j in range(X.shape[1]):
             xj = X[:, j]
-            xj_centered = xj - xj.mean()
-            denom = (np.linalg.norm(xj_centered) * y_scale) + 1e-12
-            scores[j] = abs(np.dot(xj_centered, y_centered) / denom)
-        order = np.argsort(-scores)
-        k = min(self.max_features, X.shape[1])
-        return order[:k], scores
+            xj = xj - xj.mean()
+            scores[j] = abs(np.dot(xj, yc) / ((np.linalg.norm(xj) + 1e-12) * y_norm))
+        return scores
 
-    def _build_bins(self, x):
-        n = x.shape[0]
-        target_bins = min(self.max_bins, max(2, int(1.0 / max(self.min_bin_frac, 1e-3))))
-        q = np.linspace(0.0, 1.0, target_bins + 1)
-        edges = np.quantile(x, q)
-        edges = np.unique(edges)
-        if edges.size < 2:
-            return None
-        return edges
-
-    def _transform(self, X):
-        n = X.shape[0]
-        if len(self.feature_bins_) == 0:
-            return np.zeros((n, 1), dtype=float)
+    def _build_basis(self, X):
         cols = []
-        for feat_idx, edges in self.feature_bins_:
-            xj = X[:, feat_idx]
-            bin_ids = np.searchsorted(edges[1:-1], xj, side="right")
-            n_bins = edges.size - 1
-            for b in range(1, n_bins):
-                cols.append((bin_ids == b).astype(float))
+        specs = []
+
+        # Linear terms.
+        for j in self.main_features_:
+            cols.append(X[:, j])
+            specs.append(("lin", int(j)))
+
+        # Absolute-deviation terms to capture simple U-shaped behavior.
+        for j in self.abs_features_:
+            cols.append(np.abs(X[:, j] - self.feature_medians_[j]))
+            specs.append(("abs", int(j)))
+
+        # Pairwise centered interactions.
+        for i, j in self.interactions_:
+            cols.append((X[:, i] - self.feature_medians_[i]) * (X[:, j] - self.feature_medians_[j]))
+            specs.append(("int", int(i), int(j)))
+
         if len(cols) == 0:
-            return np.zeros((n, 1), dtype=float)
-        return np.column_stack(cols)
+            return np.zeros((X.shape[0], 1), dtype=float), [("bias_fallback",)]
+        return np.column_stack(cols), specs
 
     def fit(self, X, y):
         X = self._as_2d_float(X)
         y = np.asarray(y, dtype=float).ravel()
+        n, p = X.shape
+
         self.feature_medians_ = np.nanmedian(X, axis=0)
         self.feature_medians_ = np.where(np.isnan(self.feature_medians_), 0.0, self.feature_medians_)
         X_imp = self._impute(X)
 
-        selected, self.screen_scores_ = self._feature_screen(X_imp, y)
-        self.feature_bins_ = []
-        for j in selected:
-            edges = self._build_bins(X_imp[:, j])
-            if edges is not None:
-                self.feature_bins_.append((int(j), edges))
+        # Feature screening from linear correlation.
+        corr = self._corr_scores(X_imp, y)
+        order = np.argsort(-corr)
 
-        Z = self._transform(X_imp)
+        k_main = min(self.max_main_features, p)
+        self.main_features_ = [int(j) for j in order[:k_main]]
+
+        # Small abs-feature subset from strongest screened main features.
+        k_abs = min(self.max_abs_features, len(self.main_features_))
+        self.abs_features_ = self.main_features_[:k_abs]
+
+        # Residual-based interaction screening using only top interaction_pool features.
+        pool = [int(j) for j in order[: min(self.interaction_pool, p)]]
+        self.interactions_ = []
+        if self.max_interactions > 0 and len(pool) >= 2:
+            # Residual from simple least-squares on main linear terms.
+            Z_main = X_imp[:, self.main_features_] if self.main_features_ else np.zeros((n, 0), dtype=float)
+            if Z_main.shape[1] > 0:
+                A = np.column_stack([np.ones(n), Z_main])
+                coef_main, *_ = np.linalg.lstsq(A, y, rcond=None)
+                resid = y - A @ coef_main
+            else:
+                resid = y - y.mean()
+
+            candidates = []
+            for a in range(len(pool)):
+                for b in range(a + 1, len(pool)):
+                    i, j = pool[a], pool[b]
+                    term = (X_imp[:, i] - self.feature_medians_[i]) * (X_imp[:, j] - self.feature_medians_[j])
+                    denom = np.linalg.norm(term) + 1e-12
+                    score = abs(np.dot(term, resid)) / denom
+                    candidates.append((score, i, j))
+            candidates.sort(reverse=True, key=lambda t: t[0])
+            self.interactions_ = [(int(i), int(j)) for _, i, j in candidates[: self.max_interactions]]
+
+        # Fit sparse model on the dictionary.
+        Z, self.basis_specs_ = self._build_basis(X_imp)
+        self.z_mean_ = Z.mean(axis=0)
+        self.z_std_ = Z.std(axis=0)
+        self.z_std_ = np.where(self.z_std_ < 1e-8, 1.0, self.z_std_)
+        Zs = (Z - self.z_mean_) / self.z_std_
+
         self.linear_ = LassoCV(
             cv=3,
-            random_state=42,
-            max_iter=6000,
+            random_state=self.random_state,
+            max_iter=8000,
             n_alphas=60,
             fit_intercept=True,
         )
-        self.linear_.fit(Z, y)
-        self.n_features_in_ = X.shape[1]
+        self.linear_.fit(Zs, y)
+
+        # Drop tiny terms for compactness and easier textual simulation.
+        coef = self.linear_.coef_.copy()
+        keep = np.abs(coef) >= self.min_keep_coef
+        self.active_mask_ = keep
+        self.n_features_in_ = p
         return self
 
     def predict(self, X):
-        check_is_fitted(self, "linear_")
+        check_is_fitted(self, ["linear_", "basis_specs_", "z_mean_", "z_std_"])
         X = self._as_2d_float(X)
         X_imp = self._impute(X)
-        Z = self._transform(X_imp)
-        return self.linear_.predict(Z)
+        Z, _ = self._build_basis(X_imp)
+        Zs = (Z - self.z_mean_) / self.z_std_
+        return self.linear_.predict(Zs)
 
     def __str__(self):
-        check_is_fitted(self, "linear_")
-        lines = [
-            "SparseBinnedAdditiveRegressor",
-            f"intercept = {self.linear_.intercept_:.6f}",
-            "prediction = intercept + sum(feature_bin_effects)",
-        ]
+        check_is_fitted(self, ["linear_", "basis_specs_", "active_mask_"])
+
         coef = self.linear_.coef_.ravel()
-        c = 0
-        for feat_idx, edges in self.feature_bins_:
-            n_bins = edges.size - 1
-            if n_bins <= 1:
+        eff_intercept = float(self.linear_.intercept_ - np.sum(coef * (self.z_mean_ / self.z_std_)))
+
+        lines = [
+            "SparseSymbolicInteractionRegressor",
+            f"prediction = {eff_intercept:.6f}",
+        ]
+
+        for idx, (c, spec, use) in enumerate(zip(coef, self.basis_specs_, self.active_mask_)):
+            if not use:
                 continue
-            effects = np.zeros(n_bins, dtype=float)
-            for b in range(1, n_bins):
-                effects[b] = coef[c]
-                c += 1
-            if np.max(np.abs(effects)) < 1e-6:
-                continue
-            lines.append(f"x{feat_idx}:")
-            for b in range(n_bins):
-                lo = edges[b]
-                hi = edges[b + 1]
-                lines.append(f"  [{lo:.4g}, {hi:.4g}] -> {effects[b]:+.5f}")
+            scale = c / self.z_std_[idx]
+
+            if spec[0] == "lin":
+                term = f"x{spec[1]}"
+            elif spec[0] == "abs":
+                med = self.feature_medians_[spec[1]]
+                term = f"|x{spec[1]} - {med:.4g}|"
+            elif spec[0] == "int":
+                i, j = spec[1], spec[2]
+                mi = self.feature_medians_[i]
+                mj = self.feature_medians_[j]
+                term = f"(x{i} - {mi:.4g})*(x{j} - {mj:.4g})"
+            else:
+                term = "1"
+
+            lines.append(f"  {scale:+.6f} * {term}")
+
+        if len(lines) == 2:
+            lines.append("  +0.000000 * (no active terms)")
         return "\n".join(lines)
 
 
 # Make class picklable when script is run as __main__ (required for joblib caching/parallel)
 import sys as _sys
 _sys.modules.setdefault("interpretable_regressor", _sys.modules[__name__])
-SparseBinnedAdditiveRegressor.__module__ = "interpretable_regressor"
+SparseSymbolicInteractionRegressor.__module__ = "interpretable_regressor"
 
 # Update the model shorthand name and description below to reflect the class above and any changes you make to it.
 # The shorthand name should be unique across all experiments (it is used to identify rows in the results CSV files)
 # The description should briefly summarize what this experiment tried.
-model_shorthand_name = "SparseBinnedAdditive_v1"
-model_description = "Custom sparse additive step-function model: correlation screening + quantile bins + L1 shrinkage on bin indicators"
-model_defs = [(model_shorthand_name, SparseBinnedAdditiveRegressor())]
+model_shorthand_name = "SparseSymbolicInteract_v1"
+model_description = "Sparse symbolic dictionary: screened linear terms + |x-med| nonlinearities + residual-screened pairwise interactions via L1 fit"
+model_defs = [(model_shorthand_name, SparseSymbolicInteractionRegressor())]
 
 
 # ---------------------------------------------------------------------------
