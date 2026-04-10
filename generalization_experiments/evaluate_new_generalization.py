@@ -24,9 +24,9 @@ from sklearn.base import clone
 from sklearn.metrics import r2_score
 
 # Add src/ to path so we can import shared modules
-SRC_DIR = os.path.join(os.path.dirname(__file__), "..", "src")
+SRC_DIR = os.path.join(os.path.dirname(__file__), "..", "evolve", "src")
 sys.path.insert(0, SRC_DIR)
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "evolve"))
 
 from performance_eval import (
     MAX_SAMPLES, MAX_FEATURES, MIN_SAMPLES, MIN_FEATURES, SUBSAMPLE_SEED,
@@ -205,6 +205,7 @@ def get_new_datasets():
 
 def _eval_one_dataset_new(ds_name, X_train, X_test, y_train, y_test, model_defs_simple):
     """Evaluate all regressors on one dataset. Returns (ds_name, {model_name: rmse})."""
+    import gc
     from sklearn.metrics import mean_squared_error
 
     X_train, X_test, y_train, y_test = subsample_dataset(X_train, X_test, y_train, y_test)
@@ -226,16 +227,23 @@ def _eval_one_dataset_new(ds_name, X_train, X_test, y_train, y_test, model_defs_
           f"{len(X_train)} train samples")
     model_rmses = {}
     for name, reg in model_defs_simple:
-        try:
-            m = deepcopy(reg)
-            m.fit(X_train, y_train)
-            preds = m.predict(X_test)
-            rmse = float(np.sqrt(mean_squared_error(y_test, preds)))
-            model_rmses[name] = rmse
-            print(f"    {name:<25}: {rmse:.4f}")
-        except Exception as e:
-            print(f"    {name:<25}: ERROR — {e}")
-            model_rmses[name] = float("nan")
+        for attempt in range(2):
+            try:
+                m = deepcopy(reg)
+                m.fit(X_train, y_train)
+                preds = m.predict(X_test)
+                rmse = float(np.sqrt(mean_squared_error(y_test, preds)))
+                model_rmses[name] = rmse
+                print(f"    {name:<25}: {rmse:.4f}")
+                break
+            except Exception as e:
+                if attempt == 0:
+                    gc.collect()
+                    print(f"    {name:<25}: RETRY (attempt 1 failed: {e})")
+                else:
+                    print(f"    {name:<25}: ERROR — {e}")
+                    model_rmses[name] = float("nan")
+        gc.collect()
     return ds_name, model_rmses
 
 
@@ -1405,8 +1413,29 @@ if __name__ == "__main__":
                 writer.writerow(row)
     print(f"Performance results saved -> {perf_csv}")
 
-    # --- Compute overall results ---
-    avg_rank, avg_rmse = compute_rank_scores(dataset_rmses)
+    # --- Compute overall results (lenient: average over available datasets) ---
+    def _lenient_rank_scores(dataset_rmses):
+        """Like compute_rank_scores but averages over available datasets instead of requiring all."""
+        all_model_names = set()
+        for d in dataset_rmses.values():
+            all_model_names.update(d.keys())
+        ranks_per_model = {n: [] for n in all_model_names}
+        rmse_per_model = {n: [] for n in all_model_names}
+        for ds_name, model_rmses in dataset_rmses.items():
+            valid = [(n, v) for n, v in model_rmses.items() if not np.isnan(v)]
+            sorted_models = sorted(valid, key=lambda x: x[1])
+            rank_map = {n: r + 1 for r, (n, _) in enumerate(sorted_models)}
+            for name in all_model_names:
+                if name in model_rmses and not np.isnan(model_rmses[name]):
+                    ranks_per_model[name].append(rank_map[name])
+                    rmse_per_model[name].append(model_rmses[name])
+        avg_rank = {n: float(np.mean(v)) if v else float("nan")
+                    for n, v in ranks_per_model.items()}
+        avg_rmse = {n: float(np.mean(v)) if v else float("nan")
+                    for n, v in rmse_per_model.items()}
+        return avg_rank, avg_rmse
+
+    avg_rank, avg_rmse = _lenient_rank_scores(dataset_rmses)
 
     # Compute per-model interp pass rates
     model_interp = defaultdict(lambda: {"passed": 0, "total": 0})

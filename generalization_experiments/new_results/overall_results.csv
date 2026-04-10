@@ -1,26 +1,42 @@
 commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
-,8.88,0.5366,,HingeEBM_big,HingeEBM with 3 bags 1000 rounds
-,18.69,0.7317,,SklearnGAM_hybrid,sklearn GBM depth-1 backbone + smoothing + hybrid predict R2>0.70 + adaptive display
-,13.62,0.6829,,SmoothGAM_RF,SmoothAdditiveGAM + RandomForest on residuals
-,8.25,0.5366,,HingeEBM_LinDisp,"Hinge+EBM with Ridge-style linear display (2 knots, effective coefficients)"
-,8.94,0.6585,,SmartAdditive_v5,SmartAdditive v2 with explicit zero-feature listing and display improvements
-,18.62,0.7317,,SmoothGAM_noES,"SmoothAdditiveGAM without early stopping (all data, no validation split)"
-,14.62,0.6585,,SmoothGAM_hybrid,"SmoothAdditiveGAM + early stopping + hybrid predict (linear for R2>0.90, piecewise for rest)"
-,8.75,0.6585,,SmartAddGAM_r90,SmartAdditiveGAM with R2 threshold 0.90 (stricter linearization)
-,14.31,0.6829,,SmoothGAM_RF100,SmoothGAM + RF 100 trees depth-3 on residuals
-,7.50,0.6098,,SmartAdditive_v1,"Greedy additive stumps with adaptive display: linear for linear features, piecewise for nonlinear"
-,8.44,0.5366,,HingeEBM_5bag,HingeEBM with 3 bags 1000 rounds
-,10.88,0.5366,,HingeEBM_smart,Hinge+EBM (conditional on >10% residual variance) with Ridge-style display
-,14.31,0.7317,,SmoothGAM_RF_sqrt,SmoothGAM + RF 100 trees depth-4 sqrt features on residuals
-,17.75,0.7317,,SmoothGAM_tinyGBM,"SmoothAdditiveGAM + tiny GBM (20 stumps, only when >20% residual var)"
-,8.50,0.5854,,FullPWC_LinDisp,Full piecewise-constant predict + Ridge-style display for linear features — best rank with decent interp
-,17.88,0.7317,,SmoothGAM_40s,SmoothAdditiveGAM + 40 stumps GBM when >20% var
-,13.38,0.5366,,HingeGBM_v1,"Lasso-hinge + GBM (not EBM) on residuals, effective coefficient display"
-,8.31,0.5854,,SklearnStumpGAM_v1,"sklearn GBM with depth-1 stumps, collapsed into per-feature shape functions with adaptive display"
-,18.50,0.7317,,SmoothGAM_50s,SmoothAdditiveGAM + 50 stumps GBM when >20% var
-,22.00,0.7317,,SmoothGAM_r70hyb,SmoothAdditiveGAM with R2=0.70 hybrid predict + early stopping + smoothing
-,14.75,0.5122,,DistilledGAM_v1,"Stump-discovered thresholds → hinge features → RidgeCV, shown as effective linear coefficients"
-,12.25,0.7073,,SmartAdditive_v2,"Greedy additive stumps with hybrid predict: linear for linear features, piecewise for nonlinear"
-,8.38,0.6585,,HingeEBM_v1,LassoCV on hinge basis (3 knots) + hidden EBM on residuals
-,13.25,0.5854,,SmoothGAM_v1,"SmartAdditiveGAM + Laplacian smoothing on shape functions (3 passes, 0.6/0.2/0.2)"
-,14.25,0.5854,,SmoothGAM_ES,"SmoothAdditiveGAM + early stopping (20% val holdout, patience=20)"
+,nan,0.5366,,HingeEBM_big,HingeEBM with 3 bags 1000 rounds
+,25.44,0.7317,,SklearnGAM_hybrid,sklearn GBM depth-1 backbone + smoothing + hybrid predict R2>0.70 + adaptive display
+,18.00,0.6829,,SmoothGAM_RF,SmoothAdditiveGAM + RandomForest on residuals
+,nan,0.5366,,HingeEBM_LinDisp,"Hinge+EBM with Ridge-style linear display (2 knots, effective coefficients)"
+,11.94,0.6585,,SmartAdditive_v5,SmartAdditive v2 with explicit zero-feature listing and display improvements
+,25.25,0.7317,,SmoothGAM_noES,"SmoothAdditiveGAM without early stopping (all data, no validation split)"
+,18.69,0.6585,,SmoothGAM_hybrid,"SmoothAdditiveGAM + early stopping + hybrid predict (linear for R2>0.90, piecewise for rest)"
+,11.25,0.6585,,SmartAddGAM_r90,SmartAdditiveGAM with R2 threshold 0.90 (stricter linearization)
+,18.75,0.6829,,SmoothGAM_RF100,SmoothGAM + RF 100 trees depth-3 on residuals
+,9.62,0.6098,,SmartAdditive_v1,"Greedy additive stumps with adaptive display: linear for linear features, piecewise for nonlinear"
+,nan,0.5366,,HingeEBM_5bag,HingeEBM with 3 bags 1000 rounds
+,nan,0.5366,,HingeEBM_smart,Hinge+EBM (conditional on >10% residual variance) with Ridge-style display
+,19.19,0.7317,,SmoothGAM_RF_sqrt,SmoothGAM + RF 100 trees depth-4 sqrt features on residuals
+,23.50,0.7317,,SmoothGAM_tinyGBM,"SmoothAdditiveGAM + tiny GBM (20 stumps, only when >20% residual var)"
+,10.62,0.5854,,FullPWC_LinDisp,Full piecewise-constant predict + Ridge-style display for linear features — best rank with decent interp
+,23.25,0.7317,,SmoothGAM_40s,SmoothAdditiveGAM + 40 stumps GBM when >20% var
+,17.25,0.5366,,HingeGBM_v1,"Lasso-hinge + GBM (not EBM) on residuals, effective coefficient display"
+,10.44,0.5854,,SklearnStumpGAM_v1,"sklearn GBM with depth-1 stumps, collapsed into per-feature shape functions with adaptive display"
+,23.81,0.7317,,SmoothGAM_50s,SmoothAdditiveGAM + 50 stumps GBM when >20% var
+,28.62,0.7317,,SmoothGAM_r70hyb,SmoothAdditiveGAM with R2=0.70 hybrid predict + early stopping + smoothing
+,18.94,0.5122,,DistilledGAM_v1,"Stump-discovered thresholds → hinge features → RidgeCV, shown as effective linear coefficients"
+,15.25,0.7073,,SmartAdditive_v2,"Greedy additive stumps with hybrid predict: linear for linear features, piecewise for nonlinear"
+,nan,0.6585,,HingeEBM_v1,LassoCV on hinge basis (3 knots) + hidden EBM on residuals
+,17.19,0.5854,,SmoothGAM_v1,"SmartAdditiveGAM + Laplacian smoothing on shape functions (3 passes, 0.6/0.2/0.2)"
+,18.19,0.5854,,SmoothGAM_ES,"SmoothAdditiveGAM + early stopping (20% val holdout, patience=20)"
+baseline,19.88,0.3659,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,28.25,0.6829,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,28.31,0.6098,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,30.38,0.7073,baseline,OLS,ordinary least squares linear regression
+baseline,29.31,0.6098,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,26.56,0.6341,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,14.94,0.2927,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,12.50,0.4390,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,30.56,0.1951,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,25.62,0.4634,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,24.88,0.5122,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,21.38,0.3171,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,24.44,0.6829,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,20.38,0.7317,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,nan,0.0732,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,2.19,0.0488,baseline,TabPFN,TabPFN foundation model for tabular data
