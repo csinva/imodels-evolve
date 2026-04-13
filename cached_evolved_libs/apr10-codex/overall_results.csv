@@ -1,0 +1,70 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,6.89,0.4186,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,11.65,0.6744,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,11.29,0.5349,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,8.98,0.7442,baseline,OLS,ordinary least squares linear regression
+baseline,9.45,0.5349,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,8.94,0.7674,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,5.75,0.2326,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,5.46,0.5349,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,12.05,0.1628,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,10.14,0.3953,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,9.72,0.5814,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,8.00,0.2791,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,11.09,0.7674,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,9.26,0.6744,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,4.32,0.0465,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,3.00,0.0698,baseline,TabPFN,TabPFN foundation model for tabular data
+6a1c808,10.72,0.6279,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+65beac0,9.00,0.5814,discard,SparseAddHinge_v1,"Sparse additive hinge basis with quantile thresholds, L1 selection, and top-term refit"
+4c983d3,9.58,0.5581,discard,ResidualRuleLin_v1,Greedy sparse linear backbone with residual quantile-threshold rule corrections
+399a3ba,9.55,0.4884,discard,SparseSymAdd_v2,"Greedy sparse symbolic additive model over linear, hinge, quadratic, and limited interaction basis terms"
+b945c68,10.94,0.3256,discard,StagewisePiece_v1,Sparse stagewise standardized linear model with a tiny residual one-threshold step-rule layer
+87a7126,10.08,0.5581,discard,SparseRootLin_v1,Greedy sparse additive model over standardized linear and signed-root terms with one optional interaction
+dd9f1d2,nan,0.0000,crash,SparseTailHinge_v1,Greedy sparse additive model selecting per-feature linear or symmetric tail-hinge groups with quantile knots
+9c5e8ae,12.31,0.4186,discard,SparseTailHinge_v2,Greedy sparse additive model selecting per-feature linear or symmetric tail-hinge groups with quantile knots (cache-reset run)
+8b1563c,16.54,0.3721,discard,MonoBinAdd_v1,"Sparse additive model with one monotone quantile-binned shape per selected feature, fit greedily on residuals then OLS-refit"
+3de0570,10.86,0.5581,discard,OrthoPieceAdd_v1,"Greedy sparse additive model over centered linear and one-knot hinge terms, with orthogonalized selection and joint L2 refit"
+3ded797,13.85,0.4419,discard,SparseHierInter_v1,Sparse symbolic linear+pairwise regressor with complexity-penalized greedy selection and hierarchical interaction preference
+dbea2d7,22.48,0.2791,discard,SparseOrthoPoly_v1,Sparse additive regressor selecting feature-wise orthogonal polynomial blocks (up to cubic) with penalized greedy group selection and joint ridge refit
+a63b932,16.28,0.5581,discard,GateLinTree_v1,Single-threshold sparse model tree with shared screened features and ridge-fit linear equations in each branch
+6cd8172,14.37,0.3953,discard,AdaptiveCalSparse_v1,"Sparse additive model with robust scaling and per-feature adaptive calibration (identity, signed-log, saturation) plus greedy ridge selection"
+f71515e,24.75,0.4419,discard,ResQuantRule_v1,Residual quantile-threshold rule ensemble with screened one-feature stumps and ridge-refit rule weights
+05814b9,14.71,0.4884,discard,SparseCalHinge_v1,Sparse calibrated linear regressor with per-feature transform selection and one optional median hinge correction
+12dbc08,17.18,0.5116,discard,QuantSparseSymbolic_v1,Sparse robust symbolic regressor with linear/clip/tail terms selected greedily and coefficients quantized to 0.25 steps
+30c9979,18.82,0.4884,discard,SparseBackfitBins_v1,Sparse additive quantile-bin backfitting model with neighbor-smoothed feature shapes and ridge reweighting
+38f5fd9,26.97,0.3023,discard,HingeSplineRule_v1,"Compact linear-plus-hinge rule equation with quantile thresholds, ridge selection, and top-term refit"
+b3c8f32,17.34,0.3256,discard,SparseResidInter_v1,Robustly standardized sparse linear equation with a tiny residual-selected pairwise interaction layer and quantized coefficients
+f47a9d2,17.58,0.3023,discard,SparsePwAnchor_v1,Sparse robust-scaled additive model with screened linear terms plus one centered hinge correction per selected feature and quantized coefficients
+5ee765f,16.83,0.4651,discard,SparseGateResid_v1,"Sparse robust linear equation with one learned gate indicator and gated slope correction on a selected feature, with quantized coefficients"
+8e7f1c4,15.82,0.4419,discard,FeatMapInter_v1,Robust-scaled transformed linear regressor choosing per-feature map (linear/signed-sqrt/clipped) with one optional interaction if BIC improves
+9d1b013,20.72,0.4419,discard,DistillSparseRidge_v1,Teacher-student robust linear model: dense ridge teacher distilled into a quantized sparse linear student via residual pursuit
+54ce0ae,21.18,0.3256,discard,PrunedSymRidge_v1,Robust-scaled symbolic ridge over linear/squared/interaction terms with coefficient-magnitude pruning to a compact quantized equation
+8996f9a,24.42,0.6279,discard,GreedyHingeEq_v1,Forward-selected sparse equation over raw-feature linear and one-threshold hinge terms with quantized coefficients
+6fd7540,24.12,0.6512,discard,SparseBinShape_v1,Greedy sparse additive equation mixing linear and quantile-bin shape terms with quantized coefficients
+2d20e40,16.08,0.5116,discard,HybridRidgeHinge_v1,Dense GCV-selected ridge backbone with up to two explicit one-feature hinge correction terms
+581c17e,22.71,0.7209,discard,StableSparseLOORidge_v1,Custom LOOCV ridge from SVD with stability-aware backward pruning and compact linear equation refit
+d315bb4,22.98,0.7907,discard,SpectralPruneRidge_v1,"Joint rank+ridge GCV in SVD space, then compact feature-pruned linear ridge refit"
+553a262,20.48,0.5581,discard,DualMapStabilityRidge_v1,"Per-feature linear vs signed-root transform selection, GCV ridge, and sign-stability sparse screening"
+8a95ad4,26.80,0.3488,discard,SparseMedianHinge_v1,Greedy sparse additive equation over raw linear and median-threshold hinge terms with GCV-ridge refit
+5da9dcc,19.65,0.5116,discard,ResidualSnapSpline_v1,Two-stage equation: GCV-ridge linear backbone plus sparse residual quantile-hinge triplet corrections with stored training centering
+0fdeae2,27.23,0.6744,discard,BaggedMedianStableRidge_v1,Stability-selected sparse ridge using bootstrap median coefficients and sign-consistency scoring before ridge refit
+82bc20e,24.49,0.6047,discard,StabWeightRidge_v1,"Adaptive weighted-ridge equation: bootstrap uncertainty defines per-feature penalties, then blended with base ridge for stable dense linear predictions"
+53dccad,24.49,0.5349,discard,RidgeGarroteStable_v1,"Custom ridge-initialized nonnegative garrote with bootstrap stability weights and BIC-selected sparsity, followed by light debias ridge refit"
+65a6b8d,22.43,0.6977,discard,AdaptiveSplineRidge_v1,"Linear ridge backbone plus greedily added residual-selected hinge/interaction basis terms, jointly refit by GCV ridge"
+bed72e5,18.32,0.2326,discard,SparseQuantileGAM_v1,"Sparse additive quantile-spline GAM with robust scaling, per-feature hinge basis blocks, and group-pruned GCV ridge refit"
+3715854,20.42,0.2093,discard,ResidualRuleRidgeHybrid_v1,Robust-scaled GCV-ridge backbone plus short residual-boosted one-feature stump rules
+e8a096d,38.12,0.5349,discard,SparseSmoothBackfit_v1,"Sparse additive histogram-backfitting regressor with robust scaling, smoothed bin effects, and shrinkage updates"
+146c2ad,16.91,0.6744,discard,BasisSwitchRidge_v1,"Custom GCV-ridge equation that selects the simplest effective basis among linear, quadratic, and quantile-hinge families"
+42235e1,31.40,0.5814,discard,HuberRidgeIRLS_v1,Robust-scaled linear ridge equation with GCV alpha selection and Huber-style IRLS reweighting
+de7f2a1,28.20,0.3721,discard,ResidualTanhRidge_v1,Two-view equation model: dense GCV ridge on standardized raw features plus clipped-weight residual ridge on tanh feature maps
+2dc0bc4,20.98,0.3953,discard,SparseResidualQuadRidge_v1,Robust-standardized ridge equation with greedy addition of at most two centered residual quadratic/interaction terms and joint GCV ridge refit
+b2f1513,33.78,0.4651,discard,ComplexityDistilledRidge_v1,GCV-ridge equation distilled toward a sparse quantized top-k target via blend selection under explicit complexity-penalized training risk
+7e6b1af,18.26,0.3721,discard,SparseTailSplineRidge_v1,Custom additive tail-spline basis (linear + upper/lower hinges per feature) with GCV ridge and complexity-aware feature-group pruning
+0880e53,30.14,0.6512,discard,AdaptiveWeightedGCVRidge_v1,"Custom linear equation model with robust scaling, correlation-adaptive ridge penalties, and SVD/GCV alpha selection"
+8bf28b7,17.26,0.4884,discard,CompactResidualHingeAdd_v1,"Linear ridge backbone with compact residual-selected per-feature hinge shape blocks, jointly refit by GCV ridge"
+a26cd75,26.00,0.5581,discard,TriRegionGateSparse_v1,"Sparse linear equation on top features plus one transparent tri-region gate correction on a selected feature, fit by custom GCV ridge"
+4ea14ec,30.89,0.5581,discard,SignalWeightedTrimmedRidge_v1,"Custom winsorized linear equation with signal-weighted per-feature ridge penalties, GCV alpha selection, and one-pass tiny-coefficient pruning"
+1e2bb44,25.28,0.4651,discard,SparseKnotAdditive_v1,"Sparse additive equation with robust scaling, per-feature quantile-knot hinge bases, greedy group selection, and joint ridge refit"
+dc50781,nan,0.0000,,BoostedBinPair_v1,Winsorized quantile-bin boosted additive model with one optional pairwise interaction table and explicit equation-style summaries
+6adce20,45.05,0.3488,discard,BoostedBinPair_v2,Winsorized quantile-bin boosted additive model with one optional pairwise interaction table and explicit equation-style summaries

@@ -45,6 +45,7 @@ cat >> "$PROMPT_FILE" <<'ENDPROMPT'
 
 You are continuing an autonomous research loop. Read results/overall_results.csv to see what has been tried.
 Run ONE experiment iteration: pick a new idea, edit interpretable_regressor.py, commit, evaluate, and record results.
+Read through the evaluation in the `src` file to better understand how to improve results.
 Be creative and try something different from what's already been tried.
 ENDPROMPT
 trap 'rm -f "$PROMPT_FILE"' EXIT
