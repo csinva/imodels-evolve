@@ -1580,8 +1580,8 @@ _ALL_TEST_FNS = {fn.__name__: fn for fn in ALL_TESTS + HARD_TESTS + INSIGHT_TEST
 # ---------------------------------------------------------------------------
 
 @_memory.cache
-def _run_one_test(model_name, test_fn_name, model):
-    llm = imodelsx.llm.get_llm(CHECKPOINT)
+def _run_one_test(model_name, test_fn_name, model, checkpoint=None):
+    llm = imodelsx.llm.get_llm(checkpoint or CHECKPOINT)
     test_fn = _ALL_TEST_FNS[test_fn_name]
     try:
         result = test_fn(model, llm)
@@ -1594,11 +1594,12 @@ def _run_one_test(model_name, test_fn_name, model):
     return result
 
 
-def run_all_interp_tests(model_defs):
+def run_all_interp_tests(model_defs, checkpoint=None):
     """Run standard + hard + insight tests on all models, with per-test caching.
 
     Args:
         model_defs: list of (name, regressor) tuples
+        checkpoint: LLM checkpoint to use (default: CHECKPOINT global, i.e. gpt-4o)
     Returns:
         list of result dicts with keys: model, test, passed, ground_truth, response
     """
@@ -1608,7 +1609,7 @@ def run_all_interp_tests(model_defs):
     tasks = [(name, reg, test_fn) for name, reg in model_defs for test_fn in all_test_fns]
 
     results = Parallel(n_jobs=-1, prefer="threads")(
-        delayed(_run_one_test)(name, test_fn.__name__, reg)
+        delayed(_run_one_test)(name, test_fn.__name__, reg, checkpoint=checkpoint)
         for name, reg, test_fn in tasks
     )
 

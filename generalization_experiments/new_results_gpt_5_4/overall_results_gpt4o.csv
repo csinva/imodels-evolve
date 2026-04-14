@@ -1,0 +1,42 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+,13.62,0.5528,,HingeEBM_big,HingeEBM with 3 bags 1000 rounds
+,27.94,0.7236,,SklearnGAM_hybrid,sklearn GBM depth-1 backbone + smoothing + hybrid predict R2>0.70 + adaptive display
+,20.31,0.6748,,SmoothGAM_RF,SmoothAdditiveGAM + RandomForest on residuals
+,11.62,0.5528,,HingeEBM_LinDisp,"Hinge+EBM with Ridge-style linear display (2 knots, effective coefficients)"
+,14.00,0.6423,,SmartAdditive_v5,SmartAdditive v2 with explicit zero-feature listing and display improvements
+,27.75,0.7236,,SmoothGAM_noES,"SmoothAdditiveGAM without early stopping (all data, no validation split)"
+,21.19,0.6585,,SmoothGAM_hybrid,"SmoothAdditiveGAM + early stopping + hybrid predict (linear for R2>0.90, piecewise for rest)"
+,13.31,0.6423,,SmartAddGAM_r90,SmartAdditiveGAM with R2 threshold 0.90 (stricter linearization)
+,21.06,0.6748,,SmoothGAM_RF100,SmoothGAM + RF 100 trees depth-3 on residuals
+,11.69,0.5772,,SmartAdditive_v1,"Greedy additive stumps with adaptive display: linear for linear features, piecewise for nonlinear"
+,13.00,0.5528,,HingeEBM_5bag,HingeEBM with 3 bags 1000 rounds
+,15.81,0.5528,,HingeEBM_smart,Hinge+EBM (conditional on >10% residual variance) with Ridge-style display
+,21.25,0.7236,,SmoothGAM_RF_sqrt,SmoothGAM + RF 100 trees depth-4 sqrt features on residuals
+,25.81,0.7236,,SmoothGAM_tinyGBM,"SmoothAdditiveGAM + tiny GBM (20 stumps, only when >20% residual var)"
+,12.69,0.5610,,FullPWC_LinDisp,Full piecewise-constant predict + Ridge-style display for linear features — best rank with decent interp
+,25.56,0.7236,,SmoothGAM_40s,SmoothAdditiveGAM + 40 stumps GBM when >20% var
+,19.62,0.5610,,HingeGBM_v1,"Lasso-hinge + GBM (not EBM) on residuals, effective coefficient display"
+,12.50,0.5610,,SklearnStumpGAM_v1,"sklearn GBM with depth-1 stumps, collapsed into per-feature shape functions with adaptive display"
+,26.12,0.7236,,SmoothGAM_50s,SmoothAdditiveGAM + 50 stumps GBM when >20% var
+,31.12,0.7236,,SmoothGAM_r70hyb,SmoothAdditiveGAM with R2=0.70 hybrid predict + early stopping + smoothing
+,21.19,0.5285,,DistilledGAM_v1,"Stump-discovered thresholds → hinge features → RidgeCV, shown as effective linear coefficients"
+,17.31,0.6585,,SmartAdditive_v2,"Greedy additive stumps with hybrid predict: linear for linear features, piecewise for nonlinear"
+,11.56,0.6423,,HingeEBM_v1,LassoCV on hinge basis (3 knots) + hidden EBM on residuals
+,19.50,0.6016,,SmoothGAM_v1,"SmartAdditiveGAM + Laplacian smoothing on shape functions (3 passes, 0.6/0.2/0.2)"
+,20.50,0.6016,,SmoothGAM_ES,"SmoothAdditiveGAM + early stopping (20% val holdout, patience=20)"
+baseline,22.69,0.3902,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,31.25,0.6829,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,31.12,0.7073,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,32.94,0.7154,baseline,OLS,ordinary least squares linear regression
+baseline,31.88,0.6179,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,28.62,0.6504,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,17.25,0.2927,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,14.50,0.4390,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,33.38,0.1951,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,28.62,0.4634,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,27.69,0.5203,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,23.62,0.3252,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,27.44,0.6829,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,23.19,0.7073,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,8.06,0.0732,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,2.69,0.0488,baseline,TabPFN,TabPFN foundation model for tabular data

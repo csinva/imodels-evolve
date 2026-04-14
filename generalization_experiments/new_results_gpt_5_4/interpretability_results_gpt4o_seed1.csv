@@ -1,0 +1,3512 @@
+model,test,suite,passed,ground_truth,response
+HingeEBM_big,new_most_important_feature,standard,True,x0,x0
+HingeEBM_big,new_point_prediction,standard,True,8.975,8.9746
+HingeEBM_big,new_direction_of_change,standard,False,10.362,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9078\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 6.9078 \times 1.5 = 10.3617
+\]
+
+**Answer: 10.3617**"
+HingeEBM_big,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM_big,new_threshold_identification,standard,False,0.3,0.6773
+HingeEBM_big,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+HingeEBM_big,new_sign_of_effect,standard,True,-6.008,-6.0084
+HingeEBM_big,new_counterfactual_prediction,standard,True,12.299,12.30
+HingeEBM_big,new_hard_all_features_active,hard,False,2.538,4.1551
+HingeEBM_big,new_hard_pairwise_anti_intuitive,hard,False,4.292,"The model's prediction for sample B minus the prediction for sample A is:
+
+**6.5941**"
+HingeEBM_big,new_hard_quantitative_sensitivity,hard,True,9.86,9.8596
+HingeEBM_big,new_hard_mixed_sign_goes_negative,hard,False,-4.257,-3.0004
+HingeEBM_big,new_hard_two_feature_perturbation,hard,False,9.78,6.9918
+HingeEBM_big,new_insight_simulatability,insight,True,8.384,9.1530
+HingeEBM_big,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM_big,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.129
+HingeEBM_big,new_insight_nonlinear_direction,insight,True,5.863,"The prediction is:
+
+**5.53625**"
+HingeEBM_big,new_insight_counterfactual_target,insight,False,2.499,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5364 \cdot x_0 + 2.4902 \cdot x_1 + 0.0398 \cdot x_2 + 0.0341
+\]
+
+Given:
+- \( y = 12.50 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+12.50 = 3.5364 \cdot x_0 + 2.4902 \cdot 1.5 + 0.0398 \cdot 0.0 + 0.0341
+\]
+
+Simplify:
+
+\[
+12.50 = 3.5364 \cdot x_0 + (2.4902 \cdot 1.5) + 0.0341
+"
+HingeEBM_big,new_insight_decision_region,insight,True,1.524,1.528
+HingeEBM_big,new_discrim_simulate_all_active,discrim,False,2.342,4.1931
+HingeEBM_big,new_discrim_compactness,discrim,True,,yes
+HingeEBM_big,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HingeEBM_big,new_discrim_unit_sensitivity,discrim,True,3.987,"The model's prediction changes by **3.9871** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+HingeEBM_big,new_discrim_predict_above_threshold,discrim,False,2.42,1.7086
+HingeEBM_big,new_discrim_predict_below_threshold,discrim,False,-0.02,-1.8036
+HingeEBM_big,new_discrim_simulate_mixed_sign,discrim,False,7.052,5.1932
+HingeEBM_big,new_discrim_simulate_double_threshold,discrim,True,1.489,1.74635
+HingeEBM_big,new_discrim_simulate_additive_nonlinear,discrim,False,4.54,2.9611
+HingeEBM_big,new_discrim_simulate_interaction,discrim,False,16.058,8.39635
+HingeEBM_big,new_simulatability_eight_features,simulatability,True,5.185,4.5127
+HingeEBM_big,new_simulatability_fifteen_features_sparse,simulatability,False,15.356,7.9658
+HingeEBM_big,new_simulatability_quadratic,simulatability,True,0.499,"The prediction is:
+
+**-0.6497**"
+HingeEBM_big,new_simulatability_friedman1,simulatability,True,15.091,12.4011
+HingeEBM_big,new_simulatability_cascading_threshold,simulatability,True,3.252,"The prediction is:
+
+**2.8361**"
+HingeEBM_big,new_simulatability_exponential_decay,simulatability,False,2.848,-21.1972
+HingeEBM_big,new_simulatability_piecewise_three_segment,simulatability,True,1.75,1.6693
+HingeEBM_big,new_simulatability_twenty_features_sparse,simulatability,False,12.803,"The model prediction is:
+
+\[
+y = -0.0099(0) + 5.0032(1.0) + -0.0297(0) + 0.0062(0) + -3.9526(-1.2) + 0.0159(0) + 2.9700(0.5) + 0.0100(0) + -1.9899(-0.8) + -0.0170
+\]
+
+Simplify step by step:
+
+\[
+y = 5.0032 + (3.9526 \times 1.2) + (2.9700 \times 0.5) + (1.9899 \times 0.8) - 0.0170
+\]
+
+\[
+y = 5.0032 + 4.74312 + 1.485 + 1.59192 - 0.017"
+HingeEBM_big,new_simulatability_sinusoidal,simulatability,False,2.568,7.0006
+HingeEBM_big,new_simulatability_abs_value,simulatability,False,2.349,-2.5660
+HingeEBM_big,new_simulatability_twelve_features_all_active,simulatability,False,1.677,3.2416
+HingeEBM_big,new_simulatability_nested_threshold,simulatability,True,1.444,1.9117
+SklearnGAM_hybrid,new_most_important_feature,standard,True,x0,x0
+SklearnGAM_hybrid,new_point_prediction,standard,True,8.944,9.03
+SklearnGAM_hybrid,new_direction_of_change,standard,True,10.407,10.407
+SklearnGAM_hybrid,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SklearnGAM_hybrid,new_threshold_identification,standard,False,0.3,1.29
+SklearnGAM_hybrid,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SklearnGAM_hybrid,new_sign_of_effect,standard,True,-5.801,-5.8006
+SklearnGAM_hybrid,new_counterfactual_prediction,standard,True,12.408,12.38
+SklearnGAM_hybrid,new_hard_all_features_active,hard,True,2.342,3.2021
+SklearnGAM_hybrid,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SklearnGAM_hybrid,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SklearnGAM_hybrid,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SklearnGAM_hybrid,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SklearnGAM_hybrid,new_insight_simulatability,insight,True,8.142,8.1014
+SklearnGAM_hybrid,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SklearnGAM_hybrid,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SklearnGAM_hybrid,new_insight_nonlinear_direction,insight,True,4.534,4.5410
+SklearnGAM_hybrid,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SklearnGAM_hybrid,new_insight_decision_region,insight,True,1.527,1.523
+SklearnGAM_hybrid,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SklearnGAM_hybrid,new_discrim_compactness,discrim,True,,Yes
+SklearnGAM_hybrid,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SklearnGAM_hybrid,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SklearnGAM_hybrid,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SklearnGAM_hybrid,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SklearnGAM_hybrid,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SklearnGAM_hybrid,new_discrim_simulate_double_threshold,discrim,True,2.033,2.0346
+SklearnGAM_hybrid,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SklearnGAM_hybrid,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SklearnGAM_hybrid,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SklearnGAM_hybrid,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SklearnGAM_hybrid,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SklearnGAM_hybrid,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SklearnGAM_hybrid,new_simulatability_cascading_threshold,simulatability,True,2.298,1.3213
+SklearnGAM_hybrid,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SklearnGAM_hybrid,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SklearnGAM_hybrid,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SklearnGAM_hybrid,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SklearnGAM_hybrid,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SklearnGAM_hybrid,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SklearnGAM_hybrid,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmoothGAM_RF,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_RF,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_RF,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_RF,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_RF,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_RF,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_RF,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_RF,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_RF,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_RF,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_RF,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_RF,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_RF,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_RF,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_RF,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_RF,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_RF,new_insight_nonlinear_direction,insight,False,5.75,4.5410
+SmoothGAM_RF,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_RF,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_RF,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_RF,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_RF,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_RF,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_RF,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_RF,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_RF,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_RF,new_discrim_simulate_double_threshold,discrim,False,1.39,2.0346
+SmoothGAM_RF,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_RF,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_RF,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_RF,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_RF,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_RF,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_RF,new_simulatability_cascading_threshold,simulatability,True,1.991,1.3213
+SmoothGAM_RF,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_RF,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_RF,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_RF,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_RF,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_RF,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_RF,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+HingeEBM_LinDisp,new_most_important_feature,standard,True,x0,x0
+HingeEBM_LinDisp,new_point_prediction,standard,True,8.98,8.9746
+HingeEBM_LinDisp,new_direction_of_change,standard,False,10.365,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9078\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 6.9078 \times 1.5 = 10.3617
+\]
+
+**Answer: 10.3617**"
+HingeEBM_LinDisp,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM_LinDisp,new_threshold_identification,standard,False,0.3,0.6773
+HingeEBM_LinDisp,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+HingeEBM_LinDisp,new_sign_of_effect,standard,True,-6.125,-6.0084
+HingeEBM_LinDisp,new_counterfactual_prediction,standard,True,12.317,12.30
+HingeEBM_LinDisp,new_hard_all_features_active,hard,False,2.536,4.1551
+HingeEBM_LinDisp,new_hard_pairwise_anti_intuitive,hard,False,4.292,"The model's prediction for sample B minus the prediction for sample A is:
+
+**6.5941**"
+HingeEBM_LinDisp,new_hard_quantitative_sensitivity,hard,True,9.77,9.8596
+HingeEBM_LinDisp,new_hard_mixed_sign_goes_negative,hard,False,-4.411,-3.0004
+HingeEBM_LinDisp,new_hard_two_feature_perturbation,hard,False,9.8,6.9918
+HingeEBM_LinDisp,new_insight_simulatability,insight,True,8.383,9.1530
+HingeEBM_LinDisp,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM_LinDisp,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.129
+HingeEBM_LinDisp,new_insight_nonlinear_direction,insight,True,5.9,"The prediction is:
+
+**5.53625**"
+HingeEBM_LinDisp,new_insight_counterfactual_target,insight,False,2.466,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5364 \cdot x_0 + 2.4902 \cdot x_1 + 0.0398 \cdot x_2 + 0.0341
+\]
+
+Given:
+- \( y = 12.56 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+12.56 = 3.5364 \cdot x_0 + 2.4902 \cdot 1.5 + 0.0398 \cdot 0.0 + 0.0341
+\]
+
+Simplify:
+
+\[
+12.56 = 3.5364 \cdot x_0 + (2.4902 \cdot 1.5) + 0.0341
+"
+HingeEBM_LinDisp,new_insight_decision_region,insight,True,1.502,1.528
+HingeEBM_LinDisp,new_discrim_simulate_all_active,discrim,False,2.394,4.1931
+HingeEBM_LinDisp,new_discrim_compactness,discrim,True,,yes
+HingeEBM_LinDisp,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HingeEBM_LinDisp,new_discrim_unit_sensitivity,discrim,True,4.08,"The model's prediction changes by **3.9871** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+HingeEBM_LinDisp,new_discrim_predict_above_threshold,discrim,False,2.59,1.7086
+HingeEBM_LinDisp,new_discrim_predict_below_threshold,discrim,False,0.01,-1.8036
+HingeEBM_LinDisp,new_discrim_simulate_mixed_sign,discrim,False,7.053,5.1932
+HingeEBM_LinDisp,new_discrim_simulate_double_threshold,discrim,True,1.469,1.74635
+HingeEBM_LinDisp,new_discrim_simulate_additive_nonlinear,discrim,False,4.871,2.9611
+HingeEBM_LinDisp,new_discrim_simulate_interaction,discrim,False,16.273,8.39635
+HingeEBM_LinDisp,new_simulatability_eight_features,simulatability,True,5.188,4.5127
+HingeEBM_LinDisp,new_simulatability_fifteen_features_sparse,simulatability,False,15.382,7.9658
+HingeEBM_LinDisp,new_simulatability_quadratic,simulatability,True,0.722,"The prediction is:
+
+**-0.6497**"
+HingeEBM_LinDisp,new_simulatability_friedman1,simulatability,True,14.845,12.4011
+HingeEBM_LinDisp,new_simulatability_cascading_threshold,simulatability,True,3.117,"The prediction is:
+
+**2.8361**"
+HingeEBM_LinDisp,new_simulatability_exponential_decay,simulatability,False,2.972,-21.1972
+HingeEBM_LinDisp,new_simulatability_piecewise_three_segment,simulatability,True,1.696,1.6693
+HingeEBM_LinDisp,new_simulatability_twenty_features_sparse,simulatability,False,12.841,"The model prediction is:
+
+\[
+y = -0.0099(0) + 5.0032(1.0) + -0.0297(0) + 0.0062(0) + -3.9526(-1.2) + 0.0159(0) + 2.9700(0.5) + 0.0100(0) + -1.9899(-0.8) + -0.0170
+\]
+
+Simplify step by step:
+
+\[
+y = 5.0032 + (3.9526 \times 1.2) + (2.9700 \times 0.5) + (1.9899 \times 0.8) - 0.0170
+\]
+
+\[
+y = 5.0032 + 4.74312 + 1.485 + 1.59192 - 0.017"
+HingeEBM_LinDisp,new_simulatability_sinusoidal,simulatability,False,2.359,7.0006
+HingeEBM_LinDisp,new_simulatability_abs_value,simulatability,False,2.731,-2.5660
+HingeEBM_LinDisp,new_simulatability_twelve_features_all_active,simulatability,False,1.67,3.2416
+HingeEBM_LinDisp,new_simulatability_nested_threshold,simulatability,True,1.327,1.9117
+SmartAdditive_v5,new_most_important_feature,standard,True,x0,x0
+SmartAdditive_v5,new_point_prediction,standard,True,8.794,8.9573
+SmartAdditive_v5,new_direction_of_change,standard,True,10.364,10.3635
+SmartAdditive_v5,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmartAdditive_v5,new_threshold_identification,standard,True,0.3,0.3794
+SmartAdditive_v5,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x4, x5"
+SmartAdditive_v5,new_sign_of_effect,standard,True,-5.814,-5.8143
+SmartAdditive_v5,new_counterfactual_prediction,standard,True,12.364,12.36
+SmartAdditive_v5,new_hard_all_features_active,hard,True,2.311,2.3650
+SmartAdditive_v5,new_hard_pairwise_anti_intuitive,hard,True,4.029,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 3.8615 \cdot x_0 + 3.3318 \cdot x_1 - 0.0107
+\]
+
+### Prediction for Sample A:
+\[
+y_A = 3.8615 \cdot 1.5 + 3.3318 \cdot 0.2 - 0.0107
+\]
+\[
+y_A = 5.79225 + 0.66636 - 0.0107 = 6.44791
+\]
+
+### Prediction for Sample B:
+\[
+y_B = 3.8615 \cdot 0.3 + 3.3318 \cdot 2.8 - 0.0107
+\]
+\[
+y_B = 1.15845 + 9.32904 - 0.0107 = "
+SmartAdditive_v5,new_hard_quantitative_sensitivity,hard,True,9.867,9.867
+SmartAdditive_v5,new_hard_mixed_sign_goes_negative,hard,False,-4.129,-3.0594
+SmartAdditive_v5,new_hard_two_feature_perturbation,hard,True,9.394,9.73
+SmartAdditive_v5,new_insight_simulatability,insight,True,8.139,9.2504
+SmartAdditive_v5,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmartAdditive_v5,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.8657
+SmartAdditive_v5,new_insight_nonlinear_direction,insight,False,5.881,The model predicts **7.2998**.
+SmartAdditive_v5,new_insight_counterfactual_target,insight,False,2.546,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4208 \cdot x_0 + 2.3904 \cdot x_1 + 0.0018
+\]
+
+We are given:
+- \( y = 12.28 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.28 = 3.4208 \cdot x_0 + 2.3904 \cdot 1.5 + 0.0018
+\]
+
+Simplify:
+
+\[
+12.28 = 3.4208 \cdot x_0 + 3.5856 + 0.0018
+\]
+
+\[
+12.28 = 3.4208 \cdot x_0 + "
+SmartAdditive_v5,new_insight_decision_region,insight,True,1.528,1.526
+SmartAdditive_v5,new_discrim_simulate_all_active,discrim,False,1.731,3.4771
+SmartAdditive_v5,new_discrim_compactness,discrim,True,,Yes
+SmartAdditive_v5,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmartAdditive_v5,new_discrim_unit_sensitivity,discrim,True,3.919,3.9194
+SmartAdditive_v5,new_discrim_predict_above_threshold,discrim,True,2.48,2.0056
+SmartAdditive_v5,new_discrim_predict_below_threshold,discrim,False,0.0,0.5295 - 0.5253 - 0.0020 - 0.0002 = **0.0020**
+SmartAdditive_v5,new_discrim_simulate_mixed_sign,discrim,False,6.919,3.9182
+SmartAdditive_v5,new_discrim_simulate_double_threshold,discrim,True,1.495,1.4963
+SmartAdditive_v5,new_discrim_simulate_additive_nonlinear,discrim,False,4.763,3.6927
+SmartAdditive_v5,new_discrim_simulate_interaction,discrim,True,9.553,9.8051
+SmartAdditive_v5,new_simulatability_eight_features,simulatability,False,5.189,2.7694
+SmartAdditive_v5,new_simulatability_fifteen_features_sparse,simulatability,False,14.015,8.9910
+SmartAdditive_v5,new_simulatability_quadratic,simulatability,False,0.493,2.4298
+SmartAdditive_v5,new_simulatability_friedman1,simulatability,True,15.949,14.7681
+SmartAdditive_v5,new_simulatability_cascading_threshold,simulatability,True,1.944,0.9487
+SmartAdditive_v5,new_simulatability_exponential_decay,simulatability,False,2.742,7.5488
+SmartAdditive_v5,new_simulatability_piecewise_three_segment,simulatability,True,1.388,1.3809
+SmartAdditive_v5,new_simulatability_twenty_features_sparse,simulatability,True,11.414,10.2047
+SmartAdditive_v5,new_simulatability_sinusoidal,simulatability,True,1.825,"The prediction for the given inputs is:
+
+**1.7594**"
+SmartAdditive_v5,new_simulatability_abs_value,simulatability,False,2.628,4.3151
+SmartAdditive_v5,new_simulatability_twelve_features_all_active,simulatability,True,2.888,2.3947
+SmartAdditive_v5,new_simulatability_nested_threshold,simulatability,False,2.124,The model predicts: **0.6984**
+SmoothGAM_noES,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_noES,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_noES,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_noES,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_noES,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_noES,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_noES,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_noES,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_noES,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_noES,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_noES,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_noES,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_noES,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_noES,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_noES,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_noES,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_noES,new_insight_nonlinear_direction,insight,True,4.534,4.5410
+SmoothGAM_noES,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_noES,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_noES,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_noES,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_noES,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_noES,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_noES,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_noES,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_noES,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_noES,new_discrim_simulate_double_threshold,discrim,True,2.033,2.0346
+SmoothGAM_noES,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_noES,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_noES,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_noES,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_noES,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_noES,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_noES,new_simulatability_cascading_threshold,simulatability,True,2.298,1.3213
+SmoothGAM_noES,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_noES,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_noES,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_noES,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_noES,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_noES,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_noES,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmoothGAM_hybrid,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_hybrid,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_hybrid,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_hybrid,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_hybrid,new_threshold_identification,standard,True,0.3,0.3828
+SmoothGAM_hybrid,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_hybrid,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_hybrid,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_hybrid,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_hybrid,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_hybrid,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_hybrid,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_hybrid,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_hybrid,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_hybrid,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_hybrid,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.1969
+SmoothGAM_hybrid,new_insight_nonlinear_direction,insight,False,5.936,The model predicts **7.4422**.
+SmoothGAM_hybrid,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_hybrid,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_hybrid,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_hybrid,new_discrim_compactness,discrim,True,,yes
+SmoothGAM_hybrid,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_hybrid,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_hybrid,new_discrim_predict_above_threshold,discrim,True,2.48,2.4678
+SmoothGAM_hybrid,new_discrim_predict_below_threshold,discrim,True,0.01,0.0024
+SmoothGAM_hybrid,new_discrim_simulate_mixed_sign,discrim,False,6.812,2.5721
+SmoothGAM_hybrid,new_discrim_simulate_double_threshold,discrim,False,2.115,1.3124
+SmoothGAM_hybrid,new_discrim_simulate_additive_nonlinear,discrim,False,4.258,The model predicts: **1.8892**
+SmoothGAM_hybrid,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_hybrid,new_simulatability_eight_features,simulatability,True,4.979,The prediction is **3.7696**.
+SmoothGAM_hybrid,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_hybrid,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_hybrid,new_simulatability_friedman1,simulatability,True,16.073,14.7681
+SmoothGAM_hybrid,new_simulatability_cascading_threshold,simulatability,False,2.303,0.9821
+SmoothGAM_hybrid,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_hybrid,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_hybrid,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_hybrid,new_simulatability_sinusoidal,simulatability,False,2.39,The model predicts: **0.6482**
+SmoothGAM_hybrid,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_hybrid,new_simulatability_twelve_features_all_active,simulatability,True,2.659,2.3941
+SmoothGAM_hybrid,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmartAddGAM_r90,new_most_important_feature,standard,True,x0,x0
+SmartAddGAM_r90,new_point_prediction,standard,True,8.794,8.9573
+SmartAddGAM_r90,new_direction_of_change,standard,True,10.364,10.3635
+SmartAddGAM_r90,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmartAddGAM_r90,new_threshold_identification,standard,True,0.3,0.3794
+SmartAddGAM_r90,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x4, x5"
+SmartAddGAM_r90,new_sign_of_effect,standard,True,-5.814,-5.8143
+SmartAddGAM_r90,new_counterfactual_prediction,standard,True,12.364,12.36
+SmartAddGAM_r90,new_hard_all_features_active,hard,True,2.311,2.3650
+SmartAddGAM_r90,new_hard_pairwise_anti_intuitive,hard,True,4.029,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 3.8615 \cdot x_0 + 3.3318 \cdot x_1 - 0.0107
+\]
+
+### Prediction for Sample A:
+\[
+y_A = 3.8615 \cdot 1.5 + 3.3318 \cdot 0.2 - 0.0107
+\]
+\[
+y_A = 5.79225 + 0.66636 - 0.0107 = 6.44791
+\]
+
+### Prediction for Sample B:
+\[
+y_B = 3.8615 \cdot 0.3 + 3.3318 \cdot 2.8 - 0.0107
+\]
+\[
+y_B = 1.15845 + 9.32904 - 0.0107 = "
+SmartAddGAM_r90,new_hard_quantitative_sensitivity,hard,True,9.867,9.867
+SmartAddGAM_r90,new_hard_mixed_sign_goes_negative,hard,False,-4.129,-3.0594
+SmartAddGAM_r90,new_hard_two_feature_perturbation,hard,True,9.394,9.73
+SmartAddGAM_r90,new_insight_simulatability,insight,True,8.139,9.2504
+SmartAddGAM_r90,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmartAddGAM_r90,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.8657
+SmartAddGAM_r90,new_insight_nonlinear_direction,insight,False,5.881,The model predicts **7.2998**.
+SmartAddGAM_r90,new_insight_counterfactual_target,insight,False,2.546,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4208 \cdot x_0 + 2.3904 \cdot x_1 + 0.0018
+\]
+
+We are given:
+- \( y = 12.28 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.28 = 3.4208 \cdot x_0 + 2.3904 \cdot 1.5 + 0.0018
+\]
+
+Simplify:
+
+\[
+12.28 = 3.4208 \cdot x_0 + 3.5856 + 0.0018
+\]
+
+\[
+12.28 = 3.4208 \cdot x_0 + "
+SmartAddGAM_r90,new_insight_decision_region,insight,True,1.528,1.526
+SmartAddGAM_r90,new_discrim_simulate_all_active,discrim,False,1.731,3.4771
+SmartAddGAM_r90,new_discrim_compactness,discrim,True,,Yes
+SmartAddGAM_r90,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmartAddGAM_r90,new_discrim_unit_sensitivity,discrim,True,3.919,3.9194
+SmartAddGAM_r90,new_discrim_predict_above_threshold,discrim,True,2.48,2.0056
+SmartAddGAM_r90,new_discrim_predict_below_threshold,discrim,False,0.0,0.5295 - 0.5253 - 0.0020 - 0.0002 = **0.0020**
+SmartAddGAM_r90,new_discrim_simulate_mixed_sign,discrim,False,6.956,2.6973
+SmartAddGAM_r90,new_discrim_simulate_double_threshold,discrim,True,1.495,1.4963
+SmartAddGAM_r90,new_discrim_simulate_additive_nonlinear,discrim,True,4.677,3.9260
+SmartAddGAM_r90,new_discrim_simulate_interaction,discrim,True,9.553,9.8051
+SmartAddGAM_r90,new_simulatability_eight_features,simulatability,False,5.189,2.7694
+SmartAddGAM_r90,new_simulatability_fifteen_features_sparse,simulatability,False,14.015,8.9910
+SmartAddGAM_r90,new_simulatability_quadratic,simulatability,False,0.493,2.4298
+SmartAddGAM_r90,new_simulatability_friedman1,simulatability,True,15.949,14.7681
+SmartAddGAM_r90,new_simulatability_cascading_threshold,simulatability,True,1.944,0.9487
+SmartAddGAM_r90,new_simulatability_exponential_decay,simulatability,False,2.742,7.5488
+SmartAddGAM_r90,new_simulatability_piecewise_three_segment,simulatability,True,1.388,1.3809
+SmartAddGAM_r90,new_simulatability_twenty_features_sparse,simulatability,True,11.414,10.2047
+SmartAddGAM_r90,new_simulatability_sinusoidal,simulatability,False,2.398,The model predicts: **0.9612**
+SmartAddGAM_r90,new_simulatability_abs_value,simulatability,False,2.628,4.3151
+SmartAddGAM_r90,new_simulatability_twelve_features_all_active,simulatability,True,2.778,2.3941
+SmartAddGAM_r90,new_simulatability_nested_threshold,simulatability,False,2.124,The model predicts: **0.6984**
+SmoothGAM_RF100,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_RF100,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_RF100,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_RF100,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_RF100,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_RF100,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_RF100,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_RF100,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_RF100,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_RF100,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_RF100,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_RF100,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_RF100,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_RF100,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_RF100,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_RF100,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_RF100,new_insight_nonlinear_direction,insight,False,5.737,4.5410
+SmoothGAM_RF100,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_RF100,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_RF100,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_RF100,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_RF100,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_RF100,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_RF100,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_RF100,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_RF100,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_RF100,new_discrim_simulate_double_threshold,discrim,False,1.373,2.0346
+SmoothGAM_RF100,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_RF100,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_RF100,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_RF100,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_RF100,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_RF100,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_RF100,new_simulatability_cascading_threshold,simulatability,True,1.971,1.3213
+SmoothGAM_RF100,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_RF100,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_RF100,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_RF100,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_RF100,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_RF100,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_RF100,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmartAdditive_v1,new_most_important_feature,standard,True,x0,x0
+SmartAdditive_v1,new_point_prediction,standard,True,9.097,8.9571
+SmartAdditive_v1,new_direction_of_change,standard,True,10.886,10.3635
+SmartAdditive_v1,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmartAdditive_v1,new_threshold_identification,standard,True,0.3,0.3794
+SmartAdditive_v1,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","The regression model provided includes coefficients for `x0` and a nonlinear feature effect for `x3`. However, no other features are mentioned in the model, which implies that any other features (if they exist) have little or no effect on the prediction. Based on the information provided, **only `x0` and `x3` are relevant**.
+
+If there are additional features beyond `x0` and `x3`, those features would have little or no effect on the prediction. Since no other feature names are explicitly mentioned, I "
+SmartAdditive_v1,new_sign_of_effect,standard,True,-7.029,-5.8143
+SmartAdditive_v1,new_counterfactual_prediction,standard,True,11.491,10.36
+SmartAdditive_v1,new_hard_all_features_active,hard,True,1.593,2.3650
+SmartAdditive_v1,new_hard_pairwise_anti_intuitive,hard,False,2.837,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 3.8615 \cdot x_0 + 3.3318 \cdot x_1 - 0.0107
+\]
+
+### Step 1: Calculate prediction for Sample A
+For Sample A: \(x_0 = 1.5\), \(x_1 = 0.2\), and all other features are zero.
+\[
+y_A = 3.8615 \cdot 1.5 + 3.3318 \cdot 0.2 - 0.0107
+\]
+\[
+y_A = 5.79225 + 0.66636 - 0.0107 = 6.44791
+\]
+
+### Step 2: Calculate prediction for Sample B
+For Sample B: \(x_0 = 0.3\), \(x_1 ="
+SmartAdditive_v1,new_hard_quantitative_sensitivity,hard,False,6.456,9.867
+SmartAdditive_v1,new_hard_mixed_sign_goes_negative,hard,True,-4.026,-3.0594
+SmartAdditive_v1,new_hard_two_feature_perturbation,hard,False,9.326,6.73
+SmartAdditive_v1,new_insight_simulatability,insight,False,7.328,9.2504
+SmartAdditive_v1,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmartAdditive_v1,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.8657
+SmartAdditive_v1,new_insight_nonlinear_direction,insight,False,5.881,7.2998
+SmartAdditive_v1,new_insight_counterfactual_target,insight,False,10.0,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4208 \cdot x_0 + 2.3904 \cdot x_1 + 0.0018
+\]
+
+We are given:
+- \( y = 12.64 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (not used in the equation)
+
+Substitute these values into the equation:
+
+\[
+12.64 = 3.4208 \cdot x_0 + 2.3904 \cdot 1.5 + 0.0018
+\]
+
+Simplify:
+
+\[
+12.64 = 3.4208 \cdot x_0 + 3.5856 + 0.0018
+\]
+
+\[
+12.64 = 3.4208 \cdot x_0 + 3.587"
+SmartAdditive_v1,new_insight_decision_region,insight,True,1.56,1.526
+SmartAdditive_v1,new_discrim_simulate_all_active,discrim,False,1.601,3.4771
+SmartAdditive_v1,new_discrim_compactness,discrim,True,,yes
+SmartAdditive_v1,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmartAdditive_v1,new_discrim_unit_sensitivity,discrim,True,3.502,3.9194
+SmartAdditive_v1,new_discrim_predict_above_threshold,discrim,True,2.48,2.0056
+SmartAdditive_v1,new_discrim_predict_below_threshold,discrim,False,0.0,0.5295 - 0.5253 - 0.0020 - 0.0002 = **0.0020**
+SmartAdditive_v1,new_discrim_simulate_mixed_sign,discrim,False,6.485,3.9182
+SmartAdditive_v1,new_discrim_simulate_double_threshold,discrim,True,1.495,1.4963
+SmartAdditive_v1,new_discrim_simulate_additive_nonlinear,discrim,True,4.587,4.4687
+SmartAdditive_v1,new_discrim_simulate_interaction,discrim,True,9.049,"The prediction is:
+
+\[
+y = 2.3557 \cdot 1.5 + 2.9769 \cdot 2.0 + 0.0495 + 0.0190
+\]
+
+Breaking it down:
+- \( 2.3557 \cdot 1.5 = 3.53355 \)
+- \( 2.9769 \cdot 2.0 = 5.9538 \)
+- Intercept = \( 0.0495 \)
+- Nonlinear correction for \( x2 = 0.0 \) (falls in the range \( -1.9347 < x2 \leq 2.1126 \)) is \( +0.0190 \)
+
+Adding these together:
+\[
+y = 3.53355 + 5.9538 + 0.0495 + 0.0190 = 9.55585
+\]
+
+**Final answer:"
+SmartAdditive_v1,new_simulatability_eight_features,simulatability,False,6.121,2.5722
+SmartAdditive_v1,new_simulatability_fifteen_features_sparse,simulatability,False,14.582,8.9940
+SmartAdditive_v1,new_simulatability_quadratic,simulatability,False,0.375,3.0641
+SmartAdditive_v1,new_simulatability_friedman1,simulatability,True,16.103,15.7682
+SmartAdditive_v1,new_simulatability_cascading_threshold,simulatability,True,1.592,0.9487
+SmartAdditive_v1,new_simulatability_exponential_decay,simulatability,False,2.716,7.5488
+SmartAdditive_v1,new_simulatability_piecewise_three_segment,simulatability,True,1.558,1.3808
+SmartAdditive_v1,new_simulatability_twenty_features_sparse,simulatability,True,11.324,"The prediction can be calculated by substituting the given values into the regression equation:
+
+\[
+y = 4.5739 \cdot x3 + (-3.5608) \cdot x8 + 2.5276 \cdot x13 + (-1.6367) \cdot x17 + (-0.0064)
+\]
+
+Substitute the values \(x3 = 1.0\), \(x8 = -1.2\), \(x13 = 0.5\), \(x17 = -0.8\):
+
+\[
+y = 4.5739 \cdot 1.0 + (-3.5608) \cdot (-1.2) + 2.5276 \cdot 0.5 + (-1.6367) \cdot (-0.8) + (-0.0064)
+\]
+
+Now calculate step by step:
+
+\[
+y = 4.573"
+SmartAdditive_v1,new_simulatability_sinusoidal,simulatability,True,2.559,2.2388
+SmartAdditive_v1,new_simulatability_abs_value,simulatability,True,2.635,The model predicts: **2.9943**
+SmartAdditive_v1,new_simulatability_twelve_features_all_active,simulatability,True,3.108,2.3941
+SmartAdditive_v1,new_simulatability_nested_threshold,simulatability,False,2.124,The model predicts: **0.6984**
+HingeEBM_5bag,new_most_important_feature,standard,True,x0,x0
+HingeEBM_5bag,new_point_prediction,standard,True,8.975,8.9746
+HingeEBM_5bag,new_direction_of_change,standard,False,10.362,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9078\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 6.9078 \times 1.5 = 10.3617
+\]
+
+**Answer: 10.3617**"
+HingeEBM_5bag,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM_5bag,new_threshold_identification,standard,False,0.3,0.6773
+HingeEBM_5bag,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+HingeEBM_5bag,new_sign_of_effect,standard,True,-6.008,-6.0084
+HingeEBM_5bag,new_counterfactual_prediction,standard,True,12.299,12.30
+HingeEBM_5bag,new_hard_all_features_active,hard,False,2.538,4.1551
+HingeEBM_5bag,new_hard_pairwise_anti_intuitive,hard,False,4.292,"The model's prediction for sample B minus the prediction for sample A is:
+
+**6.5941**"
+HingeEBM_5bag,new_hard_quantitative_sensitivity,hard,True,9.86,9.8596
+HingeEBM_5bag,new_hard_mixed_sign_goes_negative,hard,False,-4.257,-3.0004
+HingeEBM_5bag,new_hard_two_feature_perturbation,hard,False,9.78,6.9918
+HingeEBM_5bag,new_insight_simulatability,insight,True,8.384,9.1530
+HingeEBM_5bag,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM_5bag,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.129
+HingeEBM_5bag,new_insight_nonlinear_direction,insight,True,5.863,"The prediction is:
+
+**5.53625**"
+HingeEBM_5bag,new_insight_counterfactual_target,insight,False,2.499,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5364 \cdot x_0 + 2.4902 \cdot x_1 + 0.0398 \cdot x_2 + 0.0341
+\]
+
+Given:
+- \( y = 12.50 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+12.50 = 3.5364 \cdot x_0 + 2.4902 \cdot 1.5 + 0.0398 \cdot 0.0 + 0.0341
+\]
+
+Simplify:
+
+\[
+12.50 = 3.5364 \cdot x_0 + (2.4902 \cdot 1.5) + 0.0341
+"
+HingeEBM_5bag,new_insight_decision_region,insight,True,1.524,1.528
+HingeEBM_5bag,new_discrim_simulate_all_active,discrim,False,2.342,4.1931
+HingeEBM_5bag,new_discrim_compactness,discrim,True,,yes
+HingeEBM_5bag,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HingeEBM_5bag,new_discrim_unit_sensitivity,discrim,True,3.987,"The model's prediction changes by **3.9871** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+HingeEBM_5bag,new_discrim_predict_above_threshold,discrim,False,2.43,1.7086
+HingeEBM_5bag,new_discrim_predict_below_threshold,discrim,False,-0.01,-1.8036
+HingeEBM_5bag,new_discrim_simulate_mixed_sign,discrim,False,7.052,5.1932
+HingeEBM_5bag,new_discrim_simulate_double_threshold,discrim,True,1.483,1.74635
+HingeEBM_5bag,new_discrim_simulate_additive_nonlinear,discrim,False,4.54,2.9611
+HingeEBM_5bag,new_discrim_simulate_interaction,discrim,False,16.01,8.39635
+HingeEBM_5bag,new_simulatability_eight_features,simulatability,True,5.185,4.5127
+HingeEBM_5bag,new_simulatability_fifteen_features_sparse,simulatability,False,15.356,7.9658
+HingeEBM_5bag,new_simulatability_quadratic,simulatability,True,0.499,"The prediction is:
+
+**-0.6497**"
+HingeEBM_5bag,new_simulatability_friedman1,simulatability,True,15.091,12.4011
+HingeEBM_5bag,new_simulatability_cascading_threshold,simulatability,True,3.228,"The prediction is:
+
+**2.8361**"
+HingeEBM_5bag,new_simulatability_exponential_decay,simulatability,False,2.867,-21.1972
+HingeEBM_5bag,new_simulatability_piecewise_three_segment,simulatability,True,1.75,1.6693
+HingeEBM_5bag,new_simulatability_twenty_features_sparse,simulatability,False,12.803,"The model prediction is:
+
+\[
+y = -0.0099(0) + 5.0032(1.0) + -0.0297(0) + 0.0062(0) + -3.9526(-1.2) + 0.0159(0) + 2.9700(0.5) + 0.0100(0) + -1.9899(-0.8) + -0.0170
+\]
+
+Simplify step by step:
+
+\[
+y = 5.0032 + (3.9526 \times 1.2) + (2.9700 \times 0.5) + (1.9899 \times 0.8) - 0.0170
+\]
+
+\[
+y = 5.0032 + 4.74312 + 1.485 + 1.59192 - 0.017"
+HingeEBM_5bag,new_simulatability_sinusoidal,simulatability,False,2.568,7.0006
+HingeEBM_5bag,new_simulatability_abs_value,simulatability,False,2.349,-2.5660
+HingeEBM_5bag,new_simulatability_twelve_features_all_active,simulatability,False,1.677,3.2416
+HingeEBM_5bag,new_simulatability_nested_threshold,simulatability,True,1.423,1.9117
+HingeEBM_smart,new_most_important_feature,standard,True,x0,x0
+HingeEBM_smart,new_point_prediction,standard,True,8.975,8.9746
+HingeEBM_smart,new_direction_of_change,standard,False,10.362,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9078\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 6.9078 \times 1.5 = 10.3617
+\]
+
+**Answer: 10.3617**"
+HingeEBM_smart,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM_smart,new_threshold_identification,standard,False,0.3,0.6773
+HingeEBM_smart,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+HingeEBM_smart,new_sign_of_effect,standard,True,-6.008,-6.0084
+HingeEBM_smart,new_counterfactual_prediction,standard,True,12.299,12.30
+HingeEBM_smart,new_hard_all_features_active,hard,False,2.538,4.1551
+HingeEBM_smart,new_hard_pairwise_anti_intuitive,hard,False,4.292,"The model's prediction for sample B minus the prediction for sample A is:
+
+**6.5941**"
+HingeEBM_smart,new_hard_quantitative_sensitivity,hard,True,9.86,9.8596
+HingeEBM_smart,new_hard_mixed_sign_goes_negative,hard,False,-4.257,-3.0004
+HingeEBM_smart,new_hard_two_feature_perturbation,hard,False,9.78,6.9918
+HingeEBM_smart,new_insight_simulatability,insight,True,8.384,9.1530
+HingeEBM_smart,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM_smart,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.129
+HingeEBM_smart,new_insight_nonlinear_direction,insight,True,5.863,"The prediction is:
+
+**5.53625**"
+HingeEBM_smart,new_insight_counterfactual_target,insight,False,2.499,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5364 \cdot x_0 + 2.4902 \cdot x_1 + 0.0398 \cdot x_2 + 0.0341
+\]
+
+Given:
+- \( y = 12.50 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+12.50 = 3.5364 \cdot x_0 + 2.4902 \cdot 1.5 + 0.0398 \cdot 0.0 + 0.0341
+\]
+
+Simplify:
+
+\[
+12.50 = 3.5364 \cdot x_0 + (2.4902 \cdot 1.5) + 0.0341
+"
+HingeEBM_smart,new_insight_decision_region,insight,True,1.524,1.528
+HingeEBM_smart,new_discrim_simulate_all_active,discrim,False,2.342,4.1931
+HingeEBM_smart,new_discrim_compactness,discrim,True,,yes
+HingeEBM_smart,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HingeEBM_smart,new_discrim_unit_sensitivity,discrim,True,3.987,"The model's prediction changes by **3.9871** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+HingeEBM_smart,new_discrim_predict_above_threshold,discrim,False,2.59,1.7086
+HingeEBM_smart,new_discrim_predict_below_threshold,discrim,False,0.01,-1.8036
+HingeEBM_smart,new_discrim_simulate_mixed_sign,discrim,False,7.052,5.1932
+HingeEBM_smart,new_discrim_simulate_double_threshold,discrim,True,1.469,1.74635
+HingeEBM_smart,new_discrim_simulate_additive_nonlinear,discrim,False,4.54,2.9611
+HingeEBM_smart,new_discrim_simulate_interaction,discrim,False,16.273,8.39635
+HingeEBM_smart,new_simulatability_eight_features,simulatability,True,5.185,4.5127
+HingeEBM_smart,new_simulatability_fifteen_features_sparse,simulatability,False,15.356,7.9658
+HingeEBM_smart,new_simulatability_quadratic,simulatability,True,0.499,"The prediction is:
+
+**-0.6497**"
+HingeEBM_smart,new_simulatability_friedman1,simulatability,True,15.091,12.4011
+HingeEBM_smart,new_simulatability_cascading_threshold,simulatability,True,3.117,"The prediction is:
+
+**2.8361**"
+HingeEBM_smart,new_simulatability_exponential_decay,simulatability,False,2.972,-21.1972
+HingeEBM_smart,new_simulatability_piecewise_three_segment,simulatability,True,1.75,1.6693
+HingeEBM_smart,new_simulatability_twenty_features_sparse,simulatability,False,12.803,"The model prediction is:
+
+\[
+y = -0.0099(0) + 5.0032(1.0) + -0.0297(0) + 0.0062(0) + -3.9526(-1.2) + 0.0159(0) + 2.9700(0.5) + 0.0100(0) + -1.9899(-0.8) + -0.0170
+\]
+
+Simplify step by step:
+
+\[
+y = 5.0032 + (3.9526 \times 1.2) + (2.9700 \times 0.5) + (1.9899 \times 0.8) - 0.0170
+\]
+
+\[
+y = 5.0032 + 4.74312 + 1.485 + 1.59192 - 0.017"
+HingeEBM_smart,new_simulatability_sinusoidal,simulatability,False,2.568,7.0006
+HingeEBM_smart,new_simulatability_abs_value,simulatability,False,2.349,-2.5660
+HingeEBM_smart,new_simulatability_twelve_features_all_active,simulatability,False,1.677,3.2416
+HingeEBM_smart,new_simulatability_nested_threshold,simulatability,True,1.327,1.9117
+SmoothGAM_RF_sqrt,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_RF_sqrt,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_RF_sqrt,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_RF_sqrt,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_RF_sqrt,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_RF_sqrt,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_RF_sqrt,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_RF_sqrt,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_RF_sqrt,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_RF_sqrt,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_RF_sqrt,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_RF_sqrt,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_RF_sqrt,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_RF_sqrt,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_RF_sqrt,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_RF_sqrt,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_RF_sqrt,new_insight_nonlinear_direction,insight,True,5.388,4.5410
+SmoothGAM_RF_sqrt,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_RF_sqrt,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_RF_sqrt,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_RF_sqrt,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_RF_sqrt,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_RF_sqrt,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_RF_sqrt,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_RF_sqrt,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_RF_sqrt,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_RF_sqrt,new_discrim_simulate_double_threshold,discrim,True,1.597,2.0346
+SmoothGAM_RF_sqrt,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_RF_sqrt,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_RF_sqrt,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_RF_sqrt,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_RF_sqrt,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_RF_sqrt,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_RF_sqrt,new_simulatability_cascading_threshold,simulatability,True,2.232,1.3213
+SmoothGAM_RF_sqrt,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_RF_sqrt,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_RF_sqrt,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_RF_sqrt,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_RF_sqrt,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_RF_sqrt,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_RF_sqrt,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmoothGAM_tinyGBM,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_tinyGBM,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_tinyGBM,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_tinyGBM,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_tinyGBM,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_tinyGBM,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_tinyGBM,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_tinyGBM,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_tinyGBM,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_tinyGBM,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_tinyGBM,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_tinyGBM,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_tinyGBM,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_tinyGBM,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_tinyGBM,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_tinyGBM,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_tinyGBM,new_insight_nonlinear_direction,insight,True,5.124,4.5410
+SmoothGAM_tinyGBM,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_tinyGBM,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_tinyGBM,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_tinyGBM,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_tinyGBM,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_tinyGBM,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_tinyGBM,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_tinyGBM,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_tinyGBM,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_tinyGBM,new_discrim_simulate_double_threshold,discrim,True,1.829,2.0346
+SmoothGAM_tinyGBM,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_tinyGBM,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_tinyGBM,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_tinyGBM,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_tinyGBM,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_tinyGBM,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_tinyGBM,new_simulatability_cascading_threshold,simulatability,True,2.041,1.3213
+SmoothGAM_tinyGBM,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_tinyGBM,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_tinyGBM,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_tinyGBM,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_tinyGBM,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_tinyGBM,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_tinyGBM,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+FullPWC_LinDisp,new_most_important_feature,standard,True,x0,x0
+FullPWC_LinDisp,new_point_prediction,standard,True,9.097,8.9573
+FullPWC_LinDisp,new_direction_of_change,standard,True,10.886,10.3635
+FullPWC_LinDisp,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+FullPWC_LinDisp,new_threshold_identification,standard,True,0.3,0.3794
+FullPWC_LinDisp,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x4, x5"
+FullPWC_LinDisp,new_sign_of_effect,standard,True,-7.029,-5.8143
+FullPWC_LinDisp,new_counterfactual_prediction,standard,True,11.491,12.36
+FullPWC_LinDisp,new_hard_all_features_active,hard,True,1.593,2.3650
+FullPWC_LinDisp,new_hard_pairwise_anti_intuitive,hard,False,2.837,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 3.8615 \cdot x_0 + 3.3318 \cdot x_1 - 0.0107
+\]
+
+### Prediction for Sample A:
+\[
+y_A = 3.8615 \cdot 1.5 + 3.3318 \cdot 0.2 - 0.0107
+\]
+\[
+y_A = 5.79225 + 0.66636 - 0.0107 = 6.44791
+\]
+
+### Prediction for Sample B:
+\[
+y_B = 3.8615 \cdot 0.3 + 3.3318 \cdot 2.8 - 0.0107
+\]
+\[
+y_B = 1.15845 + 9.32904 - 0.0107 = "
+FullPWC_LinDisp,new_hard_quantitative_sensitivity,hard,False,6.456,9.867
+FullPWC_LinDisp,new_hard_mixed_sign_goes_negative,hard,True,-4.026,-3.0594
+FullPWC_LinDisp,new_hard_two_feature_perturbation,hard,False,9.326,7.68
+FullPWC_LinDisp,new_insight_simulatability,insight,False,7.328,9.2504
+FullPWC_LinDisp,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+FullPWC_LinDisp,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.8657
+FullPWC_LinDisp,new_insight_nonlinear_direction,insight,False,5.881,The model predicts **7.2998**.
+FullPWC_LinDisp,new_insight_counterfactual_target,insight,False,10.0,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4208 \cdot x_0 + 2.3904 \cdot x_1 + 0.0018
+\]
+
+We are given:
+- \( y = 12.64 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.64 = 3.4208 \cdot x_0 + 2.3904 \cdot 1.5 + 0.0018
+\]
+
+Simplify:
+
+\[
+12.64 = 3.4208 \cdot x_0 + 3.5856 + 0.0018
+\]
+
+\[
+12.64 = 3.4208 \cdot x_0 + "
+FullPWC_LinDisp,new_insight_decision_region,insight,True,1.56,1.526
+FullPWC_LinDisp,new_discrim_simulate_all_active,discrim,False,1.601,3.4771
+FullPWC_LinDisp,new_discrim_compactness,discrim,True,,Yes
+FullPWC_LinDisp,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+FullPWC_LinDisp,new_discrim_unit_sensitivity,discrim,True,3.502,3.9194
+FullPWC_LinDisp,new_discrim_predict_above_threshold,discrim,True,2.48,2.0056
+FullPWC_LinDisp,new_discrim_predict_below_threshold,discrim,False,0.0,0.5295 - 0.5253 - 0.0020 - 0.0002 = **0.0020**
+FullPWC_LinDisp,new_discrim_simulate_mixed_sign,discrim,False,6.485,2.6973
+FullPWC_LinDisp,new_discrim_simulate_double_threshold,discrim,True,1.495,1.4963
+FullPWC_LinDisp,new_discrim_simulate_additive_nonlinear,discrim,True,4.587,3.9260
+FullPWC_LinDisp,new_discrim_simulate_interaction,discrim,True,9.049,9.8051
+FullPWC_LinDisp,new_simulatability_eight_features,simulatability,False,6.121,2.7694
+FullPWC_LinDisp,new_simulatability_fifteen_features_sparse,simulatability,False,14.582,8.9910
+FullPWC_LinDisp,new_simulatability_quadratic,simulatability,False,0.375,2.4298
+FullPWC_LinDisp,new_simulatability_friedman1,simulatability,True,16.103,14.7681
+FullPWC_LinDisp,new_simulatability_cascading_threshold,simulatability,True,1.592,0.9487
+FullPWC_LinDisp,new_simulatability_exponential_decay,simulatability,False,2.716,7.5488
+FullPWC_LinDisp,new_simulatability_piecewise_three_segment,simulatability,True,1.558,1.3809
+FullPWC_LinDisp,new_simulatability_twenty_features_sparse,simulatability,True,11.324,10.2047
+FullPWC_LinDisp,new_simulatability_sinusoidal,simulatability,False,2.559,The model predicts: **0.9612**
+FullPWC_LinDisp,new_simulatability_abs_value,simulatability,False,2.635,4.3151
+FullPWC_LinDisp,new_simulatability_twelve_features_all_active,simulatability,True,3.108,2.3941
+FullPWC_LinDisp,new_simulatability_nested_threshold,simulatability,False,2.124,The model predicts: **0.6984**
+SmoothGAM_40s,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_40s,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_40s,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_40s,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_40s,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_40s,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_40s,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_40s,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_40s,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_40s,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_40s,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_40s,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_40s,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_40s,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_40s,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_40s,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_40s,new_insight_nonlinear_direction,insight,True,5.297,4.5410
+SmoothGAM_40s,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_40s,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_40s,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_40s,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_40s,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_40s,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_40s,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_40s,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_40s,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_40s,new_discrim_simulate_double_threshold,discrim,True,1.759,2.0346
+SmoothGAM_40s,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_40s,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_40s,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_40s,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_40s,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_40s,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_40s,new_simulatability_cascading_threshold,simulatability,True,1.988,1.3213
+SmoothGAM_40s,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_40s,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_40s,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_40s,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_40s,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_40s,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_40s,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+HingeGBM_v1,new_most_important_feature,standard,True,x0,x0
+HingeGBM_v1,new_point_prediction,standard,True,8.975,8.9746
+HingeGBM_v1,new_direction_of_change,standard,False,10.362,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9078\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 6.9078 \times 1.5 = 10.3617
+\]
+
+**Answer: 10.3617**"
+HingeGBM_v1,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeGBM_v1,new_threshold_identification,standard,False,0.3,0.6773
+HingeGBM_v1,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+HingeGBM_v1,new_sign_of_effect,standard,True,-6.008,-6.0084
+HingeGBM_v1,new_counterfactual_prediction,standard,True,12.299,12.30
+HingeGBM_v1,new_hard_all_features_active,hard,False,2.538,4.1551
+HingeGBM_v1,new_hard_pairwise_anti_intuitive,hard,False,4.292,"The model's prediction for sample B minus the prediction for sample A is:
+
+**6.5941**"
+HingeGBM_v1,new_hard_quantitative_sensitivity,hard,True,9.86,9.8596
+HingeGBM_v1,new_hard_mixed_sign_goes_negative,hard,False,-4.257,-3.0004
+HingeGBM_v1,new_hard_two_feature_perturbation,hard,False,9.78,6.9918
+HingeGBM_v1,new_insight_simulatability,insight,True,8.384,9.1530
+HingeGBM_v1,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeGBM_v1,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.129
+HingeGBM_v1,new_insight_nonlinear_direction,insight,True,5.863,"The prediction is:
+
+**5.53625**"
+HingeGBM_v1,new_insight_counterfactual_target,insight,False,2.499,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5364 \cdot x_0 + 2.4902 \cdot x_1 + 0.0398 \cdot x_2 + 0.0341
+\]
+
+Given:
+- \( y = 12.50 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \)
+
+Substitute these values into the equation:
+
+\[
+12.50 = 3.5364 \cdot x_0 + 2.4902 \cdot 1.5 + 0.0398 \cdot 0.0 + 0.0341
+\]
+
+Simplify:
+
+\[
+12.50 = 3.5364 \cdot x_0 + (2.4902 \cdot 1.5) + 0.0341
+"
+HingeGBM_v1,new_insight_decision_region,insight,True,1.524,1.528
+HingeGBM_v1,new_discrim_simulate_all_active,discrim,False,2.342,4.1931
+HingeGBM_v1,new_discrim_compactness,discrim,True,,yes
+HingeGBM_v1,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HingeGBM_v1,new_discrim_unit_sensitivity,discrim,True,3.987,"The model's prediction changes by **3.9871** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+HingeGBM_v1,new_discrim_predict_above_threshold,discrim,False,2.44,1.7086
+HingeGBM_v1,new_discrim_predict_below_threshold,discrim,False,-0.01,-1.8036
+HingeGBM_v1,new_discrim_simulate_mixed_sign,discrim,False,7.052,5.1932
+HingeGBM_v1,new_discrim_simulate_double_threshold,discrim,True,1.501,1.74635
+HingeGBM_v1,new_discrim_simulate_additive_nonlinear,discrim,False,4.54,2.9611
+HingeGBM_v1,new_discrim_simulate_interaction,discrim,False,12.668,8.39635
+HingeGBM_v1,new_simulatability_eight_features,simulatability,True,5.185,4.5127
+HingeGBM_v1,new_simulatability_fifteen_features_sparse,simulatability,False,15.356,7.9658
+HingeGBM_v1,new_simulatability_quadratic,simulatability,True,0.499,"The prediction is:
+
+**-0.6497**"
+HingeGBM_v1,new_simulatability_friedman1,simulatability,True,15.091,12.4011
+HingeGBM_v1,new_simulatability_cascading_threshold,simulatability,True,2.108,"The prediction is:
+
+**2.8361**"
+HingeGBM_v1,new_simulatability_exponential_decay,simulatability,False,3.051,-21.1972
+HingeGBM_v1,new_simulatability_piecewise_three_segment,simulatability,True,1.75,1.6693
+HingeGBM_v1,new_simulatability_twenty_features_sparse,simulatability,False,12.803,"The model prediction is:
+
+\[
+y = -0.0099(0) + 5.0032(1.0) + -0.0297(0) + 0.0062(0) + -3.9526(-1.2) + 0.0159(0) + 2.9700(0.5) + 0.0100(0) + -1.9899(-0.8) + -0.0170
+\]
+
+Simplify step by step:
+
+\[
+y = 5.0032 + (3.9526 \times 1.2) + (2.9700 \times 0.5) + (1.9899 \times 0.8) - 0.0170
+\]
+
+\[
+y = 5.0032 + 4.74312 + 1.485 + 1.59192 - 0.017"
+HingeGBM_v1,new_simulatability_sinusoidal,simulatability,False,2.568,7.0006
+HingeGBM_v1,new_simulatability_abs_value,simulatability,False,2.349,-2.5660
+HingeGBM_v1,new_simulatability_twelve_features_all_active,simulatability,False,1.677,3.2416
+HingeGBM_v1,new_simulatability_nested_threshold,simulatability,True,1.639,1.9117
+SklearnStumpGAM_v1,new_most_important_feature,standard,True,x0,x0
+SklearnStumpGAM_v1,new_point_prediction,standard,True,9.097,8.9573
+SklearnStumpGAM_v1,new_direction_of_change,standard,True,10.886,10.3635
+SklearnStumpGAM_v1,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SklearnStumpGAM_v1,new_threshold_identification,standard,True,0.3,0.3794
+SklearnStumpGAM_v1,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x4, x5"
+SklearnStumpGAM_v1,new_sign_of_effect,standard,True,-7.029,-5.8143
+SklearnStumpGAM_v1,new_counterfactual_prediction,standard,True,11.491,12.36
+SklearnStumpGAM_v1,new_hard_all_features_active,hard,True,1.593,2.3650
+SklearnStumpGAM_v1,new_hard_pairwise_anti_intuitive,hard,False,2.837,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 3.8615 \cdot x_0 + 3.3318 \cdot x_1 - 0.0107
+\]
+
+### Prediction for Sample A:
+\[
+y_A = 3.8615 \cdot 1.5 + 3.3318 \cdot 0.2 - 0.0107
+\]
+\[
+y_A = 5.79225 + 0.66636 - 0.0107 = 6.44791
+\]
+
+### Prediction for Sample B:
+\[
+y_B = 3.8615 \cdot 0.3 + 3.3318 \cdot 2.8 - 0.0107
+\]
+\[
+y_B = 1.15845 + 9.32904 - 0.0107 = "
+SklearnStumpGAM_v1,new_hard_quantitative_sensitivity,hard,False,6.456,9.867
+SklearnStumpGAM_v1,new_hard_mixed_sign_goes_negative,hard,True,-4.026,-3.0594
+SklearnStumpGAM_v1,new_hard_two_feature_perturbation,hard,False,9.326,7.68
+SklearnStumpGAM_v1,new_insight_simulatability,insight,False,7.328,9.2504
+SklearnStumpGAM_v1,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SklearnStumpGAM_v1,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.8657
+SklearnStumpGAM_v1,new_insight_nonlinear_direction,insight,False,5.881,The model predicts **7.2998**.
+SklearnStumpGAM_v1,new_insight_counterfactual_target,insight,False,10.0,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4208 \cdot x_0 + 2.3904 \cdot x_1 + 0.0018
+\]
+
+We are given:
+- \( y = 12.64 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.64 = 3.4208 \cdot x_0 + 2.3904 \cdot 1.5 + 0.0018
+\]
+
+Simplify:
+
+\[
+12.64 = 3.4208 \cdot x_0 + 3.5856 + 0.0018
+\]
+
+\[
+12.64 = 3.4208 \cdot x_0 + "
+SklearnStumpGAM_v1,new_insight_decision_region,insight,True,1.56,1.526
+SklearnStumpGAM_v1,new_discrim_simulate_all_active,discrim,False,1.601,3.4771
+SklearnStumpGAM_v1,new_discrim_compactness,discrim,True,,Yes
+SklearnStumpGAM_v1,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SklearnStumpGAM_v1,new_discrim_unit_sensitivity,discrim,True,3.502,3.9194
+SklearnStumpGAM_v1,new_discrim_predict_above_threshold,discrim,True,2.48,2.0056
+SklearnStumpGAM_v1,new_discrim_predict_below_threshold,discrim,False,0.0,0.5295 - 0.5253 - 0.0020 - 0.0002 = **0.0020**
+SklearnStumpGAM_v1,new_discrim_simulate_mixed_sign,discrim,False,6.485,2.6973
+SklearnStumpGAM_v1,new_discrim_simulate_double_threshold,discrim,True,1.495,1.4963
+SklearnStumpGAM_v1,new_discrim_simulate_additive_nonlinear,discrim,True,4.587,3.9260
+SklearnStumpGAM_v1,new_discrim_simulate_interaction,discrim,True,9.049,9.8051
+SklearnStumpGAM_v1,new_simulatability_eight_features,simulatability,False,6.121,2.7694
+SklearnStumpGAM_v1,new_simulatability_fifteen_features_sparse,simulatability,False,14.582,8.9910
+SklearnStumpGAM_v1,new_simulatability_quadratic,simulatability,False,0.375,2.4298
+SklearnStumpGAM_v1,new_simulatability_friedman1,simulatability,True,16.103,14.7681
+SklearnStumpGAM_v1,new_simulatability_cascading_threshold,simulatability,True,1.592,0.9487
+SklearnStumpGAM_v1,new_simulatability_exponential_decay,simulatability,False,2.716,7.5488
+SklearnStumpGAM_v1,new_simulatability_piecewise_three_segment,simulatability,True,1.558,1.3809
+SklearnStumpGAM_v1,new_simulatability_twenty_features_sparse,simulatability,True,11.324,10.2047
+SklearnStumpGAM_v1,new_simulatability_sinusoidal,simulatability,False,2.559,The model predicts: **0.9612**
+SklearnStumpGAM_v1,new_simulatability_abs_value,simulatability,False,2.635,4.3151
+SklearnStumpGAM_v1,new_simulatability_twelve_features_all_active,simulatability,True,3.108,2.3941
+SklearnStumpGAM_v1,new_simulatability_nested_threshold,simulatability,False,2.124,The model predicts: **0.6984**
+SmoothGAM_50s,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_50s,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_50s,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_50s,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_50s,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_50s,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_50s,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_50s,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_50s,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_50s,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_50s,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_50s,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_50s,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_50s,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_50s,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_50s,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_50s,new_insight_nonlinear_direction,insight,True,5.37,4.5410
+SmoothGAM_50s,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_50s,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_50s,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_50s,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_50s,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_50s,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_50s,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_50s,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_50s,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_50s,new_discrim_simulate_double_threshold,discrim,True,1.743,2.0346
+SmoothGAM_50s,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_50s,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_50s,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_50s,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_50s,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_50s,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_50s,new_simulatability_cascading_threshold,simulatability,True,1.963,1.3213
+SmoothGAM_50s,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_50s,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_50s,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_50s,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_50s,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_50s,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_50s,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmoothGAM_r70hyb,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_r70hyb,new_point_prediction,standard,True,8.944,9.03
+SmoothGAM_r70hyb,new_direction_of_change,standard,True,10.407,10.407
+SmoothGAM_r70hyb,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_r70hyb,new_threshold_identification,standard,False,0.3,1.29
+SmoothGAM_r70hyb,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_r70hyb,new_sign_of_effect,standard,True,-5.801,-5.8006
+SmoothGAM_r70hyb,new_counterfactual_prediction,standard,True,12.408,12.38
+SmoothGAM_r70hyb,new_hard_all_features_active,hard,True,2.342,3.2021
+SmoothGAM_r70hyb,new_hard_pairwise_anti_intuitive,hard,True,4.048,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_r70hyb,new_hard_quantitative_sensitivity,hard,True,9.913,9.9128
+SmoothGAM_r70hyb,new_hard_mixed_sign_goes_negative,hard,True,-4.149,-3.18005
+SmoothGAM_r70hyb,new_hard_two_feature_perturbation,hard,True,9.366,8.6594
+SmoothGAM_r70hyb,new_insight_simulatability,insight,True,8.142,8.1014
+SmoothGAM_r70hyb,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_r70hyb,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6231
+SmoothGAM_r70hyb,new_insight_nonlinear_direction,insight,True,4.534,4.5410
+SmoothGAM_r70hyb,new_insight_counterfactual_target,insight,False,2.54,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 + (-0.0010)
+\]
+
+We are given:
+- \( y = 12.27 \)
+- \( x_1 = 1.5 \)
+- \( x_2 = 0.0 \) (excluded, so it doesn't affect the equation)
+
+Substitute these values into the equation:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 2.3815 \cdot 1.5 - 0.0010
+\]
+
+Simplify:
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3.57225 - 0.001
+\]
+
+\[
+12.27 = 3.4315 \cdot x_0 + 3"
+SmoothGAM_r70hyb,new_insight_decision_region,insight,True,1.527,1.523
+SmoothGAM_r70hyb,new_discrim_simulate_all_active,discrim,False,1.727,3.2541
+SmoothGAM_r70hyb,new_discrim_compactness,discrim,True,,Yes
+SmoothGAM_r70hyb,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_r70hyb,new_discrim_unit_sensitivity,discrim,True,3.915,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_r70hyb,new_discrim_predict_above_threshold,discrim,True,2.48,2.4767
+SmoothGAM_r70hyb,new_discrim_predict_below_threshold,discrim,True,0.01,0.0012
+SmoothGAM_r70hyb,new_discrim_simulate_mixed_sign,discrim,False,6.814,4.5121
+SmoothGAM_r70hyb,new_discrim_simulate_double_threshold,discrim,True,2.033,2.0346
+SmoothGAM_r70hyb,new_discrim_simulate_additive_nonlinear,discrim,True,4.297,3.7110
+SmoothGAM_r70hyb,new_discrim_simulate_interaction,discrim,True,9.541,9.6948
+SmoothGAM_r70hyb,new_simulatability_eight_features,simulatability,True,5.108,5.2051
+SmoothGAM_r70hyb,new_simulatability_fifteen_features_sparse,simulatability,False,13.957,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_r70hyb,new_simulatability_quadratic,simulatability,False,0.626,2.1400
+SmoothGAM_r70hyb,new_simulatability_friedman1,simulatability,True,14.141,14.8627
+SmoothGAM_r70hyb,new_simulatability_cascading_threshold,simulatability,True,2.298,1.3213
+SmoothGAM_r70hyb,new_simulatability_exponential_decay,simulatability,False,2.715,8.4732
+SmoothGAM_r70hyb,new_simulatability_piecewise_three_segment,simulatability,False,1.383,0.0
+SmoothGAM_r70hyb,new_simulatability_twenty_features_sparse,simulatability,True,11.464,12.2023
+SmoothGAM_r70hyb,new_simulatability_sinusoidal,simulatability,True,1.82,**2.7597**
+SmoothGAM_r70hyb,new_simulatability_abs_value,simulatability,False,2.611,4.0919
+SmoothGAM_r70hyb,new_simulatability_twelve_features_all_active,simulatability,True,2.838,3.9621
+SmoothGAM_r70hyb,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+DistilledGAM_v1,new_most_important_feature,standard,True,x0,x0
+DistilledGAM_v1,new_point_prediction,standard,True,9.021,9.0219
+DistilledGAM_v1,new_direction_of_change,standard,False,10.449,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(7.0475\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 7.0475 \times 1.5 = 10.57125
+\]
+
+**Answer: 10.57125**"
+DistilledGAM_v1,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+DistilledGAM_v1,new_threshold_identification,standard,False,0.3,4.61
+DistilledGAM_v1,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+DistilledGAM_v1,new_sign_of_effect,standard,True,-6.126,-6.0076
+DistilledGAM_v1,new_counterfactual_prediction,standard,True,12.363,12.39
+DistilledGAM_v1,new_hard_all_features_active,hard,True,2.498,2.5243
+DistilledGAM_v1,new_hard_pairwise_anti_intuitive,hard,True,4.19,"The model's prediction for a sample is calculated as:
+
+\[
+y = 4.0994 \cdot x_0 + 3.5013 \cdot x_1 + 0.0249 \cdot x_2 + 0.0148 \cdot x_3 + (-0.0097) \cdot x_4 + (-0.0462)
+\]
+
+For **Sample A**:
+\[
+x_0 = 1.5, \, x_1 = 0.2, \, x_2 = 0.0, \, x_3 = 0.0, \, x_4 = 0.0
+\]
+\[
+y_A = 4.0994 \cdot 1.5 + 3.5013 \cdot 0.2 + 0.0249 \cdot 0.0 + 0.0148 \cdot "
+DistilledGAM_v1,new_hard_quantitative_sensitivity,hard,True,9.85,9.8504
+DistilledGAM_v1,new_hard_mixed_sign_goes_negative,hard,True,-4.339,-4.5367
+DistilledGAM_v1,new_hard_two_feature_perturbation,hard,False,9.842,6.94
+DistilledGAM_v1,new_insight_simulatability,insight,True,8.428,8.3711
+DistilledGAM_v1,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+DistilledGAM_v1,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.0049
+DistilledGAM_v1,new_insight_nonlinear_direction,insight,True,5.993,"The prediction is:
+
+**6.8654**"
+DistilledGAM_v1,new_insight_counterfactual_target,insight,False,2.481,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5329 \cdot x_0 + 2.5269 \cdot x_1 + 0.0395 \cdot x_2 - 0.0550
+\]
+
+Substitute \( y = 12.50 \), \( x_1 = 1.5 \), and \( x_2 = 0.0 \):
+
+\[
+12.50 = 3.5329 \cdot x_0 + 2.5269 \cdot 1.5 + 0.0395 \cdot 0 - 0.0550
+\]
+
+Simplify:
+
+\[
+12.50 = 3.5329 \cdot x_0 + (2.5269 \cdot 1.5) - 0.0550
+\]
+
+\[
+12.50 = 3.532"
+DistilledGAM_v1,new_insight_decision_region,insight,True,1.503,1.512
+DistilledGAM_v1,new_discrim_simulate_all_active,discrim,False,2.326,3.9651
+DistilledGAM_v1,new_discrim_compactness,discrim,True,,yes
+DistilledGAM_v1,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+DistilledGAM_v1,new_discrim_unit_sensitivity,discrim,True,4.113,4.0113
+DistilledGAM_v1,new_discrim_predict_above_threshold,discrim,True,1.86,2.0263
+DistilledGAM_v1,new_discrim_predict_below_threshold,discrim,False,-0.1,-1.8662
+DistilledGAM_v1,new_discrim_simulate_mixed_sign,discrim,False,7.067,4.5121
+DistilledGAM_v1,new_discrim_simulate_double_threshold,discrim,True,1.813,1.7829
+DistilledGAM_v1,new_discrim_simulate_additive_nonlinear,discrim,False,4.757,2.8910
+DistilledGAM_v1,new_discrim_simulate_interaction,discrim,True,9.995,8.6840
+DistilledGAM_v1,new_simulatability_eight_features,simulatability,True,5.205,4.7932
+DistilledGAM_v1,new_simulatability_fifteen_features_sparse,simulatability,False,15.456,4.8351
+DistilledGAM_v1,new_simulatability_quadratic,simulatability,False,0.348,14.9861
+DistilledGAM_v1,new_simulatability_friedman1,simulatability,False,16.034,7.7071
+DistilledGAM_v1,new_simulatability_cascading_threshold,simulatability,False,2.056,The prediction is **0.3651**.
+DistilledGAM_v1,new_simulatability_exponential_decay,simulatability,False,2.777,4.8131
+DistilledGAM_v1,new_simulatability_piecewise_three_segment,simulatability,False,1.551,0.7338
+DistilledGAM_v1,new_simulatability_twenty_features_sparse,simulatability,False,12.848,6.4971
+DistilledGAM_v1,new_simulatability_sinusoidal,simulatability,False,3.097,9.1817
+DistilledGAM_v1,new_simulatability_abs_value,simulatability,False,2.257,-9.1941
+DistilledGAM_v1,new_simulatability_twelve_features_all_active,simulatability,False,1.718,6.1947
+DistilledGAM_v1,new_simulatability_nested_threshold,simulatability,False,2.276,1.3467
+SmartAdditive_v2,new_most_important_feature,standard,True,x0,x0
+SmartAdditive_v2,new_point_prediction,standard,True,8.794,8.9571
+SmartAdditive_v2,new_direction_of_change,standard,True,10.364,10.3635
+SmartAdditive_v2,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmartAdditive_v2,new_threshold_identification,standard,True,0.3,0.3794
+SmartAdditive_v2,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","The regression model provided includes coefficients for `x0` and a nonlinear feature effect for `x3`. However, no other features are mentioned in the model, which implies that any other features (if they exist) have little or no effect on the prediction. Based on the information provided, **only `x0` and `x3` are relevant**.
+
+If there are additional features beyond `x0` and `x3`, those features would have little or no effect on the prediction. Since no other feature names are explicitly mentioned, I "
+SmartAdditive_v2,new_sign_of_effect,standard,True,-5.814,-5.8143
+SmartAdditive_v2,new_counterfactual_prediction,standard,True,12.364,12.36
+SmartAdditive_v2,new_hard_all_features_active,hard,True,2.311,2.3650
+SmartAdditive_v2,new_hard_pairwise_anti_intuitive,hard,True,4.029,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 3.8615 \cdot x_0 + 3.3318 \cdot x_1 - 0.0107
+\]
+
+### Step 1: Calculate prediction for Sample A
+For Sample A: \(x_0 = 1.5\), \(x_1 = 0.2\), and all other features are zero.
+\[
+y_A = 3.8615 \cdot 1.5 + 3.3318 \cdot 0.2 - 0.0107
+\]
+\[
+y_A = 5.79225 + 0.66636 - 0.0107 = 6.44791
+\]
+
+### Step 2: Calculate prediction for Sample B
+For Sample B: \(x_0 = 0.3\), \(x_1 ="
+SmartAdditive_v2,new_hard_quantitative_sensitivity,hard,True,9.867,9.867
+SmartAdditive_v2,new_hard_mixed_sign_goes_negative,hard,False,-4.129,-3.0594
+SmartAdditive_v2,new_hard_two_feature_perturbation,hard,True,9.394,8.73
+SmartAdditive_v2,new_insight_simulatability,insight,True,8.139,9.2504
+SmartAdditive_v2,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmartAdditive_v2,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),-1.8657
+SmartAdditive_v2,new_insight_nonlinear_direction,insight,False,5.881,7.2998
+SmartAdditive_v2,new_insight_counterfactual_target,insight,True,2.546,2.50
+SmartAdditive_v2,new_insight_decision_region,insight,True,1.528,1.526
+SmartAdditive_v2,new_discrim_simulate_all_active,discrim,False,1.731,3.4771
+SmartAdditive_v2,new_discrim_compactness,discrim,True,,yes
+SmartAdditive_v2,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmartAdditive_v2,new_discrim_unit_sensitivity,discrim,True,3.919,3.9194
+SmartAdditive_v2,new_discrim_predict_above_threshold,discrim,True,2.48,2.0056
+SmartAdditive_v2,new_discrim_predict_below_threshold,discrim,False,0.0,0.5295 - 0.5253 - 0.0020 - 0.0002 = **0.0020**
+SmartAdditive_v2,new_discrim_simulate_mixed_sign,discrim,False,6.919,3.9182
+SmartAdditive_v2,new_discrim_simulate_double_threshold,discrim,True,1.495,1.4963
+SmartAdditive_v2,new_discrim_simulate_additive_nonlinear,discrim,True,4.763,4.4687
+SmartAdditive_v2,new_discrim_simulate_interaction,discrim,True,9.553,"The prediction is:
+
+\[
+y = 2.3557 \cdot 1.5 + 2.9769 \cdot 2.0 + 0.0495 + 0.0190
+\]
+
+Breaking it down:
+- \( 2.3557 \cdot 1.5 = 3.53355 \)
+- \( 2.9769 \cdot 2.0 = 5.9538 \)
+- Intercept = \( 0.0495 \)
+- Nonlinear correction for \( x2 = 0.0 \) (falls in the range \( -1.9347 < x2 \leq 2.1126 \)) is \( +0.0190 \)
+
+Adding these together:
+\[
+y = 3.53355 + 5.9538 + 0.0495 + 0.0190 = 9.55585
+\]
+
+**Final answer:"
+SmartAdditive_v2,new_simulatability_eight_features,simulatability,False,5.189,2.5722
+SmartAdditive_v2,new_simulatability_fifteen_features_sparse,simulatability,False,14.015,8.9940
+SmartAdditive_v2,new_simulatability_quadratic,simulatability,False,0.493,3.0641
+SmartAdditive_v2,new_simulatability_friedman1,simulatability,True,15.949,15.7682
+SmartAdditive_v2,new_simulatability_cascading_threshold,simulatability,True,1.944,0.9487
+SmartAdditive_v2,new_simulatability_exponential_decay,simulatability,False,2.742,7.5488
+SmartAdditive_v2,new_simulatability_piecewise_three_segment,simulatability,True,1.388,1.3808
+SmartAdditive_v2,new_simulatability_twenty_features_sparse,simulatability,True,11.414,"The prediction can be calculated by substituting the given values into the regression equation:
+
+\[
+y = 4.5739 \cdot x3 + (-3.5608) \cdot x8 + 2.5276 \cdot x13 + (-1.6367) \cdot x17 + (-0.0064)
+\]
+
+Substitute the values \(x3 = 1.0\), \(x8 = -1.2\), \(x13 = 0.5\), \(x17 = -0.8\):
+
+\[
+y = 4.5739 \cdot 1.0 + (-3.5608) \cdot (-1.2) + 2.5276 \cdot 0.5 + (-1.6367) \cdot (-0.8) + (-0.0064)
+\]
+
+Now calculate step by step:
+
+\[
+y = 4.573"
+SmartAdditive_v2,new_simulatability_sinusoidal,simulatability,True,1.825,2.2388
+SmartAdditive_v2,new_simulatability_abs_value,simulatability,True,2.628,The model predicts: **2.9943**
+SmartAdditive_v2,new_simulatability_twelve_features_all_active,simulatability,True,2.888,2.3941
+SmartAdditive_v2,new_simulatability_nested_threshold,simulatability,False,2.124,The model predicts: **0.6984**
+HingeEBM_v1,new_most_important_feature,standard,True,x0,x0
+HingeEBM_v1,new_point_prediction,standard,True,8.98,8.9736
+HingeEBM_v1,new_direction_of_change,standard,True,10.395,10.3512
+HingeEBM_v1,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HingeEBM_v1,new_threshold_identification,standard,False,0.3,0.67
+HingeEBM_v1,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","The features with zero coefficients (excluded) have little or no effect on the prediction. Since 41 features are excluded, all of them have no effect. However, the specific feature names are not provided in the information you shared. If you have the names of the 42 features (including x0), you can list all feature names except x0 as those with little or no effect.
+
+For example, if the feature names are `x0, x1, x2, ..., x41`, then the features with little or no effect would be:
+
+**x1, x2, ..., x41**
+
+If you provide the actual feature names, I can list them for you!"
+HingeEBM_v1,new_sign_of_effect,standard,True,-6.125,-6.0084
+HingeEBM_v1,new_counterfactual_prediction,standard,True,12.317,12.31
+HingeEBM_v1,new_hard_all_features_active,hard,False,2.541,5.9827
+HingeEBM_v1,new_hard_pairwise_anti_intuitive,hard,True,4.291,"To calculate the model's prediction for Sample B minus the prediction for Sample A, we use the given regression equation:
+
+\[
+y = 3.9662 \cdot x_0 + 3.5031 \cdot x_1 + 0.0454 \cdot \max(0, x_0 + 0.64) + 0.0105 \cdot x_2 - 0.0371
+\]
+
+### Step 1: Calculate the prediction for Sample A
+For Sample A: \(x_0 = 1.5\), \(x_1 = 0.2\), \(x_2 = 0.0\), and other features are irrelevant (excluded by the model).
+
+- \(3.9662 \cdot x_0 = 3.9662 \cdot 1.5 = 5.9493\)
+- \(3.5031 \cdot x_1 ="
+HingeEBM_v1,new_hard_quantitative_sensitivity,hard,True,9.77,9.8596
+HingeEBM_v1,new_hard_mixed_sign_goes_negative,hard,True,-4.439,-3.48285
+HingeEBM_v1,new_hard_two_feature_perturbation,hard,True,9.766,10.36
+HingeEBM_v1,new_insight_simulatability,insight,True,8.383,8.3749
+HingeEBM_v1,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+HingeEBM_v1,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.02
+HingeEBM_v1,new_insight_nonlinear_direction,insight,False,5.955,3.9332
+HingeEBM_v1,new_insight_counterfactual_target,insight,True,2.473,2.5
+HingeEBM_v1,new_insight_decision_region,insight,True,1.502,1.53
+HingeEBM_v1,new_discrim_simulate_all_active,discrim,False,2.394,8.4620
+HingeEBM_v1,new_discrim_compactness,discrim,True,,yes
+HingeEBM_v1,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HingeEBM_v1,new_discrim_unit_sensitivity,discrim,True,4.08,"The model's prediction changes by **3.9871** when \( x_0 \) increases from 0 to 1.
+
+This is calculated as follows:
+- The contribution of \( x_0 \) is \( 3.9838 \cdot x_0 \).
+- The term \( \text{max}(0, x_0 + 0.67) \) contributes \( 0.0033 \cdot \text{max}(0, x_0 + 0.67) \).
+
+When \( x_0 = 0 \):
+- Contribution from \( x_0 \): \( 3.9838 \cdot 0 = 0 \).
+- Contribution from \( \text{max}(0, x_0 + 0.67) \): \( 0.0033 \cdot \text{max}(0, 0 + 0.67) = 0.0033 \cdot 0"
+HingeEBM_v1,new_discrim_predict_above_threshold,discrim,False,2.58,1.7938
+HingeEBM_v1,new_discrim_predict_below_threshold,discrim,True,0.01,The model predicts **-0.1596**.
+HingeEBM_v1,new_discrim_simulate_mixed_sign,discrim,False,7.053,3.7431
+HingeEBM_v1,new_discrim_simulate_double_threshold,discrim,True,1.378,0.8807
+HingeEBM_v1,new_discrim_simulate_additive_nonlinear,discrim,False,4.856,2.9427
+HingeEBM_v1,new_discrim_simulate_interaction,discrim,False,16.273,9.5126
+HingeEBM_v1,new_simulatability_eight_features,simulatability,True,5.183,"The prediction for the given inputs is:
+
+**4.5126**"
+HingeEBM_v1,new_simulatability_fifteen_features_sparse,simulatability,True,15.382,"To calculate the prediction, we use the given regression equation:
+
+\[
+y = 6.9754 \cdot x1 + 3.9537 \cdot x10 + (-3.4754) \cdot x6 + (-0.0116) \cdot x14 + 0.0015 \cdot x3 + 0.0047
+\]
+
+Substitute the given values:
+- \(x1 = 1.0\)
+- \(x10 = 0.8\)
+- \(x6 = -1.5\)
+- All other features (\(x14, x3, ...\)) are 0.
+
+\[
+y = 6.9754 \cdot 1.0 + 3.9537 \cdot 0.8 + (-3.4754) \cdot (-1.5) + (-0.0116) \cdot 0 + 0.001"
+HingeEBM_v1,new_simulatability_quadratic,simulatability,False,0.747,The model predicts: **7.2566**
+HingeEBM_v1,new_simulatability_friedman1,simulatability,True,15.122,12.4041
+HingeEBM_v1,new_simulatability_cascading_threshold,simulatability,False,3.116,0.3226
+HingeEBM_v1,new_simulatability_exponential_decay,simulatability,False,2.916,5.6466
+HingeEBM_v1,new_simulatability_piecewise_three_segment,simulatability,False,1.693,-1.6899
+HingeEBM_v1,new_simulatability_twenty_features_sparse,simulatability,False,12.839,2.9721
+HingeEBM_v1,new_simulatability_sinusoidal,simulatability,True,2.372,2.4858
+HingeEBM_v1,new_simulatability_abs_value,simulatability,False,2.791,0.5791
+HingeEBM_v1,new_simulatability_twelve_features_all_active,simulatability,True,1.673,2.8421
+HingeEBM_v1,new_simulatability_nested_threshold,simulatability,True,1.34,The model predicts: **1.2176**
+SmoothGAM_v1,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_v1,new_point_prediction,standard,True,9.325,9.03
+SmoothGAM_v1,new_direction_of_change,standard,True,10.73,10.407
+SmoothGAM_v1,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_v1,new_threshold_identification,standard,True,0.3,0.3828
+SmoothGAM_v1,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_v1,new_sign_of_effect,standard,True,-6.317,-5.8006
+SmoothGAM_v1,new_counterfactual_prediction,standard,True,11.512,12.38
+SmoothGAM_v1,new_hard_all_features_active,hard,False,1.83,3.2021
+SmoothGAM_v1,new_hard_pairwise_anti_intuitive,hard,False,2.873,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_v1,new_hard_quantitative_sensitivity,hard,False,6.272,9.9128
+SmoothGAM_v1,new_hard_mixed_sign_goes_negative,hard,True,-3.957,-3.18005
+SmoothGAM_v1,new_hard_two_feature_perturbation,hard,False,9.316,6.6594
+SmoothGAM_v1,new_insight_simulatability,insight,True,7.465,8.1014
+SmoothGAM_v1,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_v1,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.1969
+SmoothGAM_v1,new_insight_nonlinear_direction,insight,False,5.936,The model predicts **7.4422**.
+SmoothGAM_v1,new_insight_counterfactual_target,insight,False,10.0,"We are given the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 - 0.0010
+\]
+
+We need to find the value of \(x_0\) that makes \(y = 12.51\), while keeping \(x_1 = 1.5\) and \(x_2 = 0.0\).
+
+### Step 1: Substitute known values
+Substitute \(y = 12.51\), \(x_1 = 1.5\), and the intercept \(-0.0010\) into the equation:
+
+\[
+12.51 = 3.4315 \cdot x_0 + 2.3815 \cdot (1.5) - 0.0010
+\]
+
+### Step 2: Simplify the equation
+First, calculate the contribution of \(x_1\)"
+SmoothGAM_v1,new_insight_decision_region,insight,True,1.532,1.523
+SmoothGAM_v1,new_discrim_simulate_all_active,discrim,True,1.762,3.2541
+SmoothGAM_v1,new_discrim_compactness,discrim,True,,yes
+SmoothGAM_v1,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_v1,new_discrim_unit_sensitivity,discrim,True,3.933,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_v1,new_discrim_predict_above_threshold,discrim,True,2.48,2.4678
+SmoothGAM_v1,new_discrim_predict_below_threshold,discrim,True,0.01,0.0024
+SmoothGAM_v1,new_discrim_simulate_mixed_sign,discrim,False,6.563,2.5721
+SmoothGAM_v1,new_discrim_simulate_double_threshold,discrim,False,2.115,1.3124
+SmoothGAM_v1,new_discrim_simulate_additive_nonlinear,discrim,False,4.189,The model predicts: **1.8892**
+SmoothGAM_v1,new_discrim_simulate_interaction,discrim,True,9.57,9.6948
+SmoothGAM_v1,new_simulatability_eight_features,simulatability,False,6.418,The prediction is **3.7696**.
+SmoothGAM_v1,new_simulatability_fifteen_features_sparse,simulatability,False,14.288,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_v1,new_simulatability_quadratic,simulatability,False,0.533,2.1400
+SmoothGAM_v1,new_simulatability_friedman1,simulatability,True,16.266,14.7681
+SmoothGAM_v1,new_simulatability_cascading_threshold,simulatability,True,1.939,0.9821
+SmoothGAM_v1,new_simulatability_exponential_decay,simulatability,False,2.748,8.4732
+SmoothGAM_v1,new_simulatability_piecewise_three_segment,simulatability,False,1.582,0.0
+SmoothGAM_v1,new_simulatability_twenty_features_sparse,simulatability,True,11.944,12.2023
+SmoothGAM_v1,new_simulatability_sinusoidal,simulatability,False,2.399,The model predicts: **0.6482**
+SmoothGAM_v1,new_simulatability_abs_value,simulatability,False,2.504,4.0919
+SmoothGAM_v1,new_simulatability_twelve_features_all_active,simulatability,True,2.82,2.3941
+SmoothGAM_v1,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+SmoothGAM_ES,new_most_important_feature,standard,True,x0,x0
+SmoothGAM_ES,new_point_prediction,standard,True,9.325,9.03
+SmoothGAM_ES,new_direction_of_change,standard,True,10.73,10.407
+SmoothGAM_ES,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+SmoothGAM_ES,new_threshold_identification,standard,True,0.3,0.3828
+SmoothGAM_ES,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+SmoothGAM_ES,new_sign_of_effect,standard,True,-6.317,-5.8006
+SmoothGAM_ES,new_counterfactual_prediction,standard,True,11.512,12.38
+SmoothGAM_ES,new_hard_all_features_active,hard,False,1.83,3.2021
+SmoothGAM_ES,new_hard_pairwise_anti_intuitive,hard,False,2.873,"The model's prediction for a sample is calculated as:
+
+\[
+y = 3.8772 \cdot x_0 + 3.3464 \cdot x_1 - 0.0127
+\]
+
+For **Sample A**:
+\[
+y_A = 3.8772 \cdot 1.5 + 3.3464 \cdot 0.2 - 0.0127
+\]
+\[
+y_A = 5.8158 + 0.66928 - 0.0127 = 6.47238
+\]
+
+For **Sample B**:
+\[
+y_B = 3.8772 \cdot 0.3 + 3.3464 \cdot 2.8 - 0.0127
+\]
+\[
+y_B = 1.16316 + 9.37032 - 0.0127 = 10.52078
+\]
+
+The"
+SmoothGAM_ES,new_hard_quantitative_sensitivity,hard,False,6.272,9.9128
+SmoothGAM_ES,new_hard_mixed_sign_goes_negative,hard,True,-3.957,-3.18005
+SmoothGAM_ES,new_hard_two_feature_perturbation,hard,False,9.316,6.6594
+SmoothGAM_ES,new_insight_simulatability,insight,True,7.465,8.1014
+SmoothGAM_ES,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+SmoothGAM_ES,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),-0.1969
+SmoothGAM_ES,new_insight_nonlinear_direction,insight,False,5.936,The model predicts **7.4422**.
+SmoothGAM_ES,new_insight_counterfactual_target,insight,False,10.0,"We are given the regression equation:
+
+\[
+y = 3.4315 \cdot x_0 + 2.3815 \cdot x_1 - 0.0010
+\]
+
+We need to find the value of \(x_0\) that makes \(y = 12.51\), while keeping \(x_1 = 1.5\) and \(x_2 = 0.0\).
+
+### Step 1: Substitute known values
+Substitute \(y = 12.51\), \(x_1 = 1.5\), and the intercept \(-0.0010\) into the equation:
+
+\[
+12.51 = 3.4315 \cdot x_0 + 2.3815 \cdot (1.5) - 0.0010
+\]
+
+### Step 2: Simplify the equation
+First, calculate the contribution of \(x_1\)"
+SmoothGAM_ES,new_insight_decision_region,insight,True,1.532,1.523
+SmoothGAM_ES,new_discrim_simulate_all_active,discrim,True,1.762,3.2541
+SmoothGAM_ES,new_discrim_compactness,discrim,True,,yes
+SmoothGAM_ES,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+SmoothGAM_ES,new_discrim_unit_sensitivity,discrim,True,3.933,"The model's prediction changes by **3.9146** when \( x_0 \) increases from 0 to 1, with \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+SmoothGAM_ES,new_discrim_predict_above_threshold,discrim,True,2.48,2.4678
+SmoothGAM_ES,new_discrim_predict_below_threshold,discrim,True,0.01,0.0024
+SmoothGAM_ES,new_discrim_simulate_mixed_sign,discrim,False,6.563,2.5721
+SmoothGAM_ES,new_discrim_simulate_double_threshold,discrim,False,2.115,1.3124
+SmoothGAM_ES,new_discrim_simulate_additive_nonlinear,discrim,False,4.189,The model predicts: **1.8892**
+SmoothGAM_ES,new_discrim_simulate_interaction,discrim,True,9.57,9.6948
+SmoothGAM_ES,new_simulatability_eight_features,simulatability,False,6.418,The prediction is **3.7696**.
+SmoothGAM_ES,new_simulatability_fifteen_features_sparse,simulatability,False,14.288,"The model only uses the features with non-zero coefficients: \(x1\), \(x6\), and \(x10\). The prediction is calculated as:
+
+\[
+y = 6.6585 \cdot x1 + (-3.0260) \cdot x6 + 3.5025 \cdot x10 + (-0.0428)
+\]
+
+Substituting the given values (\(x1 = 1.0\), \(x6 = -1.5\), \(x10 = 0.8\)):
+
+\[
+y = 6.6585 \cdot 1.0 + (-3.0260) \cdot (-1.5) + 3.5025 \cdot 0.8 + (-0.0428)
+\]
+
+\[
+y = 6.6585 + 4.539 + 2.802 - 0.0428
+\]
+
+\[
+"
+SmoothGAM_ES,new_simulatability_quadratic,simulatability,False,0.533,2.1400
+SmoothGAM_ES,new_simulatability_friedman1,simulatability,True,16.266,14.7681
+SmoothGAM_ES,new_simulatability_cascading_threshold,simulatability,True,1.939,0.9821
+SmoothGAM_ES,new_simulatability_exponential_decay,simulatability,False,2.748,8.4732
+SmoothGAM_ES,new_simulatability_piecewise_three_segment,simulatability,False,1.582,0.0
+SmoothGAM_ES,new_simulatability_twenty_features_sparse,simulatability,True,11.944,12.2023
+SmoothGAM_ES,new_simulatability_sinusoidal,simulatability,False,2.399,The model predicts: **0.6482**
+SmoothGAM_ES,new_simulatability_abs_value,simulatability,False,2.504,4.0919
+SmoothGAM_ES,new_simulatability_twelve_features_all_active,simulatability,True,2.82,2.3941
+SmoothGAM_ES,new_simulatability_nested_threshold,simulatability,False,2.184,The model predicts: **0.6984**
+PyGAM,new_most_important_feature,standard,True,x0,x0
+PyGAM,new_point_prediction,standard,True,9.007,7.3801
+PyGAM,new_direction_of_change,standard,True,10.439,9.451
+PyGAM,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+PyGAM,new_threshold_identification,standard,True,0.3,0.23
+PyGAM,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x2, x3, x5"
+PyGAM,new_sign_of_effect,standard,False,-6.084,"The prediction change when \( x_1 \) increases by 1 unit is given by the difference in the partial effects of \( x_1 \) for a 1-unit increase. From the table:
+
+- At \( x_1 = 0.32 \), the effect is \( -0.093 \).
+- At \( x_1 = 1.29 \), the effect is \( -6.044 \).
+
+Change in prediction = \( -6.044 - (-0.093) = -5.951 \).
+
+**Answer: -5.951**"
+PyGAM,new_counterfactual_prediction,standard,False,12.273,"2.45 + (effect of x0=2.5 - effect of x0=0.5)
+
+From the table, approximate the effect of **x0=2.5** using interpolation between x0=1.87 (effect=+9.002) and x0=2.79 (effect=+13.512):
+
+Effect at x0=2.5 ≈ 9.002 + (13.512 - 9.002) * ((2.5 - 1.87) / (2.79 - 1.87))  
+Effect at x0=2.5 ≈ 9.002 + 4.51 * (0.63 / 0.92)  
+Effect at x0=2.5 ≈ 9.002 + 4.51 * 0.6848  
+Effect at x0=2.5 ≈ 9.002 + 3.088  
+Effect at x0"
+PyGAM,new_hard_all_features_active,hard,False,2.526,The prediction is **0.8505**.
+PyGAM,new_hard_pairwise_anti_intuitive,hard,False,4.002,"To calculate the difference in predictions for Sample B and Sample A, we use the formula for the Generalized Additive Model (GAM):
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2) + f_3(x_3) + f_4(x_4)
+\]
+
+The intercept is \(-0.3238\), and the partial effects for each feature are given. Since \(x_2\), \(x_3\), and \(x_4\) are all 0 for both samples, their contributions cancel out. We only need to compute the contributions of \(x_0\) and \(x_1\).
+
+### Step 1: Find the effects for Sample A
+- For \(x_0 = 1.5\): Interpolate between \(x_0 = 0.69\) (effect = 4."
+PyGAM,new_hard_quantitative_sensitivity,hard,True,9.185,10.091
+PyGAM,new_hard_mixed_sign_goes_negative,hard,False,-4.336,0.569
+PyGAM,new_hard_two_feature_perturbation,hard,False,9.891,The prediction is **4.99**.
+PyGAM,new_insight_simulatability,insight,False,8.344,-1.579
+PyGAM,new_insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x6"
+PyGAM,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.
+PyGAM,new_insight_nonlinear_direction,insight,False,6.034,"The prediction is:
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2)
+\]
+
+From the given data:
+- \(\text{intercept} = 3.1163\)
+- For \(x_0 = 1.5\), interpolate between \(x_0 = 0.81\) (\(\text{effect} = -0.600\)) and \(x_0 = 1.90\) (\(\text{effect} = +3.855\)):
+  \[
+  \text{effect for } x_0 = -0.600 + \frac{(1.5 - 0.81)}{(1.90 - 0.81)} \cdot (3.855 - (-0.600)) = -0.600 + 0.636 \cdot 4.455 = -"
+PyGAM,new_insight_counterfactual_target,insight,False,2.432,"The model's prediction is given by:
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2)
+\]
+
+From the problem, we know:
+- Intercept = \(-0.7095\)
+- \(f_1(x_1 = 1.5) = 2.473\) (interpolating between \(x_1 = 1.14\) and \(x_1 = 2.21\))
+- \(f_2(x_2 = 0.0)\) is approximately \(-0.218\) (interpolating between \(x_2 = -0.84\) and \(x_2 = 0.20\)).
+
+The prediction for \(x_0 = 0.5, x_1 = 1.5, x_2 = 0.0\) is:
+
+\"
+PyGAM,new_insight_decision_region,insight,True,1.486,1.88
+PyGAM,new_discrim_simulate_all_active,discrim,False,2.374,"The prediction for the given inputs is:
+
+**-0.768**"
+PyGAM,new_discrim_compactness,discrim,False,,no
+PyGAM,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+PyGAM,new_discrim_unit_sensitivity,discrim,False,4.099,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to determine the difference in the partial effect of \( x_0 \) between these two values.
+
+From the given data for \( x_0 \):
+- At \( x_0 = 0 \), the effect is approximately between \( -0.120 \) (at \( x_0 = -0.21 \)) and \( +4.237 \) (at \( x_0 = +0.86 \)).
+- At \( x_0 = 1 \), we can approximate the effect by interpolating between nearby points. Since \( x_0 = 1 \) is close to \( +0.86 \), we use the effect at \( +0.86 \), which is \( +4.237 \).
+
+Thus, the change in prediction is approximately:
+
+\[
+\Delta y = f_0(x_0 ="
+PyGAM,new_discrim_predict_above_threshold,discrim,False,2.55,"The prediction is:
+
+**1.8521**"
+PyGAM,new_discrim_predict_below_threshold,discrim,True,-0.03,"The model prediction is:
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2)
+\]
+
+From the given data:
+- Intercept = 0.8041
+- For \(x_0 = -1.0\), approximate \(f_0(x_0) \approx -0.822\) (closest value from \(x_0 = -1.21\)).
+- For \(x_1 = 0.0\), approximate \(f_1(x_1) \approx -0.012\) (closest value from \(x_1 = +0.02\)).
+- For \(x_2 = 0.0\), approximate \(f_2(x_2) \approx +0.032\) (closest value from \(x_2 = +0.07\)).
+
+Now, calculate:
+
+\[
+y ="
+PyGAM,new_discrim_simulate_mixed_sign,discrim,False,7.015,"The prediction for the given inputs is:
+
+**1.982**"
+PyGAM,new_discrim_simulate_double_threshold,discrim,False,1.732,"The prediction for \( x_0 = 0.5 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \), \( x_3 = 0.0 \) is:
+
+\[
+y = \text{intercept} + f_0(x_0) + f_1(x_1) + f_2(x_2) + f_3(x_3)
+\]
+
+### Step-by-step:
+1. **Intercept**: \( 0.8030 \)
+2. **\( f_0(x_0 = 0.5) \)**: From the table, \( x_0 = 0.5 \) is between \( x_0 = -0.32 \) (effect = -0.411) and \( x_0 = +0.73 \) (effect = +0.576). Interpolating linearly:
+   \[
+   f_0"
+PyGAM,new_discrim_simulate_additive_nonlinear,discrim,False,4.986,"The prediction for the given inputs is:
+
+**0.9921**"
+PyGAM,new_discrim_simulate_interaction,discrim,False,9.919,The prediction is **13.825**.
+PyGAM,new_simulatability_eight_features,simulatability,False,5.169,"The prediction for the given inputs is:
+
+**-0.2274**"
+PyGAM,new_simulatability_fifteen_features_sparse,simulatability,False,15.355,"The prediction for the given input is:
+
+**0.3391 + 0.109 (x1) + 0.221 (x4) + 4.048 (x6) + 4.002 (x10) - 0.079 (x12) = 8.6401**"
+PyGAM,new_simulatability_quadratic,simulatability,True,0.747,The prediction is **0.994**.
+PyGAM,new_simulatability_friedman1,simulatability,False,15.224,9.798
+PyGAM,new_simulatability_cascading_threshold,simulatability,False,1.86,"The prediction for the given inputs is:
+
+**0.732**"
+PyGAM,new_simulatability_exponential_decay,simulatability,False,2.874,The prediction is **-2.522**.
+PyGAM,new_simulatability_piecewise_three_segment,simulatability,True,1.702,**1.0294**
+PyGAM,new_simulatability_twenty_features_sparse,simulatability,False,13.009,"The prediction for the given input is:
+
+**-0.047**"
+PyGAM,new_simulatability_sinusoidal,simulatability,False,2.364,"The prediction for the given inputs is:
+
+**1.186**"
+PyGAM,new_simulatability_abs_value,simulatability,False,2.737,The prediction is **-0.622**.
+PyGAM,new_simulatability_twelve_features_all_active,simulatability,True,1.517,1.978
+PyGAM,new_simulatability_nested_threshold,simulatability,True,2.657,"The prediction for the given inputs is:
+
+**0.2558 + 2.459 + 0.075 + 0.253 + 0.215 - 0.301 = 2.9568**"
+DT_mini,new_most_important_feature,standard,True,x0,x0
+DT_mini,new_point_prediction,standard,True,8.496,8.50
+DT_mini,new_direction_of_change,standard,False,10.835,6.99
+DT_mini,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+DT_mini,new_threshold_identification,standard,True,0.3,0.30
+DT_mini,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","The decision tree provided only splits on the feature **x0**. This indicates that no other features are used in the model, and therefore, any other features (if present) have no effect on the prediction.
+
+If there are additional features besides **x0**, they would be the ones with little or no effect. However, since only **x0** is mentioned in the tree, there are no other features to list. If you have additional feature names, you can list them here for clarification."
+DT_mini,new_sign_of_effect,standard,False,-8.737,The prediction changes by **10.3** when \( x_1 \) increases by 1 unit (with all other features at 0).
+DT_mini,new_counterfactual_prediction,standard,True,8.651,8.65
+DT_mini,new_hard_all_features_active,hard,False,0.034,2.92
+DT_mini,new_hard_pairwise_anti_intuitive,hard,False,4.706,"To calculate the predictions for Sample A and Sample B, we follow the decision tree rules:
+
+### For Sample A (x0=1.5, x1=0.2):
+- Start at the root: `x0 > 0.01` (True, since 1.5 > 0.01).
+- Move to the right: `x1 <= -0.29` (False, since 0.2 > -0.29).
+- Move to the right: `x1 <= 1.10` (True, since 0.2 <= 1.10).
+- Prediction for Sample A: **3.99**.
+
+### For Sample B (x0=0.3, x1=2.8):
+- Start at the root: `x0 > 0.01` (True, since 0.3 > 0.01).
+- Move to the right: `x1 <= -0.29` ("
+DT_mini,new_hard_quantitative_sensitivity,hard,True,6.504,6.5
+DT_mini,new_hard_mixed_sign_goes_negative,hard,True,-2.015,-2.01
+DT_mini,new_hard_two_feature_perturbation,hard,False,6.1,10.53
+DT_mini,new_insight_simulatability,insight,True,7.265,7.27
+DT_mini,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DT_mini,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+DT_mini,new_insight_nonlinear_direction,insight,True,6.188,6.19
+DT_mini,new_insight_counterfactual_target,insight,False,10.0,1.89
+DT_mini,new_insight_decision_region,insight,True,1.491,1.49
+DT_mini,new_discrim_simulate_all_active,discrim,True,-1.729,-1.73
+DT_mini,new_discrim_compactness,discrim,True,,yes
+DT_mini,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+DT_mini,new_discrim_unit_sensitivity,discrim,False,3.887,"To determine the change in the model's prediction when \( x_0 \) increases from 0 to 1, while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), we follow the decision tree's structure.
+
+### Step 1: Initial prediction when \( x_0 = 0 \)
+- Start at the root of the tree:
+  - \( x_0 > -0.01 \) (True, since \( x_0 = 0 \)).
+- Move to the right branch:
+  - \( x_1 \leq 0.06 \) (True, since \( x_1 = 0 \)).
+- Move to the left branch:
+  - \( x_0 \leq 0.81 \) (True, since \( x_0 = 0 \)).
+- The prediction is **-0.74**.
+
+### Step 2:"
+DT_mini,new_discrim_predict_above_threshold,discrim,True,2.48,2.48
+DT_mini,new_discrim_predict_below_threshold,discrim,True,0.0,0.08
+DT_mini,new_discrim_simulate_mixed_sign,discrim,True,7.133,7.13
+DT_mini,new_discrim_simulate_double_threshold,discrim,True,1.498,1.50
+DT_mini,new_discrim_simulate_additive_nonlinear,discrim,True,4.573,4.57
+DT_mini,new_discrim_simulate_interaction,discrim,True,8.943,8.94
+DT_mini,new_simulatability_eight_features,simulatability,True,11.138,11.14
+DT_mini,new_simulatability_fifteen_features_sparse,simulatability,True,8.149,8.15
+DT_mini,new_simulatability_quadratic,simulatability,False,1.771,-0.57
+DT_mini,new_simulatability_friedman1,simulatability,True,20.079,20.08
+DT_mini,new_simulatability_cascading_threshold,simulatability,True,2.185,2.18
+DT_mini,new_simulatability_exponential_decay,simulatability,True,4.841,4.84
+DT_mini,new_simulatability_piecewise_three_segment,simulatability,False,1.269,0.46
+DT_mini,new_simulatability_twenty_features_sparse,simulatability,False,9.953,0.36
+DT_mini,new_simulatability_sinusoidal,simulatability,True,2.838,2.84
+DT_mini,new_simulatability_abs_value,simulatability,False,2.049,7.36
+DT_mini,new_simulatability_twelve_features_all_active,simulatability,False,9.488,2.57
+DT_mini,new_simulatability_nested_threshold,simulatability,False,1.44,3.99
+DT_large,new_most_important_feature,standard,True,x0,x0
+DT_large,new_point_prediction,standard,True,9.829,9.83
+DT_large,new_direction_of_change,standard,True,11.2,11.85
+DT_large,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+DT_large,new_threshold_identification,standard,True,0.3,0.16
+DT_large,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","The decision tree provided only uses the feature `x0` and, in one instance, `x4` (at the split `x4 <= -0.10`). However, all other features (e.g., `x1`, `x2`, `x3`, etc.) are not used in any splits and therefore have no effect on the prediction.
+
+Thus, the features that appear to have little or no effect on the prediction are:
+
+**x1, x2, x3**"
+DT_large,new_sign_of_effect,standard,True,-6.507,The prediction changes by **-5.58** when \( x_1 \) increases by 1 unit (with all other features at 0).
+DT_large,new_counterfactual_prediction,standard,True,13.251,13.25
+DT_large,new_hard_all_features_active,hard,True,2.078,2.08
+DT_large,new_hard_pairwise_anti_intuitive,hard,False,-0.877,4.48
+DT_large,new_hard_quantitative_sensitivity,hard,True,6.768,6.77
+DT_large,new_hard_mixed_sign_goes_negative,hard,False,-4.518,-0.95
+DT_large,new_hard_two_feature_perturbation,hard,True,8.943,8.94
+DT_large,new_insight_simulatability,insight,True,5.59,5.59
+DT_large,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+DT_large,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.08
+DT_large,new_insight_nonlinear_direction,insight,True,5.728,6.22
+DT_large,new_insight_counterfactual_target,insight,False,10.0,2.86
+DT_large,new_insight_decision_region,insight,True,1.491,1.72
+DT_large,new_discrim_simulate_all_active,discrim,False,-0.481,2.35
+DT_large,new_discrim_compactness,discrim,False,,no
+DT_large,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+DT_large,new_discrim_unit_sensitivity,discrim,False,2.917,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \), we need to follow the decision tree's rules for both \( x_0 = 0 \) and \( x_0 = 1 \).
+
+### Step 1: Evaluate the prediction for \( x_0 = 0 \), \( x_1 = 0 \)
+- Start at the root: \( x_0 > -0.01 \) (True, since \( x_0 = 0 \)).
+- Next: \( x_1 \leq 0.06 \) (True, since \( x_1 = 0 \)).
+- Next: \( x_0 \leq 0.81 \) (True, since \( x_0 = 0 \)).
+-"
+DT_large,new_discrim_predict_above_threshold,discrim,True,2.48,2.48
+DT_large,new_discrim_predict_below_threshold,discrim,True,0.03,0.08
+DT_large,new_discrim_simulate_mixed_sign,discrim,False,9.466,6.34
+DT_large,new_discrim_simulate_double_threshold,discrim,True,1.489,1.49
+DT_large,new_discrim_simulate_additive_nonlinear,discrim,True,4.58,4.58
+DT_large,new_discrim_simulate_interaction,discrim,True,11.701,11.70
+DT_large,new_simulatability_eight_features,simulatability,False,9.512,16.13
+DT_large,new_simulatability_fifteen_features_sparse,simulatability,True,11.091,11.09
+DT_large,new_simulatability_quadratic,simulatability,False,3.213,-1.93
+DT_large,new_simulatability_friedman1,simulatability,True,19.424,15.59
+DT_large,new_simulatability_cascading_threshold,simulatability,False,4.615,1.36
+DT_large,new_simulatability_exponential_decay,simulatability,True,2.295,2.30
+DT_large,new_simulatability_piecewise_three_segment,simulatability,True,1.532,1.53
+DT_large,new_simulatability_twenty_features_sparse,simulatability,False,8.695,2.72
+DT_large,new_simulatability_sinusoidal,simulatability,True,2.022,2.02
+DT_large,new_simulatability_abs_value,simulatability,False,3.224,5.88
+DT_large,new_simulatability_twelve_features_all_active,simulatability,False,12.434,1.41
+DT_large,new_simulatability_nested_threshold,simulatability,True,1.437,1.56
+OLS,new_most_important_feature,standard,True,x0,x0
+OLS,new_point_prediction,standard,True,9.013,9.01335
+OLS,new_direction_of_change,standard,True,10.395,10.39485
+OLS,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+OLS,new_threshold_identification,standard,False,0.3,1
+OLS,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","To determine which features have little or no effect on the prediction, we look at the absolute values of their coefficients. Features with coefficients close to 0 have minimal impact on the prediction.
+
+From the given coefficients:
+- x0: 11.9933 (significant effect)
+- x1: -0.0175 (small effect)
+- x2: -0.0141 (small effect)
+- x3: 0.0416 (moderate effect)
+- x4: -0.0337 (moderate effect)
+- x5: -0.0329 (moderate effect)
+
+The features with coefficients close to 0 are **x1** and **x2**.
+
+**Answer:** x1, x2"
+OLS,new_sign_of_effect,standard,True,-6.022,-6.0224
+OLS,new_counterfactual_prediction,standard,True,12.408,12.41
+OLS,new_hard_all_features_active,hard,False,2.578,4.2551
+OLS,new_hard_pairwise_anti_intuitive,hard,True,4.34,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 4.0184 \cdot x_0 + 3.5240 \cdot x_1 + 0.0277 \cdot x_2 + 0.0158 \cdot x_3 + (-0.0086) \cdot x_4 + 0.0015
+\]
+
+### Step 1: Calculate prediction for Sample A
+For Sample A: \(x_0 = 1.5\), \(x_1 = 0.2\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0.0\)
+
+\[
+y_A = (4.0184 \cdot 1.5) + (3.5240 \cdot 0.2) + (0.0277"
+OLS,new_hard_quantitative_sensitivity,hard,True,9.933,9.9326
+OLS,new_hard_mixed_sign_goes_negative,hard,True,-4.276,-4.0483
+OLS,new_hard_two_feature_perturbation,hard,True,9.706,8.4579
+OLS,new_insight_simulatability,insight,True,8.456,7.4971
+OLS,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+OLS,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6066
+OLS,new_insight_nonlinear_direction,insight,True,4.529,4.52805
+OLS,new_insight_counterfactual_target,insight,True,2.487,2.
+OLS,new_insight_decision_region,insight,True,1.513,1.515
+OLS,new_discrim_simulate_all_active,discrim,False,2.354,4.6351
+OLS,new_discrim_compactness,discrim,True,,Yes
+OLS,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+OLS,new_discrim_unit_sensitivity,discrim,True,4.019,4.0193
+OLS,new_discrim_test_predict_above_threshold,discrim,False,,
+OLS,new_discrim_test_predict_below_threshold,discrim,False,,
+OLS,new_discrim_simulate_mixed_sign,discrim,True,7.042,7.2551
+OLS,new_discrim_simulate_double_threshold,discrim,True,1.837,1.8366
+OLS,new_discrim_simulate_additive_nonlinear,discrim,True,4.69,4.8750
+OLS,new_discrim_simulate_interaction,discrim,True,9.837,10.1611
+OLS,new_simulatability_eight_features,simulatability,False,5.17,7.0001
+OLS,new_simulatability_fifteen_features_sparse,simulatability,False,15.462,3.5939
+OLS,new_simulatability_quadratic,simulatability,True,2.822,2.9895
+OLS,new_simulatability_friedman1,simulatability,False,14.756,20.6151
+OLS,new_simulatability_cascading_threshold,simulatability,True,2.202,1.6786
+OLS,new_simulatability_exponential_decay,simulatability,False,1.674,4.96335
+OLS,new_simulatability_piecewise_three_segment,simulatability,True,1.389,1.3816
+OLS,new_simulatability_twenty_features_sparse,simulatability,False,12.812,7.2231
+OLS,new_simulatability_sinusoidal,simulatability,True,2.123,2.9117
+OLS,new_simulatability_abs_value,simulatability,True,2.578,2.3341
+OLS,new_simulatability_twelve_features_all_active,simulatability,False,1.727,6.0911
+OLS,new_simulatability_nested_threshold,simulatability,True,2.262,1.9364
+LassoCV,new_most_important_feature,standard,True,x0,x0
+LassoCV,new_point_prediction,standard,True,8.977,8.9787
+LassoCV,new_direction_of_change,standard,False,10.379,"The prediction change is calculated as:
+
+\[
+\Delta \text{prediction} = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9196\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta \text{prediction} = 6.9196 \times 1.5 = 10.3794
+\]
+
+**Answer: 10.3794**"
+LassoCV,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+LassoCV,new_threshold_identification,standard,False,0.3,1.01
+LassoCV,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+LassoCV,new_sign_of_effect,standard,True,-6.017,-6.0168
+LassoCV,new_counterfactual_prediction,standard,True,12.35,12.33
+LassoCV,new_hard_all_features_active,hard,True,2.573,3.5590
+LassoCV,new_hard_pairwise_anti_intuitive,hard,True,4.334,"The model's prediction for a sample is calculated as:
+
+\[
+\text{Prediction} = (\text{coefficients} \cdot \text{features}) + \text{intercept}
+\]
+
+For Sample A:
+\[
+\text{Prediction}_A = (4.0142 \cdot 1.5) + (3.5195 \cdot 0.2) + (0.0241 \cdot 0.0) + (0.0120 \cdot 0.0) + (-0.0050 \cdot 0.0) + 0.0008
+\]
+\[
+\text{Prediction}_A = 6.0213 + 0.7039 + 0 + 0 + 0 + 0.0008 = 6.726
+\]
+
+For Sample B:
+\[
+\text{Prediction}_B = (4.0142 \cdot 0."
+LassoCV,new_hard_quantitative_sensitivity,hard,True,9.897,9.8966
+LassoCV,new_hard_mixed_sign_goes_negative,hard,True,-4.272,-3.2933
+LassoCV,new_hard_two_feature_perturbation,hard,False,9.67,7.3918
+LassoCV,new_insight_simulatability,insight,False,8.398,5.9171
+LassoCV,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+LassoCV,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6068
+LassoCV,new_insight_nonlinear_direction,insight,True,4.488,4.38785
+LassoCV,new_insight_counterfactual_target,insight,False,2.488,"To solve for \( x_0 \), we use the LASSO regression equation:
+
+\[
+\text{Prediction} = \text{intercept} + (x_0 \cdot 3.5203) + (x_1 \cdot 2.4964) + (x_2 \cdot 0.0349)
+\]
+
+Given:
+- Intercept = 0.0134
+- Coefficients: \( x_0 = 3.5203 \), \( x_1 = 2.4964 \), \( x_2 = 0.0349 \)
+- Current prediction = 12.52
+- Fixed values: \( x_1 = 1.5 \), \( x_2 = 0.0 \)
+
+Substitute into the equation:
+
+\[
+12.52 = 0.0134 + (x_0 \cdot 3.5203) + (1.5"
+LassoCV,new_insight_decision_region,insight,False,1.521,7.5
+LassoCV,new_discrim_simulate_all_active,discrim,True,2.348,"The prediction is:
+
+**3.2411**"
+LassoCV,new_discrim_compactness,discrim,True,,Yes
+LassoCV,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+LassoCV,new_discrim_unit_sensitivity,discrim,True,4.012,"The model's prediction changes by **4.0121** when \( x_0 \) increases from 0 to 1, as the coefficient of \( x_0 \) is 4.0121."
+LassoCV,new_discrim_test_predict_above_threshold,discrim,False,,
+LassoCV,new_discrim_test_predict_below_threshold,discrim,False,,
+LassoCV,new_discrim_simulate_mixed_sign,discrim,False,7.042,3.9471
+LassoCV,new_discrim_simulate_double_threshold,discrim,True,1.826,1.8261
+LassoCV,new_discrim_simulate_additive_nonlinear,discrim,True,4.595,3.6780
+LassoCV,new_discrim_simulate_interaction,discrim,True,9.687,"The prediction is:
+
+**9.5564**"
+LassoCV,new_simulatability_eight_features,simulatability,False,5.172,-2.9621
+LassoCV,new_simulatability_fifteen_features_sparse,simulatability,False,15.394,6.9297
+LassoCV,new_simulatability_quadratic,simulatability,False,2.816,0.9103
+LassoCV,new_simulatability_friedman1,simulatability,True,14.883,12.3941
+LassoCV,new_simulatability_cascading_threshold,simulatability,False,2.146,0.1392
+LassoCV,new_simulatability_exponential_decay,simulatability,False,1.711,6.9930
+LassoCV,new_simulatability_piecewise_three_segment,simulatability,True,1.371,1.3707
+LassoCV,new_simulatability_twenty_features_sparse,simulatability,False,12.797,-2.2101
+LassoCV,new_simulatability_sinusoidal,simulatability,True,2.121,2.8700
+LassoCV,new_simulatability_abs_value,simulatability,True,2.578,2.0001
+LassoCV,new_simulatability_twelve_features_all_active,simulatability,True,1.738,2.6126
+LassoCV,new_simulatability_nested_threshold,simulatability,True,2.24,1.9477
+RidgeCV,new_most_important_feature,standard,True,x0,x0
+RidgeCV,new_point_prediction,standard,True,9.01,9.0105
+RidgeCV,new_direction_of_change,standard,False,10.391,"The prediction change can be calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(6.9276\), and \(\Delta x0 = 1.5 - 0.0 = 1.5\).
+
+\[
+\Delta y = 6.9276 \times 1.5 = 10.3914
+\]
+
+**Answer: 10.3914**"
+RidgeCV,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RidgeCV,new_threshold_identification,standard,False,0.3,0.98
+RidgeCV,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","The features with coefficients close to zero have little or no effect on the prediction. Based on the given coefficients:
+
+- **x1**: -0.0176
+- **x2**: -0.0142
+- **x4**: -0.0338
+- **x5**: -0.0327
+
+These coefficients are relatively small compared to **x0** (11.9891) and **x3** (0.0417). Therefore, the features that appear to have little or no effect on the prediction are:
+
+**x1, x2, x4, x5**"
+RidgeCV,new_sign_of_effect,standard,True,-6.021,-6.021
+RidgeCV,new_counterfactual_prediction,standard,True,12.404,12.40
+RidgeCV,new_hard_all_features_active,hard,False,2.577,5.1001
+RidgeCV,new_hard_pairwise_anti_intuitive,hard,True,4.339,"To calculate the difference in predictions for Sample B and Sample A, we use the regression equation:
+
+\[
+y = 4.0176 \cdot x_0 + 3.5233 \cdot x_1 + 0.0277 \cdot x_2 + 0.0158 \cdot x_3 + (-0.0086) \cdot x_4 + 0.0014
+\]
+
+### Step 1: Calculate prediction for Sample A
+For Sample A: \(x_0 = 1.5\), \(x_1 = 0.2\), \(x_2 = 0.0\), \(x_3 = 0.0\), \(x_4 = 0.0\)
+
+\[
+y_A = (4.0176 \cdot 1.5) + (3.5233 \cdot 0.2) + (0.0277"
+RidgeCV,new_hard_quantitative_sensitivity,hard,True,9.929,9.9292
+RidgeCV,new_hard_mixed_sign_goes_negative,hard,True,-4.275,-4.0483
+RidgeCV,new_hard_two_feature_perturbation,hard,True,9.704,8.43
+RidgeCV,new_insight_simulatability,insight,False,8.454,6.4521
+RidgeCV,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+RidgeCV,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),1.6066
+RidgeCV,new_insight_nonlinear_direction,insight,True,4.525,4.5259
+RidgeCV,new_insight_counterfactual_target,insight,False,2.487,"To solve for \( x_0 \), we use the regression equation:
+
+\[
+y = 3.5230 \cdot x_0 + 2.4991 \cdot x_1 + 0.0380 \cdot x_2 + 0.0138
+\]
+
+Substitute \( y = 12.52 \), \( x_1 = 1.5 \), and \( x_2 = 0.0 \):
+
+\[
+12.52 = 3.5230 \cdot x_0 + 2.4991 \cdot 1.5 + 0.0380 \cdot 0.0 + 0.0138
+\]
+
+Simplify:
+
+\[
+12.52 = 3.5230 \cdot x_0 + (2.4991 \cdot 1.5) + 0.0138
+\]
+
+\[
+12.52 = 3"
+RidgeCV,new_insight_decision_region,insight,True,1.514,1.515
+RidgeCV,new_discrim_simulate_all_active,discrim,False,2.353,5.1931
+RidgeCV,new_discrim_compactness,discrim,True,,Yes
+RidgeCV,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+RidgeCV,new_discrim_unit_sensitivity,discrim,True,4.012,4.0116
+RidgeCV,new_discrim_test_predict_above_threshold,discrim,False,,
+RidgeCV,new_discrim_test_predict_below_threshold,discrim,False,,
+RidgeCV,new_discrim_simulate_mixed_sign,discrim,False,7.041,5.0651
+RidgeCV,new_discrim_simulate_double_threshold,discrim,True,1.836,1.83575
+RidgeCV,new_discrim_simulate_additive_nonlinear,discrim,True,4.689,3.9240
+RidgeCV,new_discrim_simulate_interaction,discrim,False,9.824,12.1739
+RidgeCV,new_simulatability_eight_features,simulatability,True,5.169,6.3561
+RidgeCV,new_simulatability_fifteen_features_sparse,simulatability,False,15.46,The prediction is **9.5486**.
+RidgeCV,new_simulatability_quadratic,simulatability,True,2.8,2.9120
+RidgeCV,new_simulatability_friedman1,simulatability,True,14.756,12.4121
+RidgeCV,new_simulatability_cascading_threshold,simulatability,True,2.177,1.6783
+RidgeCV,new_simulatability_exponential_decay,simulatability,False,1.735,4.91215
+RidgeCV,new_simulatability_piecewise_three_segment,simulatability,True,1.387,1.3848
+RidgeCV,new_simulatability_twenty_features_sparse,simulatability,False,12.811,"The prediction for the given input is:
+
+**6.9471**"
+RidgeCV,new_simulatability_sinusoidal,simulatability,True,2.121,2.7863
+RidgeCV,new_simulatability_abs_value,simulatability,True,2.574,2.2551
+RidgeCV,new_simulatability_twelve_features_all_active,simulatability,False,1.727,3.9627
+RidgeCV,new_simulatability_nested_threshold,simulatability,True,2.26,1.9209
+RF,new_most_important_feature,standard,True,x0,x0
+RF,new_point_prediction,standard,False,9.291,12.62
+RF,new_direction_of_change,standard,False,10.98,19.55
+RF,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+RF,new_threshold_identification,standard,True,0.3,0.30
+RF,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+RF,new_sign_of_effect,standard,False,-6.475,The prediction changes by **0.6933** when \( x_1 \) increases by 1 unit (with all other features at 0).
+RF,new_counterfactual_prediction,standard,False,11.208,2.38
+RF,new_hard_all_features_active,hard,False,1.783,0.08
+RF,new_hard_pairwise_anti_intuitive,hard,False,1.359,"The model's prediction for sample B minus the prediction for sample A is:
+
+**0**"
+RF,new_hard_quantitative_sensitivity,hard,False,6.877,The model's prediction changes by **0**.
+RF,new_hard_mixed_sign_goes_negative,hard,False,-4.139,2.32
+RF,new_hard_two_feature_perturbation,hard,False,9.056,0.58
+RF,new_insight_simulatability,insight,False,7.422,The predicted value 
+RF,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+RF,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.59
+RF,new_insight_nonlinear_direction,insight,False,5.946,The prediction 
+RF,new_insight_counterfactual_target,insight,False,10.0,1.5
+RF,new_insight_decision_region,insight,False,1.547,0.89
+RF,new_discrim_simulate_all_active,discrim,False,0.414,The prediction 
+RF,new_discrim_compactness,discrim,True,,Yes
+RF,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+RF,new_discrim_unit_sensitivity,discrim,False,3.901,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision path of the first estimator tree for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \). Here's the step-by-step process:
+
+### Case 1: \( x_0 = 0 \), \( x_1 = 0 \), \( x_2 = 0 \), \( x_3 = 0 \)
+- Start at the root: \( x_0 \leq 0.33 \) (True, since \( x_0 = 0 \)).
+- Next: \( x_0 \leq -0.65 \) (False, since \( x_0 = 0 \)).
+- Next: \("
+RF,new_discrim_predict_above_threshold,discrim,True,2.49,2.38
+RF,new_discrim_predict_below_threshold,discrim,False,0.0,2.38
+RF,new_discrim_simulate_mixed_sign,discrim,False,7.935,-9.03
+RF,new_discrim_simulate_double_threshold,discrim,True,1.491,1.33
+RF,new_discrim_simulate_additive_nonlinear,discrim,False,4.054,The prediction 
+RF,new_discrim_simulate_interaction,discrim,False,12.911,The prediction 
+RF,new_simulatability_eight_features,simulatability,False,8.006,The prediction 
+RF,new_simulatability_fifteen_features_sparse,simulatability,False,11.749,The prediction 
+RF,new_simulatability_quadratic,simulatability,True,0.573,0.42
+RF,new_simulatability_friedman1,simulatability,False,17.972,The prediction 
+RF,new_simulatability_cascading_threshold,simulatability,False,2.344,The prediction 
+RF,new_simulatability_exponential_decay,simulatability,False,2.791,-9.03
+RF,new_simulatability_piecewise_three_segment,simulatability,True,1.561,"The prediction for \( x_0 = 0.8 \), \( x_1 = 0.0 \), \( x_2 = 0.0 \), \( x_3 = 0.0 \) "
+RF,new_simulatability_twenty_features_sparse,simulatability,False,11.073,The prediction 
+RF,new_simulatability_sinusoidal,simulatability,False,2.56,0.34
+RF,new_simulatability_abs_value,simulatability,False,2.657,The prediction 
+RF,new_simulatability_twelve_features_all_active,simulatability,False,6.598,The prediction 
+RF,new_simulatability_nested_threshold,simulatability,False,1.468,-1.88
+GBM,new_most_important_feature,standard,True,x0,x0
+GBM,new_point_prediction,standard,True,9.219,9.03
+GBM,new_direction_of_change,standard,True,11.081,The prediction changes by **10.84**.
+GBM,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+GBM,new_threshold_identification,standard,True,0.3,0.30
+GBM,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","x1, x2, x3, x4, x5"
+GBM,new_sign_of_effect,standard,True,-6.655,The prediction changes by **-5.14** when \( x_1 \) increases by 1 unit (with all other features at 0).
+GBM,new_counterfactual_prediction,standard,False,12.195,8.74
+GBM,new_hard_all_features_active,hard,False,1.911,0.03
+GBM,new_hard_pairwise_anti_intuitive,hard,False,2.616,"The prediction for Sample A is **4.24**, and the prediction for Sample B is **8.95**. The difference (B - A) is:
+
+**8.95 - 4.24 = 4.71**
+
+Final answer: **4.71**"
+GBM,new_hard_quantitative_sensitivity,hard,True,6.872,6.5
+GBM,new_hard_mixed_sign_goes_negative,hard,False,-4.136,1.05
+GBM,new_hard_two_feature_perturbation,hard,True,9.285,8.34
+GBM,new_insight_simulatability,insight,True,7.383,6.96
+GBM,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0,x1"
+GBM,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.64
+GBM,new_insight_nonlinear_direction,insight,False,5.845,3.00
+GBM,new_insight_counterfactual_target,insight,False,10.0,1.39
+GBM,new_insight_decision_region,insight,True,1.532,1.49
+GBM,new_discrim_simulate_all_active,discrim,False,1.883,-1.84
+GBM,new_discrim_compactness,discrim,True,,Yes
+GBM,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+GBM,new_discrim_unit_sensitivity,discrim,False,3.711,"To calculate the change in the model's prediction when \( x_0 \) increases from 0 to 1, we need to follow the decision path of the first estimator tree for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+### Step 1: Decision path for \( x_0 = 0 \), \( x_1 = 0 \)
+- Start at the root: \( x_0 \leq -0.01 \)? No, because \( x_0 = 0 > -0.01 \).
+- Move to the right: \( x_1 \leq 0.06 \)? Yes, because \( x_1 = 0 \leq 0.06 \).
+- Move to the left: \( x_0 \leq"
+GBM,new_discrim_predict_above_threshold,discrim,False,2.48,1.96
+GBM,new_discrim_predict_below_threshold,discrim,False,0.0,-0.54
+GBM,new_discrim_simulate_mixed_sign,discrim,True,6.683,7.0
+GBM,new_discrim_simulate_double_threshold,discrim,False,1.478,0.15
+GBM,new_discrim_simulate_additive_nonlinear,discrim,False,4.565,3.49
+GBM,new_discrim_simulate_interaction,discrim,False,16.219,9.33
+GBM,new_simulatability_eight_features,simulatability,False,7.638,4.38
+GBM,new_simulatability_fifteen_features_sparse,simulatability,False,15.031,**0.89**
+GBM,new_simulatability_quadratic,simulatability,False,0.352,-2.41
+GBM,new_simulatability_friedman1,simulatability,False,15.618,4.42
+GBM,new_simulatability_cascading_threshold,simulatability,False,2.772,5.05
+GBM,new_simulatability_exponential_decay,simulatability,False,2.983,-1.26
+GBM,new_simulatability_piecewise_three_segment,simulatability,False,1.601,0.34
+GBM,new_simulatability_twenty_features_sparse,simulatability,False,12.725,The prediction for the given input is **-8.03**.
+GBM,new_simulatability_sinusoidal,simulatability,True,2.46,"The prediction for \( x_0 = 0.5 \), \( x_1 = 1.0 \), \( x_2 = -0.5 \), \( x_3 = 0.0 \), \( x_4 = 0.0 \) is:
+
+**0.89**"
+GBM,new_simulatability_abs_value,simulatability,False,2.501,0.48
+GBM,new_simulatability_twelve_features_all_active,simulatability,True,4.663,3.44
+GBM,new_simulatability_nested_threshold,simulatability,True,1.457,0.74
+MLP,new_most_important_feature,standard,True,x0,x0
+MLP,new_point_prediction,standard,False,9.124,'0.0'
+MLP,new_direction_of_change,standard,False,10.769,"To calculate the change in prediction when \( x_0 \) increases from 0.0 to 1.5 (with all other features at 0.0), we need to consider the contribution of \( x_0 \) to the first layer of the neural network.
+
+The weights from \( x_0 \) to the 100 hidden neurons have a mean of 0.027. Since the activation function is ReLU, only positive contributions will propagate forward. Assuming that the mean weight (0.027) represents the average contribution across all neurons, we can approximate the change in prediction as:
+
+\[
+\Delta \text{prediction} = 1.5 \times \text{mean weight from } x_0 = 1.5 \times 0.027 = 0.0405
+\]
+
+Thus, the prediction increases by approximately **0.0405**."
+MLP,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+MLP,new_threshold_identification,standard,True,0.3,0.
+MLP,new_irrelevant_features,standard,True,"x1, x2, x3, x4, x5 are irrelevant","The features that appear to have little or no effect on the prediction are those with relatively small L2 norms of their weight vectors, as the L2 norm indicates the overall strength of the connection between a feature and the hidden neurons. Comparing the L2 norms:
+
+- x0: L2 = 4.030
+- x1: L2 = 1.502
+- x2: L2 = 1.210
+- x3: L2 = 1.269
+- x4: L2 = 1.467
+- x5: L2 = 1.301
+
+Feature **x0** has a significantly larger L2 norm compared to the others, indicating it has a strong effect on the prediction. The remaining features (x1, x2, x3, x4, and x5) have much smaller and similar L2 norms, suggesting they have relatively little effect on the prediction.
+
+**Answer:** x1, x2, x"
+MLP,new_sign_of_effect,standard,False,-6.71,"To calculate the change in prediction when \( x_1 \) increases by 1 unit (with all other features at 0), we need to consider the contribution of \( x_1 \) to the first layer of the neural network.
+
+The weights from \( x_1 \) to the 100 hidden neurons have a mean of \(-0.019\). Since the activation function is ReLU, only positive contributions will propagate forward. However, without knowing the exact distribution of weights or biases, we can approximate the expected contribution by considering the mean weight.
+
+The change in prediction is approximately proportional to:
+
+\[
+\Delta y = \text{mean weight from } x_1 \text{ to hidden neurons} \times \text{number of neurons}.
+\]
+
+Given:
+- Mean weight from \( x_1 \): \(-0.019\),
+- Number of neurons: \( 100 \),
+
+\[
+\Delta y = -0.019 \times 100"
+MLP,new_counterfactual_prediction,standard,False,11.065,15.05
+MLP,new_hard_all_features_active,hard,False,2.564,The model's prediction 
+MLP,new_hard_pairwise_anti_intuitive,hard,False,3.556,"To compute the difference in predictions for Sample B and Sample A, we need to calculate the weighted sum of inputs for each sample at the first layer and then propagate through the ReLU activation. However, since only the weights and features for \(x_0\) and \(x_1\) are nonzero for both samples, we can ignore \(x_2\), \(x_3\), and \(x_4\).
+
+The weighted sum for a neuron in the first layer is given by:
+
+\[
+z = w_{x0} \cdot x0 + w_{x1} \cdot x1
+\]
+
+where \(w_{x0}\) and \(w_{x1}\) are the weights corresponding to \(x_0\) and \(x_1\), respectively.
+
+The ReLU activation is applied as:
+
+\[
+a = \max(0, z)
+\]
+
+The difference in predictions between Sample B and Sample A depends on"
+MLP,new_hard_quantitative_sensitivity,hard,False,7.324,"To calculate the change in the model's prediction when \( x_0 \) increases from 1.0 to 3.0 (with \( x_1 = 0 \) and \( x_2 = 0 \)), we focus on the contribution of \( x_0 \) to the first layer of the MLP.
+
+The weights from \( x_0 \) to the 100 hidden neurons have a mean of -0.021. Since the activation function is ReLU, only positive contributions will propagate forward. However, without specific information about biases or which neurons are activated, we can only compute an approximate expected change based on the mean weight.
+
+The change in input to each hidden neuron due to \( x_0 \) is:
+\[
+\Delta x_0 = (3.0 - 1.0) = 2.0
+\]
+
+The expected contribution to each hidden neuron is:
+\[
+\Delta_{\text{hidden}} = \Delta"
+MLP,new_hard_mixed_sign_goes_negative,hard,False,-4.3,The model's prediction 
+MLP,new_hard_two_feature_perturbation,hard,False,9.28,0.36
+MLP,new_insight_simulatability,insight,False,8.182,The predicted value 
+MLP,new_insight_sparse_feature_set,insight,True,"x0, x1 only","x0, x1"
+MLP,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.086
+MLP,new_insight_nonlinear_direction,insight,False,6.113,The model predicts approximately **0.129**.
+MLP,new_insight_counterfactual_target,insight,False,3.017,7.5
+MLP,new_insight_decision_region,insight,False,1.589,7.
+MLP,new_discrim_simulate_all_active,discrim,False,2.394,The prediction 
+MLP,new_discrim_compactness,discrim,False,,no
+MLP,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+MLP,new_discrim_unit_sensitivity,discrim,False,4.561,"The model's prediction changes by **0.8** when \( x_0 \) increases from 0 to 1, given that \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \)."
+MLP,new_discrim_predict_above_threshold,discrim,False,2.1,The model's prediction 
+MLP,new_discrim_predict_below_threshold,discrim,False,-0.0,The model's prediction 
+MLP,new_discrim_simulate_mixed_sign,discrim,False,7.087,"The information provided is insufficient to compute the prediction. Specifically, the biases for the hidden and output layers, the second-layer weights, and the activation function details for the output layer are missing. Without these, it is impossible to calculate the model's output."
+MLP,new_discrim_simulate_double_threshold,discrim,False,1.843,The model's prediction 
+MLP,new_discrim_simulate_additive_nonlinear,discrim,False,4.925,"The information provided is insufficient to compute the exact prediction of the model. Specifically, the biases, weights for subsequent layers, and activation functions are not provided. Therefore, it is not possible to calculate the output of the model with the given data."
+MLP,new_discrim_simulate_interaction,discrim,False,14.646,The prediction 
+MLP,new_simulatability_eight_features,simulatability,False,5.479,The prediction 
+MLP,new_simulatability_fifteen_features_sparse,simulatability,False,15.654,The prediction 
+MLP,new_simulatability_quadratic,simulatability,True,0.924,"The information provided is insufficient to compute the exact prediction of the model. To calculate the output of the MLP Regressor, we would need:
+
+1. The full weight matrix for the first layer (not just summary statistics like mean and standard deviation).
+2. The bias terms for the first layer.
+3. The weights and biases for the second layer (hidden to output).
+4. Details about how the activation function (ReLU) is applied.
+
+Without this information, it is not possible to compute the model's prediction."
+MLP,new_simulatability_friedman1,simulatability,False,14.815,The information provided is insufficient to compute the exact prediction of the model.
+MLP,new_simulatability_cascading_threshold,simulatability,False,2.929,The prediction 
+MLP,new_simulatability_exponential_decay,simulatability,False,1.455,"The information provided is insufficient to compute the exact prediction of the model. Specifically, the biases, weights for subsequent layers, and activation function details are missing."
+MLP,new_simulatability_piecewise_three_segment,simulatability,False,1.665,The model's prediction 
+MLP,new_simulatability_twenty_features_sparse,simulatability,False,13.165,The model's prediction 
+MLP,new_simulatability_sinusoidal,simulatability,False,1.639,"The information provided is insufficient to compute the exact prediction of the model. Specifically, the biases, weights for subsequent layers, and activation function details are missing."
+MLP,new_simulatability_abs_value,simulatability,False,2.799,The prediction 
+MLP,new_simulatability_twelve_features_all_active,simulatability,False,2.075,The model's prediction 
+MLP,new_simulatability_nested_threshold,simulatability,False,2.345,The information provided is insufficient to compute the exact prediction of the model.
+FIGS_mini,new_most_important_feature,standard,True,x0,x0
+FIGS_mini,new_point_prediction,standard,True,8.496,8.496
+FIGS_mini,new_direction_of_change,standard,True,10.835,12.14
+FIGS_mini,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+FIGS_mini,new_threshold_identification,standard,True,0.3,0.299
+FIGS_mini,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","Based on the provided regression model, the only feature used in the splits is **X0**. No other features are mentioned in the tree structure, so all other features (if they exist) have no effect on the prediction.
+
+If there are additional features beyond **X0**, they would have no effect on the prediction. Therefore, the answer is:
+
+**All features except X0**"
+FIGS_mini,new_sign_of_effect,standard,False,-8.825,The prediction changes by **-4.94**.
+FIGS_mini,new_counterfactual_prediction,standard,True,10.762,10.762
+FIGS_mini,new_hard_all_features_active,hard,False,3.294,4.711
+FIGS_mini,new_hard_pairwise_anti_intuitive,hard,False,-2.429,"To calculate the model's prediction for each sample, we traverse the trees and sum the values at the leaves reached. Then, we compute the difference between the predictions for Sample B and Sample A.
+
+### Tree #0:
+- **Sample A (x0 = 1.5):**
+  - Root: \( X0 \leq 0.009 \) → False (go to right subtree).
+  - \( X0 \leq 0.826 \) → False (go to right subtree).
+  - \( X0 \leq 1.446 \) → False (go to right subtree).
+  - Leaf value: \( 7.512 \).
+
+- **Sample B (x0 = 0.3):**
+  - Root: \( X0 \leq 0.009 \) → False (go to right subtree).
+  - \( X0 \leq 0.826 \) → True (go to left subtree).
+  -"
+FIGS_mini,new_hard_quantitative_sensitivity,hard,True,6.504,6.504
+FIGS_mini,new_hard_mixed_sign_goes_negative,hard,False,-4.124,-2.989
+FIGS_mini,new_hard_two_feature_perturbation,hard,True,9.598,9.598
+FIGS_mini,new_insight_simulatability,insight,False,8.128,10.613
+FIGS_mini,new_insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+FIGS_mini,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.642
+FIGS_mini,new_insight_nonlinear_direction,insight,True,6.188,6.188
+FIGS_mini,new_insight_counterfactual_target,insight,False,10.0,1.79
+FIGS_mini,new_insight_decision_region,insight,False,1.491,0.865
+FIGS_mini,new_discrim_simulate_all_active,discrim,False,-1.614,-6.804
+FIGS_mini,new_discrim_compactness,discrim,True,,yes
+FIGS_mini,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+FIGS_mini,new_discrim_unit_sensitivity,discrim,False,1.976,The model's prediction changes by **3.710**.
+FIGS_mini,new_discrim_predict_above_threshold,discrim,True,2.48,2.483
+FIGS_mini,new_discrim_predict_below_threshold,discrim,False,0.0,2.565
+FIGS_mini,new_discrim_simulate_mixed_sign,discrim,False,9.479,2.403
+FIGS_mini,new_discrim_simulate_double_threshold,discrim,False,1.501,4.082
+FIGS_mini,new_discrim_simulate_additive_nonlinear,discrim,False,3.96,The prediction is **1.612**.
+FIGS_mini,new_discrim_simulate_interaction,discrim,True,15.518,12.835
+FIGS_mini,new_simulatability_eight_features,simulatability,False,1.663,-0.738
+FIGS_mini,new_simulatability_fifteen_features_sparse,simulatability,True,13.696,14.643
+FIGS_mini,new_simulatability_quadratic,simulatability,False,-0.962,7.158
+FIGS_mini,new_simulatability_friedman1,simulatability,True,17.296,16.153
+FIGS_mini,new_simulatability_cascading_threshold,simulatability,True,2.933,2.292
+FIGS_mini,new_simulatability_exponential_decay,simulatability,False,2.046,**5.289**
+FIGS_mini,new_simulatability_piecewise_three_segment,simulatability,True,1.269,1.269
+FIGS_mini,new_simulatability_twenty_features_sparse,simulatability,False,9.033,**2.366**
+FIGS_mini,new_simulatability_sinusoidal,simulatability,False,4.177,2.327
+FIGS_mini,new_simulatability_abs_value,simulatability,False,2.519,4.119
+FIGS_mini,new_simulatability_twelve_features_all_active,simulatability,False,2.065,-2.96
+FIGS_mini,new_simulatability_nested_threshold,simulatability,False,1.473,The prediction for the given input is **-1.427**.
+FIGS_large,new_most_important_feature,standard,True,x0,X0
+FIGS_large,new_point_prediction,standard,True,9.829,9.829
+FIGS_large,new_direction_of_change,standard,False,11.2,The prediction increases by **20.788**.
+FIGS_large,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+FIGS_large,new_threshold_identification,standard,True,0.3,0.299
+FIGS_large,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","The only feature used in the splits of the regression model is **X0**. The feature **X2** appears in one split but does not significantly affect the prediction because it is only used in a single branch of the tree and does not influence most of the predictions. All other features (if any exist) are not mentioned in the model and therefore have no effect on the prediction.
+
+Thus, the features that appear to have little or no effect on the prediction are:
+
+**X2**"
+FIGS_large,new_sign_of_effect,standard,False,-7.486,The prediction changes by **-9.967** when \( x_1 \) increases by 1 unit (with all other features at 0).
+FIGS_large,new_counterfactual_prediction,standard,True,13.251,13.251
+FIGS_large,new_hard_all_features_active,hard,True,1.63,2.158
+FIGS_large,new_hard_pairwise_anti_intuitive,hard,True,0.537,"To calculate the model's prediction for each sample, we traverse the trees and sum the values at the leaves reached. Then, we subtract the prediction for Sample A from that for Sample B.
+
+### Tree #0:
+- **Sample A (x0 = 1.5):**
+  - Root: \( X0 \leq 0.009 \) → False
+  - \( X0 \leq 0.826 \) → False
+  - \( X0 \leq 1.446 \) → True
+  - \( X0 \leq 1.223 \) → False
+  - Leaf value: **5.39**
+
+- **Sample B (x0 = 0.3):**
+  - Root: \( X0 \leq 0.009 \) → False
+  - \( X0 \leq 0.826 \) → True
+  - \( X0 \leq 0.458 \"
+FIGS_large,new_hard_quantitative_sensitivity,hard,True,6.768,6.768
+FIGS_large,new_hard_mixed_sign_goes_negative,hard,False,-3.958,-0.348
+FIGS_large,new_hard_two_feature_perturbation,hard,False,8.47,12.529
+FIGS_large,new_insight_simulatability,insight,True,7.857,7.163
+FIGS_large,new_insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+FIGS_large,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.004
+FIGS_large,new_insight_nonlinear_direction,insight,True,5.728,6.224
+FIGS_large,new_insight_counterfactual_target,insight,False,10.0,1.5
+FIGS_large,new_insight_decision_region,insight,True,1.491,1.716
+FIGS_large,new_discrim_simulate_all_active,discrim,False,1.018,**-2.646**
+FIGS_large,new_discrim_compactness,discrim,False,,no
+FIGS_large,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+FIGS_large,new_discrim_unit_sensitivity,discrim,False,2.495,The model's prediction changes by **6.494** when \( x_0 \) increases from 0 to 1.
+FIGS_large,new_discrim_predict_above_threshold,discrim,True,2.48,2.483
+FIGS_large,new_discrim_predict_below_threshold,discrim,True,0.03,0.032
+FIGS_large,new_discrim_simulate_mixed_sign,discrim,False,7.331,**1.091**
+FIGS_large,new_discrim_simulate_double_threshold,discrim,False,1.48,The model predicts **3.584**.
+FIGS_large,new_discrim_simulate_additive_nonlinear,discrim,True,4.909,4.873
+FIGS_large,new_discrim_simulate_interaction,discrim,False,14.36,21.763
+FIGS_large,new_simulatability_eight_features,simulatability,True,4.013,The model predicts **2.601**.
+FIGS_large,new_simulatability_fifteen_features_sparse,simulatability,False,15.991,6.354
+FIGS_large,new_simulatability_quadratic,simulatability,False,1.605,5.768
+FIGS_large,new_simulatability_friedman1,simulatability,True,17.265,14.091
+FIGS_large,new_simulatability_cascading_threshold,simulatability,True,2.574,3.118
+FIGS_large,new_simulatability_exponential_decay,simulatability,False,2.2,**1.197**
+FIGS_large,new_simulatability_piecewise_three_segment,simulatability,False,1.529,2.724
+FIGS_large,new_simulatability_twenty_features_sparse,simulatability,False,12.469,4.495
+FIGS_large,new_simulatability_sinusoidal,simulatability,False,3.2,**1.586**
+FIGS_large,new_simulatability_abs_value,simulatability,True,3.034,**2.607**
+FIGS_large,new_simulatability_twelve_features_all_active,simulatability,False,4.381,**1.091**
+FIGS_large,new_simulatability_nested_threshold,simulatability,True,1.466,The model predicts: **1.469**
+RuleFit,new_most_important_feature,standard,True,x0,X0
+RuleFit,new_point_prediction,standard,False,9.066,6.19
+RuleFit,new_direction_of_change,standard,False,10.456,0.18
+RuleFit,new_feature_ranking,standard,True,"x0, x1, x2","X0, X1, X2"
+RuleFit,new_threshold_identification,standard,True,0.3,0.29758
+RuleFit,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","Based on the coefficients provided, the features that appear to have little or no effect on the prediction are those with coefficients close to zero. These features are:
+
+**X4, X5**"
+RuleFit,new_sign_of_effect,standard,True,-6.165,The prediction changes by **-5.88** when \( x_1 \) increases by 1 unit (all other features at 0).
+RuleFit,new_counterfactual_prediction,standard,False,11.414,4.84
+RuleFit,new_hard_all_features_active,hard,False,2.626,6.36
+RuleFit,new_hard_pairwise_anti_intuitive,hard,True,1.378,"To calculate the predictions for Sample A and Sample B, we sum the coefficients of the applicable rules for each sample. Then, we subtract the prediction for Sample A from the prediction for Sample B.
+
+### Step 1: Base coefficients
+- For **Sample A**: \( x0 = 1.5 \), \( x1 = 0.2 \), \( x2 = 0.0 \), \( x4 = 0.0 \)
+  - Base contribution: \( 4.06 \cdot x0 + 3.44 \cdot x1 + 0.00 \cdot x2 - 0.00 \cdot x4 = 4.06(1.5) + 3.44(0.2) = 6.09 + 0.688 = 6.778 \)
+
+- For **Sample B**: \( x0 = 0.3 \), \( x1 = 2."
+RuleFit,new_hard_quantitative_sensitivity,hard,False,5.386,1.44
+RuleFit,new_hard_mixed_sign_goes_negative,hard,False,-4.272,-1.63
+RuleFit,new_hard_two_feature_perturbation,hard,False,9.859,0.23
+RuleFit,new_insight_simulatability,insight,False,8.394,6.75
+RuleFit,new_insight_sparse_feature_set,insight,True,"x0, x1 only","X0, X1"
+RuleFit,new_insight_nonlinear_threshold,insight,False,~0 (flat for x0<0),0.26319
+RuleFit,new_insight_nonlinear_direction,insight,False,2.579,**0.07**
+RuleFit,new_insight_counterfactual_target,insight,False,10.0,2.5
+RuleFit,new_insight_decision_region,insight,True,1.517,1.54718
+RuleFit,new_discrim_simulate_all_active,discrim,False,2.362,5.99
+RuleFit,new_discrim_compactness,discrim,False,,no
+RuleFit,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+RuleFit,new_discrim_unit_sensitivity,discrim,True,4.163,The model's prediction changes by **4.57** when \( x_0 \) increases from 0 to 1.
+RuleFit,new_discrim_predict_above_threshold,discrim,False,2.47,0.00
+RuleFit,new_discrim_predict_below_threshold,discrim,True,0.01,-0.04
+RuleFit,new_discrim_simulate_mixed_sign,discrim,False,7.219,**3.91**
+RuleFit,new_discrim_simulate_double_threshold,discrim,False,1.483,The prediction is **0.01**.
+RuleFit,new_discrim_simulate_additive_nonlinear,discrim,False,3.337,0.53
+RuleFit,new_discrim_simulate_interaction,discrim,False,10.089,4.49
+RuleFit,new_simulatability_eight_features,simulatability,False,5.306,**1.91**
+RuleFit,new_simulatability_fifteen_features_sparse,simulatability,False,15.744,5.09
+RuleFit,new_simulatability_quadratic,simulatability,False,0.76,-5.64
+RuleFit,new_simulatability_friedman1,simulatability,False,17.176,1.97
+RuleFit,new_simulatability_cascading_threshold,simulatability,True,1.834,1.36
+RuleFit,new_simulatability_exponential_decay,simulatability,False,4.889,-2.44
+RuleFit,new_simulatability_piecewise_three_segment,simulatability,True,0.486,0.09
+RuleFit,new_simulatability_twenty_features_sparse,simulatability,False,13.044,3.35
+RuleFit,new_simulatability_sinusoidal,simulatability,False,3.132,0.56
+RuleFit,new_simulatability_abs_value,simulatability,False,3.114,**1.02**
+RuleFit,new_simulatability_twelve_features_all_active,simulatability,False,3.71,1.89
+RuleFit,new_simulatability_nested_threshold,simulatability,False,1.475,The model predicts: **0.00**
+HSTree_mini,new_most_important_feature,standard,True,x0,X0
+HSTree_mini,new_point_prediction,standard,True,8.496,8.50
+HSTree_mini,new_direction_of_change,standard,True,10.827,The prediction changes by **10.83**.
+HSTree_mini,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1"
+HSTree_mini,new_threshold_identification,standard,True,0.3,0.30
+HSTree_mini,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","Based on the provided decision tree, the only feature used for splitting is **X0**. No other features are mentioned in the tree structure, which implies that all other features (if any exist) have no effect on the prediction.
+
+Thus, the features that appear to have little or no effect on the prediction are all features **except X0**. However, since no other feature names are explicitly provided in the question, there are no additional feature names to list.
+
+If you have a list of feature names beyond X0, you can exclude X0 from that list to determine the features with no effect."
+HSTree_mini,new_sign_of_effect,standard,False,-8.737,The prediction changes by **10.3** when \( x_1 \) increases by 1 unit (all other features at 0).
+HSTree_mini,new_counterfactual_prediction,standard,True,8.651,8.65
+HSTree_mini,new_hard_all_features_active,hard,False,-0.03,2.91
+HSTree_mini,new_hard_pairwise_anti_intuitive,hard,False,4.462,"To calculate the predictions for Sample A and Sample B, we follow the decision tree rules:
+
+### For Sample A (x0=1.5, x1=0.2):
+- Start at the root: \( X0 > 0.01 \) (True, since \( 1.5 > 0.01 \)).
+- Move to the right: \( X1 \leq -0.29 \) (False, since \( 0.2 > -0.29 \)).
+- Move to the right: \( X1 \leq 1.10 \) (True, since \( 0.2 \leq 1.10 \)).
+- Prediction: **3.92**.
+
+### For Sample B (x0=0.3, x1=2.8):
+- Start at the root: \( X0 > 0.01 \) (True, since \( 0.3 > 0.01 \)).
+-"
+HSTree_mini,new_hard_quantitative_sensitivity,hard,True,6.504,6.5
+HSTree_mini,new_hard_mixed_sign_goes_negative,hard,True,-1.961,-1.96
+HSTree_mini,new_hard_two_feature_perturbation,hard,False,6.1,10.53
+HSTree_mini,new_insight_simulatability,insight,True,7.236,7.24
+HSTree_mini,new_insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+HSTree_mini,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.23
+HSTree_mini,new_insight_nonlinear_direction,insight,True,6.186,6.19
+HSTree_mini,new_insight_counterfactual_target,insight,False,10.0,1.89
+HSTree_mini,new_insight_decision_region,insight,True,1.491,1.49
+HSTree_mini,new_discrim_simulate_all_active,discrim,True,-1.56,-1.56
+HSTree_mini,new_discrim_compactness,discrim,True,,yes
+HSTree_mini,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HSTree_mini,new_discrim_unit_sensitivity,discrim,False,3.859,"To determine how the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree's rules for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \).
+
+### Step 1: Evaluate the prediction for \( x_0 = 0 \), \( x_1 = 0 \)
+- Start at the root: \( x_0 > -0.01 \) (True, since \( x_0 = 0 \)).
+- Move to the right: \( x_1 \leq 0.06 \) (True, since \( x_1 = 0 \)).
+- Move further: \( x_0 \leq 0.81 \) (True, since \( x_0 = 0"
+HSTree_mini,new_discrim_predict_above_threshold,discrim,True,2.48,2.48
+HSTree_mini,new_discrim_predict_below_threshold,discrim,True,0.0,0.08
+HSTree_mini,new_discrim_simulate_mixed_sign,discrim,True,7.113,7.11
+HSTree_mini,new_discrim_simulate_double_threshold,discrim,True,1.498,1.50
+HSTree_mini,new_discrim_simulate_additive_nonlinear,discrim,True,4.539,4.54
+HSTree_mini,new_discrim_simulate_interaction,discrim,False,8.703,19.14
+HSTree_mini,new_simulatability_eight_features,simulatability,True,10.809,10.81
+HSTree_mini,new_simulatability_fifteen_features_sparse,simulatability,True,7.989,**7.99**
+HSTree_mini,new_simulatability_quadratic,simulatability,False,1.769,-0.57
+HSTree_mini,new_simulatability_friedman1,simulatability,False,19.974,15.66
+HSTree_mini,new_simulatability_cascading_threshold,simulatability,True,2.185,2.18
+HSTree_mini,new_simulatability_exponential_decay,simulatability,True,4.842,4.84
+HSTree_mini,new_simulatability_piecewise_three_segment,simulatability,False,1.267,0.46
+HSTree_mini,new_simulatability_twenty_features_sparse,simulatability,False,9.747,0.42
+HSTree_mini,new_simulatability_sinusoidal,simulatability,True,2.815,2.81
+HSTree_mini,new_simulatability_abs_value,simulatability,True,2.091,2.09
+HSTree_mini,new_simulatability_twelve_features_all_active,simulatability,False,9.18,2.48
+HSTree_mini,new_simulatability_nested_threshold,simulatability,True,1.44,1.56
+HSTree_large,new_most_important_feature,standard,True,x0,X0
+HSTree_large,new_point_prediction,standard,True,9.823,9.82
+HSTree_large,new_direction_of_change,standard,False,11.2,The prediction changes by **15.88**.
+HSTree_large,new_feature_ranking,standard,True,"x0, x1, x2","x0, x1, x2"
+HSTree_large,new_threshold_identification,standard,True,0.3,0.30
+HSTree_large,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","The decision tree provided only uses the feature **X0** and occasionally **X1** (in a small subset of branches). However, **X1** is only used in one specific branch and does not significantly influence the overall structure of the tree. If there are other features in the dataset that are not mentioned in the tree, they have no effect on the prediction.
+
+From the given tree, **X1** appears to have little effect on the prediction. If there are additional features beyond **X0** and **X1**, they also have no effect since they are not used in the tree.
+
+Answer: **X1**"
+HSTree_large,new_sign_of_effect,standard,True,-6.543,The prediction changes by **-5.58** when \( x_1 \) increases by 1 unit (with all other features at 0).
+HSTree_large,new_counterfactual_prediction,standard,True,13.211,13.21
+HSTree_large,new_hard_all_features_active,hard,True,2.056,2.06
+HSTree_large,new_hard_pairwise_anti_intuitive,hard,False,-0.809,9.05
+HSTree_large,new_hard_quantitative_sensitivity,hard,False,6.639,9.87
+HSTree_large,new_hard_mixed_sign_goes_negative,hard,True,-4.293,-4.29
+HSTree_large,new_hard_two_feature_perturbation,hard,True,8.943,8.94
+HSTree_large,new_insight_simulatability,insight,True,5.591,5.59
+HSTree_large,new_insight_sparse_feature_set,insight,True,"x0, x1 only","X0,X1"
+HSTree_large,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.08
+HSTree_large,new_insight_nonlinear_direction,insight,True,5.728,6.22
+HSTree_large,new_insight_counterfactual_target,insight,False,10.0,2.86
+HSTree_large,new_insight_decision_region,insight,True,1.491,1.72
+HSTree_large,new_discrim_simulate_all_active,discrim,False,-0.501,-3.27
+HSTree_large,new_discrim_compactness,discrim,False,,no
+HSTree_large,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+HSTree_large,new_discrim_unit_sensitivity,discrim,False,2.914,"To determine how much the model's prediction changes when \( x_0 \) increases from 0 to 1, we need to follow the decision tree for both \( x_0 = 0 \) and \( x_0 = 1 \), while keeping \( x_1 = 0 \), \( x_2 = 0 \), and \( x_3 = 0 \). Note that only \( x_0 \) and \( x_1 \) are used in the tree, so \( x_2 \) and \( x_3 \) are irrelevant.
+
+### Step 1: Follow the tree for \( x_0 = 0, x_1 = 0 \)
+- Start at the root: \( x_0 > -0.01 \), so we go to the right branch.
+- Next condition: \( x_1 \leq 0.06 \), so we go to the left branch.
+- Next condition:"
+HSTree_large,new_discrim_predict_above_threshold,discrim,True,2.45,2.45
+HSTree_large,new_discrim_predict_below_threshold,discrim,True,0.04,0.04
+HSTree_large,new_discrim_simulate_mixed_sign,discrim,True,8.927,8.93
+HSTree_large,new_discrim_simulate_double_threshold,discrim,True,1.486,1.49
+HSTree_large,new_discrim_simulate_additive_nonlinear,discrim,True,4.575,4.58
+HSTree_large,new_discrim_simulate_interaction,discrim,True,11.043,10.54
+HSTree_large,new_simulatability_eight_features,simulatability,True,9.426,9.43
+HSTree_large,new_simulatability_fifteen_features_sparse,simulatability,True,10.649,10.65
+HSTree_large,new_simulatability_quadratic,simulatability,False,3.204,-9.16
+HSTree_large,new_simulatability_friedman1,simulatability,True,19.377,15.66
+HSTree_large,new_simulatability_cascading_threshold,simulatability,False,4.611,1.36
+HSTree_large,new_simulatability_exponential_decay,simulatability,False,2.309,5.05
+HSTree_large,new_simulatability_piecewise_three_segment,simulatability,True,1.527,**1.53**
+HSTree_large,new_simulatability_twenty_features_sparse,simulatability,True,8.567,9.94
+HSTree_large,new_simulatability_sinusoidal,simulatability,True,2.064,2.06
+HSTree_large,new_simulatability_abs_value,simulatability,False,3.221,5.91
+HSTree_large,new_simulatability_twelve_features_all_active,simulatability,False,11.816,1.43
+HSTree_large,new_simulatability_nested_threshold,simulatability,True,1.437,1.89
+EBM,new_most_important_feature,standard,False,x0,"To determine the single most important feature for predicting the output using an `ExplainableBoostingRegressor`, you would need to examine the feature importances or scores provided by the model. Since I don't have access to the model's specific details or data, I cannot directly identify the most important feature. However, you can find it by inspecting the `model.feature_importances_` or `model.explain_global()` output.
+
+If you provide the feature importance data or global explanation, I can help identify the most important feature."
+EBM,new_point_prediction,standard,False,8.812,I 
+EBM,new_direction_of_change,standard,False,10.509,"To determine the exact change in prediction when \( x_0 \) increases from 0.0 to 1.5, you would need access to the trained Explainable Boosting Regressor (EBR) model and its feature contributions. The EBR model provides additive contributions for each feature, so you would calculate the difference in the contribution of \( x_0 \) at 1.5 and 0.0.
+
+Without access to the model or its feature contribution values, it is **not possible** to provide a specific numerical answer. You would need to query the model directly or inspect its feature contribution graph for \( x_0 \)."
+EBM,new_feature_ranking,standard,False,"x0, x1, x2","I'm sorry, I can't determine the most important features without access to the model's feature importances or data."
+EBM,new_threshold_identification,standard,True,0.3,"I would need more information about the model, such as the data it was trained on or the feature importances, to determine the threshold value for \( x_0 \). However, if you have access to the Explainable Boosting Machine (EBM) model's feature graph for \( x_0 \), you can identify the approximate threshold by observing where the prediction values change significantly."
+EBM,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","To determine which features have little or no effect on the prediction in an `ExplainableBoostingRegressor` (EBM) model, you need to examine the feature importances or the magnitudes of the feature contributions. In EBM, this can be done by inspecting the **mean absolute scores** (or similar metrics) for each feature, which indicate how much each feature contributes to the predictions.
+
+However, since you haven't provided the actual output or feature importance values from the model, I cannot directly list the features with little or no effect. You can follow these steps to identify such features:
+
+1. Use the `explain_global()` method of your trained `ExplainableBoostingRegressor` model to get a summary of feature importances.
+   ```python
+   ebm_global = model.explain_global()
+   for i in range(len(ebm_global.data())):
+       print(ebm_global.data(i))
+   ```
+
+2. Look for features with very low or zero"
+EBM,new_sign_of_effect,standard,False,-5.986,"To determine how much the prediction changes when \( x_1 \) increases by 1 unit (with all other features at 0) for an **Explainable Boosting Regressor (EBR)**, you need to look at the contribution of \( x_1 \) in the model's additive structure. However, without access to the specific trained model or its feature contributions, it is impossible to provide a numerical answer.
+
+If you have access to the trained model, you can inspect the contribution of \( x_1 \) by examining its **individual feature function** (partial dependence plot or similar). The change in prediction when \( x_1 \) increases by 1 unit can be directly read from this function.
+
+If you can provide more details or access to the model's outputs, I can help further!"
+EBM,new_counterfactual_prediction,standard,False,11.757,4.38
+EBM,new_hard_all_features_active,hard,False,2.36,I 
+EBM,new_hard_pairwise_anti_intuitive,hard,False,3.304,I 
+EBM,new_hard_quantitative_sensitivity,hard,False,5.994,"To determine the exact change in the model's prediction when \( x_0 \) increases from 1.0 to 3.0 (with \( x_1 = 0 \) and \( x_2 = 0 \)), you would need access to the trained Explainable Boosting Regressor (EBR) model and its feature contributions. Without the actual model or its feature importances, it is impossible to compute the precise difference.
+
+If you have access to the EBR model, you can calculate this by evaluating the prediction at \( x_0 = 1.0, x_1 = 0, x_2 = 0 \) and subtracting it from the prediction at \( x_0 = 3.0, x_1 = 0, x_2 = 0 \). 
+
+If you can provide more details or access to the model's outputs, I can assist further!"
+EBM,new_hard_mixed_sign_goes_negative,hard,False,-4.343,I 
+EBM,new_hard_two_feature_perturbation,hard,False,9.736,I 
+EBM,new_insight_simulatability,insight,False,8.108,I 
+EBM,new_insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x3, x4, x5, x6, x7, x8, x9"
+EBM,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.
+EBM,new_insight_nonlinear_direction,insight,False,5.791,I 
+EBM,new_insight_counterfactual_target,insight,False,10.0,6.5
+EBM,new_insight_decision_region,insight,False,1.532,7.5
+EBM,new_discrim_simulate_all_active,discrim,False,2.486,I 
+EBM,new_discrim_compactness,discrim,False,,No
+EBM,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+EBM,new_discrim_unit_sensitivity,discrim,False,4.126,"The exact change in the model's prediction when \( x_0 \) increases from 0 to 1 depends on the specific contribution of \( x_0 \) learned by the Explainable Boosting Regressor (EBR). Without access to the trained model's feature contributions or additive terms, it is not possible to provide a single number."
+EBM,new_discrim_predict_above_threshold,discrim,False,2.37,I 
+EBM,new_discrim_predict_below_threshold,discrim,False,-0.02,I 
+EBM,new_discrim_simulate_mixed_sign,discrim,False,6.807,I 
+EBM,new_discrim_simulate_double_threshold,discrim,False,1.491,I 
+EBM,new_discrim_simulate_additive_nonlinear,discrim,False,4.91,I 
+EBM,new_discrim_simulate_interaction,discrim,False,16.752,I 
+EBM,new_simulatability_eight_features,simulatability,False,5.801,I 
+EBM,new_simulatability_fifteen_features_sparse,simulatability,False,15.56,"To provide a single number prediction, the actual trained model and its feature contributions are required. Without access to the model or its parameters, I "
+EBM,new_simulatability_quadratic,simulatability,False,0.789,I 
+EBM,new_simulatability_friedman1,simulatability,False,14.801,I 
+EBM,new_simulatability_cascading_threshold,simulatability,False,3.27,I 
+EBM,new_simulatability_exponential_decay,simulatability,False,2.827,I 
+EBM,new_simulatability_piecewise_three_segment,simulatability,False,1.708,I 
+EBM,new_simulatability_twenty_features_sparse,simulatability,False,13.496,The prediction for the given input 
+EBM,new_simulatability_sinusoidal,simulatability,False,2.383,I 
+EBM,new_simulatability_abs_value,simulatability,False,2.528,I 
+EBM,new_simulatability_twelve_features_all_active,simulatability,False,1.336,"I do not have access to the trained model or its internal parameters, so I "
+EBM,new_simulatability_nested_threshold,simulatability,False,1.385,I 
+TabPFN,new_most_important_feature,standard,False,x0,"The TabPFNRegressor does not provide direct feature importance scores, so it is not possible to determine the single most important feature without additional analysis."
+TabPFN,new_point_prediction,standard,False,9.034,"Sorry, I "
+TabPFN,new_direction_of_change,standard,False,10.445,I 
+TabPFN,new_feature_ranking,standard,False,"x0, x1, x2",
+TabPFN,new_threshold_identification,standard,False,0.3,42
+TabPFN,new_irrelevant_features,standard,False,"x1, x2, x3, x4, x5 are irrelevant","The `TabPFNRegressor` model does not provide direct feature importance scores or a built-in method to identify features with little or no effect on the prediction. To determine which features have little or no effect, you would need to perform additional analysis, such as:
+
+1. **Permutation Importance**: Measure the change in model performance when each feature is randomly shuffled.
+2. **Feature Ablation**: Train the model multiple times, each time removing one feature, and observe the impact on performance.
+3. **SHAP Values**: Use SHAP (SHapley Additive exPlanations) to analyze the contribution of each feature to the predictions.
+
+If you have already performed such an analysis and identified features with little or no effect, please provide that information so I can assist further. Otherwise, you will need to conduct one of these analyses to identify the features."
+TabPFN,new_sign_of_effect,standard,False,-6.059,"To determine how much the prediction changes when \( x_1 \) increases by 1 unit (with all other features set to 0), you need to evaluate the model's sensitivity to \( x_1 \). However, the exact value depends on the trained model's internal parameters and "
+TabPFN,new_counterfactual_prediction,standard,False,12.163,2.55
+TabPFN,new_hard_all_features_active,hard,False,2.536,I 
+TabPFN,new_hard_pairwise_anti_intuitive,hard,False,3.774,I 
+TabPFN,new_hard_quantitative_sensitivity,hard,False,8.661,I 
+TabPFN,new_hard_mixed_sign_goes_negative,hard,False,-4.333,I 
+TabPFN,new_hard_two_feature_perturbation,hard,False,10.044,-0.03
+TabPFN,new_insight_simulatability,insight,False,8.527,I 
+TabPFN,new_insight_sparse_feature_set,insight,False,"x0, x1 only","x0, x1, x2, x3, x4, x5, x6, x7, x8, x9"
+TabPFN,new_insight_nonlinear_threshold,insight,True,~0 (flat for x0<0),0.5
+TabPFN,new_insight_nonlinear_direction,insight,False,5.969,I 
+TabPFN,new_insight_counterfactual_target,insight,False,2.489,7.5
+TabPFN,new_insight_decision_region,insight,False,1.507,7.5
+TabPFN,new_discrim_simulate_all_active,discrim,False,2.428,I 
+TabPFN,new_discrim_compactness,discrim,False,,No
+TabPFN,new_discrim_dominant_feature_sample,discrim,True,x0,x0
+TabPFN,new_discrim_unit_sensitivity,discrim,False,4.104,The exact change in the model's prediction when \( x_0 \) increases from 0 to 1 
+TabPFN,new_discrim_predict_above_threshold,discrim,False,2.48,I 
+TabPFN,new_discrim_predict_below_threshold,discrim,False,0.01,I 
+TabPFN,new_discrim_simulate_mixed_sign,discrim,False,7.004,I 
+TabPFN,new_discrim_simulate_double_threshold,discrim,False,1.493,I 
+TabPFN,new_discrim_simulate_additive_nonlinear,discrim,False,4.996,"Sorry, I "
+TabPFN,new_discrim_simulate_interaction,discrim,False,15.623,I 
+TabPFN,new_simulatability_eight_features,simulatability,False,5.37,I do not have the ability to directly execute or query the trained model `TabPFNRegressor` to provide a prediction. You would need to use the model in your Python environment and call its `predict` method with the input data.
+TabPFN,new_simulatability_fifteen_features_sparse,simulatability,False,15.589,I 
+TabPFN,new_simulatability_quadratic,simulatability,False,0.824,I 
+TabPFN,new_simulatability_friedman1,simulatability,False,14.561,I 
+TabPFN,new_simulatability_cascading_threshold,simulatability,False,2.941,I 
+TabPFN,new_simulatability_exponential_decay,simulatability,False,2.927,I 
+TabPFN,new_simulatability_piecewise_three_segment,simulatability,False,1.639,I 
+TabPFN,new_simulatability_twenty_features_sparse,simulatability,False,12.971,I 
+TabPFN,new_simulatability_sinusoidal,simulatability,False,2.358,I 
+TabPFN,new_simulatability_abs_value,simulatability,False,2.793,"Sorry, I "
+TabPFN,new_simulatability_twelve_features_all_active,simulatability,False,1.647,I 
+TabPFN,new_simulatability_nested_threshold,simulatability,False,1.437,I 
