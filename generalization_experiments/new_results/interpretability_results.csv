@@ -3522,3 +3522,197 @@ TabPFN,new_simulatability_sinusoidal,simulatability,False,2.358,I
 TabPFN,new_simulatability_abs_value,simulatability,False,2.793,"Sorry, I "
 TabPFN,new_simulatability_twelve_features_all_active,simulatability,False,1.647,I 
 TabPFN,new_simulatability_nested_threshold,simulatability,False,1.437,I 
+HingeEBM_big,new_simulatability_triple_interaction,simulatability,True,-1.413,-0.0882
+HingeEBM_big,new_simulatability_quadratic_counterfactual,simulatability,False,10.061,"The coefficient for \( x_0 \) is \( 0.4740 \). The change in \( x_0 \) is from \( 0.0 \) to \( 2.0 \), so the change in prediction is:
+
+\[
+\Delta y = 0.4740 \times (2.0 - 0.0) = 0.4740 \times 2.0 = 0.948
+\]
+
+The prediction increases by **0.948**."
+SklearnGAM_hybrid,new_simulatability_triple_interaction,simulatability,True,0.183,-0.0519
+SklearnGAM_hybrid,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmoothGAM_RF,new_simulatability_triple_interaction,simulatability,True,-0.004,-0.0519
+SmoothGAM_RF,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+HingeEBM_LinDisp,new_simulatability_triple_interaction,simulatability,False,-1.669,-0.0882
+HingeEBM_LinDisp,new_simulatability_quadratic_counterfactual,simulatability,False,9.983,"The coefficient for \( x_0 \) is \( 0.4740 \). The change in \( x_0 \) is from \( 0.0 \) to \( 2.0 \), so the change in prediction is:
+
+\[
+\Delta y = 0.4740 \times (2.0 - 0.0) = 0.4740 \times 2.0 = 0.948
+\]
+
+The prediction increases by **0.948**."
+SmartAdditive_v5,new_simulatability_triple_interaction,simulatability,True,0.017,"The prediction for the given inputs is:
+
+**-0.0070**"
+SmartAdditive_v5,new_simulatability_quadratic_counterfactual,simulatability,True,9.268,The prediction changes by **9.7067**.
+SmoothGAM_noES,new_simulatability_triple_interaction,simulatability,True,0.183,-0.0519
+SmoothGAM_noES,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmoothGAM_hybrid,new_simulatability_triple_interaction,simulatability,True,0.183,-0.0519
+SmoothGAM_hybrid,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmartAddGAM_r90,new_simulatability_triple_interaction,simulatability,True,0.017,"The prediction for the given inputs is:
+
+**-0.0070**"
+SmartAddGAM_r90,new_simulatability_quadratic_counterfactual,simulatability,True,9.268,The prediction changes by **9.7067**.
+SmoothGAM_RF100,new_simulatability_triple_interaction,simulatability,True,-0.019,-0.0519
+SmoothGAM_RF100,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmartAdditive_v1,new_simulatability_triple_interaction,simulatability,True,0.017,"The prediction for the given inputs is:
+
+**-0.0070**"
+SmartAdditive_v1,new_simulatability_quadratic_counterfactual,simulatability,True,9.268,The prediction changes by **9.7062**.
+HingeEBM_5bag,new_simulatability_triple_interaction,simulatability,True,-1.577,-0.0882
+HingeEBM_5bag,new_simulatability_quadratic_counterfactual,simulatability,False,10.061,"The coefficient for \( x_0 \) is \( 0.4740 \). The change in \( x_0 \) is from \( 0.0 \) to \( 2.0 \), so the change in prediction is:
+
+\[
+\Delta y = 0.4740 \times (2.0 - 0.0) = 0.4740 \times 2.0 = 0.948
+\]
+
+The prediction increases by **0.948**."
+HingeEBM_smart,new_simulatability_triple_interaction,simulatability,False,-1.669,-0.0882
+HingeEBM_smart,new_simulatability_quadratic_counterfactual,simulatability,False,10.061,"The coefficient for \( x_0 \) is \( 0.4740 \). The change in \( x_0 \) is from \( 0.0 \) to \( 2.0 \), so the change in prediction is:
+
+\[
+\Delta y = 0.4740 \times (2.0 - 0.0) = 0.4740 \times 2.0 = 0.948
+\]
+
+The prediction increases by **0.948**."
+SmoothGAM_RF_sqrt,new_simulatability_triple_interaction,simulatability,True,-0.036,-0.0519
+SmoothGAM_RF_sqrt,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmoothGAM_tinyGBM,new_simulatability_triple_interaction,simulatability,True,0.024,-0.0519
+SmoothGAM_tinyGBM,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+FullPWC_LinDisp,new_simulatability_triple_interaction,simulatability,True,0.017,"The prediction for the given inputs is:
+
+**-0.0070**"
+FullPWC_LinDisp,new_simulatability_quadratic_counterfactual,simulatability,True,9.268,The prediction changes by **9.7067**.
+SmoothGAM_40s,new_simulatability_triple_interaction,simulatability,True,0.063,-0.0519
+SmoothGAM_40s,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+HingeGBM_v1,new_simulatability_triple_interaction,simulatability,True,-0.14,-0.0882
+HingeGBM_v1,new_simulatability_quadratic_counterfactual,simulatability,False,10.061,"The coefficient for \( x_0 \) is \( 0.4740 \). The change in \( x_0 \) is from \( 0.0 \) to \( 2.0 \), so the change in prediction is:
+
+\[
+\Delta y = 0.4740 \times (2.0 - 0.0) = 0.4740 \times 2.0 = 0.948
+\]
+
+The prediction increases by **0.948**."
+SklearnStumpGAM_v1,new_simulatability_triple_interaction,simulatability,True,0.017,"The prediction for the given inputs is:
+
+**-0.0070**"
+SklearnStumpGAM_v1,new_simulatability_quadratic_counterfactual,simulatability,True,9.268,The prediction changes by **9.7067**.
+SmoothGAM_50s,new_simulatability_triple_interaction,simulatability,True,0.07,-0.0519
+SmoothGAM_50s,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmoothGAM_r70hyb,new_simulatability_triple_interaction,simulatability,True,0.183,-0.0519
+SmoothGAM_r70hyb,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+DistilledGAM_v1,new_simulatability_triple_interaction,simulatability,False,-0.262,The prediction is **-2.3667**.
+DistilledGAM_v1,new_simulatability_quadratic_counterfactual,simulatability,False,9.476,"The prediction change is calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(10.7119\), and \(\Delta x0 = 2.0 - 0.0 = 2.0\).
+
+\[
+\Delta y = 10.7119 \times 2.0 = 21.4238
+\]
+
+**Answer: 21.4238**"
+SmartAdditive_v2,new_simulatability_triple_interaction,simulatability,True,0.017,"The prediction for the given inputs is:
+
+**-0.0070**"
+SmartAdditive_v2,new_simulatability_quadratic_counterfactual,simulatability,True,9.268,The prediction changes by **9.7062**.
+HingeEBM_v1,new_simulatability_triple_interaction,simulatability,False,-1.669,-0.0882
+HingeEBM_v1,new_simulatability_quadratic_counterfactual,simulatability,False,10.006,The prediction changes by **12.8**.
+SmoothGAM_v1,new_simulatability_triple_interaction,simulatability,True,0.183,-0.0519
+SmoothGAM_v1,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+SmoothGAM_ES,new_simulatability_triple_interaction,simulatability,True,0.183,-0.0519
+SmoothGAM_ES,new_simulatability_quadratic_counterfactual,simulatability,True,8.525,The prediction changes by **9.7355**.
+PyGAM,new_simulatability_triple_interaction,simulatability,False,-0.084,4.019
+PyGAM,new_simulatability_quadratic_counterfactual,simulatability,True,10.099,The prediction change is **11.98**.
+DT_mini,new_simulatability_triple_interaction,simulatability,True,-0.114,-0.11
+DT_mini,new_simulatability_quadratic_counterfactual,simulatability,False,4.592,The prediction changes by **7.93**.
+DT_large,new_simulatability_triple_interaction,simulatability,False,-3.266,0.24
+DT_large,new_simulatability_quadratic_counterfactual,simulatability,True,8.232,The prediction changes by **7.85**.
+OLS,new_simulatability_triple_interaction,simulatability,True,-0.324,-0.24638
+OLS,new_simulatability_quadratic_counterfactual,simulatability,True,0.322,"The change in prediction is calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(0.1610\), and \(\Delta x0 = 2.0 - 0.0 = 2.0\).
+
+\[
+\Delta y = 0.1610 \times 2.0 = 0.322
+\]
+
+**Answer: 0.322**"
+LassoCV,new_simulatability_triple_interaction,simulatability,True,-0.088,"The prediction is:
+
+\[
+y = (\text{intercept}) + (\text{coefficient of } x3 \times x3) + (\text{coefficient of } x4 \times x4)
+\]
+
+Substituting the values:
+
+\[
+y = -0.0563 + (-0.0532 \times 0.6) + (-0.0076 \times 0.0)
+\]
+
+\[
+y = -0.0563 - 0.03192 + 0
+\]
+
+\[
+y = -0.08822
+\]
+
+**Answer: -0.0882**"
+LassoCV,new_simulatability_quadratic_counterfactual,simulatability,True,0.318,"To calculate the change in prediction when \( x_0 \) goes from 0.0 to 2.0, we use the coefficient of \( x_0 \), which is 0.1591.
+
+The change in prediction is:
+
+\[
+\Delta \text{prediction} = \text{coefficient of } x_0 \times \Delta x_0
+\]
+
+\[
+\Delta \text{prediction} = 0.1591 \times (2.0 - 0.0) = 0.1591 \times 2.0 = 0.3182
+\]
+
+**Answer: 0.3182**"
+RidgeCV,new_simulatability_triple_interaction,simulatability,True,-0.322,-0.2461
+RidgeCV,new_simulatability_quadratic_counterfactual,simulatability,True,0.319,"The change in prediction is calculated as:
+
+\[
+\Delta y = \text{coefficient of } x0 \times \Delta x0
+\]
+
+Here, the coefficient of \(x0\) is \(0.1593\), and \(\Delta x0 = 2.0 - 0.0 = 2.0\).
+
+\[
+\Delta y = 0.1593 \times 2.0 = 0.3186
+\]
+
+**Answer: 0.3186**"
+RF,new_simulatability_triple_interaction,simulatability,False,-0.057,5.61
+RF,new_simulatability_quadratic_counterfactual,simulatability,False,8.074,0.52
+GBM,new_simulatability_triple_interaction,simulatability,True,-1.151,-0.06
+GBM,new_simulatability_quadratic_counterfactual,simulatability,False,9.136,The prediction changes by **6.73**.
+MLP,new_simulatability_triple_interaction,simulatability,False,-1.805,The prediction 
+MLP,new_simulatability_quadratic_counterfactual,simulatability,False,10.376,The prediction change 
+FIGS_mini,new_simulatability_triple_interaction,simulatability,False,-0.084,4.031
+FIGS_mini,new_simulatability_quadratic_counterfactual,simulatability,False,6.414,The prediction changes by **10.704**.
+FIGS_large,new_simulatability_triple_interaction,simulatability,False,-3.266,17.578
+FIGS_large,new_simulatability_quadratic_counterfactual,simulatability,False,10.739,The prediction changes by **7.457**.
+RuleFit,new_simulatability_triple_interaction,simulatability,False,-2.282,0.39
+RuleFit,new_simulatability_quadratic_counterfactual,simulatability,False,5.306,The prediction changes by **0.11**.
+HSTree_mini,new_simulatability_triple_interaction,simulatability,True,-0.114,-0.11
+HSTree_mini,new_simulatability_quadratic_counterfactual,simulatability,False,4.613,6.95
+HSTree_large,new_simulatability_triple_interaction,simulatability,False,-3.259,1.05
+HSTree_large,new_simulatability_quadratic_counterfactual,simulatability,False,8.189,The prediction changes by **4.22**.
+EBM,new_simulatability_triple_interaction,simulatability,False,-1.178,I 
+EBM,new_simulatability_quadratic_counterfactual,simulatability,False,10.071,"To determine the exact change in prediction when \( x_0 \) goes from 0.0 to 2.0, while holding \( x_1 = 0.5 \), \( x_2 = 1.0 \), \( x_3 = 0.0 \), and \( x_4 = 0.0 \) fixed, you would need access to the trained Explainable Boosting Regressor (EBR) model and its feature contributions.
+
+Since I don't have access to the model or its data, I "
+TabPFN,new_simulatability_triple_interaction,simulatability,False,-0.967,I 
+TabPFN,new_simulatability_quadratic_counterfactual,simulatability,False,9.967,I 

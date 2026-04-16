@@ -1196,6 +1196,63 @@ def new_simulatability_nested_threshold(model, llm):
                 ground_truth=round(true_pred, 3), response=response)
 
 
+def _v_triple_interaction_data(n=1000, seed=163):
+    """y = 2*x0*x1 + 3*x1*x2 + x0*x2*x3, multi-way interactions (varied seed)."""
+    rng = np.random.RandomState(seed)
+    X = rng.randn(n, 6)
+    y = (2.0 * X[:, 0] * X[:, 1] + 3.0 * X[:, 1] * X[:, 2]
+         + X[:, 0] * X[:, 2] * X[:, 3] + rng.randn(n) * 0.4)
+    return X, y
+
+
+def new_simulatability_triple_interaction(model, llm):
+    """Simulate on data with multi-way interactions: 2*x0*x1 + 3*x1*x2 + x0*x2*x3."""
+    X, y = _v_triple_interaction_data()
+    names = [f"x{i}" for i in range(6)]
+    m = _safe_clone(model); m.fit(X, y)
+    sample = np.array([[0.8, -0.3, 1.2, 0.6, 0.0, 0.0]])
+    true_pred = float(m.predict(sample)[0])
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "What does this model predict for x0=0.8, x1=-0.3, x2=1.2, x3=0.6, x4=0.0, x5=0.0? "
+        "Answer with just a single number.",
+    )
+    tol = max(abs(true_pred) * 0.25, 1.5)
+    passed = False
+    for num_str in reversed(re.findall(r"-?\d+\.?\d*", response or "")):
+        try:
+            if abs(float(num_str) - true_pred) < tol:
+                passed = True; break
+        except ValueError: pass
+    return dict(test="new_simulatability_triple_interaction", passed=passed,
+                ground_truth=round(true_pred, 3), response=response)
+
+
+def new_simulatability_quadratic_counterfactual(model, llm):
+    """Counterfactual on quadratic data: how does prediction change when x0 goes from 0 to 2?"""
+    X, y = _v_quadratic_data()
+    names = [f"x{i}" for i in range(5)]
+    m = _safe_clone(model); m.fit(X, y)
+    base = np.array([[0.0, 0.5, 1.0, 0.0, 0.0]])
+    changed = np.array([[2.0, 0.5, 1.0, 0.0, 0.0]])
+    delta = float(m.predict(changed)[0]) - float(m.predict(base)[0])
+    response = ask_llm(
+        llm, get_model_str(m, names),
+        "By how much does the prediction change when x0 goes from 0.0 to 2.0, "
+        "with x1=0.5, x2=1.0, x3=0.0, x4=0.0 held fixed? "
+        "Give just a number (positive if prediction increases).",
+    )
+    tol = max(abs(delta) * 0.2, 1.5)
+    passed = False
+    nums = re.findall(r"-?\d+\.?\d*", response or "")
+    if nums:
+        try:
+            passed = abs(float(nums[0]) - delta) < tol
+        except ValueError: pass
+    return dict(test="new_simulatability_quadratic_counterfactual", passed=passed,
+                ground_truth=round(delta, 3), response=response)
+
+
 # --- Test lists ---
 
 NEW_STANDARD_TESTS = [
@@ -1243,8 +1300,10 @@ NEW_SIMULATABILITY_TESTS = [
     new_simulatability_eight_features,
     new_simulatability_fifteen_features_sparse,
     new_simulatability_quadratic,
+    new_simulatability_triple_interaction,
     new_simulatability_friedman1,
     new_simulatability_cascading_threshold,
+    new_simulatability_quadratic_counterfactual,
     new_simulatability_exponential_decay,
     new_simulatability_piecewise_three_segment,
     new_simulatability_twenty_features_sparse,
