@@ -1,0 +1,62 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,6.89,0.4186,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,11.65,0.6744,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,11.29,0.5349,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,8.98,0.7442,baseline,OLS,ordinary least squares linear regression
+baseline,9.45,0.5349,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,8.94,0.7674,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,5.75,0.2326,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,5.46,0.5349,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,12.05,0.1628,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,10.14,0.3953,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,9.72,0.5814,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,8.00,0.2791,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,11.09,0.7674,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,9.26,0.6744,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,4.32,0.0465,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,3.00,0.0698,baseline,TabPFN,TabPFN foundation model for tabular data
+5a20cfe,10.72,0.6744,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+d3246f0,7.48,0.3023,discard,SparseHingeAdd_v1,"Sparse additive regressor with standardized linear and hinge basis terms selected by L1, then OLS refit"
+3d3758e,11.54,0.4884,discard,SparseSymbolicGreedy_v1,"Greedy sparse symbolic regressor using linear, hinge, square, and interaction terms with compact equation output"
+5ce4dec,9.28,0.4186,discard,AnchorSplineOMP_v1,"Forward-selected compact equation with linear, hinge, square, and limited interaction terms optimized for readable simulation"
+15362c5,8.77,0.4884,discard,ResidualKnotRidge_v1,Ridge linear backbone with greedily selected residual hinge corrections and compact equation-oriented string output
+0b3ddb7,10.02,0.5814,discard,SplitSparseLinear_v1,Single-split sparse linear model tree with branch-specific equations and explicit simulation-friendly rule output
+3f88e23,12.97,0.5116,discard,SparseKnotLinear_v2,Sparse ridge linear backbone with a single data-driven hinge knot term for compact threshold-aware equations
+5ac0424,12.82,0.5581,discard,CompactResidualSpline_v1,Greedy compact equation: sparse linear backbone plus up to two residual hinge atoms with joint ridge refits
+63f9575,12.35,0.5116,discard,SparseAdditiveKnot_v1,Greedy sparse additive one-knot-per-feature model with explicit piecewise slopes and direct simulation equation
+63c5781,13.20,0.6047,discard,CompactRuleLinear_v1,Sparse ridge linear backbone plus a tiny residual additive stump-rule set with calculator-friendly simulation string
+3de1542,9.66,0.5814,keep,ResidualBasisRidge_v1,Ridge linear backbone over top-correlated features plus greedy residual hinge/interaction basis corrections with explicit symbolic equation
+1abbfae,12.55,0.6047,discard,SparseResidualHybrid_v1,Full-feature ridge baseline with one greedily selected residual nonlinear basis term (hinge or absolute knot) and compact equation output
+fa6b31d,12.18,0.4884,discard,ValidatedSymbolicResidual_v1,"OLS backbone with validation-gated symbolic residual terms (hinge, abs, square, interaction) selected greedily for compact nonlinear correction"
+777d1a2,18.15,0.6744,discard,SparseRidgeOneHinge_v1,Sparse ridge linear backbone with validation-selected one-feature hinge correction and calculator-first equation output
+d5523a0,16.45,0.5814,discard,DenseBackboneHingePair_v1,Dense ridge backbone over all features with validation-selected up-to-two hinge corrections and explicit full equation table
+2352729,12.82,0.5116,discard,ScreenedAdaptiveBasis_v1,"Correlation-screened sparse basis regressor with standardized linear, square, and zero-knot hinge atoms fit by ridge for compact simulation-ready equations"
+d4b8208,18.37,0.6512,discard,SparseQuantizedKnot_v1,"Compact sparse piecewise-linear regressor: correlation-screened linear backbone plus one-knot hinge atoms, hard-capped active terms, and direct raw-feature equation output"
+4c07b1f,18.69,0.4651,discard,SymbolicResidualHybridDense_v1,"Dense ridge linear backbone with at most two residual symbolic corrections (hinge/interaction), exported as an exact raw-feature equation"
+6c5185f,32.51,0.4884,discard,BackfitHingeGAM_v1,Sparse additive backfitting with per-feature piecewise-linear hinge bases and explicit simulation-ready equation
+cb757ff,24.57,0.3488,discard,ProjectedSplineResidual_v1,Sparse screened linear backbone with a global projected hinge-spline correction and explicit two-step symbolic equation
+00215bb,18.17,0.3953,discard,SparseSignedHingeDict_v1,"Correlation-screened additive dictionary with signed zero-knot hinges, quadratic atoms, one optional interaction, and hard-pruned OLS refit"
+02b9230,20.91,0.2558,discard,SparsePairwiseSpline_v1,"Two-stage sparse additive spline regressor: correlation screening, quantile hinge pairs per feature, optional centered interaction, group pruning, and symbolic raw-feature equation"
+552583b,,0.6047,crash,QuantizedAdaptiveRidge_v1,"From-scratch CV ridge on raw features with post-fit coefficient pruning, OLS refit, and quantized symbolic coefficients for easier simulation"
+88dbe21,27.69,0.6047,discard,QuantizedAdaptiveRidge_v2,"From-scratch CV ridge with singular-safe solve, post-fit pruning, OLS refit, and quantized raw-feature coefficients for simulation-friendly equations"
+ee013e2,,0.0000,crash,DenseRidgeOneKnot_v1,Dense custom CV ridge backbone with optional single feature hinge correction selected by cross-validated residual gain
+896d3e7,16.49,0.5814,discard,DenseRidgeOneKnot_v2,Dense custom CV ridge backbone with optional single feature hinge correction selected by cross-validated residual gain (cache-safe rerun)
+2656722,20.17,0.6279,discard,LinearStepRule_v1,Custom CV ridge backbone over all features with one validation-selected binary threshold step correction and calculator-first equation output
+9963b22,20.29,0.6744,discard,TwinHingeAdditiveRidge_v1,RidgeCV linear backbone with up to two validation-selected one-feature hinge corrections for compact piecewise-additive equations
+88eeecc,19.82,0.4186,discard,AdditiveStepRidge_v1,RidgeCV backbone on standardized features plus validation-selected additive one-feature threshold step corrections with explicit simulation recipe
+21b6916,22.94,0.6512,discard,ScoreSplineLinear_v1,From-scratch CV ridge on raw features plus optional single hinge correction on the linear score selected by validation gain
+fbeb241,23.80,0.7674,discard,AdaptiveStepLinear_v1,From-scratch CV ridge on raw features with one validation-selected binary threshold step correction for residuals
+8aa7b3d,25.82,0.6977,discard,DebiasedSparseLinear_v1,"From-scratch proximal-gradient L1 sparse linear model with CV lambda selection, OLS debias refit on active terms, and capped active-feature equation"
+bcf9ec9,26.52,0.6512,discard,SpectralRidgeCV_v1,From-scratch SVD-solved ridge regression with cross-validated alpha on standardized features and full explicit linear equation output
+f231a49,23.89,0.5349,discard,ResidualStumpRidge_v1,"Custom model with RidgeCV linear backbone plus one data-driven residual stump correction, exported as exact equation + one threshold rule"
+b9686da,,0.5581,,SingleIndexSpline_v1,Correlation-screened ridge linear score with a tiny CV-regularized hinge spline calibration on the score for compact nonlinear correction
+4527914,23.28,0.5581,discard,SingleIndexSpline_v2,Correlation-screened ridge linear score with singular-safe tiny CV-regularized hinge spline calibration for compact nonlinear correction
+f8df18c,33.28,0.6512,discard,GreedyMedianHinge_v1,Forward-selected sparse raw-feature equation using linear + median-hinge + tiny interaction candidates with CV ridge refit
+31bfd3c,30.46,0.5581,discard,RobustAdaptiveLinear_v1,From-scratch IRLS robust linear model with CV-selected adaptive diagonal ridge penalties based on feature-target correlation
+762a384,21.98,0.3953,discard,SparseAdditiveHingeRidge_v1,From-scratch correlation-screened additive hinge basis model with CV ridge fit and exact raw-feature symbolic equation
+d4e7f8e,32.37,0.5581,discard,LinearBoostedRules_v1,CV-ridge linear backbone with a tiny greedy ensemble of centered threshold-rule residual corrections and exact symbolic equation
+9386b13,33.68,0.3721,discard,SparseMeanHingeAdditive_v1,"From-scratch additive piecewise-linear model with per-feature mean-knot hinges, ridge-CV fitting, group sparsification, and exact raw-feature equation output"
+0daf831,29.32,0.5581,,SplitLinearModelTree_v1,Single-split sparse linear model tree: one correlation-screened threshold rule with branch-specific ridge-CV equations in raw feature space
+3d00be9,31.12,0.6512,discard,OrthogonalRidgeEquation_v1,"From-scratch dense ridge-style linear regressor with SVD solver, CV alpha selection, and explicit raw-feature equation optimized for direct simulation"
+08d1967,23.46,0.4186,discard,SparseAdaptiveSplineRidge_v1,"From-scratch greedy sparse additive model with linear and quantile hinge basis terms, CV ridge refits, and a compact raw-feature equation"
+0dddb10,24.28,0.5116,discard,SparseLinearRuleBoost_v1,From-scratch sparse standardized linear backbone plus tiny residual stump boosting with explicit step-by-step simulation rules
