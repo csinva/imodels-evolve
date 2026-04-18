@@ -1,0 +1,413 @@
+"""
+Interpretable regressor autoresearch script.
+Defines a scikit-learn compatible interpretable regressor and evaluates it
+on interpretability tests and TabArena regression datasets (same suite used
+for baselines in run_baselines.py).
+
+Usage: uv run model.py
+"""
+
+import csv
+import os
+import subprocess
+import sys
+import time
+from collections import defaultdict
+
+import numpy as np
+from sklearn.base import BaseEstimator, RegressorMixin
+from sklearn.utils.validation import check_is_fitted
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
+from interp_eval import run_all_interp_tests, ALL_TESTS, HARD_TESTS, INSIGHT_TESTS
+from performance_eval import RESULTS_DIR, upsert_overall_results, evaluate_all_regressors, compute_rank_scores
+from visualize import plot_interp_vs_performance
+
+# ---------------------------------------------------------------------------
+# Interpretable Regressor (edit this, everything in this class is fair game)
+# ---------------------------------------------------------------------------
+
+
+class SparseHingeAdditiveRegressor(BaseEstimator, RegressorMixin):
+    """
+    Sparse additive regressor with greedy term selection.
+
+    Candidate terms:
+      - linear: x_j
+      - quadratic: x_j^2
+      - absolute value: |x_j|
+      - hinge pairs around feature quantiles: max(0, x_j - q), max(0, q - x_j)
+      - pairwise interactions among the most target-correlated raw features: x_i * x_j
+
+    A small set of terms is selected with an OMP-style loop. This keeps the model
+    compact enough for text-based simulation while still capturing nonlinearities.
+    """
+
+    def __init__(
+        self,
+        max_terms=14,
+        top_interaction_features=6,
+        min_relative_gain=1e-3,
+    ):
+        self.max_terms = max_terms
+        self.top_interaction_features = top_interaction_features
+        self.min_relative_gain = min_relative_gain
+
+    def _interaction_pairs(self, X, y):
+        n_features = X.shape[1]
+        if n_features < 2:
+            return []
+
+        y_centered = y - y.mean()
+        y_norm = float(np.linalg.norm(y_centered)) + 1e-12
+        x_centered = X - X.mean(axis=0, keepdims=True)
+        x_norms = np.linalg.norm(x_centered, axis=0) + 1e-12
+        corrs = np.abs((x_centered.T @ y_centered) / (x_norms * y_norm))
+
+        top_k = min(self.top_interaction_features, n_features)
+        top_idx = np.argsort(corrs)[::-1][:top_k]
+
+        pairs = []
+        for i in range(len(top_idx)):
+            for j in range(i + 1, len(top_idx)):
+                pairs.append((int(top_idx[i]), int(top_idx[j])))
+        return pairs
+
+    def _build_term_defs(self, X, y):
+        n_features = X.shape[1]
+        quantiles = np.quantile(X, [0.25, 0.5, 0.75], axis=0).T
+        term_defs = []
+
+        for feat_idx in range(n_features):
+            term_defs.append(("x", feat_idx))
+        for feat_idx in range(n_features):
+            term_defs.append(("x2", feat_idx))
+        for feat_idx in range(n_features):
+            term_defs.append(("abs", feat_idx))
+
+        for feat_idx in range(n_features):
+            q1, q2, q3 = quantiles[feat_idx]
+            term_defs.append(("hinge_pos", feat_idx, float(q1)))
+            term_defs.append(("hinge_neg", feat_idx, float(q1)))
+            term_defs.append(("hinge_pos", feat_idx, float(q2)))
+            term_defs.append(("hinge_neg", feat_idx, float(q2)))
+            term_defs.append(("hinge_pos", feat_idx, float(q3)))
+            term_defs.append(("hinge_neg", feat_idx, float(q3)))
+
+        for i, j in self._interaction_pairs(X, y):
+            term_defs.append(("xprod", i, j))
+
+        return term_defs
+
+    @staticmethod
+    def _eval_terms(X, term_defs):
+        cols = []
+        for term in term_defs:
+            kind = term[0]
+            if kind == "x":
+                col = X[:, term[1]]
+            elif kind == "x2":
+                xj = X[:, term[1]]
+                col = xj * xj
+            elif kind == "abs":
+                col = np.abs(X[:, term[1]])
+            elif kind == "hinge_pos":
+                col = np.maximum(0.0, X[:, term[1]] - term[2])
+            elif kind == "hinge_neg":
+                col = np.maximum(0.0, term[2] - X[:, term[1]])
+            elif kind == "xprod":
+                col = X[:, term[1]] * X[:, term[2]]
+            else:
+                raise ValueError(f"Unknown term type: {kind}")
+            cols.append(col.astype(float))
+        return np.column_stack(cols) if cols else np.zeros((X.shape[0], 0), dtype=float)
+
+    @staticmethod
+    def _term_to_string(term):
+        kind = term[0]
+        if kind == "x":
+            return f"x{term[1]}"
+        if kind == "x2":
+            return f"(x{term[1]}^2)"
+        if kind == "abs":
+            return f"|x{term[1]}|"
+        if kind == "hinge_pos":
+            return f"max(0, x{term[1]} - {term[2]:.4f})"
+        if kind == "hinge_neg":
+            return f"max(0, {term[2]:.4f} - x{term[1]})"
+        if kind == "xprod":
+            return f"(x{term[1]} * x{term[2]})"
+        return str(term)
+
+    def fit(self, X, y):
+        X = np.asarray(X, dtype=float)
+        y = np.asarray(y, dtype=float).reshape(-1)
+        self.n_features_in_ = X.shape[1]
+
+        self.intercept_ = float(y.mean())
+        target = y - self.intercept_
+
+        self.all_term_defs_ = self._build_term_defs(X, y)
+        Z = self._eval_terms(X, self.all_term_defs_)
+
+        if Z.shape[1] == 0:
+            self.active_term_defs_ = []
+            self.coef_ = np.zeros(0, dtype=float)
+            return self
+
+        col_norms = np.linalg.norm(Z, axis=0) + 1e-12
+        selected = []
+        current_pred = np.zeros_like(target)
+        prev_mse = float(np.mean((target - current_pred) ** 2))
+
+        max_rounds = min(self.max_terms, Z.shape[1])
+        for _ in range(max_rounds):
+            resid = target - current_pred
+            scores = np.abs(Z.T @ resid) / col_norms
+            if selected:
+                scores[np.array(selected, dtype=int)] = -np.inf
+
+            best_idx = int(np.argmax(scores))
+            best_score = float(scores[best_idx])
+            if not np.isfinite(best_score) or best_score <= 1e-12:
+                break
+
+            trial_selected = selected + [best_idx]
+            W = Z[:, trial_selected]
+            beta, *_ = np.linalg.lstsq(W, target, rcond=None)
+            trial_pred = W @ beta
+            mse = float(np.mean((target - trial_pred) ** 2))
+
+            rel_gain = (prev_mse - mse) / (abs(prev_mse) + 1e-12)
+            if selected and rel_gain < self.min_relative_gain:
+                break
+
+            selected = trial_selected
+            current_pred = trial_pred
+            prev_mse = mse
+
+        if selected:
+            W = Z[:, selected]
+            beta, *_ = np.linalg.lstsq(W, target, rcond=None)
+            beta = np.asarray(beta, dtype=float)
+
+            keep_mask = np.abs(beta) > 1e-10
+            self.active_term_defs_ = [self.all_term_defs_[selected[i]] for i in range(len(selected)) if keep_mask[i]]
+            self.coef_ = beta[keep_mask]
+        else:
+            self.active_term_defs_ = []
+            self.coef_ = np.zeros(0, dtype=float)
+
+        feat_importance = np.zeros(self.n_features_in_, dtype=float)
+        for coef, term in zip(self.coef_, self.active_term_defs_):
+            kind = term[0]
+            if kind in {"x", "x2", "abs", "hinge_pos", "hinge_neg"}:
+                feat_importance[term[1]] += abs(float(coef))
+            elif kind == "xprod":
+                feat_importance[term[1]] += 0.5 * abs(float(coef))
+                feat_importance[term[2]] += 0.5 * abs(float(coef))
+        self.feature_importance_ = feat_importance
+        return self
+
+    def predict(self, X):
+        check_is_fitted(self, ["intercept_", "active_term_defs_", "coef_"])
+        X = np.asarray(X, dtype=float)
+        if X.ndim == 1:
+            X = X.reshape(1, -1)
+        if len(self.active_term_defs_) == 0:
+            return np.full(X.shape[0], self.intercept_, dtype=float)
+        Z = self._eval_terms(X, self.active_term_defs_)
+        return self.intercept_ + Z @ self.coef_
+
+    def __str__(self):
+        check_is_fitted(self, ["intercept_", "active_term_defs_", "coef_", "feature_importance_"])
+        lines = [
+            "Sparse Hinge-Additive Regressor",
+            "Prediction rule: y = intercept + sum_k coef_k * term_k",
+            f"intercept: {self.intercept_:+.6f}",
+            "",
+            "Active terms (largest |coef| first):",
+        ]
+
+        if len(self.coef_) == 0:
+            lines.append("  (no active terms; constant predictor)")
+        else:
+            order = np.argsort(np.abs(self.coef_))[::-1]
+            for rank, idx in enumerate(order, 1):
+                coef = float(self.coef_[idx])
+                term = self._term_to_string(self.active_term_defs_[idx])
+                lines.append(f"  {rank:2d}. {coef:+.6f} * {term}")
+
+        lines.append("")
+        lines.append("Feature importance (sum of absolute coefficients touching each feature):")
+        imp_order = np.argsort(self.feature_importance_)[::-1]
+        shown = 0
+        for feat_idx in imp_order:
+            score = float(self.feature_importance_[feat_idx])
+            if score <= 1e-12:
+                continue
+            lines.append(f"  x{feat_idx}: {score:.6f}")
+            shown += 1
+            if shown >= 20:
+                break
+
+        used = sorted({
+            t[1] for t in self.active_term_defs_ if t[0] in {"x", "x2", "abs", "hinge_pos", "hinge_neg"}
+        } | {
+            i for t in self.active_term_defs_ if t[0] == "xprod" for i in (t[1], t[2])
+        })
+        unused = [f"x{i}" for i in range(self.n_features_in_) if i not in used]
+        lines.append("")
+        lines.append(
+            "Features not listed in active terms have zero direct contribution."
+        )
+        if unused and len(unused) <= 25:
+            lines.append("Unused features: " + ", ".join(unused))
+
+        return "\n".join(lines)
+
+
+# Make class picklable when script is run as __main__ (required for joblib caching/parallel)
+import sys as _sys
+_sys.modules.setdefault("interpretable_regressor", _sys.modules[__name__])
+SparseHingeAdditiveRegressor.__module__ = "interpretable_regressor"
+
+# Update the model shorthand name and description below to reflect the class above and any changes you make to it.
+# The shorthand name should be unique across all experiments (it is used to identify rows in the results CSV files)
+# The description should briefly summarize what this experiment tried.
+model_shorthand_name = "SparseHingeOMP_q2575_v1"
+model_description = "Greedy sparse additive model over linear/quadratic/abs/hinge(25/50/75th) and selected pairwise interactions"
+model_defs = [(model_shorthand_name, SparseHingeAdditiveRegressor())]
+
+
+# ---------------------------------------------------------------------------
+# Evaluation (do not edit anything below this line)
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    t0 = time.time()
+
+    # Interpretability tests
+    interp_results = run_all_interp_tests(model_defs)
+    n_passed = sum(r["passed"] for r in interp_results)
+    total = len(interp_results)
+
+    # prediction performance (RMSE)
+    dataset_rmses = evaluate_all_regressors(model_defs)
+
+    try:
+        git_hash = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], text=True).strip()
+    except Exception:
+        git_hash = ""
+
+    # --- Upsert interpretability_results.csv ---
+    model_name = model_defs[0][0]
+    interp_csv = os.path.join(RESULTS_DIR, "interpretability_results.csv")
+    interp_fields = ["model", "test", "suite", "passed", "ground_truth", "response"]
+
+    def _suite(test_name):
+        if test_name.startswith("insight_"): return "insight"
+        if test_name.startswith("hard_"):    return "hard"
+        return "standard"
+
+    # Load existing rows, dropping old rows for this model
+    existing_interp = []
+    if os.path.exists(interp_csv):
+        with open(interp_csv, newline="") as f:
+            for row in csv.DictReader(f):
+                if row.get("model") != model_name:
+                    existing_interp.append(row)
+
+    new_interp = [{
+        "model": r["model"],
+        "test": r["test"],
+        "suite": _suite(r["test"]),
+        "passed": r["passed"],
+        "ground_truth": r.get("ground_truth", ""),
+        "response": r.get("response", ""),
+    } for r in interp_results]
+
+    with open(interp_csv, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=interp_fields, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(existing_interp + new_interp)
+    print(f"Interpretability results saved → {interp_csv}")
+
+    # --- Upsert performance_results.csv and recompute ranks ---
+    perf_csv = os.path.join(RESULTS_DIR, "performance_results.csv")
+    perf_fields = ["dataset", "model", "rmse", "rank"]
+
+    # Load existing rows, dropping old rows for this model
+    existing_perf = []
+    if os.path.exists(perf_csv):
+        with open(perf_csv, newline="") as f:
+            for row in csv.DictReader(f):
+                if row.get("model") != model_name:
+                    existing_perf.append(row)
+
+    # Add new rows (without rank for now)
+    for ds_name, model_rmses in dataset_rmses.items():
+        rmse_val = model_rmses.get(model_name, float("nan"))
+        existing_perf.append({
+            "dataset": ds_name,
+            "model": model_name,
+            "rmse": "" if np.isnan(rmse_val) else f"{rmse_val:.6f}",
+            "rank": "",
+        })
+
+    # Recompute ranks per dataset
+    by_dataset = defaultdict(list)
+    for row in existing_perf:
+        by_dataset[row["dataset"]].append(row)
+
+    for ds_name, rows in by_dataset.items():
+        valid = [(r, float(r["rmse"])) for r in rows if r["rmse"] not in ("", None)]
+        valid.sort(key=lambda x: x[1])
+        for rank_idx, (r, _) in enumerate(valid, 1):
+            r["rank"] = rank_idx
+        # Leave rank empty for rows with no RMSE
+        for r in rows:
+            if r["rmse"] in ("", None):
+                r["rank"] = ""
+
+    with open(perf_csv, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=perf_fields)
+        writer.writeheader()
+        for ds_name in by_dataset:
+            for row in by_dataset[ds_name]:
+                writer.writerow(row)
+    print(f"Performance results saved → {perf_csv}")
+
+    # --- Compute mean_rank from the updated performance_results.csv ---
+    # Build dataset_rmses dict with all models from the CSV for ranking
+    all_dataset_rmses = defaultdict(dict)
+    for row in existing_perf:
+        rmse_str = row.get("rmse", "")
+        if rmse_str not in ("", None):
+            all_dataset_rmses[row["dataset"]][row["model"]] = float(rmse_str)
+        else:
+            all_dataset_rmses[row["dataset"]][row["model"]] = float("nan")
+    avg_rank, _ = compute_rank_scores(dict(all_dataset_rmses))
+    mean_rank = avg_rank.get(model_shorthand_name, float("nan"))
+
+    upsert_overall_results([{
+        "commit":                             git_hash,
+        "mean_rank":                          f"{mean_rank:.2f}" if not np.isnan(mean_rank) else "nan",
+        "frac_interpretability_tests_passed": f"{n_passed / total:.4f}" if total > 0 else "nan",
+        "status":                             "",
+        "model_name":                         model_shorthand_name,
+        "description":                        model_description,
+    }], RESULTS_DIR)
+
+    # --- Plot ---
+    overall_csv = os.path.join(RESULTS_DIR, "overall_results.csv")
+    plot_interp_vs_performance(
+        overall_csv,
+        os.path.join(RESULTS_DIR, "interpretability_vs_performance.png"),
+    )
+
+    print()
+    print("---")
+    print(f"tests_passed:  {n_passed}/{total}" + (f" ({n_passed/total:.2%})" if total > 0 else ""))
+    print(f"mean_rank:     {mean_rank:.2f}" if not np.isnan(mean_rank) else "mean_rank:     nan")
+    print(f"total_seconds: {time.time() - t0:.1f}s")

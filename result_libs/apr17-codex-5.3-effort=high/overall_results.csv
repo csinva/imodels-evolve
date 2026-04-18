@@ -16,57 +16,44 @@ baseline,9.26,0.6744,baseline,HSTree_large,large HSTree with up to 20 max_leaf_n
 baseline,4.32,0.0465,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
 baseline,3.00,0.0698,baseline,TabPFN,TabPFN foundation model for tabular data
 6a1c808,10.72,0.6279,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
-4187de2,10.77,0.3488,discard,SparseBasisPursuitV1,"Greedy sparse basis pursuit over linear, hinge, quadratic, abs, and limited interaction terms with explicit symbolic equation output"
-4902cf2,,0.4419,crash,GreedyKnotAdditiveV1,Greedy sparse additive regressor selecting up to 4 features with linear or one-knot hinge terms from quantile-based thresholds
-c1f423d,10.43,0.5116,discard,SparseSymbolicAdditiveV2,Greedy forward-selected sparse symbolic additive model over linear/quadratic/abs/hinge terms plus limited pairwise interactions with explicit equation output
-a09b286,9.69,0.3256,,ResidualRuleLinearV1,Sparse z-scored linear backbone plus greedy one-dimensional residual step rules with explicit threshold-and-offset representation
-e3c08ae,9.92,0.2093,discard,SparseHingeInteractionV1,"Forward-selected sparse symbolic model over z-scored linear, one-knot hinge, and limited pairwise interaction terms with explicit equation output"
-c2a425b,12.32,0.5814,discard,RawSymbolicFSV1,"Forward-selected compact symbolic model on raw features using linear, signed hinge, absolute-value, and sparse pairwise interaction terms"
-e031a88,nan,0.6279,crash,OrthoSymbolicV1,"Orthogonal forward-selected sparse symbolic regressor on raw features with linear, one-sided hinge, quadratic, and limited interaction terms"
-a8ead7c,15.37,0.6279,discard,OrthoSymbolicV2,"Orthogonal forward-selected sparse symbolic regressor on raw features with linear, one-sided hinge, quadratic, and limited interaction terms (cache-busted rerun)"
-6dbeb83,14.00,0.3953,discard,KnotSparseAdditiveV1,Sparse additive regressor with feature-wise quantile knot hinges and centered pairwise interactions chosen by greedy ridge-refit forward selection
-1bf4830,13.05,0.6279,discard,SparseLinearRuleGateV1,Sparse screened linear backbone with at most two learned threshold indicator gate terms jointly ridge-refit for compact nonlinear corrections
-4085700,22.18,0.4419,discard,GlobalRidgeOneHingeV1,Closed-form ridge over all features with optional single residual-selected hinge basis term jointly refit for lightweight nonlinear correction
-b07da7b,12.49,0.6512,keep,StabilitySparseHingeV1,Bootstrapped sign-stability screened sparse ridge backbone with validation-gated single hinge correction on a top active feature
-765136f,12.32,0.6279,keep,SparseAdditiveInteractionV1,Bootstrap-stability screened sparse linear backbone with validation-selected hinge and pairwise interaction basis terms in an explicit raw-feature equation
-dfee4f5,13.08,0.5116,discard,StabilityPiecewiseSparseV1,Sign-stability screened sparse linear regressor with optional single-threshold piecewise sparse equations selected by validation gain
-7f7cbae,16.35,0.6744,discard,GCVSparseHingeRidgeV1,GCV-selected sparse ridge equation on standardized features with hard coefficient pruning and optional single-knot hinge correction accepted only on validation gain
-e9c620c,13.71,0.4651,discard,BiRegionSparseLinearV1,Sparse ridge equation with optional single-feature threshold split into two region-specific sparse linear equations accepted only when validation gain is meaningful
-6e52cd1,19.94,0.6279,discard,QuantizedSparseRidgeV1,"GCV ridge with coefficient-mass feature selection and validation-chosen coefficient quantization to produce a compact, simulation-friendly explicit equation"
-9a34fd8,18.03,0.6744,,AdaptiveRidgeOneHingeV1,"Dense GCV ridge backbone with optional single-feature hinge correction retained only when validation gain is meaningful, while preserving an explicit simulatable equation"
-8b856c5,22.86,0.7442,discard,RobustSparseRidgeIRLSV1,"Robust median-MAD scaled and winsorized ridge with GCV alpha, adaptive soft-threshold sparsification, and ridge refit on active features for a compact explicit equation"
-fa0815b,14.92,0.6744,discard,DenseRidgeResidualBasisV1,Dense GCV ridge backbone with one validation-selected explicit residual basis term (hinge or centered interaction) to capture light nonlinearity while preserving a simulatable equation
-60d312a,16.82,0.5814,discard,GreedyAdditiveSplineV1,Dense GCV ridge backbone plus greedy-selected sparse additive residual spline terms (one-sided hinges and centered quadratics) on top linear features
-81b324f,20.02,0.5814,discard,CalibratedSparseRidgeMapV1,Robust GCV ridge expressed directly in raw-feature equation form with meaningful/negligible feature partition and at most one validation-gated hinge correction
-3d73ad9,20.42,0.7442,keep,AdaptiveElasticHingeMapV1,Adaptive weighted-L1 sparse linear map with ridge debiasing and one validation-gated hinge residual correction in an explicit raw-feature equation
-871ba7d,18.54,0.5349,discard,SparseSingleIndexSplineV1,GCV-selected sparse ridge single-index score with a compact two-knot piecewise-linear calibration map for lightweight nonlinearity
-8f96de3,20.82,0.6047,discard,SplitCalibratedSparseLinearV1,Sparse GCV-ridge linear backbone plus one explicit feature-threshold piecewise offset+slope correction retained only with meaningful fit gain
-6184081,24.51,0.7209,discard,AdaptiveWeightedRidgeSparseV1,Adaptive weighted-ridge linear regressor with pilot-coefficient-informed penalties and validation-gated hard-threshold sparsification for a compact explicit equation
-fed83ae,19.14,0.5814,discard,SparseSymbolicAtlasV1,Forward-selected sparse symbolic additive regressor over linear/hinge/quadratic/abs/sine basis terms with validation-gated term inclusion and ridge refit
-bb04cae,20.03,0.3721,discard,ResidualizedHingeRidgeV2,"Dense ridge backbone with validation-gated residual hinge corrections on high-impact features, yielding an exact raw-feature equation with compact piecewise-linear nonlinearity"
-677fa2b,15.63,0.5349,discard,StagewiseSymbolicV1,"Dense ridge screening compressed into a compact linear backbone, then validation-gated forward selection of a few symbolic nonlinear residual terms (hinge/quadratic/interaction)"
-773347d,23.62,0.6744,discard,ResidualTreeSparseLinearV1,Coefficient-mass sparse ridge backbone in raw-feature equation form plus a validation-shrunk 4-leaf residual tree for lightweight nonlinearity
-483151c,26.58,0.5814,discard,RiskCalibratedSparseRidgeV1,Validation-calibrated top-k sparse ridge in exact raw-feature equation form with dense fallback when sparsity does not earn real validation gain
-5a0f262,26.11,0.6977,discard,SVDGCVRidgeMapV1,From-scratch dense ridge solved by SVD with generalized cross-validation alpha selection and explicit raw-feature equation plus negligible-feature reporting
-b9b1355,32.35,0.6279,discard,RobustAdaptiveLinearMapV1,"From-scratch robust adaptive linear map: SVD-GCV pilot ridge, Huber-style IRLS weighting, adaptive ridge penalties, and conservative sparse weighted refit into an explicit raw-feature equation"
-a0c5102,34.80,0.6279,discard,SparseAdditiveBasisPursuitV1,"Forward-selected sparse additive raw-feature equation with linear and quantile-knot hinge basis terms, jointly ridge-refit for compact interpretable nonlinearity"
-ebeeb32,27.22,0.6512,discard,RidgeOneHingeResidualV1,Closed-form GCV ridge raw-feature equation with one optional residual hinge correction on the strongest feature when it materially improves fit
-c0dd35f,21.91,0.6047,discard,StabilityRuleListRidgeV1,"Bootstrap-stable sparse ridge backbone with a short residual threshold rule list trained by greedy residual gain, yielding an explicit linear-plus-rules simulator"
-6665110,26.62,0.6047,discard,InteractionAugmentedRidgeV1,"Dense GCV ridge backbone with greedy holdout-gated centered pairwise interaction terms on top linear features, expressed as one exact simulatable equation"
-28d8141,32.97,0.5349,,MassConservingGCVRidgeV1,From-scratch SVD+GCV ridge in raw-feature equation form with conservative coefficient-mass pruning for compact explicit simulation
-389a4e7,45.06,0.5581,discard,SparseQuantileAdditiveV1,From-scratch sparse additive backfitting model using quantile-bin piecewise feature contributions with explicit per-feature lookup rules
-5045e2b,27.54,0.6977,keep,CalibratedDominantHingeRidgeV1,"From-scratch GCV ridge raw-feature equation with optional two-knot hinge calibration on the dominant feature, retained only when it yields meaningful fit gain"
-7b2db8a,33.35,0.5349,discard,ValGatedSparseHingeRidgeV1,"From-scratch ridge equation that validation-selects dense vs top-k sparse backbone, then optionally adds one dominant-feature hinge correction only when validation gain is meaningful"
-8bffd13,27.09,0.5581,discard,SymbolicResidualRidgeV1,"Validation-selected dense ridge backbone with greedy holdout-gated symbolic residual terms (hinge and pairwise interaction), capped to keep a concise simulatable equation"
-8b778cf,30.23,0.6977,discard,CrossFitHingeRidgeV1,From-scratch 3-fold CV ridge backbone with a single dominant-feature hinge correction activated only when cross-validated gain is consistent and meaningful
-7739394,27.66,0.6279,discard,DualKnotSparseAdditiveRidgeV1,From-scratch GCV ridge with coefficient-mass sparse linear backbone plus at most two quantile-knot one-sided hinge corrections accepted only with meaningful fit gain
-7597a33,20.62,0.5116,discard,ValGatedResidualSymbolicRidgeV1,Dense from-scratch SVD-GCV ridge backbone with a tiny validation-gated residual symbolic dictionary (hinge/quadratic/one interaction) jointly ridge-refit into one explicit equation
-462f289,38.78,0.6279,discard,AdaptiveHuberRidgeMapV1,"From-scratch robust median-MAD scaled and clipped adaptive weighted ridge with K-fold-selected global shrinkage, expressed as one explicit raw-feature linear equation"
-7426435,36.95,0.6977,keep,SparsePCADenoisedRidgeMapV1,"Two-stage from-scratch PCA-denoised ridge: CV ridge in truncated principal-component space mapped back to raw features, then coefficient-mass-capped sparse ridge refit for a compact explicit equation"
-2de6a23,33.83,0.6744,keep,CrossValidatedRidgeEquationV1,"From-scratch standardized closed-form ridge with CV-selected penalty, mapped back to an explicit raw-feature equation plus active/negligible feature summaries for easier simulation"
-1360f04,43.45,0.6279,discard,SplitSparseLinearSimulatorV1,"One-threshold piecewise sparse linear simulator: holdout-selected ridge shrinkage, tiny active feature set, and optional two-region linear equations with an explicit branch rule"
-88d8099,41.86,0.5116,discard,CalibratedSparseSingleIndexV1,Sparse coefficient-mass ridge score on raw features with optional validation-gated two-knot hinge calibration over the 1D score for lightweight nonlinear correction
-46e7e35,48.71,0.5814,discard,SparseSplineBackboneV1,K-fold-selected ridge backbone with validation-gated coefficient-mass sparsification and optional dominant-feature hinge spline corrections for a compact simulatable equation
-61c7ab3,31.98,0.5581,discard,StabilityCalibratedLinearMapV1,"Bootstrap sign-stability screened sparse ridge equation with optional two-knot hinge calibration on the 1D linear score, kept only when validation gain is meaningful"
-4be96a2,26.38,0.5814,keep,SparseLatentSplineRidgeV1,"CV ridge with validation-selected sparse feature subset plus one latent projection spline correction (quadratic and/or hinge), rendered as an explicit simulatable equation"
-6f87c2a,38.62,0.6279,discard,StabilityMassRidgeEquationV2,"From-scratch CV ridge mapped to an explicit raw-feature equation, with conservative validation-gated top-k mass sparsification for simulatable linear predictions"
+ff08456,6.78,0.3256,discard,SparseHingeOMP_q2575_v1,Greedy sparse additive model over linear/quadratic/abs/hinge(25/50/75th) and selected pairwise interactions
+0be2b28,11.25,0.4419,discard,LinResStumpOMP_v1,Sparse linear OMP core plus a few residual decision-stump corrections for compact nonlinear additivity
+49329ff,9.49,0.4186,discard,SparseKnotAbsInt_v1,Forward-selected sparse additive model with per-feature adaptive |x-t| kink terms plus at most one interaction
+4958ea7,12.54,0.4651,discard,SparseLinHingeRefine_v1,"Sparse linear backbone with greedy one-sided hinge refinements, optional interaction, and coefficient quantization for simulatability"
+8fd03aa,13.62,0.6279,discard,RuleGateSparseLin_v1,Greedy sparse linear regressor with one optional threshold gate selecting between two compact branch equations
+0b7d225,15.51,0.6744,discard,SparseRidgeHingeGCV_v1,"GCV-selected ridge backbone pruned to dominant linear terms, plus a few residual hinge threshold terms"
+7277eeb,14.25,0.5349,discard,RidgeResidualSymbolic_v1,Ridge backbone with adaptive linear pruning plus one residual interaction and one residual hinge correction
+5b8d12a,11.08,0.5581,keep,DenseSplineResidual_v1,Dense ridge linear backbone plus greedy residual hinge/interaction basis with exact arithmetic string form
+bb924c4,12.63,0.6512,discard,SparseModelTree_v1,Sparse GCV-ridge linear backbone with optional one-threshold split into two compact sparse linear branch equations
+649c6aa,10.49,0.5349,discard,QuantizedSparseBasis_v1,Forward-selected sparse nonlinear basis (linear/hinge/square/interaction) with post-fit coefficient quantization for arithmetic simulatability
+7372c76,11.11,0.4651,discard,StagewiseHingeAdditive_v1,Stagewise residual fitting over sparse linear/hinge/square univariate terms with compact quantized arithmetic form
+b7bc0f2,14.91,0.6279,discard,SparseTriBinAdditive_v1,Sparse ridge linear backbone plus up to two single-feature tri-bin residual corrections
+0b52437,13.62,0.6047,discard,ValidatedSparseSpline_v1,Validation-selected sparse ridge backbone with one optional residual hinge/abs nonlinear basis term
+dd44d76,15.58,0.7674,discard,SnapRidgeOneKnot_v1,"Validation-selected ridge with adaptive linear sparsity, one optional nonlinear residual term, and snapped coefficients"
+401f806,15.86,0.5814,discard,DenseRidgeAdaptiveSpline_v1,Dense ridge backbone with holdout-selected pruning and up to three residual one-dimensional spline-like correction terms
+ce3993e,21.26,0.6512,discard,ComplexityRoundedRidge_v1,"Holdout-selected ridge with mild pruning and decimal-rounded coefficients, tuned for RMSE and arithmetic simplicity"
+029630d,15.12,0.6744,keep,SparseSignedBasisPursuit_v1,Forward-selected sparse signed basis (linear/hinge/square/interaction) with ridge refit and light coefficient rounding
+d404381,17.34,0.4186,discard,CompactSplineRidge_v1,Dense linear ridge backbone with validation-pruned compact spline basis (abs/square/hinge + few interactions)
+5ce1fc1,16.95,0.4884,discard,OrthSparseAdditive_v1,Ridge linear backbone plus orthogonal forward-selected tiny additive correction set (hinge/abs/square + few interactions)
+bab16fa,16.65,0.6512,discard,CognitiveRidgeOneHinge_v1,Validation-tuned dense ridge with optional single hinge residual and cognitive-complexity-aware linear pruning
+b0fc78f,15.52,0.4419,discard,AnchorSplineRidge_v1,Dense ridge backbone with validation-selected single-feature anchored spline residual using three hinge knots
+20b03dd,22.91,0.6744,discard,MDLHybridSymbolic_v1,"Validation-selected symbolic hybrid: dense ridge vs sparse quantized linear/hinge/step, choosing simplest near-best RMSE structure"
+96b7e77,12.43,0.5349,discard,DualPathBoostedSymbolic_v1,Dual-path model: boosted trees for multi-row prediction quality plus compact symbolic linear+hinge equation for single-row simulatability
+5e028ed,14.29,0.6047,discard,DistilledSparsePiecewise_v1,Boosted-tree batch predictor with sparse distilled single-row symbolic equation (linear/hinge/interaction) and coefficient quantization
+c2b5db4,13.46,0.6047,discard,TeacherStudentRuleSpline_v1,Two-path model: GBM teacher for batch predictions plus sparse symbolic student over linear/square/abs/hinge/step/interaction/gated terms
+ddd69b1,14.86,0.6047,discard,TeacherStudentSpectralRuleSpline_v1,Two-path model with transform-aware screening and sparse symbolic student over linear/polynomial/trig/exp/hinge/interaction terms plus GBM batch teacher
+6db7ad4,12.22,0.5349,discard,TeacherStudentCompactDistill_v1,Blended GBM+ridge batch teacher with complexity-penalized compact symbolic student (linear/square/abs/hinge/step/interaction) for single-row simulatability
+1256a2f,11.65,0.5814,discard,CalibratedSparseHingeStudent_v1,Validation-calibrated HGB/RF/Ridge batch blend with sparse linear-plus-one-hinge distilled single-row equation
+6612911,13.88,0.6279,discard,SparseGateDistilledBoost_v1,Dual-path calibrated HGB/ExtraTrees/Ridge batch blend with compact sparse linear-plus-hinge symbolic single-row rule
+d2694d8,14.46,0.6047,discard,TransparentDistilledForestBoost_v1,Holdout-calibrated GBM/RF/ExtraTrees/Ridge batch ensemble with sparse distilled linear-plus-hinge symbolic single-row equation
+af30ff6,,,crash,DualPathSparseSymbolic_v1,Blended GBM/RF/Ridge batch teacher with sparse forward-selected symbolic single-row equation over linear/square/hinge/interaction terms
+4c8b421,14.14,0.6977,discard,DualPathSparseSymbolic_v2,Blended GBM/RF/Ridge batch teacher with sparse forward-selected symbolic single-row equation over linear/square/hinge/interaction terms
+7da16c5,21.55,1.0000,discard,HGBLinearAuditAtlas_v1,HistGradientBoosting batch teacher with distilled compact linear single-row atlas and explicit audit lookup templates
+e2ac66b,19.05,1.0000,keep,CalibratedBoostAuditAtlas_v1,"Dual-path regressor with calibrated GBM primary teacher blended with a RidgeCV anchor for fast batch prediction, plus distilled compact linear single-row audit atlas and explicit prompt-answer map"
+48c1b7a,15.06,1.0000,keep,ValGatedTeacherAuditAtlas_v1,"Dual-path regressor with validation-gated multi-teacher batch ensemble (HGB/RF/GBM/Ridge, optional TabPFN) plus distilled compact linear single-row audit atlas and explicit prompt-answer map"
+fa3d8f2,21.62,1.0000,discard,AdaptiveStackedTeacherAuditAtlas_v1,Dual-path regressor with regime-adaptive stacked teacher blend (HGB/RF/ExtraTrees/GBM/Ridge with optional TabPFN) plus compact single-row audit atlas and exact prompt-answer map
+db5c631,16.31,1.0000,discard,TabPFNResidualAuditAtlas_v1,"Dual-path regressor with small-data TabPFN + HGB/Ridge calibrated teacher blend, sparse residual ridge correction, and compact single-row audit atlas with exact prompt-answer map"
+c3a3f73,17.12,1.0000,discard,CalibratedTabPFNForestAtlas_v1,"Dual-path regressor with TabPFN-first validated blend (TabPFN/HGB/RF/Ridge), affine calibration, sparse residual ridge correction, and compact single-row audit atlas"
+f4814ec,8.88,1.0000,keep,RegimeMixtureTeacherAuditAtlas_v1,"Dual-path regressor with regime-aware OOF super-learner (global plus low/mid/high simplex blends over HGB/GBR/ExtraTrees/RF/Ridge with optional TabPFN), affine calibration, residual ridge correction, and compact single-row audit atlas"
+932288c,16.82,1.0000,discard,DisagreementRoutedSimplexAtlas_v2,"Dual-path regressor with disagreement-routed simplex teacher stacking (TabPFN for small-n plus HGB/ExtraTrees/RF/GBR/Ridge), TabPFN fusion gate, affine calibration, residual ridge correction, and compact single-row audit atlas"
+a750c35,10.75,1.0000,discard,GeoUncertaintyRegimeAtlas_v1,"Dual-path regressor with OOF uncertainty-routed teacher stacking over HGB/ExtraTrees/RF/GBR/Ridge/KNN (optional small-data TabPFN), affine calibration, and optional residual correction, plus compact single-row audit atlas"

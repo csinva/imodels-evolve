@@ -12,7 +12,7 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-MAX_ITERATIONS="${MAX_ITERATIONS:-150}"
+MAX_ITERATIONS="${MAX_ITERATIONS:-60}"
 SLEEP_BETWEEN="${SLEEP_BETWEEN:-5}"  # seconds between iterations
 
 # Azure Entra ID token refresh (keyless auth)
@@ -69,6 +69,7 @@ for i in $(seq 1 "$MAX_ITERATIONS"); do
     # The environment is already externally sandboxed.
     npx @openai/codex exec \
         --dangerously-bypass-approvals-and-sandbox \
+        -c model_reasoning_effort="xhigh" \
         -C "$SCRIPT_DIR" \
         "$(cat "$PROMPT_FILE")" \
         < /dev/null \
