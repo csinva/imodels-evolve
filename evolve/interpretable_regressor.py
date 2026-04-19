@@ -24,7 +24,7 @@ from sklearn.utils.validation import check_is_fitted
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from interp_eval import run_all_interp_tests, ALL_TESTS, HARD_TESTS, INSIGHT_TESTS
-from performance_eval import RESULTS_DIR, upsert_overall_results, evaluate_all_regressors, compute_rank_scores
+from performance_eval import RESULTS_DIR, upsert_overall_results, evaluate_all_regressors, compute_rank_scores, recompute_all_mean_ranks
 from visualize import plot_interp_vs_performance
 
 # ---------------------------------------------------------------------------
@@ -201,6 +201,11 @@ if __name__ == "__main__":
         "model_name":                         model_shorthand_name,
         "description":                        model_description,
     }], RESULTS_DIR)
+
+    # Recompute mean_rank for every row in overall_results.csv so all ranks
+    # reflect the current pool, not whatever pool existed when each row was
+    # first written.
+    recompute_all_mean_ranks(RESULTS_DIR)
 
     # --- Plot ---
     overall_csv = os.path.join(RESULTS_DIR, "overall_results.csv")

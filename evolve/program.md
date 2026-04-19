@@ -101,4 +101,9 @@ LOOP FOREVER:
 - Try new regularization techniques
 - Try novel splitting criteria
 
-Do not simply import a known interpretable model and change its hyperparameters — build your own from scratch using basic building blocks or substantially modify an existing one. The goal is to discover new models, not just find the best hyperparameters for known models. Make sure the model trains and tests very quickly. It is okay for the model to use a 40GB gpu. BE CREATIVE!
+**Do not**
+
+- Simply import a known interpretable model and change its hyperparameters
+- Simply write the answers to the interpretability tests without actually building a model
+
+You must build your own from scratch using basic building blocks or substantially modify an existing one. The goal is to discover new models, not just find the best hyperparameters for known models. Make sure the model trains and tests very quickly. It is okay for the model to use a 40GB gpu. BE CREATIVE!

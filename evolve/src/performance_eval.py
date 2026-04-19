@@ -13,9 +13,12 @@ Exports:
   evaluate_all_regressors(model_defs) -> {dataset: {model: rmse}}
   compute_rank_scores(dataset_rmses) -> (avg_rank, avg_rmse)
   upsert_overall_results(rows, results_dir) -> writes/updates overall_results.csv
+  recompute_all_mean_ranks(results_dir) -> rewrites mean_rank for every row
+    in overall_results.csv against the current performance_results.csv pool
 """
 
 import os
+from collections import defaultdict
 from copy import deepcopy
 
 import numpy as np
@@ -287,6 +290,45 @@ def upsert_overall_results(rows, results_dir):
         writer.writeheader()
         writer.writerows(all_rows)
     print(f"Overall results saved → {path}")
+
+
+def recompute_all_mean_ranks(results_dir):
+    """Rewrite mean_rank for every row in overall_results.csv against the
+    current performance_results.csv pool, so all rows reflect the same pool.
+
+    Returns the {model_name: mean_rank} mapping.
+    """
+    import csv as _csv
+    perf_path = os.path.join(results_dir, "performance_results.csv")
+    overall_path = os.path.join(results_dir, "overall_results.csv")
+    if not (os.path.exists(perf_path) and os.path.exists(overall_path)):
+        return {}
+
+    dataset_rmses = defaultdict(dict)
+    with open(perf_path, newline="") as f:
+        for row in _csv.DictReader(f):
+            rmse_str = row.get("rmse", "")
+            try:
+                val = float(rmse_str) if rmse_str not in ("", None) else float("nan")
+            except ValueError:
+                val = float("nan")
+            dataset_rmses[row["dataset"]][row["model"]] = val
+
+    avg_rank, _ = compute_rank_scores(dict(dataset_rmses))
+
+    with open(overall_path, newline="") as f:
+        rows = list(_csv.DictReader(f))
+
+    for row in rows:
+        mr = avg_rank.get(row.get("model_name"), float("nan"))
+        row["mean_rank"] = "nan" if np.isnan(mr) else f"{mr:.2f}"
+
+    with open(overall_path, "w", newline="") as f:
+        writer = _csv.DictWriter(f, fieldnames=OVERALL_CSV_COLS)
+        writer.writeheader()
+        writer.writerows(rows)
+    print(f"Mean ranks recomputed for {len(rows)} rows → {overall_path}")
+    return avg_rank
 
 if __name__ == "__main__":
     # test get all datasets and print length and size of each dataset

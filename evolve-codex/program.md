@@ -14,19 +14,21 @@ To set up a new experiment, do the following:
    - `interpretable_regressor.py` — the file you modify. Regressor definition and evaluation loop.
    - `results/overall_results.csv` — current scores for all baselines models have already been run for you.
 
-Then kick off the experimentation. 
+Then kick off the experimentation.
 
 ## Experimentation
 
 Run an experiment with: `uv run interpretable_regressor.py`
 
 **What you CAN do:**
+
 - Modify `interpretable_regressor.py` — this is the only file you edit. Everything is fair game:
   - The `InterpretableRegressor` class definition (algorithm, structure, hyperparameters)
   - Switching to another model type (rule lists, linear models, GAMs, sparse models, etc.)
   - Feature engineering or preprocessing inside the regressor
 
 **What you CANNOT do:**
+
 - Modify `run_baselines.py`. It is read-only.
 - Modify anything in the `src/` folder. It contains the ground truth tests.
 - Install new packages. You can only use what's already in `pyproject.toml`.
@@ -89,10 +91,16 @@ IMPORTANT: You are running inside Codex in non-interactive mode. You will be inv
 9. Save the current version of `interpretable_regressor.py` as a new file. If either metric improved without the other getting significantly worse, save the file under the success folder (e.g. `interpretable_regressors_lib/success/interpretable_regressor_<commit_hash>_<simple_name>.py`) for future use. Otherwise save it under the failure folder (e.g. `interpretable_regressors_lib/failure/interpretable_regressor_<commit_hash>_<simple_name>.py`).
 
 **Ideas to try** (not exhaustive — be creative):
-- Read this paper and try novel ideas inspired by it: https://arxiv.org/abs/2103.11251
+
+- Read this paper and try novel ideas inspired by it: <https://arxiv.org/abs/2103.11251>
 - Try novel ways to induce sparsity or perform elaborate feature selection
 - Try postprocessing EBM shaping functions into a more understandable representation
 - Try new regularization techniques
 - Try novel splitting criteria
 
-Do not simply import a known interpretable model and change its hyperparameters — build your own from scratch using basic building blocks or substantially modify an existing one. The goal is to discover new models, not just find the best hyperparameters for known models. Make sure the model trains and tests very quickly. It is okay for the model to use a 40GB gpu.
+**Do not**
+
+- Simply import a known interpretable model and change its hyperparameters
+- Simply write the answers to the interpretability tests without actually building a model
+
+You must build your own from scratch using basic building blocks or substantially modify an existing one. The goal is to discover new models, not just find the best hyperparameters for known models. Make sure the model trains and tests very quickly. It is okay for the model to use a 40GB gpu. BE CREATIVE!
