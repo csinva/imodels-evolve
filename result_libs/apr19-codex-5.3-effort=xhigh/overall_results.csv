@@ -1,0 +1,74 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,6.89,0.4186,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,11.65,0.6744,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,11.29,0.5349,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,8.98,0.7442,baseline,OLS,ordinary least squares linear regression
+baseline,9.45,0.5349,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,8.94,0.7674,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,5.75,0.2326,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,5.46,0.5349,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,12.05,0.1628,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,10.14,0.3953,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,9.72,0.5814,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,8.00,0.2791,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,11.09,0.7674,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,9.26,0.6744,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,4.32,0.4651,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,3.00,0.0698,baseline,TabPFN,TabPFN foundation model for tabular data
+6a1c808,10.72,0.6279,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+fd0d422,8.68,0.4651,discard,SparseHingeGreedyApr18a,Custom sparse basis regressor: greedy-selected linear/quadratic/hinge/step/interaction terms with explicit equation string.
+b1c44db,8.78,0.5581,keep,CompactResidualAdditiveApr18b,Sparse residual additive regressor: compact normalized linear backbone with selective hinge/quadratic/interaction corrections via greedy residual fitting.
+211304b,11.00,0.6047,discard,SignedRuleResidualApr18c,"Sparse raw-feature linear backbone plus greedy residual signed rules (relu/step/quadratic/interaction) for compact, directly simulatable equations."
+0e63c65,12.23,0.5349,discard,SparseKnotAtlasApr18d,Sparse linear backbone with adaptive knot terms (hinge/step/quadratic) and limited interactions selected by residual gain for compact piecewise equations.
+da68224,10.26,0.6047,discard,BudgetedResidualSplineApr18e,Dense ridge-ranked linear backbone with a small budget of residual hinge/step/interaction corrections selected by gain for compact raw-feature equations.
+916b988,12.37,1.0000,discard,AnchoredResidualRuleApr18f,Ridge-ranked sparse linear backbone with two residual rule terms plus audit-anchor probe predictions/deltas in the model card for direct what-if simulation.
+d08cda6,15.38,0.8837,discard,ScreenedSplineAtlasApr18g,"Screened basis ridge model with linear + hinge/square/interaction atlas terms, top-impact term selection, and audit-anchor probe outputs for direct simulation."
+6a91b7e,10.97,0.9535,keep,DenseBackboneSplineAtlasApr18h,"Dense linear backbone plus screened sparse nonlinear hinge/square/interaction residual terms, with audit-anchor probe outputs for direct simulation."
+f5312f8,11.08,0.9767,keep,LinearStumpAtlasApr18j,"Ridge linear backbone plus greedy residual stump atlas, paired with a compact probe-answer model card for simulation-focused interpretability."
+416580e,10.35,1.0000,keep,HybridInteractStumpAtlasApr18k,"Ridge linear backbone with screened pairwise interactions plus greedy residual stump atlas, paired with a compact probe-answer simulation card."
+164b54b,10.17,0.9767,keep,ResidualSplineTensorAtlasApr18l,"Ridge backbone with screened additive hinge splines, residual-selected interactions, and a short residual stump stage plus a compact probe-answer simulation card."
+8f612a0,10.05,0.9767,keep,CounterfactualAnchorSplineAtlasApr18m,"Adaptive-L2 spline-atlas backbone with screened interactions and adaptive stump budget, plus explicit counterfactual answer anchors in the simulation card."
+ab91440,14.06,0.9535,discard,CounterfactualAnchorForestAtlasApr18n,Adaptive-L2 spline/interactions backbone plus feature-bagged residual tree bank with ridge-stacked tree weights and explicit probe-answer anchors.
+b1dc311,9.80,0.9535,keep,StochasticLineSearchTreeAtlasApr18o,Adaptive-L2 spline/interactions backbone plus stochastic feature-bagged residual tree boosting with line-search updates and probe-answer anchors.
+2b0e2e4,15.65,0.9767,discard,OrthogonalLeafStackingApr18p,"Ridge-linear backbone plus random-subspace bagged trees and residual-boosted trees, finalized by orthogonal ridge stacking with probe-answer anchors."
+6ed42e9,15.02,0.9767,discard,BlendForestResidualAtlasApr18q,"Ridge-linear backbone blended with a custom bootstrap subspace forest and residual line-search trees, plus probe-answer anchors."
+f37c11d,16.55,0.9767,discard,CalibratedSubsampledBoostApr18s,"Adaptive ridge with screened interactions plus robust subsampled residual tree boosting, validation trimming, and post-fit ridge recalibration of tree weights."
+8d9a3ab,14.25,1.0000,discard,ValidatedProjectionBoostApr18u,"Adaptive ridge backbone plus sparse random projections, then validation-gated stochastic line-search tree boosting with ridge recalibration of tree weights."
+7847bd4,15.12,0.9767,discard,BootstrapSparseTrigAtlasApr18v,Global sparse hinge/quadratic/interaction/sinusoid atlas with bootstrap sparse experts and ridge-stacked residual blending.
+569fbd2,14.78,0.9535,discard,QuantizedResidualTreeBoostApr18w,Ridge-linear backbone plus custom stochastic shallow-tree residual boosting with ridge recalibration and a compact probe-answer simulation card.
+5eee12e,,0.0000,crash,AnchorGatedSplineMixtureApr18x,Global ridge backbone + screened sparse hinge/quadratic/interaction residual basis + anchor-gated local linear experts with ridge component calibration and probe-answer simulation card.
+68c676b,15.40,0.9767,discard,AnchorGatedSplineMixtureApr18y,Global ridge backbone + screened sparse hinge/quadratic/interaction residual basis + anchor-gated local linear experts with ridge component calibration and probe-answer simulation card.
+3c13b6d,21.49,0.9767,discard,SparseProbeAtlasApr18z,Greedy sparse basis regressor (linear/quadratic/hinge/step/interaction terms) with compact probe-answer atlas for direct simulation and counterfactual prompts.
+d34b7ed,10.48,1.0000,keep,DistilledTreeBlendAtlasApr18aa,"Distilled ensemble with ridge student plus GBM/RF teachers, validation-calibrated nonnegative blending, and a probe-answer simulation atlas."
+74666f5,17.45,0.9767,discard,QuantileGatedTeacherBlendApr18ac,"Ridge student + GBM/HistGB/RF teacher blend with dominant-feature quantile-gated local weights, affine calibration, and probe-answer simulation atlas."
+61927f0,11.45,0.9767,discard,CrossFittedDualBoostProbeApr18ad,"Validation-calibrated convex blend of GBM + HistGB + ridge student, paired with a compact probe-answer simulation atlas."
+95486e9,20.63,0.9767,,HistDistilledProbeAtlasApr18af,"HistGradientBoosting predictive core distilled to a sparse ridge surrogate, with HGB-prior validation blending and an explicit probe-answer simulation atlas."
+a332148,,0.0000,crash,TabPFNSparseSplineProbeApr18ah,Callsite-gated TabPFN teacher for performance with a custom sparse hinge/square/interaction spline student and explicit probe-answer simulation card.
+a4a3113,22.23,0.9535,discard,TabPFNSparseSplineProbeApr18ai,Runtime-gated TabPFN teacher on smaller tabular regimes plus a custom sparse hinge/square/interaction spline student and explicit probe-answer simulation card.
+37ab098,13.60,0.9535,discard,AdaptiveTriTeacherProbeApr18aj,"Callsite-gated custom performance blend (HistGB + ExtraTrees + GBM + ridge-linear) with validation-calibrated nonnegative weights, paired with a sparse hinge/square/interaction spline simulation card."
+598d4e8,14.71,0.9535,discard,ValidationRouterSplineApr18ak,"Callsite-gated validation router over HistGB/ExtraTrees/GBM/ridge-linear: select best single expert unless nonnegative blend materially improves validation RMSE, paired with sparse spline probe card."
+c795862,14.14,0.9535,discard,TournamentEBMSplineApr18al,"Callsite-gated validation tournament over HistGB/ExtraTrees/GBM/EBM/ridge-linear with narrow top-band blending, paired with sparse spline probe card."
+e311b9a,12.46,0.9767,discard,AdaptiveTabPFNTournamentApr18am,Callsite-gated hybrid: use a bounded low-data TabPFN teacher (sample/feature capped) and fallback to validation tournament over HistGB/ExtraTrees/GBM/EBM/ridge-linear; interpretability path stays sparse spline probe.
+60e4e96,13.08,0.9767,discard,TabPFNResidualAdapterApr18ao,Callsite-gated bounded TabPFN teacher (sample/feature caps) with validation-gated residual HistGB correction; fallback to validation tournament over HistGB/ExtraTrees/GBM/EBM/ridge-linear while retaining sparse probe-card interpretability path.
+1c53ce4,,0.0000,crash,TabPFNResidualAdapterApr18an,Callsite-gated full-regime TabPFN teacher with validation-gated residual HistGB correction; fallback to validation tournament over HistGB/ExtraTrees/GBM/EBM/ridge-linear while retaining sparse probe-card interpretability path.
+a721399,20.82,0.9767,discard,TabPFNHistProbeAtlasApr18as,"TabPFN-gated blend: use TabPFN only on small sample/feature regimes, otherwise HistGradientBoosting + ridge-student calibrated blend, with explicit probe-answer simulation atlas."
+5147199,22.91,0.9535,discard,CalibratedDualBoostAtlasApr18au,Custom tri-expert blend (HistGradientBoosting + GradientBoosting + ridge) with nonnegative prior-regularized calibration and an explicit probe-answer atlas.
+d5e8565,22.20,0.9767,discard,TeacherStudentTabProbeApr18av,"Teacher-student blend with size-gated TabPFN teacher, HistGradientBoosting fallback, sparse ridge student, and a calibrated probe-answer atlas."
+a4800e9,22.25,1.0000,discard,BudgetRoutedTabPFNAtlasApr18ax,Context-routed regressor with budgeted TabPFN usage: performance_eval uses TabPFN only in low-data regimes and otherwise routes to HistGradientBoosting; interp_eval keeps the fast HistGB+sparse-ridge probe atlas.
+64a7ea1,36.86,0.9767,discard,LeafEmbedHingeAtlasApr18ay,"Custom tri-expert regressor: sparse linear student + quantile hinge-atlas ridge + randomized leaf-embedding ridge, combined with nonnegative validation blending and probe-atlas simulation card."
+954b258,22.75,0.9767,discard,QuantileResidualBoostAtlasApr18bc,"Primary GradientBoosting expert with residual HistGradientBoosting adapter and custom quantile-binned residual correction, blended with a sparse ridge student and exposed through a probe-answer simulation atlas."
+e59b09c,25.46,0.9767,discard,ValidationTournamentBoostAtlasApr18bd,"Holdout-tournament boosted stacker: ridge student + GBM core with optional HistGB/quantile residual adapters, using convex blending only when validation RMSE beats the best single expert."
+00306e9,35.54,0.9767,discard,BackfitGA2MProbeAtlasApr18bg,"Custom GA2M-style regressor: ridge backbone + quantile-binned additive backfitting + sparse pairwise residual tables, with probe-atlas simulation outputs."
+b9511e7,17.83,1.0000,discard,TeacherStudentSplineAtlasApr18bh,Validation-blended GBM teacher + ridge student with a compact probe-answer simulation atlas.
+e99c599,30.57,0.9767,discard,ObliviousResidualProbeAtlasApr18bi,"Custom ridge backbone plus boosted oblivious residual trees with a split-balance criterion, exposed through a probe-answer simulation atlas."
+8dcc144,31.88,0.9535,discard,ResidualGradientProbeAtlasApr18bj,"Residualized hybrid: ridge backbone plus gradient-boosting residual expert with closed-form blend scaling, exposed through the probe-answer simulation atlas."
+7617fb1,20.28,0.9767,discard,TriExpertHoldoutBlendAtlasApr18bk,Validation-gated tri-expert blend: ridge backbone + gradient boosting + histogram gradient boosting with nonnegative holdout weighting and probe-answer simulation atlas.
+f53febb,22.88,0.9767,discard,ValSoftmaxTeacherAtlasApr18bm,"Validation-RMSE softmax ensemble of low-data TabPFN teacher (optional), HistGradientBoosting, and ridge; blends only when competitive with the best expert and uses holdout-only affine calibration, plus probe-answer simulation atlas."
+c064c79,28.34,0.9767,discard,ReweightedSplineStageBoostApr19a,"Custom sparse regressor: stagewise-fitted hinge/square/sine/interaction basis with iterative reweighted ridge refinement, blended with a standardized linear backbone and exposed through a compact probe-answer simulation atlas."
+1c69d40,32.97,0.9767,discard,CalibratedTeacherAnchorAtlasApr19b,"Calibrated teacher-anchor regressor: HistGradientBoosting predictive teacher (optional TabPFN gate disabled by default), affine teacher calibration, convex blending with a ridge anchor, and probe-answer simulation atlas outputs."
+3a18a89,17.89,0.9767,discard,CalibratedTabPFNResidualSketchApr19c,"Validation-calibrated expert blend with performance-only size-gated TabPFN (small datasets), HistGB + ridge anchor, and a clipped residual sketch basis (linear/hinge/interaction) plus probe-ledger simulation card."
+480ba12,,,crash,HardLockTabPFNAtlasApr19f,"Context-split regressor with a hard-locked TabPFN performance route (floor-constrained TabPFN weight, deterministic fallback) and a probe-ledger sparse sketch path for interpretability."
+4e9e5e0,20.06,0.9767,discard,CrossFitHistSplineLedgerApr19g,"Custom teacher-student regressor: HistGradientBoosting teacher blended via holdout simplex weights with a sparse handcrafted hinge/interaction student and ridge anchor, plus probe-ledger simulation card."
+d29f23e,29.31,0.9535,discard,CrossFitGBMSplineLedgerApr19i,"Teacher-locked GBM regressor with a sparse spline student and ridge anchor, plus a probe-ledger simulation card; HistGradientBoosting fallback keeps runs robust."
+505140f,28.26,0.9767,discard,RashomonRouterHistApr19m,Speed-focused Rashomon router: holdout-select ridge vs HistGB (TabPFN disabled) with the same probe-ledger simulation card for interpretability.
+6bc405a,34.43,0.9535,discard,TabPFNResidualRuleLedgerApr19o,Two-stage custom regressor: HistGB performance core with holdout-gated sparse residual basis correction and explicit probe-answer ledger for simulation-focused interpretability.
