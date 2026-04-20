@@ -1,0 +1,25 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,10.81,0.5541,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,15.94,0.7006,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,16.75,0.6433,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,17.12,0.7261,baseline,OLS,ordinary least squares linear regression
+baseline,16.44,0.5287,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,15.00,0.6051,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,7.19,0.4204,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,6.69,0.4841,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,17.88,0.1911,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,14.25,0.4713,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,13.94,0.4586,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,11.31,0.4968,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,13.31,0.6752,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,10.62,0.6497,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,3.69,0.5605,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,nan,0.1720,baseline,TabPFN,"TabPFN foundation model for tabular data (training data capped at 200 samples, 2 ensemble members, low-memory fit mode for CPU latency)"
+,10.06,0.5669,evolved,ResidualSplineTensorAtlasApr18l,"Ridge backbone with screened additive hinge splines, residual-selected interactions, and a short residual stump stage plus a compact probe-answer simulation card."
+,11.19,0.6815,evolved,HybridInteractStumpAtlasApr18k,"Ridge linear backbone with screened pairwise interactions plus greedy residual stump atlas, paired with a compact probe-answer simulation card."
+,14.75,0.6178,evolved,DenseBackboneSplineAtlasApr18h,"Dense linear backbone plus screened sparse nonlinear hinge/square/interaction residual terms, with audit-anchor probe outputs for direct simulation."
+,9.69,0.6051,evolved,CounterfactualAnchorSplineAtlasApr18m,"Adaptive-L2 spline-atlas backbone with screened interactions and adaptive stump budget, plus explicit counterfactual answer anchors in the simulation card."
+,13.00,0.5414,evolved,CompactResidualAdditiveApr18b,Sparse residual additive regressor: compact normalized linear backbone with selective hinge/quadratic/interaction corrections via greedy residual fitting.
+,7.81,0.5732,evolved,StochasticLineSearchTreeAtlasApr18o,Adaptive-L2 spline/interactions backbone plus stochastic feature-bagged residual tree boosting with line-search updates and probe-answer anchors.
+,6.38,0.7325,evolved,DistilledTreeBlendAtlasApr18aa,"Distilled ensemble with ridge student plus GBM/RF teachers, validation-calibrated nonnegative blending, and a probe-answer simulation atlas."
+,12.19,0.6815,evolved,LinearStumpAtlasApr18j,"Ridge linear backbone plus greedy residual stump atlas, paired with a compact probe-answer model card for simulation-focused interpretability."

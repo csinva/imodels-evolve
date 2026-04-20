@@ -1,0 +1,42 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,19.94,0.5541,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,29.69,0.7006,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,29.75,0.6433,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,32.00,0.7261,baseline,OLS,ordinary least squares linear regression
+baseline,28.81,0.5287,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,24.56,0.6051,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,8.75,0.4204,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,12.25,0.4841,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,29.88,0.1911,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,26.50,0.4713,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,23.12,0.4586,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,18.44,0.4968,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,26.06,0.6752,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,21.12,0.6497,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,5.25,0.5605,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,nan,0.1720,baseline,TabPFN,"TabPFN foundation model for tabular data (training data capped at 200 samples, 2 ensemble members, low-memory fit mode for CPU latency)"
+,17.19,0.6178,evolved,EnhancedRecalTree,Recalibrated distilled tree with enhanced header instructions for LLM tracing
+,24.00,0.6561,evolved,RobustLinear,ElasticNetCV with feature standardization — sparse linear equation with L1+L2 regularization
+,22.75,0.6752,evolved,RecalDistillTree_compact,"Compact (6-12 leaves) distilled tree with recalibrated leaves + shrinkage, targeting high interpretability"
+,27.94,0.6752,evolved,TinyRecalTree,"Ultra-compact (4-6 leaves) recalibrated distilled tree with enhanced header, max LLM readability"
+,25.50,0.7261,evolved,EnhancedRobustLinear_v2,ElasticNetCV with wider L1 range (0.01-0.99) + standardization + enhanced instructions
+,16.06,0.7197,evolved,AdaptiveElastic,"Auto-selects ElasticBayesRidge (linear) or distilled tree per dataset via CV, adaptive format"
+,13.81,0.7134,evolved,AdaptiveElastic_v3,"Auto-selects linear or tree per dataset, tree also uses ElasticNet-selected features"
+,16.44,0.6688,evolved,EnhancedHeaderTree,v3 distilled tree with enhanced header instructions for clearer LLM tree tracing
+,24.81,0.7134,evolved,BayesianRidgeLinear,Bayesian Ridge Regression with auto-regularization + standardization + enhanced equation display
+,25.69,0.7197,evolved,SparseBayesRidge,Bayesian Ridge with post-hoc sparsification (zero <5% coefficients) + standardization + enhanced display
+,21.94,0.6943,evolved,DistilledShrinkTree,"GBM-distilled decision tree with CV-tuned hierarchical shrinkage, smoothed training targets for better splits"
+,15.00,0.7070,evolved,AdaptiveElastic_v2,"Auto-selects linear or tree (more configs: 6-25 leaves, 3 regs) per dataset via CV"
+,15.50,0.6815,evolved,ElasticTree,ElasticNet feature selection + RF+GBM distilled tree on selected features + hierarchical shrinkage
+,18.19,0.6433,evolved,RecalDistillTree,Distilled tree structure + recalibrated leaf values from raw data + CV-tuned hierarchical shrinkage
+,25.56,0.7516,evolved,EnhancedRobustLinear,ElasticNetCV with standardization + enhanced prediction instructions in equation display
+,13.19,0.6433,evolved,AdaptiveElastic_v4,3-candidate adaptive: linear + tree + piecewise-linear (1 split + 2 equations)
+,18.06,0.6624,evolved,DistilledShrinkTree_v3,"RF+GBM teacher-distilled tree (alpha=0.5) with CV-tuned shrinkage and leaf count, clean tree output"
+,24.69,0.7070,evolved,ElasticBayesRidge,"ElasticNet feature selection + BayesianRidge on selected features, sparse equation display"
+,22.81,0.7006,evolved,ElasticCompactTree,All innovations combined: ElasticNet feature sel + compact distilled tree + recalibration + shrinkage + enhanced header
+,8.75,0.7197,evolved,MegaTeacherAdaptive,Adaptive with mega-teacher (RF+GBM+EBM+TabPFN) for strongest possible tree distillation
+,24.25,0.6815,evolved,EnhancedRecalCompact,"Compact (6-12 leaves) recalibrated distilled tree with enhanced header, all 3 innovations combined"
+,21.38,0.7006,evolved,DistilledShrinkTree_v4,"RF+GBM teacher-distilled compact tree (6-12 leaves, alpha=0.5) with CV-tuned shrinkage, targeting higher interp"
+,8.81,0.7134,evolved,MegaTeacher_a06,MegaTeacher with alpha=0.6 (more teacher weight) — stronger distillation signal
+,14.81,0.7070,evolved,AdaptiveTabPFN,"3-candidate adaptive: linear + RF/GBM tree + TabPFN-distilled tree, CV picks best"
+,16.75,0.7070,evolved,KitchenSinkAdaptive,"4-candidate adaptive: ElasticBayesRidge, distilled tree, recal tree, RidgeCV — CV picks best per dataset"

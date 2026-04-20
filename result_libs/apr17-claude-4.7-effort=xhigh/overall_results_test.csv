@@ -1,0 +1,24 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,10.88,0.5541,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,15.00,0.7006,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,14.94,0.6433,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,17.94,0.7261,baseline,OLS,ordinary least squares linear regression
+baseline,17.25,0.5287,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,15.56,0.6051,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,6.44,0.4204,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,6.31,0.4841,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,17.31,0.1911,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,13.25,0.4713,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,12.69,0.4586,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,10.75,0.4968,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,12.56,0.6752,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,9.75,0.6497,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,3.50,0.5605,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,nan,0.1720,baseline,TabPFN,"TabPFN foundation model for tabular data (training data capped at 200 samples, 2 ensemble members, low-memory fit mode for CPU latency)"
+,6.75,0.5987,evolved,PiecewiseGAM3Knots_sorted,PiecewiseLinearGAM with 3 knots + features sorted by importance in display.
+,12.88,0.6242,evolved,LinearPlusStumps,RidgeCV linear + up to 6 additive stumps on residuals (greedy). Display: linear equation + stump corrections.
+,12.56,0.6242,evolved,LinearPlusStumps12,RidgeCV linear + up to 12 additive stumps on residuals (more stumps for better rank).
+,7.75,0.6051,evolved,PiecewiseGAM_best,"Piecewise GAM: 3-knot LassoCV basis, 3% effect prune, per-feature piecewise display with near-identical segment merging (8% tol), sorted by importance."
+,13.94,0.6752,evolved,AdaptiveSelector,Selects between LinearPlusStumps with 0/4/12 stumps via 3-fold CV. Adapts complexity per dataset.
+,6.25,0.4904,evolved,SparseHingeLinear,LassoCV over linear + pos/neg hinge basis (3 knots per feature at interior quantiles); display is flat sorted equation.
+,8.75,0.5796,evolved,PiecewiseLinearGAM,"Hinge basis LassoCV, but display per-feature piecewise (slope + intercept per segment between knots). Decouples features for LLM simulation."

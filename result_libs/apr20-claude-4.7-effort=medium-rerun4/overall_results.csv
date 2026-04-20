@@ -1,0 +1,81 @@
+commit,mean_rank,frac_interpretability_tests_passed,status,model_name,description
+baseline,36.02,0.4186,baseline,PyGAM,generalized additive model with 10 splines per feature and default settings
+baseline,58.08,0.6744,baseline,DT_mini,small decision tree with up to 8 max_leaf_nodes
+baseline,58.29,0.5349,baseline,DT_large,large decision tree with up to 20 max_leaf_nodes
+baseline,48.42,0.7442,baseline,OLS,ordinary least squares linear regression
+baseline,52.29,0.5349,baseline,LassoCV,Lasso linear model with cross-validation to select the regularization parameter
+baseline,49.80,0.7674,baseline,RidgeCV,Ridge linear model with cross-validation to select the regularization parameter
+baseline,37.68,0.2326,baseline,RF,"random forest with 50 tree estimators, each with max_depth of 5"
+baseline,31.28,0.5349,baseline,GBM,"gradient boosting machine with 100 tree estimators, each with max_depth of 3"
+baseline,60.78,0.1628,baseline,MLP,"multi-layer perceptron with default hidden layer size, ReLU activation, and Adam solver"
+baseline,53.52,0.3953,baseline,FIGS_mini,small FIGS with up to 8 max_rules
+baseline,52.22,0.5814,baseline,FIGS_large,large FIGS with up to 20 max_rules
+baseline,45.43,0.2791,baseline,RuleFit,RuleFit with up to 20 max_rules
+baseline,57.69,0.7674,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
+baseline,52.31,0.6744,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
+baseline,22.43,0.4651,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,14.28,0.0698,baseline,TabPFN,TabPFN foundation model for tabular data
+55f5120,55.34,0.6047,,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
+9666e6e,47.02,0.7209,,OLSPlain_v2,Plain OLS on raw features with clean readable formula
+15acd93,44.75,0.5581,,HingeMedianOLS_v1,"Additive piecewise-linear: raw + ReLU hinges at median per feature, LassoCV-selected, OLS refit"
+e01f1aa,54.85,0.6047,,SparseOLSTop5_v2,"LassoCV selects top-5 features, OLS refit, clean formula"
+0330e31,48.42,0.6744,,ThresholdPruneOLS_3pct_v1,"OLS, prune features with standardized coef below 3% of max, OLS refit"
+923805c,54.08,0.5116,,OLSPlusSquares_v1,"OLS with x and x^2 features, LassoCV-select up to 12 terms, OLS refit"
+48b6b15,49.88,0.7442,,ThresholdPruneOLS_1pct_v2,"OLS, prune features with standardized coef below 1% of max, OLS refit"
+ec974e1,49.20,0.7674,,GreedyForwardOLS_v2,"Greedy forward stepwise (SSE), OLS refit on up to 8 features"
+1c8e4fe,47.77,0.7442,,RidgeCVClean_v2,"RidgeCV on standardized X, report formula in raw scale"
+54826af,58.66,0.3721,,AdditiveShapeTrees_v1,"EBM-lite: per-feature depth-2 shape trees, 3 round-robin boosting rounds, lr=0.7"
+bda3fd9,39.60,0.3488,,OLSPlusBestHinge_v1,"OLS + per-feature single hinge at best quantile threshold, joint refit"
+88c828a,51.65,0.7442,,OLSMatch_v1,"Plain OLS (subclass of sklearn LinearRegression, baseline rendering)"
+295931b,33.26,0.4186,,OLSPlusTinyGBM_v1,OLS base + 30-tree max_depth=2 GBM on residuals
+5e3da20,42.32,0.4419,,OLSPlusStumps5_v1,OLS base + 5 greedy decision stumps on residuals (shown as if-then corrections)
+364cd0e,48.89,0.8372,keep,SmartAdditiveGAM_v1,Greedy boosted-stump GAM with Laplacian-smoothed shape functions; adaptive linear/piecewise display (R^2>0.70 → linear)
+c5a0080,50.48,0.6512,,SmartAdditiveGAM_v2,"Boosted-stump GAM, 400 rounds, min_leaf=10, smoothed shape fns, adaptive linear/piecewise display (R^2>0.70)"
+765cf60,49.65,0.6512,,SmartAdditiveGAM_v3,Boosted-stump GAM (piecewise predict) + display-only linear approx (R^2>0.85) to keep readable formula
+e0f8ddf,48.22,0.6512,,SmartAdditiveGAM_v4,"Boosted-stump GAM, 300 rounds, coupled linear-display + predict (R^2>0.70)"
+95e4fc9,53.34,0.7674,,SmartAdditiveGAM_v5,"Boosted-stump GAM, 100 rounds, R^2>0.60 for linear (more features as linear coefs)"
+03be533,53.63,0.7674,,SmartAdditiveGAM_v6,"Boosted-stump GAM, 200 rounds, R^2>0.50 linear threshold (even more features as linear coefs)"
+34b0318,42.89,0.5581,,RidgePlusShapes_v1,RidgeCV linear base + boosted-stump shape corrections on residuals; high-R^2 shapes absorbed into linear coefs
+ad24d6d,46.68,0.7442,,BaggedAdditiveGAM_v1,Bagged 3-GAM ensemble (subsample=0.9); display uses consensus GAM fit on full data
+2bc0c72,56.08,0.6047,,SmartAdditiveGAM_v7,"Boosted-stump GAM, 200 rounds, 8 smoothing passes (more-linear shape fns → more features displayed as linear)"
+cf06655,49.20,0.3953,,PolyGAM_v1,"Cyclic per-feature polynomial GAM, degree 2, 4 rounds, ridge alpha=1"
+6f77607,57.32,0.7907,,SmartAdditiveGAM_v8,"Boosted-stump GAM (200 rds, R^2>0.70), max 4 thresholds/feature (simpler shape fns)"
+bbf7197,55.60,0.6279,,RawPolyGAM_v1,LassoCV on raw-space linear + squared features; clean polynomial equation display
+48497a6,40.23,0.4651,,MultiHingeLinear_v1,"LassoCV on [x_j, max(0,x_j-t_jk)] with knots at 0.25/0.50/0.75 quantiles; clean hinge-linear equation"
+ce8d5e8,51.88,0.6744,,SmartAdditiveGAM_v9,"SmartAdditiveGAM 300 rounds, lr=0.08, min_leaf=3, R^2>0.70 (more capacity, smaller leaves)"
+4b4ec30,49.15,0.7907,,SmartAdditiveGAM_v10,"SmartAdditiveGAM 200 rounds, lr=0.1, min_leaf=5, R^2>0.80, 3 smoothing passes"
+b92a4c9,52.77,0.7209,,SmartAdditiveGAM_v11,"SmartAdditiveGAM 200 rounds, lr=0.1, min_leaf=5, R^2>0.65, 4 smoothing passes (slightly more linear)"
+4ee45fd,40.54,0.5349,,SimpleStumpGAM_v1,Single best-stump per feature + linear; ridge calibration; clean if-then display
+279e1d8,32.08,0.7209,keep,HybridGAM_v1,SmartAdditiveGAM display + hidden 30-tree depth-2 residual GBM (lr=0.05)
+49b372b,25.29,0.6977,keep,HybridGAM_v2,SmartAdditiveGAM display + hidden 60-tree depth-3 residual GBM (lr=0.05)
+bc87f4a,24.43,0.6512,,HybridGAM_v3,SmartAdditiveGAM display + hidden 100-tree depth-3 residual GBM (lr=0.05)
+acacb3c,29.57,0.6977,,HybridGAM_v4,"SmartAdditiveGAM display + hidden 80-tree depth-2 residual GBM (lr=0.05, less interaction)"
+dc861c9,22.02,0.7209,keep,HybridGAM_v5,SmartAdditiveGAM display + hidden 50-tree RandomForest depth-5 residual
+ea54c23,21.48,0.6047,,HybridGAM_v6,SmartAdditiveGAM display + hidden 100-tree RandomForest depth-8 residual
+19b6719,23.80,0.7209,,HybridGAM_v7,SmartAdditiveGAM display + hidden 75-tree RandomForest depth-4 residual
+ab34126,21.08,0.6977,,HybridGAM_v8,SmartAdditiveGAM display + hidden 200-tree RandomForest depth-5 residual (more diverse)
+156c349,24.92,0.7209,,HybridGAM_v9,SmartAdditiveGAM + hidden 50-tree RF depth=5 residual shrunk by 0.7 (lighter correction → better interp alignment)
+4a949e4,23.55,0.7209,,HybridGAM_v10,SmartAdditiveGAM + hidden 80-tree ExtraTrees depth=5 residual (more randomness → diversity)
+7d915d8,50.83,0.6744,,HybridGAM_v11,SmartAdditiveGAM + hidden single DecisionTree depth=8 residual (minimal hidden complexity)
+070ebef,49.42,0.7907,,TopKSparseGAM_v1,SmartAdditiveGAM zeroing out all but top-6 features by importance; intercept refit on residuals
+1b5feef,42.46,0.6279,,StagewiseGAM_v1,Stagewise: GAM1 (200 rds) + GAM2 (100 rds on residuals); merged into one GAM (predict==display)
+6c82f5b,25.43,0.6512,,HybridGAM_v12,SmartAdditiveGAM + hidden 100-tree depth=3 GBM residual (lr=0.05)
+555dfad,28.14,0.7209,,HybridGAM_v13,SmartAdditiveGAM + hidden 30-tree RF depth=3 residual (smaller/conservative vs v5)
+7ac4bff,45.26,0.7442,,InteractionGAM_v1,SmartAdditiveGAM + single best x_i*x_j bilinear interaction term (selected from top-10 features)
+35d6c02,26.48,0.7209,,HybridGAM_v14,HybridGAM v5 variant: RF 50/d5 residual with max_features=sqrt (more diverse trees)
+1ca6914,26.02,0.7442,keep,HybridGAM_v15,HybridGAM: RF 100/d8 residual shrunk by 0.5 (deep trees but half-weighted)
+477113f,22.00,0.6977,,HybridGAM_v16,"HybridGAM: RF 100/d8 residual shrunk by 0.7 (deep trees, moderate weighting)"
+a29cc1f,32.80,0.7674,,HybridGAM_v17,HybridGAM: RF 150/d8 residual shrunk by 0.3 (push toward GAM-dominant predictions for cleaner interp)
+255f4e3,37.31,0.7907,,HybridGAM_v18,HybridGAM: RF 200/d10 residual shrunk by 0.2 (very GAM-dominant with big hidden RF)
+c239979,41.89,0.8140,,HybridGAM_v19,"HybridGAM: RF 300/d10 residual shrunk by 0.1 (ultra GAM-dominant, minuscule residual correction)"
+f262c7a,25.17,0.6977,,HybridGAM_v20,HybridGAM: GBM 200/d4 lr=0.05 residual shrunk by 0.6 (GBM may be more precise than RF)
+075eb72,23.09,0.7209,,HybridGAM_v21,HybridGAM: RF 75/d6 residual shrunk by 0.7 (intermediate between v5 and v15)
+bd2cbca,20.62,0.6744,,HybridGAM_v22,HybridGAM: RF 400/d5 no shrinkage (bigger ensemble than v8 for deeper rank push)
+c3a050b,20.15,0.6744,,HybridGAM_v23,HybridGAM: RF 150/d6 no shrinkage (tweak depth/trees between v5 and v8)
+281c45a,41.91,0.7209,,HybridGAM_v24,HybridGAM like v19 but r2_thresh=0.85 (more features displayed as linear → maybe cleaner)
+a2d18cf,28.89,0.7674,,HybridGAM_v25,HybridGAM: RF 125/d8 shrunk by 0.4 (gap between v15 and v17)
+447a477,39.55,0.8372,keep,HybridGAM_v26,HybridGAM: RF 250/d10 shrunk by 0.15 (between v18 and v19)
+ea83201,34.62,0.7907,keep,HybridGAM_v27,HybridGAM: RF 180/d10 shrunk by 0.25 (between v17 and v18)
+ee04192,21.35,0.6977,,HybridGAM_v28,HybridGAM: RF 80/d6 shrunk by 0.8 (gap between v5 and v15)
+98c122a,23.80,0.6047,,HybridGAM_v29,"HybridGAM: RF 300/d15 no shrinkage (deeper trees, big ensemble — push rank extreme)"
+4cc4964,30.77,0.7674,keep,HybridGAM_v30,HybridGAM: RF 150/d8 shrunk by 0.35 (target gap between v15 and v17)
