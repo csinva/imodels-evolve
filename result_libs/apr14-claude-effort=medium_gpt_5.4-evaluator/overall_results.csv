@@ -13,7 +13,7 @@ baseline,9.72,0.0698,baseline,FIGS_large,large FIGS with up to 20 max_rules
 baseline,7.98,0.0465,baseline,RuleFit,RuleFit with up to 20 max_rules
 baseline,11.11,0.7907,baseline,HSTree_mini,small HSTree with up to 8 max_leaf_nodes
 baseline,9.23,0.6744,baseline,HSTree_large,large HSTree with up to 20 max_leaf_nodes
-baseline,4.32,0.0000,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
+baseline,4.32,0.0465,baseline,EBM,explainable boosting machine (InterpretML) with 3 outer bags and 1000 max rounds
 baseline,3.02,0.0000,baseline,TabPFN,TabPFN foundation model for tabular data
 6d60463,10.72,0.5581,discard,DecisionTreeSimple,Baseline interpretable regressor (shallow decision tree)
 535c83e,9.71,0.3488,discard,SparsePolyLinear,Lasso with degree-2 polynomial features (interactions + squares) for nonlinear prediction with sparse linear equation output
