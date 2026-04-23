@@ -1,7 +1,0 @@
-`analysis.py` ran successfully and `conclusion.txt` was written with score **75**.
-
-Key findings:
-- **OLS**: skin_tone coef=0.0041, p=0.0003 — statistically significant positive effect
-- **SmartAdditiveRegressor**: skin_tone zeroed out (importance=0%), dominated by yellowCards (63%) and games (28%)
-- **HingeEBM**: skin_tone ranked 4th in importance (16.2%), positive direction
-- The effect is real but modest — darker-skinned players receive slightly more red cards, though game count and yellow card history are the primary drivers

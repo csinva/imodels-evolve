@@ -1,8 +1,0 @@
-The script ran successfully. `conclusion.txt` was created with `response=40`.
-
-**Key findings:**
-- Simple correlation: r=-0.226, p=2.8e-06 — significant negative relationship (higher STR → lower scores)
-- After controlling for socioeconomic factors (lunch program eligibility, income, English learners, etc.), the STR effect drops to non-significant (coef=-0.255, p=0.37)
-- The apparent relationship is largely explained by confounders — districts with high STR tend to also be poorer and have more disadvantaged students
-
-**Conclusion:** Score = 40/100 — the raw association exists but is not robust after controlling for confounders, so the evidence for a causal/independent link is weak.

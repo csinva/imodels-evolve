@@ -1,3 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with a response score of **25** (leaning "No").
-
-**Summary:** The analysis found no significant relationship between age and majority preference (Spearman rho ≈ 0, p = 0.999; OLS age coef p = 0.784), no significant culture effect (ANOVA p = 0.153), and no age×culture interaction (p = 0.576). The evidence does not support a meaningful developmental trend in majority preference across the age range 4–14 in this dataset.

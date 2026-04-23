@@ -1,3 +1,0 @@
-Done. `analysis.py` ran successfully and wrote `conclusion.txt` with `response=20`.
-
-**Key findings:** Although couples with children had slightly higher raw affair rates (1.67 vs 0.91), once we control for age, years married, religiousness, marriage rating, etc., having children has essentially no significant effect on affairs (OLS coef=-0.143, p=0.684). The dominant predictors are marriage rating, age, years married, and religiousness — not children.

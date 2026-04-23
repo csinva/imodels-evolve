@@ -1,5 +1,0 @@
-The script ran successfully and `conclusion.txt` was written. Key findings:
-
-- **Location effect**: Strong and consistent — `dist_focal` (p=0.039, OLS) and `dist_other` (importance=31.4%, rank 1 in SmartAdditive) show that being closer to your own home range center increases win probability. The `loc_advantage` variable ranks 3rd in importance with a clear increasing trend.
-- **Relative group size**: Weak — positive OLS coefficient (0.127) but non-significant (p=0.225), and ranks last (importance=1.9%) in the additive model with a non-monotonic pattern.
-- **Score: 62/100** — Location has a moderate-strong effect that holds across models; group size shows only a weak, inconsistent relationship.

@@ -1,8 +1,0 @@
-Done. The analysis found **no significant effect** of Reader View on reading speed for dyslexic individuals. Key findings:
-
-- **Bivariate**: Dyslexic readers were actually slightly *slower* with Reader View (342 vs 323 wpm, p=0.70 — not significant)
-- **OLS controlled**: reader_view coef=0.042, p=0.47 (non-significant)
-- **Interaction term** (reader_view × dyslexia): coef=-0.018, p=0.76 — no differential benefit for dyslexic users
-- **SmartAdditive & HingeEBM**: reader_view importance=0% (completely zeroed out); the main predictors are `correct_rate`, `num_words`, and `age`
-
-`conclusion.txt` written with `{"response": 15, ...}` — a score of 15/100 indicating no meaningful effect.

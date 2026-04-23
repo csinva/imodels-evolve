@@ -1,5 +1,0 @@
-The script ran successfully and created `conclusion.txt`. 
-
-**Result:** Score = **20/100**
-
-Neither relative group size (log size ratio, p=0.196) nor contest location (distance advantage, p=0.718) significantly predicted win probability in logistic regression on this 58-row dataset. While the directional effects aligned with expectations (larger focal groups and home location both associated with more wins), neither reached statistical significance, warranting a low "No" score.

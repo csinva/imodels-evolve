@@ -1,1 +1,0 @@
-`conclusion.txt` has been written. The Binomial GLM (appropriate for proportion/count data) shows humans have significantly higher AMTL rates (coef=1.53 log-odds, p=0.003) after controlling for age, sex, and tooth class. Response: **85** (strong Yes).

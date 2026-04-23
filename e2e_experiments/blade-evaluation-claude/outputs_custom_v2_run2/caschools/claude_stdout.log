@@ -1,4 +1,0 @@
-The script ran successfully. `conclusion.txt` was written with:
-
-- **Response: 20** (weak support)
-- **Reasoning**: The bivariate correlation is negative (r=-0.226), suggesting higher ratios → lower scores. However, in OLS with controls (lunch, income, english, calworks, expenditure), the student-teacher ratio coefficient becomes insignificant (p=0.37). SmartAdditiveRegressor ranks it last in importance (2.5%), and HingeEBMRegressor zeroes it out entirely — the strongest predictors are poverty (lunch: 38%), income (27%), and English learners (15%). The apparent bivariate association is largely explained by socioeconomic confounders.

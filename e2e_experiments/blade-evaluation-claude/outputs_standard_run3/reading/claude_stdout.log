@@ -1,7 +1,0 @@
-The script ran successfully. Key findings:
-
-- Among dyslexia individuals (n=434), Reader View slightly increased mean speed by 5.2% (304 vs 289 wpm)
-- T-test p=0.64, Mann-Whitney p=0.61 — **not statistically significant**
-- OLS interaction term (reader_view × dyslexia) is near zero (p=0.73)
-
-`conclusion.txt` written with `response: 40` — a weak positive trend exists but lacks statistical significance, so the answer leans toward "No."

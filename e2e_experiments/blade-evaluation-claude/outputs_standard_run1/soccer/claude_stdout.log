@@ -1,9 +1,0 @@
-`conclusion.txt` written. Key findings:
-
-- Dark skin players: 0.01377 red cards/dyad vs 0.01236 for light skin (~11% higher)
-- Mann-Whitney U (one-sided): p=0.021
-- Spearman correlation: rho=0.010, p=0.0004
-- OLS regression with games controlled: skin_tone coefficient p=0.0008
-- Player-level t-test: p=0.004
-
-**Score: 65/100** — The data shows a statistically significant positive association between darker skin tone and red card receipt, consistent across multiple tests, though effect sizes are small.

@@ -1,7 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with:
-
-- **Age**: Strong significant positive effect (r=0.50, p<0.0001) — older chimps are more efficient
-- **Sex**: Significant effect (males more efficient, p=0.0004)  
-- **Help**: Not significant in OLS (p=0.13), marginal in t-test (p=0.07)
-
-**Response score: 80** — age and sex significantly influence nut-cracking efficiency, while help shows a non-significant trend.

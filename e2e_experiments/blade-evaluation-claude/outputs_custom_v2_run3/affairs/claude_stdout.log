@@ -1,4 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with:
-
-- **Response: 25** (weak/no effect)
-- **Key findings**: Bivariate data shows people WITH children actually have *more* affairs (mean 1.67 vs 0.91), opposite to the hypothesis. After controlling for confounders, the children coefficient is small and non-significant (coef=-0.14, p=0.68). Both SmartAdditiveRegressor and HingeEBMRegressor assign zero importance to children. The real predictors of fewer affairs are **marriage rating** and **religiousness**.

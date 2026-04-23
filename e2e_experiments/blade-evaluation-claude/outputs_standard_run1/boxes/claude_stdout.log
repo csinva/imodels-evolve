@@ -1,4 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with:
-
-- **Response: 40** (leaning "No")
-- **Key finding**: Age has no significant relationship with majority preference choice (r=0.007, p=0.865). The OLS regression confirms this (age coef=-0.005, p=0.55). Only 3 of 8 cultures show a positive age trend, and none are statistically significant individually. The ANOVA also shows no significant cultural variation (p=0.153).

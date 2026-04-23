@@ -1,8 +1,0 @@
-The script ran successfully and `conclusion.txt` has been written.
-
-**Key findings:**
-- **Unadjusted**: Female and male denial rates are nearly identical (~11.9%), with no significant difference (p=0.99).
-- **Adjusted** (controlling for credit scores, debt ratios, race, etc.): Females are actually *less* likely to be denied — coefficient = -0.45, OR = 0.64, p = 0.029.
-- The decision tree assigns zero feature importance to gender, dominated by `denied_PMI`, `bad_history`, and `PI_ratio`.
-
-**Conclusion score: 63/100** — Gender does affect approval, but in a surprising direction: after controlling for financial characteristics, female applicants are modestly *more* likely to be approved. The raw rates show no difference; the effect only emerges after adjusting for confounders.

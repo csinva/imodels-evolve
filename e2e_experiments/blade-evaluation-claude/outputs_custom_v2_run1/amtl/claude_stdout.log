@@ -1,7 +1,0 @@
-`conclusion.txt` has been written with score **43** and a full explanation. Key findings:
-
-- **Bivariate**: Homo sapiens have ~10x higher AMTL rate (0.103 vs 0.009), correlation=0.249
-- **OLS with controls**: `is_homo` is **non-significant** (coef=0.0038, p=0.741) once age is controlled
-- **Age dominates**: Age is the primary driver (OLS coef=0.0064, p<0.001; SmartAdditive 85% importance)
-- **SmartAdditive model**: `is_homo` is ranked 2nd with positive direction and 6.6% importance, suggesting a modest residual human-specific effect
-- **Score 43**: The bivariate difference exists but is largely mediated by age; there may be a weak positive human-specific effect per the additive model

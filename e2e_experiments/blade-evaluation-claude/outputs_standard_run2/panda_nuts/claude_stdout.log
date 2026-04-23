@@ -1,7 +1,0 @@
-The script ran successfully and `conclusion.txt` was created. Key findings:
-
-- **Age**: significant (r=0.50, p<0.0001) — older chimpanzees crack more nuts per second
-- **Sex**: significant (t=3.68, p=0.0004) — males more efficient than females (mean 0.48 vs 0.15)
-- **Help**: not significant (p=0.071) — receiving help did not significantly improve efficiency
-
-Score: **65/100** — age and sex clearly influence nut-cracking efficiency, but help from another chimpanzee does not reach statistical significance.

@@ -1,6 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with score **75**.
-
-Key findings:
-- **Age** is the strongest predictor (importance=46.8%, OLS p<0.001) with a nonlinear increasing trend — older chimps crack more nuts per second, consistent with a learning curve.
-- **Sex** is also significant (OLS coef=+0.26, p=0.001) — males are more efficient, importance=17.4%.
-- **Help** has a negative direction (receiving help reduces efficiency, β=−0.17) but is not statistically significant (p=0.146) after controlling for age, sex, and session length; HingeEBM excluded it entirely.

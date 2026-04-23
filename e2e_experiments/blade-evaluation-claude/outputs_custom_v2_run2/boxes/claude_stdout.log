@@ -1,8 +1,0 @@
-Done. `analysis.py` was written and executed, and `conclusion.txt` was created with:
-
-- **Score: 20/100** (weak/inconsistent effect)
-- Key findings:
-  - Age is **non-significant** in OLS (coef=0.002, p=0.803) and **zeroed out** by HingeEBM
-  - SmartAdditive shows a U-shaped nonlinear age pattern (important at 4 and 13-14, lower in middle ages) — but inconsistent with other models
-  - The dominant predictor is **majority_first** (whether majority option was shown first), accounting for 50-84% of explained variance
-  - Culture has no significant linear effect (p=0.448)

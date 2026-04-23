@@ -1,3 +1,0 @@
-`conclusion.txt` is written with score **40**. 
-
-**Summary:** Gender (female) has a statistically significant positive OLS coefficient (0.037, p=0.019) on mortgage approval, but the bivariate difference is essentially zero (0.0003). The SmartAdditiveRegressor zeroed out `female` entirely (importance=0%), and HingeEBM assigned it only 1.5% importance (rank 9/10). The dominant predictors are `denied_PMI` (38.5%), `PI_ratio` (19.8%), and `loan_to_value` (10.6%). The OLS significance appears marginal — the effect is positive but tiny and inconsistent across interpretable models — yielding a moderate score of 40.

@@ -1,8 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with a score of **80/100**.
-
-Key findings:
-- Beauty has a highly significant positive effect on teaching evaluations (OLS coef=0.156, p<0.0001)
-- It's the **#1 ranked predictor** in both interpretable models (SmartAdditive: 33.1% importance; HingeEBM: 29.5%)
-- The SmartAdditive model reveals a **nonlinear increasing trend** — higher beauty scores show accelerating positive returns
-- Effect is robust after controlling for gender, minority status, credits, native English speaker, etc.
-- Other notable predictors: single-credit courses (strong negative effect) and native English speaker status (positive)

@@ -1,7 +1,0 @@
-The script ran successfully. Here's what the analysis found:
-
-- **Unadjusted**: people with children actually have *more* affairs (mean 1.67 vs 0.91), and this is statistically significant by Mann-Whitney (p=0.0012) — but this is confounded by years married.
-- **After controlling for confounders** (age, years married, religiousness, rating, etc.): the children coefficient is small and negative (−0.14) but **not significant** (p=0.684).
-- The dominant predictors of affairs are marriage rating, years married, religiousness, and age — not children.
-
-**Conclusion written**: response=20 (No), meaning having children does **not** significantly decrease extramarital affairs once confounders are controlled.

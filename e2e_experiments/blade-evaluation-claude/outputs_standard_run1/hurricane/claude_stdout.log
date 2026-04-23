@@ -1,8 +1,0 @@
-Done. The analysis found:
-
-- **Pearson r = 0.117, p = 0.262** (femininity vs deaths — not significant)
-- **Spearman r = 0.002, p = 0.987** (essentially zero)
-- **T-test p = 0.31**, Mann-Whitney **p = 0.64** (no significant difference between male/female named storms)
-- **OLS with controls**: masfem coef = 0.021, p = 0.54 — not significant once storm severity is controlled
-
-**Conclusion: score 35/100.** The data does not statistically support the hypothesis that feminine-named hurricanes lead to fewer precautionary measures. While female-named storms show higher mean deaths (58 vs 14), this is not statistically significant (driven by a few extreme outliers like Katrina) and disappears when controlling for storm severity.

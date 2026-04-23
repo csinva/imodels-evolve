@@ -1,9 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with score **30** (weak support).
-
-Key findings:
-- **Bivariate**: `masfem` coef=0.037, p=0.454 — not significant
-- **Controlled OLS**: `masfem` coef=0.004, p=0.909 — essentially zero effect once storm severity is controlled
-- **SmartAdditiveRegressor**: `masfem` ranked 4th with only 5.8% importance; shows a nonlinear pattern where very feminine names (>8.75) have slightly higher deaths, but weak
-- **HingeEBM**: `masfem` gets zeroed out entirely — storm damage (`log_ndam`, 79.8% importance) and pressure (`min`, 14.3%) dominate
-
-The conclusion is that name femininity does not significantly predict deaths after controlling for storm severity, providing only weak support for the hypothesis.

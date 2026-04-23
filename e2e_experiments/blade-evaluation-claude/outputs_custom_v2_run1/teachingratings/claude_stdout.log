@@ -1,7 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with a score of **80**.
-
-Key findings:
-- Beauty has a highly significant positive effect on teaching evaluations (OLS: coef=0.156, p<0.001)
-- It's the **#1 most important feature** in both SmartAdditiveRegressor (36.4%) and HingeEBMRegressor (35.8%)
-- The SmartAdditiveRegressor reveals an **increasing nonlinear trend** — more beautiful professors get progressively higher ratings
-- The effect is robust across all three models (OLS, SmartAdditive, HingeEBM) after controlling for minority status, age, gender, credits, native English, and tenure

@@ -1,8 +1,0 @@
-Done. `analysis.py` was written and executed. Key findings:
-
-- **Pearson r = -0.003, p = 0.96** — essentially zero correlation
-- **T-test (high vs low fertility): p = 0.50** — no significant difference
-- **OLS regression FertilityScore coef p = 0.81** — not significant
-- **Spearman rho = 0.012, p = 0.84** — consistent null result
-
-`conclusion.txt` contains `{"response": 15, ...}` — a strong "No" (15/100), indicating no statistically significant effect of hormonal fluctuations on women's religiosity in this dataset.

@@ -1,7 +1,0 @@
-The script ran successfully. `conclusion.txt` was written with a score of **90**.
-
-Key findings:
-- **Age** is the strongest predictor (importance ~47-51%), with a nonlinear increasing effect — older chimps crack significantly more nuts per second (OLS p<0.001)
-- **Sex** is significant and positive (males more efficient, OLS p=0.001, importance ~17-45%)
-- **Help** has a negative direction but is not significant after controls (p=0.146), and HingeEBM excludes it entirely
-- The model explains ~40% of variance (R²=0.407), and effects are robust across OLS, SmartAdditive, and HingeEBM

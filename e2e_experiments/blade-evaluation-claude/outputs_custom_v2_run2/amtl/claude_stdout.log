@@ -1,8 +1,0 @@
-Done. The script ran successfully and `conclusion.txt` was created with score **87/100**.
-
-Key findings:
-- **GLM Binomial** (proper model for count data): `is_homo` coef=1.55, p=1.47e-22 — highly significant
-- **Mean AMTL rates**: Homo sapiens 10.3% vs non-human primates 0.9% (~11x difference)
-- **HingeEBM**: `is_homo` ranked #1 most important feature (29.7%)
-- **SmartAdditive**: `is_homo` positive, rank #3 (5.2%), age dominates (68%)
-- OLS was not significant because it's a poor fit for bounded proportion outcomes; GLM is the correct approach here

@@ -1,7 +1,0 @@
-The script ran successfully. Key findings:
-
-- **Average fish/hour (all groups):** 1.11 (median for active fishing groups: 0.78)
-- **Strongest predictors:** `persons` (r=0.22, p=0.0005) and `child` (p=0.004, negative effect)
-- **Livebait & camper:** positive coefficients but not statistically significant in OLS
-
-`conclusion.txt` has been written with `{"response": 65, "explanation": "..."}`.

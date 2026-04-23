@@ -1,8 +1,0 @@
-The script ran successfully and `conclusion.txt` was written. Key findings:
-
-- **Mean fish/hour: 1.11** (median 0, highly skewed — most groups catch 0)
-- **Persons** is the strongest predictor (SmartAdditive importance 42%), positively and linearly associated with fish/hour
-- **Hours** is most important overall (46.7%) with a nonlinear shape — peak rate at 1–5 hours, then diminishing returns beyond ~14 hours
-- **Livebait** has a positive effect (livebait users: 1.22 fish/hr vs 0.39 without), marginally significant in OLS (p=0.095)
-- **Children** negatively affect the rate (p<0.001)
-- Score: **80** — strong, estimable effect of group/effort factors on fish-per-hour rate, robust across models

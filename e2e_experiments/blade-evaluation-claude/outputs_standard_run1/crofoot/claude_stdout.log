@@ -1,3 +1,0 @@
-The script ran successfully and wrote `conclusion.txt`. 
-
-Key findings: Neither relative group size (p=0.20) nor contest location advantage (p=0.53) reached statistical significance as predictors of win probability in logistic regression. The model's pseudo-R² was only 0.023, and the LLR p-value was 0.40. The conclusion is a score of **20** (leaning No) — the data does not provide strong statistical evidence that these factors influence contest outcomes in this sample of 58 observations.

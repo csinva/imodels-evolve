@@ -1,6 +1,0 @@
-Done. `analysis.py` was written and executed, creating `conclusion.txt` with response **75**.
-
-Key findings:
-- Dark-skinned players had a red card rate of 0.00590 vs 0.00427 for light-skinned players (1.38x higher)
-- T-test: p=0.0014; OLS regression: p=0.0005 — both statistically significant
-- The effect is modest but consistent across multiple methods, supporting a "Yes" answer to the research question

@@ -1,6 +1,0 @@
-Done. Key findings:
-
-- **Unadjusted**: No gender difference in denial rates (female 11.9% vs male 11.9%, p=0.99)
-- **Adjusted** (controlling for credit history, debt ratios, etc.): Being female is significantly associated with *lower* denial rates (coef=-0.037, p=0.019)
-
-`conclusion.txt` written with `response: 65` — gender does have a statistically significant effect after controlling for financial factors, with females being slightly more likely to be approved.

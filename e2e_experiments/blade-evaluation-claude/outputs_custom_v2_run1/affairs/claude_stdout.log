@@ -1,7 +1,0 @@
-The script ran successfully and `conclusion.txt` has been written. Key findings:
-
-- **Bivariate**: those WITH children actually have MORE affairs (mean 1.67 vs 0.91, p=0.011) — opposite direction
-- **OLS with controls**: children coefficient = -0.143 (p=0.684) — negative but far from significant
-- **SmartAdditiveRegressor & HingeEBM**: both zero out children entirely (importance=0, rank=0)
-
-**Conclusion**: Score = **25** (weak/inconsistent effect). Having children does not reliably decrease affairs — the bivariate effect is in the wrong direction (confounded by years married), and after controls, no model finds a meaningful negative effect. Stronger predictors are marital rating and religiousness.

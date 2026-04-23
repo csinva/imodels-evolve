@@ -1,6 +1,0 @@
-`conclusion.txt` is written. Key findings:
-
-- Homo sapiens mean AMTL rate = **0.103** vs non-human primates = **0.009** (~10x higher)
-- T-test and Mann-Whitney both highly significant (p ≈ 0)
-- Logistic regression confirms: after controlling for age, sex, and tooth class, all non-human genera (Pan, Papio, Pongo) have significantly **negative** coefficients relative to Homo sapiens
-- Response score: **70** (Yes, humans have higher AMTL, supported by multiple significant tests and controlled models)

@@ -1,3 +1,0 @@
-Done. `analysis.py` ran successfully and `conclusion.txt` was written with score **62**.
-
-**Key findings:** Yes, darker-skinned players receive more red cards — OLS shows a significant positive effect (coef=0.0041, p=0.0003) after controlling for games, yellow cards, goals, and referee country bias. HingeEBM confirms skin tone as the 4th most important feature (importance=16.4%). However, the SmartAdditiveRegressor zeroes it out entirely, indicating the effect is small and linear — not a dominant driver. Yellow cards and games played are far stronger predictors. Score=62 reflects moderate, statistically robust but practically modest evidence.

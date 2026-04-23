@@ -1,8 +1,0 @@
-The script ran successfully. Key findings:
-
-- **Dark-skinned players** (skin_tone ≥ 0.5): red card rate = 0.00550
-- **Light-skinned players**: red card rate = 0.00424 (~1.3x lower)
-- **Poisson regression** (most appropriate for count data): IRR = 1.34, p = 0.0006 — highly significant
-- **T-test**: p = 0.0047
-
-`conclusion.txt` was written with `response: 75` — dark-skinned players are significantly more likely to receive red cards, with a ~30% higher rate after controlling for games played.

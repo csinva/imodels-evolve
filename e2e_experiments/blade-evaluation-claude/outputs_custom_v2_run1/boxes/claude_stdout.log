@@ -1,6 +1,0 @@
-`conclusion.txt` has been written. Here's a summary of the findings:
-
-- **OLS**: Age is not linearly significant (coef=0.002, p=0.803), but `majority_first` and `gender` are significant
-- **SmartAdditiveRegressor**: Age is the **2nd most important predictor (29.0% importance)** with a nonlinear U-shape — high majority-following in very young children (≤4.5), a dip in middle childhood (ages 6–11), then recovery in adolescence (>12.5)
-- **Cultural context**: Weak predictor (5.8% importance), suggesting cultures differ but age development is the bigger story
-- **Score: 60/100** — moderate nonlinear developmental effect of age that OLS misses, but with inconsistency across methods

@@ -1,6 +1,0 @@
-The script ran successfully. Key findings:
-
-- **Simple correlation**: r=0.189, p<0.0001 — beauty and teaching evaluations are significantly correlated
-- **Multiple regression** (controlling for age, gender, minority, credits, division, native English, tenure, class size): beauty coefficient = 0.156, p<0.0001 — the effect remains significant after controlling for confounders
-
-`conclusion.txt` was written with `response: 80` (strong "Yes" — beauty has a significant positive impact on teaching evaluations).

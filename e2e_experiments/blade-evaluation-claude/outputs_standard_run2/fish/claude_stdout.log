@@ -1,9 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with the analysis results:
-
-- **250 group visits** analyzed; **108 groups caught fish**
-- Mean catch rate: **~2.6 fish/hour** for groups that caught fish; **~1.1 fish/hour** across all visitors
-- Key factors: `persons` (more adults → more fish, p<0.001) and `child` (more children → fewer fish, p<0.001) were the strongest predictors
-- Livebait users averaged 3.7 vs 0.6 fish (trend, p=0.14)
-- Poisson GLM estimated ~0.6 fish/hour controlling for group composition
-
-Response score: **70** — a moderate "Yes" indicating the rate is meaningfully estimable with identifiable influential factors.

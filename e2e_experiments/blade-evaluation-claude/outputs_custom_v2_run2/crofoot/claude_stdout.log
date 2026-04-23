@@ -1,5 +1,0 @@
-`conclusion.txt` is written with score **65** and a full explanation. Key findings:
-
-- **Location**: strongly influences win probability — groups closer to their home-range center win significantly more (dist_focal p=0.045 bivariate; top 2 features in SmartAdditive with combined 57% importance)
-- **Relative group size**: weak and non-significant across all models (bivariate p=0.205, rank 8/8 in SmartAdditive with only 1.9% importance)
-- Score 65 reflects that the question asks about both factors: location clearly says "yes," but relative size says "no," yielding a moderate overall answer

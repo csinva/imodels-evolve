@@ -1,9 +1,0 @@
-The script ran successfully and `conclusion.txt` was written. Key findings:
-
-- **OLS**: FertilityProxy coef=0.073, p=0.905 (not significant); DaysSinceLastPeriod p=0.768 (not significant)
-- **Bivariate correlation**: FertilityProxy r=-0.013 (essentially zero)
-- **SmartAdditiveRegressor**: Shows FertilityProxy as a nonlinear decreasing trend (importance=24.7%, rank 1), but this is inconsistent with OLS
-- **HingeEBM**: Zeroes out FertilityProxy entirely — excluded as unimportant
-- **Strongest predictor**: Relationship status (OLS p=0.008, HingeEBM importance=81.7%)
-
-**Conclusion**: Score = **35** (weak/inconsistent evidence). The fertility-religiosity link is not statistically significant in OLS or bivariate analysis, and HingeEBM excludes it entirely. The SmartAdditive's high importance for FertilityProxy likely reflects overfitting to noise. Relationship status is far the dominant predictor of religiosity in this dataset.

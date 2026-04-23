@@ -1,3 +1,0 @@
-Script ran successfully. `conclusion.txt` was created with `{"response": 30, "explanation": "..."}`.
-
-**Key findings:** No significant relationship between age and majority preference following. Logistic regression p=0.864, Spearman rho≈0, ANOVA p=0.26. Zero out of 8 cultures showed a significant age effect individually. The data does not support the hypothesis that children's reliance on majority preference develops with age across cultural contexts.

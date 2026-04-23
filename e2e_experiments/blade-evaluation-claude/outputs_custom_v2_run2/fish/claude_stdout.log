@@ -1,4 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with:
-
-- **Response: 82** — The data robustly supports estimating the fish catch rate and identifying key factors.
-- **Key findings**: Average ~1.11 fish/hour (mean); hours is the top predictor (SmartAdditive importance=61.7%, nonlinear increasing trend); persons is 2nd most important; child count negatively affects catch; livebait and camper also positive. Hours effect is marginally significant in OLS (p=0.077) but dominates the interpretable models, suggesting a nonlinear relationship the linear model undersells.

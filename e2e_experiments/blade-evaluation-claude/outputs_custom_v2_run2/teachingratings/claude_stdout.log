@@ -1,4 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with:
-
-- **Response: 85** (strong "Yes")
-- Beauty has a highly significant positive effect on teaching evaluations (OLS coef=0.156, p<0.0001), confirmed by both interpretable models which rank beauty as the **#1 most important predictor** (SmartAdditive importance=33.1%, HingeEBM importance=29.5%). The effect shows a nonlinear increasing trend — professors rated more beautiful receive substantially higher evaluations. The relationship is robust across all three models after controlling for gender, minority status, credits, native English speaker, and class size.

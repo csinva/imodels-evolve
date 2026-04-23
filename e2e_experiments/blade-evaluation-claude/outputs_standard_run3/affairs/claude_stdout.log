@@ -1,5 +1,0 @@
-`conclusion.txt` is written. Key findings:
-
-- **Raw means**: people *with* children have more affairs (1.67 vs 0.91), not fewer.
-- **OLS regression** controlling for age, years married, religiousness, education, occupation, rating, gender: the children coefficient is -0.14 but **not significant** (p=0.684).
-- **Answer: 30/100** — No evidence that having children decreases extramarital affairs; if anything, the raw association goes the other direction, though it disappears after controlling for confounders.

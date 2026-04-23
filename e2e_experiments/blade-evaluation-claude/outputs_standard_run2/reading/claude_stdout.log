@@ -1,3 +1,0 @@
-Done. `conclusion.txt` has been written with `response: 20`.
-
-**Key findings:** Reader View does **not** significantly improve reading speed for dyslexic individuals. Dyslexic readers with Reader View ON averaged 323 wpm vs 343 wpm without — actually slightly *lower*, not higher. T-test p=0.697, Mann-Whitney p=0.732, Cohen's d=-0.037 (negligible effect). The OLS interaction term (reader_view × dyslexia_bin) is also non-significant (p=0.51).

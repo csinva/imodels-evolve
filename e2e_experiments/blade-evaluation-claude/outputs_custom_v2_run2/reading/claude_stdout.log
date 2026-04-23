@@ -1,9 +1,0 @@
-The script ran successfully. `conclusion.txt` has been written with a score of **20/100**.
-
-**Key findings:**
-- **No significant effect**: Reader View does not improve reading speed for dyslexic individuals
-- Bivariate t-test: t=0.39, p=0.70 (not significant)
-- OLS with controls: reader_view coef=-20.67, p=0.67 (actually slightly *negative*, not significant)
-- Interaction term (reader_view × dyslexia) in full model: p=0.93
-- SmartAdditiveRegressor and HingeEBM both **zero out** reader_view entirely
-- The main predictors of speed are `age`, `num_words`, and `retake_trial` — not the layout condition

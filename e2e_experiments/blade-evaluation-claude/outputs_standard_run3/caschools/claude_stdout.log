@@ -1,7 +1,0 @@
-The script ran successfully. Key findings:
-
-- **Bivariate**: STR is significantly negatively correlated with test scores (r = -0.23, p = 2.8e-06, coef = -2.28) — lower ratio predicts higher scores.
-- **Controlled**: After adding income, lunch, English learners, and expenditure, STR's effect drops to near-zero and becomes non-significant (coef = -0.26, p = 0.35). Socioeconomic factors (especially % qualifying for reduced-price lunch) dominate the model.
-- **Conclusion**: Response = **45** — there's a raw association, but it's largely a confounder effect, not a causal relationship.
-
-`conclusion.txt` has been written with `{"response": 45, "explanation": "..."}`.

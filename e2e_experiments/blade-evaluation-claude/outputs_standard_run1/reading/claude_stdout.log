@@ -1,7 +1,0 @@
-The script ran successfully. Key findings:
-
-- Dyslexic readers with Reader View ON: mean speed **318 wpm** vs OFF: **331 wpm** — actually slightly *lower*
-- T-test p=0.76, Mann-Whitney p=0.73 — **not significant**
-- OLS interaction term (reader_view × dyslexia): coef=-0.043, p=0.48 — no significant interaction
-
-`conclusion.txt` written with `response=40` (leaning "No" — no significant improvement, effect is slightly negative and far from statistical significance).

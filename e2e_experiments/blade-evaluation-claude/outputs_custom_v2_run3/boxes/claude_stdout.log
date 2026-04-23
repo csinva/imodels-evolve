@@ -1,7 +1,0 @@
-`analysis.py` ran successfully and `conclusion.txt` was written with score **10/100**.
-
-Key findings:
-- **No significant age effect**: bivariate r=0.007 (p=0.86), OLS coef=0.002 (p=0.80)
-- **HingeEBM zeroed out age** entirely — majority_first and gender are the dominant predictors
-- **Mixed cross-cultural pattern**: only 38% of cultures show a positive age-majority correlation
-- The dominant predictor is `majority_first` (whether majority option was shown first), suggesting order effects matter far more than age

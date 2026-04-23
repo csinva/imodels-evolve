@@ -1,3 +1,0 @@
-The script ran successfully and `conclusion.txt` has been written. 
-
-**Summary:** Fertility proxies (cycle-day-derived continuous and binary high-fertility indicators) show no significant effect on women's religiosity (OLS p≈0.83). The dominant predictor is relationship status (p=0.009). SmartAdditiveRegressor ranked fertility_continuous 5th in importance (5.6%); HingeEBM zeroed it out entirely. Score: **20/100** — weak, non-significant effect.

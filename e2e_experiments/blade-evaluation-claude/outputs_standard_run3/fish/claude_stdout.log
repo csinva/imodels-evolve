@@ -1,7 +1,0 @@
-The script ran successfully and `conclusion.txt` was created. Key findings:
-
-- **Average fish caught per hour**: ~1.11 fish/hr across all groups; ~2.56 fish/hr among groups that actually caught fish
-- **Most significant factor**: `persons` (group size), with r=0.218, p=0.0005 — larger groups catch more fish per hour
-- OLS regression also found `child` (negative, p<0.001) and `hours` (negative, p=0.018) significant
-- `livebait` and `camper` were not statistically significant (p>0.05)
-- Response score: **72/100** — yes, the rate is clearly estimable and group size is a significant driver

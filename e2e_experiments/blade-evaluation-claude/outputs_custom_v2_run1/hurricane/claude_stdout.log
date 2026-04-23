@@ -1,3 +1,0 @@
-`analysis.py` was written and executed; `conclusion.txt` was created with score **15/100** (strong "No").
-
-**Key findings:** The hypothesis that feminine hurricane names cause more deaths (via reduced perceived threat) is not supported. `masfem` has a weak bivariate correlation (r=0.117) and is statistically insignificant in OLS models after controlling for physical severity (p=0.259 raw, p=0.593 log-transformed). The SmartAdditive model ranks `masfem` dead last (importance=1.2%, rank 8/10), with normalized damage (`ndam15`) dominating at 52.8% importance. The effect is non-monotonic and near-zero across all models.

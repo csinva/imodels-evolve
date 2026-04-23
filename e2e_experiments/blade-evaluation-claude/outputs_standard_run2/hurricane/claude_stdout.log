@@ -1,8 +1,0 @@
-`conclusion.txt` has been written. Key findings:
-
-- Pearson r = 0.117 (p=0.26) — weak positive correlation, not significant
-- T-test: female-named hurricanes had higher mean deaths (58 vs 14), but p=0.31 — not significant, driven by outliers
-- Controlled OLS: masfem coef=0.021, p=0.54 — no significance after controlling for severity (pressure, damage)
-- Decision tree: `ndam` (damage) and `min` (pressure) dominate; `masfem` has only 6% importance
-
-**Score: 40/100** — the trend is in the predicted direction but lacks statistical significance, especially after controlling for storm severity. The hypothesis is weakly supported at best.

@@ -1,7 +1,0 @@
-`conclusion.txt` is written with score **30** (leaning "No"). 
-
-Key findings:
-- Pearson r(masfem, deaths) = 0.117, p = 0.26 — not significant
-- After controlling for storm severity, masfem coef = 0.021, p = 0.54 — also not significant
-- Spearman rho ≈ 0.002, p = 0.99 — essentially zero rank correlation
-- Female-named hurricanes had higher mean deaths (58 vs 14), but this likely reflects confounding (e.g., older storms had female names and less warning infrastructure), not name-gender perception effects

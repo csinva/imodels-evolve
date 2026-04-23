@@ -1,6 +1,0 @@
-The script ran successfully. `conclusion.txt` was created with:
-
-- **Score: 90/100 (strong Yes)**
-- Binomial regression found humans have significantly higher AMTL rates after controlling for age, sex, and tooth class (coef=1.558, p=1.77e-22)
-- Human mean AMTL rate (10.3%) vs non-human primates (0.9%)
-- All three non-human genera (Pan, Papio, Pongo) had significantly lower rates than Homo sapiens

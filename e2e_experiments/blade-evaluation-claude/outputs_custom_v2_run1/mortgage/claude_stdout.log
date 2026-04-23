@@ -1,8 +1,0 @@
-`conclusion.txt` is written with score **25** (weak/inconsistent effect). Key findings:
-
-- **Bivariate**: Male vs female acceptance rate identical (88.1% both)
-- **OLS controlled**: `female` coef=0.037, p=0.019 — marginally significant but tiny effect
-- **SmartAdditiveRegressor**: Excludes `female` entirely (importance=0.0) — contradicts OLS
-- **Dominant predictors**: `denied_PMI` (38.5%), `PI_ratio` (19.8%), `loan_to_value` (10.6%), `bad_history` (10.1%)
-
-Gender shows an inconsistent, weak effect — OLS finds marginal significance but the more robust additive model zeros it out completely, suggesting the OLS result may be spurious.

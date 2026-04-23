@@ -1,7 +1,0 @@
-`conclusion.txt` written with score **25** (weak, inconsistent effect). Key findings:
-
-- **Bivariate**: near-zero correlation (r=0.0003); accept rates identical by gender (88.1% both)
-- **OLS**: marginally significant (coef=0.037, p=0.019) but small
-- **SmartAdditiveRegressor**: female zeroed out entirely (importance=0%)
-- **HingeEBMRegressor**: female ranked 9th of 10 (importance=1.5%)
-- **Top drivers**: denied_PMI, PI_ratio, loan_to_value, bad_history — financial/credit variables dominate

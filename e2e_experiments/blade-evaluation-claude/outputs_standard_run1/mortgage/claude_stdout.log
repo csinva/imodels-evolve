@@ -1,5 +1,0 @@
-`conclusion.txt` is written. Key findings:
-
-- **Raw denial rates** are nearly identical (Female: 11.9%, Male: 11.9%), with no simple association (chi-square p=1.0, simple logit p=0.99).
-- **After controlling for confounders** (credit scores, debt ratios, race, etc.), gender becomes significant (p=0.029): females have ~36% lower odds of denial (OR=0.637).
-- **Score: 70/100** — gender does affect approval, but only when controlling for other variables (females are less likely to be denied).

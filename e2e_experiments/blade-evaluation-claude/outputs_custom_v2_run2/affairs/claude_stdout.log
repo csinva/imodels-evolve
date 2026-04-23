@@ -1,6 +1,0 @@
-`analysis.py` ran successfully and `conclusion.txt` was created. The analysis found:
-
-- **Raw data**: people with children have *more* affairs on average (1.67 vs 0.91), opposite to the hypothesis.
-- **OLS controlled**: children coefficient = -0.14 (p=0.684) — **not significant**.
-- **SmartAdditiveRegressor**: children_bin is completely excluded (importance=0), confirming no effect.
-- **Score: 10/100** — no evidence that having children decreases extramarital affairs. The dominant predictors are age, marriage happiness rating, and religiousness.

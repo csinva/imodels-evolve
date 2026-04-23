@@ -1,8 +1,0 @@
-`analysis.py` ran successfully and `conclusion.txt` has been written with `response: 65`.
-
-**Key findings:**
-- **Raw association**: Significant negative correlation (r=-0.23, p<0.001) — lower STR → higher scores
-- **Controlled analysis**: After controlling for income, lunch eligibility, and English learner %, STR becomes non-significant (p=0.35)
-- **Decision tree**: STR gets 0% feature importance when socioeconomic variables are present
-
-**Conclusion (65/100)**: There is a meaningful bivariate association, but it's largely confounded by socioeconomic factors. The relationship exists in the raw data but is not an independent predictor of academic performance.

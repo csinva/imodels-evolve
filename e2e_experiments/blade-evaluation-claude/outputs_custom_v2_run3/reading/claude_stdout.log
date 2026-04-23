@@ -1,9 +1,0 @@
-`conclusion.txt` is written. The analysis found no evidence that Reader View improves reading speed for individuals with dyslexia:
-
-- **Dyslexia group**: mean speed was actually *slightly lower* with Reader View (323 vs 342 words/min, −5.5%), but this was not significant (t=−0.39, p=0.70)
-- **OLS (controlled)**: reader_view coef=−20.4, p=0.67 — non-significant
-- **Interaction term** (full dataset): coef=−7.7, p=0.92 — non-significant
-- **SmartAdditiveRegressor**: reader_view had zero importance (excluded from model)
-- **HingeEBMRegressor**: reader_view also zeroed out
-
-Score: **20/100** — weak/inconsistent effect in no direction, not significant across any analysis.
