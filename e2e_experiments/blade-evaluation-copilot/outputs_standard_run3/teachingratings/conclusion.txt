@@ -1,0 +1,1 @@
+{"response": 75, "explanation": "Beauty has a statistically significant and moderate impact on teaching evaluations (p=0.0000 < 0.05). The coefficient is 0.1563, indicating that a 1-unit increase in beauty (about 1 standard deviation) is associated with a 0.1563-point increase in evaluation scores (on a 1-5 scale). This effect persists even when controlling for other factors."}

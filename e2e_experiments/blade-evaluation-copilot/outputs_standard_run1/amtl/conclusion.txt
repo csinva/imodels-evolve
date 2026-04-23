@@ -1,0 +1,1 @@
+{"response": 60, "explanation": "Moderate evidence: 2 out of 5 tests show significance (p<0.05), providing some support that Homo sapiens has higher AMTL rates when controlling for age, sex, and tooth class, though not all analyses agree."}

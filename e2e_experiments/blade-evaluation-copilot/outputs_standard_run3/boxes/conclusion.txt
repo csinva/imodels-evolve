@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "The relationship between age and majority preference is not statistically significant (r=0.000, p=0.9988), suggesting limited developmental changes across the age range studied."}

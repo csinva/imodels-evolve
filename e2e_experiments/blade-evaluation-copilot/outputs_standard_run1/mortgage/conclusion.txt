@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No, gender does not significantly affect mortgage approval. The univariate chi-square test shows no significant relationship (p=1.0000). The approval rate difference between males and females is 0.03 percentage points, which is not statistically significant at the 0.05 level."}

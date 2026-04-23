@@ -1,0 +1,1 @@
+{"response": 5, "explanation": "No, having children does not decrease affairs. In fact, the data shows people with children have more affairs (1.67 vs 0.91), and this is statistically significant (t-test p=0.0107, coefficient=0.760)."}

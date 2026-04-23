@@ -1,0 +1,1 @@
+{"response": 75, "explanation": "Two factors show significant relationships: age, sex. These variables have statistically significant effects (p<0.05) on nut-cracking efficiency, indicating moderate support for the influence of these variables. The overall regression model is significant (F-test p=0.0000). In the multiple regression, age, sex remain significant predictors."}

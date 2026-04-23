@@ -1,0 +1,1 @@
+{"response": 80, "explanation": "Gender has a statistically significant effect on mortgage approval (p=0.0289 < 0.05). After controlling for other factors, being female is associated with higher approval odds (coefficient=0.451)."}

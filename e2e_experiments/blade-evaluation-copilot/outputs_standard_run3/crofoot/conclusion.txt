@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "Neither relative group size nor contest location show strong statistical significance. Relative size p=0.1221, location p=0.5362. Limited evidence for systematic influence."}

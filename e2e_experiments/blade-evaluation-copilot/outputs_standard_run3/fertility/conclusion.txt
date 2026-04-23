@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No statistically significant relationship found; All tests failed to reach significance (p-values: 0.776, 0.305, 0.934). Research question: hormonal fluctuations during menstrual cycle and religiosity."}

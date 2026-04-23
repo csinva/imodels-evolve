@@ -1,0 +1,1 @@
+{"response": 5, "explanation": "No significant effects found for either relative group size or contest location on winning probability."}

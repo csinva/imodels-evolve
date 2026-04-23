@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Insufficient evidence: Coefficient is positive (coef=1.39) but not statistically significant (p=0.2965). Cannot conclude that femininity affects precautionary behavior."}

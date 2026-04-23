@@ -1,0 +1,1 @@
+{"response": 90, "explanation": "Strong evidence: All statistical tests show significant positive relationships (p < 0.001) between darker skin tone and red cards. Poisson regression rate ratio = 1.34, meaning players with maximum skin tone have 1.34x the red card rate."}

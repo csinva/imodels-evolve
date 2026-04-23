@@ -1,0 +1,1 @@
+{"response": 60, "explanation": "There is moderate evidence suggesting players with dark skin tone may be more likely to receive red cards. 2 statistical test(s) show significance. Dark skin players have 1.08x higher red card rate, but the evidence is not overwhelming across all tests."}

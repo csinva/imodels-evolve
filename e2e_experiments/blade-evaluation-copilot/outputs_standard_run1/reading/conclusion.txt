@@ -1,0 +1,1 @@
+{"response": 45, "explanation": "Insufficient evidence to conclude Reader View improves reading speed for dyslexic individuals. T-test (p=0.6054) and regression (p=0.8680) both fail to reach statistical significance at \u03b1=0.05. While descriptive statistics show lower speed with Reader View, this difference could be due to chance."}

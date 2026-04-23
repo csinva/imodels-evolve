@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "Weak evidence: bivariate relationship present but weakens substantially with controls | Bivariate: coef=-2.280, p=0.0000 | With controls: coef=-0.255, p=0.3662 (not significant) | Effect likely confounded by socioeconomic factors | Interpretable models fitted for shape/magnitude analysis"}

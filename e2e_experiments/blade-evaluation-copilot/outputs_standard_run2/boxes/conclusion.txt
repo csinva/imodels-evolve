@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "There is no significant relationship between age and reliance on majority preference (r=0.007, p=0.8645). The age x culture interaction is also not significant (p=0.5730), suggesting that children's majority preference does not systematically develop with age across cultures."}

@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Although there is a numerical difference in mean affairs between those with and without children (-0.760), the relationship is not statistically significant (p=0.6840). We cannot confidently conclude that children decrease affairs."}

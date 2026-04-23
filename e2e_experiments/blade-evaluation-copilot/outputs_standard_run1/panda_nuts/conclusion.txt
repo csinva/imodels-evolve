@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Statistical analysis shows that age (p=0.0000, r=0.500), sex (p=0.0004) significantly influence(s) nut-cracking efficiency (nuts/second). Two of the three variables have significant effects. The overall model is significant (F-test p=0.0000) with R\u00b2=0.370."}

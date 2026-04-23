@@ -1,0 +1,1 @@
+{"response": 45, "explanation": "Mixed evidence: Having children shows coefficient=-0.143 (p=0.6840) in the controlled analysis. The relationship exists but interpretation requires caution given the statistical significance and practical magnitude. Other factors may be more important predictors."}

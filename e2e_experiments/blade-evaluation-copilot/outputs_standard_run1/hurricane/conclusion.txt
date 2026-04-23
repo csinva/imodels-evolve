@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No statistical evidence supports the hypothesis. None of the 6 tests show significant relationships (all p > 0.05). Correlation: r=0.117, p=0.2622. The data do not support the claim that hurricane name femininity affects deaths through reduced precautionary measures."}

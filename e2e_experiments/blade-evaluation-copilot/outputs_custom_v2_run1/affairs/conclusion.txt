@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Inconsistent evidence: the relationship changes direction between bivariate and controlled analyses, indicating confounding or model instability. No clear conclusion can be drawn."}

@@ -1,0 +1,1 @@
+{"response": 65, "explanation": "Average catch rate: 1.13 fish/hour (median: 0.00). Hours spent is significantly correlated with total fish caught (r=0.227, p<0.001). Found 2 significant factors: persons, hours. Linear models explain 8.7% of variance in catch rate."}

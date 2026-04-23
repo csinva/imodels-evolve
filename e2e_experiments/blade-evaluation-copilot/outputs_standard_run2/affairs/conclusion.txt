@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "People with children have HIGHER mean affairs (1.67) than those without (0.91) Difference is statistically significant (t-test p=0.0107, chi-square p=0.0015) Multiple regression shows no significant effect (p=0.6840)"}

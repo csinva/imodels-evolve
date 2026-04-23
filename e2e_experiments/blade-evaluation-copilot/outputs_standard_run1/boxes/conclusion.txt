@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No significant age effect (p=0.8642) and no significant cultural variation in development (interaction p=0.5730). Limited evidence for developmental changes in majority preference across cultural contexts."}

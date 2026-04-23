@@ -1,0 +1,1 @@
+{"response": 85, "explanation": "Strong evidence: 4 out of 5 statistical tests showed significant positive relationship (p<0.05). Dark skin players received 39.0% more red cards than light skin players. Significant tests: T-test, Logistic regression, Poisson regression, Correlation."}

@@ -1,0 +1,1 @@
+{"response": 65, "explanation": "Hours spent fishing is highly significant (p=0.0003, r=0.227) Having a camper affects catch (p=0.0436) Average fish caught per hour: 1.107 Regression model R\u00b2=0.205 shows factors explain 20.5% of variance"}

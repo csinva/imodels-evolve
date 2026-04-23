@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "No statistically significant relationship found. T-test p=0.188, correlation p=0.806. Effect size is negligible (d=0.183)."}
