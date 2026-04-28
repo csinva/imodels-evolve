@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "The age effect is not significant or negative (p=0.8642). Limited evidence for cultural variation. Children's reliance on majority increases with age (overall trend), and this developmental pattern shows variation across cultural contexts."}

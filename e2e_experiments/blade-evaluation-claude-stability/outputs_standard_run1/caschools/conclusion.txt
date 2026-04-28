@@ -1,0 +1,1 @@
+{"response": 55, "explanation": "Partially. Bivariate correlation is significant (r=-0.226, p=2.78e-06), but after controlling for socioeconomic confounders (income, lunch, english), the STR effect is not independently significant (p=3.50e-01). The bivariate association may be confounded."}

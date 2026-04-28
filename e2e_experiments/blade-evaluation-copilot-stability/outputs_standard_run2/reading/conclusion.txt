@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "No, the data does not support that Reader View improves reading speed for individuals with dyslexia. The difference is not statistically significant (p=0.6965)."}

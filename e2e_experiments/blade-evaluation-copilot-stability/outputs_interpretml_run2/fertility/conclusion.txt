@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No statistically significant relationship found. Correlation between cycle position and religiosity: r=-0.015 (p=0.830). ANOVA across cycle phases: p=0.952. Regression coefficient: -0.0051 (p=0.830). All tests failed to reject the null hypothesis at \u03b1=0.05, indicating no detectable effect of hormonal fluctuations on religiosity."}

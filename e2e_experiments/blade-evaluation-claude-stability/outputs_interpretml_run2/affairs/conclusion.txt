@@ -1,0 +1,1 @@
+{"response": 35, "explanation": "After controlling for confounders, having children shows a slight negative association with affairs (coef=-0.1426) but this is NOT statistically significant (p=0.6840). Unadjusted: with children mean=1.6721, without=0.9123. No strong evidence that children decrease extramarital affairs."}

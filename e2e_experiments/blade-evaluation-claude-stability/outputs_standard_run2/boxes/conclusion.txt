@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Age does not significantly predict majority choice (coef=0.009, p=0.8007). No clear developmental trend found."}

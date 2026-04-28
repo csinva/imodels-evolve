@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Weak but significant negative correlation (r=-0.226, p=0.0000) suggests lower student-teacher ratios are associated with higher academic performance, though the effect is small."}

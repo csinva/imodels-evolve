@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No, neither factor shows statistically significant influence. Group size: p=0.5784, Location: p=0.4906. Both p-values exceed 0.05 threshold."}

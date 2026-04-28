@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "Neither relative group size (p=0.147) nor contest location (p=0.739) show statistically significant influence on winning probability at alpha=0.05. The data does not provide strong evidence for the hypothesis."}

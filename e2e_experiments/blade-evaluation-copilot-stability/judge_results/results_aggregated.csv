@@ -1,0 +1,3 @@
+mode,correctness_mean,correctness_se,completeness_mean,completeness_se,clarity_mean,clarity_se,overall_mean,overall_se,n_codex_runs,n_judge_repeats
+interpretml,6.04,0.1,4.93,0.1,5.68,0.12,5.55,0.11,3,3
+standard,5.74,0.11,4.63,0.1,5.35,0.11,5.24,0.1,3,3

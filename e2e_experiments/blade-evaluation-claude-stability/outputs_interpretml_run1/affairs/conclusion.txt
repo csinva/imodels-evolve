@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant relationship found. Full OLS: children coef = -0.143, p=0.6840. Mean affairs: no children=0.91 vs with children=1.67. Mann-Whitney U p=0.0012. Having children does not significantly decrease extramarital affairs."}

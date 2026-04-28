@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "After controlling for storm severity, the relationship between femininity of name (masfem) and deaths is not statistically significant (coef=0.018, p=0.620). The raw correlation r=0.117 (p=0.262). Binary gender t-test p=0.312. The evidence does not strongly support that feminine hurricane names lead to more deaths via reduced precaution."}

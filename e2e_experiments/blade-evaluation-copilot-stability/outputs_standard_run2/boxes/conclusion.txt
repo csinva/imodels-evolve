@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "There is no significant overall effect of age on majority preference (p=0.8642), and only 0/8 cultures show significant positive correlations individually. The evidence does not strongly support developmental changes in children's reliance on majority preference across cultural contexts."}

@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant effect: t=-0.249, p=0.8036; OLS p-value for InFertileWindow=0.9575. Fertile mean=5.152 vs non-fertile mean=5.258. Hormonal fluctuations associated with fertility do not appear to significantly affect women's religiosity in this dataset."}

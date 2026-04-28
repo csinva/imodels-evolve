@@ -1,0 +1,1 @@
+{"response": 65, "explanation": "Some statistical tests show darker-skinned players receive more red cards. Logistic regression: OR=1.275, p=0.0042; Poisson regression: IRR=nan, p=0.0006; Mann-Whitney p=0.1259; T-test p=0.0041. 3/4 tests significant. Evidence suggests a positive but modest relationship."}

@@ -1,0 +1,1 @@
+{"response": 35, "explanation": "No statistically significant improvement in reading speed for dyslexic individuals with Reader View. Mean speed with Reader View: 323.3 vs without: 342.3 wpm. Mann-Whitney U test p=0.7324 (not significant at 0.05). OLS regression: reader_view coef=-20.05, p=0.6751."}

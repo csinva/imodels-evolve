@@ -1,0 +1,1 @@
+{"response": 45, "explanation": "Mixed evidence: overall age effect p=0.8645 (coef=0.0014). 4/8 cultures trend positively but most are non-significant."}

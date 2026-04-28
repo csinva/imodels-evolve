@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Neither logistic regression (age p=0.5484) nor ANOVA (p=0.2629) shows significant age effect on majority preference across cultures. Little evidence that majority-preference reliance increases with age in these data."}

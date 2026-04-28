@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No significant effect of hormonal fluctuations on religiosity was found. T-test (p=0.502), correlation (p=0.944), and regression (cycle position p=0.789, fertility phase p=0.677) all failed to show significant relationships. The data does not support the hypothesis that fertility cycle affects women's religiosity."}

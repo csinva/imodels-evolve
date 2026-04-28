@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No, there is insufficient evidence that children's reliance on majority preference systematically develops with age across cultural contexts. Neither the main effect of age (p=8.6425e-01) nor the age \u00d7 culture interaction (p=5.7299e-01) reached statistical significance."}

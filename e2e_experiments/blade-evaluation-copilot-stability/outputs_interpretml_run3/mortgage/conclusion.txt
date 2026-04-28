@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No significant relationship between gender and mortgage approval. Chi-square test shows no association (p=0.976859). Approval rates are similar: 88.1% (female) vs 88.2% (male). The difference of 0.2 percentage points is not statistically significant."}

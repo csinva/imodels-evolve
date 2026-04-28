@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "No strong evidence that Reader View improves reading speed for dyslexic individuals. Mean speed decreased by 18.9 words/min, but the difference is not statistically significant (p=0.6965)."}

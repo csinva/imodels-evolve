@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "No significant relationship found between age and majority preference (r=0.007, p=0.8645). Cultural differences are not significant (p=0.1533)."}

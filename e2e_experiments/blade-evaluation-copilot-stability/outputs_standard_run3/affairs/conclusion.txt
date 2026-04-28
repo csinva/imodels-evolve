@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "No significant relationship found. Regression coefficient: -0.143 (p=0.6840, not significant). Mean affairs: 1.67 (with children) vs 0.91 (without). Cannot conclude that children decrease affairs."}

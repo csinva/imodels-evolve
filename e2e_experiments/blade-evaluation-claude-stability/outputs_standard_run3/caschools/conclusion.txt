@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "Partially. Simple regression shows a significant negative relationship (r=-0.226, p=2.78e-06), but after controlling for confounders (lunch, english, income, expenditure), the relationship is no longer significant (coef=-0.264, p=3.50e-01). The raw correlation may be confounded by socioeconomic factors."}

@@ -1,0 +1,1 @@
+{"response": 90, "explanation": "GLM binomial regression (controlling for age, sex, tooth class) shows is_human coefficient=1.5581 (log-odds), p=1.6009e-22. Human mean AMTL rate=0.1026 vs non-human=0.0094. OLS is_human coef=0.0038, p=7.3869e-01. ANOVA p=0.000000. Statistically significant positive effect."}

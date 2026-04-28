@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No significant relationship found between fertility (hormonal fluctuations) and religiosity. Pearson r=-0.0012 (p=0.9839), t-test p=0.8025, OLS p=0.9839. Mean religiosity fertile=5.313 vs non-fertile=5.206. The data does not support that hormonal fluctuations associated with fertility affect women's religiosity."}

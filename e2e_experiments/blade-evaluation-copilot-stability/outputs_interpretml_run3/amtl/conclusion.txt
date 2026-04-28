@@ -1,0 +1,1 @@
+{"response": 95, "explanation": "Yes, modern humans have significantly higher AMTL frequencies. Binomial regression controlling for age, sex, and tooth class shows Homo sapiens has 4.71x higher odds of tooth loss (p=0.000000). This finding is highly statistically significant."}

@@ -1,0 +1,1 @@
+{"response": 45, "explanation": "Simple regression shows a significant negative relationship (coef=-2.280, p=0.0000), but this becomes non-significant when controlling for confounders like income and poverty (multiple OLS: coef=-0.255, p=0.3662). The raw association may be confounded by socioeconomic factors."}

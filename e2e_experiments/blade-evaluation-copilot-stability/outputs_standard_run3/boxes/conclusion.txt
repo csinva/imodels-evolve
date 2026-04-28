@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant overall relationship between age and majority preference (p=0.864), and no significant variation across cultures (interaction p=0.368)."}

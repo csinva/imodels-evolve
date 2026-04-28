@@ -1,0 +1,1 @@
+{"response": 75, "explanation": "Two of the three factors showed significant relationships: age (p=0.0000, r=0.500), sex (p=0.0004). This indicates that multiple factors influence nut-cracking efficiency. The linear regression model explains 37.0% of variance in efficiency. Age shows a positive correlation. Sex differences are present."}

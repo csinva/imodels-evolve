@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "There is weak evidence for the hypothesis. While the coefficient is negative (-0.219), suggesting fewer affairs among those with children, the effect is not statistically significant (p=0.5250)."}

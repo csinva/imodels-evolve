@@ -99,6 +99,52 @@ Focus on building interpretable models that help you understand the relationship
 - Available packages: numpy, pandas, scipy, statsmodels, sklearn, imodels, matplotlib, seaborn.
 """
 
+# Stability prompt variant: identical to AGENTS_MD_STANDARD but pointing to
+# the InterpretML library (https://github.com/interpretml/interpret) instead
+# of imodels. Used to check whether the prompt-stability gain depends on the
+# specific package being mentioned.
+AGENTS_MD_STANDARD_INTERPRETML = """You are an expert data scientist. You MUST write and execute a Python script to analyze a dataset and answer a research question.
+
+## Instructions
+
+1. Read `info.json` to get the research question and dataset metadata.
+2. Load the dataset from `{dataset_name}.csv`.
+3. The `interpret` library at <https://github.com/interpretml/interpret> provides
+   interpretable scikit-learn-compatible regressors and classifiers that
+   you can use alongside scikit-learn.
+4. Write a Python script called `analysis.py` that:
+   - Loads and explores the data (summary statistics, distributions, correlations).
+   - Builds interpretable models using scikit-learn and interpret to understand feature relationships.
+   - Performs appropriate statistical tests (t-tests, ANOVA, regression, etc.).
+   - Interprets the results in context of the research question.
+5. **Execute the script** by running: `python3 analysis.py`
+6. The script MUST write a file called `conclusion.txt` containing ONLY a JSON object:
+
+```json
+{{"response": <integer 0-100>, "explanation": "<your reasoning>"}}
+```
+
+Where `response` is a Likert scale score: 0 = strong "No", 100 = strong "Yes".
+
+## Interpretability Tools
+
+You should use interpretable models to understand the data. Available tools:
+
+- **scikit-learn**: Use `LinearRegression`, `Ridge`, `Lasso`, `DecisionTreeRegressor`, `DecisionTreeClassifier` for interpretable models. Use `feature_importances_` and `coef_` to understand feature effects.
+- **interpret** (<https://github.com/interpretml/interpret>): Use `from interpret.glassbox import ExplainableBoostingRegressor, ExplainableBoostingClassifier, DecisionListClassifier` for additive and rule-based interpretable models. These provide human-readable explanations and feature importance.
+- **statsmodels**: Use `statsmodels.api.OLS` for regression with p-values and confidence intervals.
+- **scipy.stats**: Use for statistical tests (t-test, chi-square, correlation, ANOVA).
+
+Focus on building interpretable models that help you understand the relationships in the data, not just black-box predictions. Use the model coefficients, rules, and feature importances to inform your conclusion.
+
+## Important
+
+- You MUST actually run the script, not just write it. The `conclusion.txt` file must exist when you are done.
+- When asked if a relationship between two variables exists, use statistical significance tests.
+- Relationships lacking significance should receive a "No" (low score), significant ones a "Yes" (high score).
+- Available packages: numpy, pandas, scipy, statsmodels, sklearn, imodels, interpret, matplotlib, seaborn.
+"""
+
 AGENTS_MD_CUSTOM_V2 = """You are an expert data scientist. You MUST write and execute a Python script to analyze a dataset and answer a research question.
 
 ## Instructions
@@ -205,6 +251,7 @@ def prepare_dataset(dataset_name: str, mode: str, output_dir: str):
     # Write AGENTS.md based on mode
     templates = {
         "standard": AGENTS_MD_STANDARD,
+        "interpretml": AGENTS_MD_STANDARD_INTERPRETML,
         "custom_v2": AGENTS_MD_CUSTOM_V2,
     }
     template = templates[mode]
@@ -247,9 +294,9 @@ def main():
     parser.add_argument(
         "--mode",
         type=str,
-        choices=["standard", "custom_v2"],
+        choices=["standard", "interpretml", "custom_v2"],
         default="standard",
-        help="Tool mode: 'standard' (sklearn/imodels) or 'custom_v2' (+ interp_models.py)",
+        help="Tool mode: 'standard' (sklearn/imodels), 'interpretml' (sklearn/interpret), or 'custom_v2' (+ SKILL.md)",
     )
     parser.add_argument(
         "--output-dir",

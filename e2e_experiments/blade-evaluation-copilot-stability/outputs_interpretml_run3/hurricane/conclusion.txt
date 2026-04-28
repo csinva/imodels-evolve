@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "No significant correlation or regression effect found. Statistical tests do not support the hypothesis that feminine names lead to more deaths."}

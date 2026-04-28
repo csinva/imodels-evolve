@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "Neither relative group size (p=0.1221) nor contest location (p=0.5362) show statistically significant relationships with contest outcomes at the 0.05 significance level. The data does not provide strong evidence that these factors influence winning probability."}

@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "Limited evidence for developmental changes in majority preference across cultures. Age main effect not significant (p=0.8642), and age*culture interaction not significant (p=0.3680)."}

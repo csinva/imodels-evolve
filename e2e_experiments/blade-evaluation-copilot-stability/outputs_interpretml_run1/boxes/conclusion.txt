@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant overall age effect on majority preference (p=0.8642). The age effect is relatively consistent across cultures. Only 0/8 cultures show individually significant age effects."}

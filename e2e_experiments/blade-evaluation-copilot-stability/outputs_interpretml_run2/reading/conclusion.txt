@@ -1,0 +1,1 @@
+{"response": 50, "explanation": "No statistically significant evidence that Reader View improves reading speed for individuals with dyslexia. T-test not significant (t=-0.39, p=0.6965 >= 0.05). While mean speed changed from 342.3 to 323.3, this difference could be due to chance."}

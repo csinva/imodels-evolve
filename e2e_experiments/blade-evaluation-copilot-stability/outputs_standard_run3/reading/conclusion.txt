@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "No significant evidence (p=0.6433) that Reader View improves reading speed for dyslexic individuals. Observed difference in means could be due to chance."}

@@ -1,0 +1,1 @@
+{"response": 35, "explanation": "No statistically significant effect of children on extramarital affairs after controlling for confounders. OLS coef=-0.143 (p=0.6840). Raw means: with_children=1.672, without=0.912. Mann-Whitney p=0.0012."}

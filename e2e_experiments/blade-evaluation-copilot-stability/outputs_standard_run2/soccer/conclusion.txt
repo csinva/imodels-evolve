@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Moderate statistical evidence suggests that players with darker skin tones receive more red cards. Some tests show significance: correlation p=0.000445, comparison p=0.130339, regression p=0.000221. Dark skin players show 8.49% more red cards."}

@@ -1,0 +1,1 @@
+{"response": 75, "explanation": "Two of the three factors significantly influence nut-cracking efficiency: age, sex. Help shows no significant effect (p=0.0707). "}

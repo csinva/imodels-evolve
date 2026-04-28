@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant relationship between age and majority preference was found (logistic regression: coef=0.009, p=0.7891; Pearson r=0.007, p=0.8645)."}

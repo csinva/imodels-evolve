@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "Neither relative group size (p=0.1465) nor contest location (p=0.7386) show statistically significant effects on winning probability in this dataset. The factors that influence intergroup contest outcomes remain unclear from this analysis."}

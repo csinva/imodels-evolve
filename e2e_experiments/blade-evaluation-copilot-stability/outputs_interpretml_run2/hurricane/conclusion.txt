@@ -1,0 +1,1 @@
+{"response": 10, "explanation": "No statistically significant relationship found between hurricane name femininity and deaths in any of the tests (correlation, simple regression, controlled regression, or group comparison). The hypothesis is not supported by the data."}

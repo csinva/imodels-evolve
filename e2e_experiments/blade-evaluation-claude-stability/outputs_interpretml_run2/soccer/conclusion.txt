@@ -1,0 +1,1 @@
+{"response": 60, "explanation": "Some statistical tests show a significant association between darker skin tone and red card rates. Chi-square test: chi2=0.75, p=0.3852. Player-level t-test: t=3.202, p=0.0014. Dark-skinned players received red cards at rate 0.0059 vs 0.0043 for light-skinned."}

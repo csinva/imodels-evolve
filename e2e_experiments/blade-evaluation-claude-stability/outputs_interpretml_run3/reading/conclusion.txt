@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "For dyslexic individuals, reading speed is NOT higher with Reader View ON (mean=323.3) vs OFF (mean=342.3). Mann-Whitney p=0.7324, t-test p=0.6965. Effect size: -0.037. No evidence that Reader View improves reading speed for dyslexics."}

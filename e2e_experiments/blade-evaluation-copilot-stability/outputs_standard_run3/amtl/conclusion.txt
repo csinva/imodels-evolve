@@ -1,0 +1,1 @@
+{"response": 85, "explanation": "Yes, humans show significantly higher AMTL rates. The binomial regression controlling for age, sex, and tooth class shows humans have a coefficient of 1.5579 (p=0.0000), indicating significantly higher AMTL frequencies compared to non-human primates (Pan, Pongo, Papio)."}

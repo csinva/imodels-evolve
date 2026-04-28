@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "There is moderate evidence for a positive impact of beauty on teaching evaluations. Both simple and multiple regression analyses show statistically significant relationships (p<0.05), but the effect size is relatively small (Cohen's d=0.15)."}

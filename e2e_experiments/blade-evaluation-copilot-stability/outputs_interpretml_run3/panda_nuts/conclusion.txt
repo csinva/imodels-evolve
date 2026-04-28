@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Two of the three factors show statistically significant relationships: age (p=0.0000) and sex (p=0.0004). The remaining factor does not show a significant effect (p>0.05). Overall, there is strong evidence that some of these factors influence nut-cracking efficiency."}

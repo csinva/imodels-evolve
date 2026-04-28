@@ -1,0 +1,1 @@
+{"response": 15, "explanation": "Statistical tests show significance, but in the OPPOSITE direction. Having children is associated with MORE affairs (mean: 1.67 vs 0.91). Key p-values: multiple regression=0.5250, t-test=0.0107."}

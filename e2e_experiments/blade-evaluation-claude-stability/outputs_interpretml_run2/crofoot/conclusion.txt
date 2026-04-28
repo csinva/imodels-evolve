@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "Neither relative group size (r=0.169, p=0.2048) nor contest location (r=0.083, p=0.5362) show a statistically significant effect on win probability in this sample."}

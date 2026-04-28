@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "Neither relative group size (p=0.1465) nor contest location (p=0.7386) show statistically significant effects on winning probability at the \u03b1=0.05 level. With a small sample size (n=58), we cannot confidently conclude these factors influence contest outcomes."}

@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Moderate evidence: Dark skin players have 0.0047 red cards per game vs 0.0041 for light skin (ratio: 1.15). Significant in 2/4 tests: Logistic regression (p=0.000118), Poisson regression (p=0.000276)."}

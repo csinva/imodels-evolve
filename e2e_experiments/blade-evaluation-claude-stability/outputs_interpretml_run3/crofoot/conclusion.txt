@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Neither relative group size (p=0.2430) nor contest location (p=0.7226) show statistically significant effects in this logistic regression model."}

@@ -1,0 +1,1 @@
+{"response": 35, "explanation": "Neither relative group size (logit p=0.2430) nor contest location (logit p=0.7226) reaches conventional significance in this small sample (n=58). Trends exist but evidence is insufficient to firmly conclude both factors influence win probability."}

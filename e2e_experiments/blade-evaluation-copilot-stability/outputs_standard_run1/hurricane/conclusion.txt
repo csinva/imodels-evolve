@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Insufficient evidence for the hypothesis. While the correlation is positive (r=0.117), it is not statistically significant (p=0.2622). Neither simple nor controlled regression analyses show significant effects (p=0.2622, p=0.2316)."}

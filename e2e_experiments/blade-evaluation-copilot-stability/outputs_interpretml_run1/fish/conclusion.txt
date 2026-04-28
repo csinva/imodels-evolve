@@ -1,0 +1,1 @@
+{"response": 85, "explanation": "Yes, we can identify factors and estimate catch rates. The overall rate is 0.596 fish/hour. Significant factors include: persons (p=0.0005). The regression model (R\u00b2=0.109, p=0.0000) shows these factors significantly influence catch rates."}

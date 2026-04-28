@@ -1,0 +1,1 @@
+{"response": 75, "explanation": "Multiple statistical tests show a significant positive relationship between darker skin tone and red card rates. Dyad-level t-test p=0.1651, Spearman rho=0.0099 (p=0.0004), OLS skin_tone coef=0.0037 p=0.0008. Player-level analysis confirms: Spearman rho=0.0513 p=0.0411. 4/6 tests significant. Dark-skinned players receive more red cards."}

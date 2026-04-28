@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "Neither relative group size (p=0.2430) nor contest location advantage (p=0.7226) reaches statistical significance in logistic regression. The data do not strongly support either factor as a reliable predictor of contest outcome."}

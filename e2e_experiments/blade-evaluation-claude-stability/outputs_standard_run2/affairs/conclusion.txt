@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No statistically significant relationship found between having children and extramarital affairs after controlling for confounders (OLS coef=-0.143, p=0.6840). Raw means: yes=1.672, no=0.912 (Mann-Whitney p=0.0012). Children do not appear to significantly decrease engagement in extramarital affairs."}

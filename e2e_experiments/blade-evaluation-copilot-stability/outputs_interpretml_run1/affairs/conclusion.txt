@@ -1,0 +1,1 @@
+{"response": 10, "explanation": "Evidence suggests the opposite: having children is associated with MORE affairs, not fewer. Mean affairs with children (1.67) is higher than without children (0.91). This contradicts the hypothesis that children decrease affair engagement. T-test p-value=0.0107."}

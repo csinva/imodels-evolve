@@ -1,0 +1,1 @@
+{"response": 85, "explanation": "Gender has a statistically significant effect on mortgage approval (p=0.0289). Even after controlling for creditworthiness, employment, and loan characteristics, being female is associated with an odds ratio of 1.569 for approval. This suggests systematic gender-based differences in lending decisions."}

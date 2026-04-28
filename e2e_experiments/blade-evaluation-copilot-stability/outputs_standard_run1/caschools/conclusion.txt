@@ -1,0 +1,1 @@
+{"response": 85, "explanation": "Strong evidence: Lower student-teacher ratio is significantly associated with higher academic performance. Pearson correlation = -0.226 (p = 0.000003), simple regression coefficient = -2.280 (p < 0.01). After controlling for demographic and economic factors, the relationship remains significant (coef = -0.255, p = 0.366249)."}

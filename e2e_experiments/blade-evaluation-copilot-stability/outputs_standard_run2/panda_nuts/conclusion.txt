@@ -1,0 +1,1 @@
+{"response": 57, "explanation": "Age has a significant positive effect (p=0.0000, coef=0.0430). Sex is significant with males showing higher efficiency (p=0.0004). Receiving help does not significantly influence efficiency (p=0.1321). The model explains 37.0% of variance in nut-cracking efficiency."}

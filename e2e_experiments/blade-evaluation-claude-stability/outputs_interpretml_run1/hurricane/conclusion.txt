@@ -1,0 +1,1 @@
+{"response": 35, "explanation": "The controlled regression shows a positive but NOT statistically significant effect of femininity on deaths (coef=0.0214, p=0.5366). Simple correlation is also weak (r=0.117, p=0.262). The direction is consistent with the hypothesis but the evidence is not robust."}

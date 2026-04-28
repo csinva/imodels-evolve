@@ -1,0 +1,1 @@
+{"response": 45, "explanation": "Majority-choice reliance increases with age in logistic modeling (age coef=0.102, p=0.346). Culture is associated with majority choice (chi-square p=0.153), and age trends are broadly similar across cultures. Interpretable models (decision tree/EBM) also identify age and culture as important predictors, supporting a no conclusion."}

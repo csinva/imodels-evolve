@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Moderate evidence that Homo sapiens have higher AMTL rates than non-human primates after controlling for age, sex, and tooth class. OLS p=0.731049, GLM p=0.000000. Results are statistically significant in at least one model."}

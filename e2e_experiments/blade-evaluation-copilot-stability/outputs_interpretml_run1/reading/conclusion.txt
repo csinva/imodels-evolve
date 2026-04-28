@@ -1,0 +1,1 @@
+{"response": 30, "explanation": "Analysis of 2568 reading trials shows that reader view has a coefficient of -18.9 words/min for dyslexic users. The effect is not statistically significant (interaction p=0.8938). Evidence does not support improved reading speed with reader view for dyslexic individuals."}

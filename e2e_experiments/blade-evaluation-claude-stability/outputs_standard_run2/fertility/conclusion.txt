@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant relationship found between fertility-related hormonal fluctuations (ovulation proximity) and religiosity. T-test p=0.7161, Pearson r=0.0087 (p=0.8861), OLS regression p=0.9416 for ovulation timing. Mean religiosity near ovulation: 5.143, far: 5.282. None of the tests reached conventional significance thresholds."}

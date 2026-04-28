@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "No significant relationship found: all p-values > 0.05. T-test p=0.689, OLS p-values ranged 0.842-0.890. The data does not support the hypothesis that hormonal fluctuations affect women's religiosity."}

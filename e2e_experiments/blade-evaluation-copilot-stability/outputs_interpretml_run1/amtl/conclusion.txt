@@ -1,0 +1,1 @@
+{"response": 95, "explanation": "Very strong evidence (p=0.000000) that Homo sapiens have significantly higher AMTL rates than non-human primates after controlling for age, sex, and tooth class. The binomial GLM coefficient for is_human is 1.5579 with p<0.001."}

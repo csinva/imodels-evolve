@@ -1,0 +1,1 @@
+{"response": 5, "explanation": "Statistical tests show a significant relationship, but in the OPPOSITE direction: having children is associated with MORE affairs, not fewer. Coefficient=0.760 (p=0.0107). This contradicts the hypothesis that children decrease affairs."}

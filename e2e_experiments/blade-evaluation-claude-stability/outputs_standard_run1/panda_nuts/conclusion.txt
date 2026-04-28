@@ -1,0 +1,1 @@
+{"response": 70, "explanation": "Two of three factors are statistically significant: age, sex. Age: r=0.500 (p=0.0000), sex: p=0.0004, help: p=0.0707. OLS p-values: age=0.0000, sex=0.0004, help=0.1321. These factors meaningfully influence nut-cracking efficiency."}

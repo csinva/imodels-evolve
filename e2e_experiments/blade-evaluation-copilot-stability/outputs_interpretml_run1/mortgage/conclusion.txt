@@ -1,0 +1,1 @@
+{"response": 10, "explanation": "The chi-square test shows no significant relationship between gender and acceptance (p=0.9769). Even after controlling for creditworthiness factors, gender remains a significant predictor (p=0.0289). The gender effect size is meaningful (coefficient=0.451)."}

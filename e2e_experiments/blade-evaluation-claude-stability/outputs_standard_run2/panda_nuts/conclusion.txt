@@ -1,0 +1,1 @@
+{"response": 80, "explanation": "Age-efficiency correlation: r=0.500, p=0.0000 (significant). Sex difference: male_eff=0.4802, female_eff=0.1498, p=0.0004 (significant). Help effect: help_yes=0.1724, help_no=0.4309, p=0.0707 (not significant). OLS: 2/3 predictors significant at p<0.05. Overall response score: 80."}

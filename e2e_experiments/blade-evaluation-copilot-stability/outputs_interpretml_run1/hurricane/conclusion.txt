@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "WEAK/NO - While there is a positive correlation (r=0.1168), it is not statistically significant (p=0.2622 > 0.05). The multiple regression controlling for severity also shows no significant effect (p=0.1154). There is insufficient statistical evidence to conclude that feminine-named hurricanes lead to more deaths."}

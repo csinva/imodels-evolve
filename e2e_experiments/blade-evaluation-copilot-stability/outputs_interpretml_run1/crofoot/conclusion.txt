@@ -1,0 +1,1 @@
+{"response": 25, "explanation": "Neither relative group size nor contest location show statistically significant effects on winning probability. Group size: p=0.1221, Location: p=0.3478. While descriptive differences exist, they do not reach statistical significance with this sample size (n=58). The evidence does NOT support a clear influence of these factors."}

@@ -1,0 +1,1 @@
+{"response": 40, "explanation": "No statistically significant improvement in reading speed for dyslexic individuals with Reader View. Mean speed ON: 323.3, OFF: 342.3 (difference: -18.9). Mann-Whitney U test: p=0.7324 (not significant at alpha=0.05). OLS interaction p=0.8938."}

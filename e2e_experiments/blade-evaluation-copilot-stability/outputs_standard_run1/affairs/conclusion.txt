@@ -1,0 +1,1 @@
+{"response": 20, "explanation": "Statistical analysis does not support the hypothesis that children decrease affairs. The data suggests either no relationship or a relationship in the opposite direction."}
